@@ -10,9 +10,6 @@
 	//생성되는 코드 암호화 필수
 }%>
 
-
-승연씨확인부탁
-
 <html>
 <head>
 <meta charset="UTF-8">
@@ -32,7 +29,7 @@
 
 <script type="text/javascript">
 	//사용자가 입력한 인증번호와 만들어진 인증번호 비교
-	function checkCode() {
+/* 	function checkCode() {
 		var v1 = $("#code_check1").val();
 		var v2 = $("#code").val();
 		
@@ -47,18 +44,17 @@
 			document.getElementById('checkCode').style.color = "blue";
 			document.getElementById('checkCode').innerHTML = "인증되었습니다";
 			$(".signupbtn").prop("disabled", false);
-			singupCheck();
+			
 		}
 	}
-
-	
 	
 	// 아이디 비밀번호가 맞지 않을 경우 가입버튼 비활성화를 위한 변수설정
 	var idCheck = 0;
 	var pwdCheck = 0;
 	
-	// 아이디 체크하여 가입버튼 비활성화, 중복확인 및 데이터 값에 따른 배경 색 변경 
+
 	function CheckId(){
+		// 아이디 체크하여 가입버튼 비활성화, 중복확인 및 데이터 값에 따른 배경 색 변경 
 		var inputed = $('#joinuserid').val();
 		$.ajax({
 			url : "/hifive/checkid",
@@ -72,6 +68,7 @@
 					idCheck = 0;
 				} else if (data == '0') {
 					$("#joinuserid").css("background-color", "#FFCECE");
+					alert("아이디가 중복되었습니다");
 					idCheck = 1;
 					if(idCheck == 1 && pwdCheck == 1) {
 						$(".signupbtn").prop("disabled", false);
@@ -84,6 +81,8 @@
                     $("#joinuserid").css("background-color", "#33ff66");
                     idCheck = 0;
 				}
+				
+				
 				
 			}
 		});
@@ -132,32 +131,45 @@
          $("#userpwd1").val('');
          $(".signupbtn").prop("disabled", true);
          $(".signupbtn").css("background-color", "#aaaaaa");
-	 }
+	 } */
 	
-	
-	
-	/* 인증버튼 출력/비출력 소스구문 */
-	/*  function makeReal(){
-		var h1 = document.getElementById("h1");
-		h1.type = "submit";
+	 
+	function sendIt() {
+		 var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+		 	
+		if ($("#joinuserid").val() == "") {
+			alert("아이디 입력바람");
+			$("#joinuserid").focus();
+			return false;
+		}
+
+		//이메일 공백 확인
+		if ($("#receiver").val() == "") {
+			alert("이메일을 입력해주세요");
+			$("#receiver").focus();
+			return false;
+		}
+
+		//이메일 유효성 검사
+		if (!getMail.test($("#receiver").val())) {
+			alert("이메일형식에 맞게 입력해주세요")
+			$("#receiver").val("");
+			$("#receiver").focus();
+			return false;
+		}
 	}
-	function makNull(){
-		var h1 = document.getElementById("h1");
-		h1.type = "hidden";
-	} */
 </script>
 
 </head>
 <body>
-	<form action="/hifive/enroll" method="post">
+	<form action="" method="post" onsubmit = "return sendIt()" >
 		<table width="auto" align="center" cellspacing="5" bgcolor="#FFFFFF">
 			<tr>
 				<td width="150">ID</td>
 				<td width="500">
 				<input class="form-control" type="text" placeholder = "Enter ID" 
-					name="userid" id="joinuserid" oninput = "CheckId();">
+					name="userid" id="joinuserid" <%-- oninput = "CheckId();"--%>>
 					&nbsp;
-					<%-- ><button id="checkid" oninput = "IdCheck();">중복확인</button>--%>
 					</td>
 					
 			</tr>
@@ -165,13 +177,13 @@
 			<tr>
 				<td>암 호</td>
 				<td><input class="form-control" type="password" placeholder = "Enter Password"
-				 name="userpwd" id="userpwd1" oninput = "checkPwd()">
+				 name="userpwd" id="userpwd1" <%-- oninput = "checkPwd()"--%>>
 				</td>
 			</tr>
 			<tr>
 				<td>암호확인</td>
 				<td><input class="form-control" type="password" placeholder = "Repeat Password" 
-				id="userpwd2" oninput = "checkPwd()" ></td>
+				id="userpwd2" <%-- oninput = "checkPwd()"--%> ></td>
 			</tr>
 			<tr>
 				<td>이 름</td>
@@ -194,7 +206,7 @@
 					id="code" value="<%=getRandom()%>" /></td>
 			
 			</tr>
-					<script type="text/javascript">
+					<!-- <script type="text/javascript">
 					$(function(){
 						$("#emailsubmit").click(function(){
 							var sendreceiver = $("#receiver").val();
@@ -214,7 +226,7 @@
 						});
 					});
 					});
-					</script>
+					</script> -->
 						
 			
 			<%-- 인증번호 라인 --%>
@@ -248,7 +260,7 @@
 				<td><br> &nbsp; &nbsp;
 				<!-- 기존적으로 sign up 버튼은 비활성화 되어 있음 -->
 					<button type = "button" class = "btn btn-primary cancelbtn" onclick = "cancelbtn()">Cancel</button>
-					<button type = "submit" class = "btn btn-primary signupbtn" disabled = "disabled">Sign up</button>
+					<button type = "submit" class = "btn btn-primary signupbtn" onclick = "sendIt()" <%-- disabled = "disabled"--%> >Sign up</button>
 					
 				</td>
 			</tr>
