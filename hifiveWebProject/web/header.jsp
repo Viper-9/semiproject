@@ -102,6 +102,7 @@ header {
 										<a class="dropdown-item" href="/hifive/views/support/tutorial.jsp">튜토리얼</a> 
 										<a class="dropdown-item" href="/hifive/views/support/safety.jsp">안전유의사항</a>
 										<a class="dropdown-item" href="/hifive/logout">로그아웃</a>
+										
 									</div>
 								</div>
 							</th>
