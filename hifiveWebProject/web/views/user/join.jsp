@@ -135,6 +135,7 @@
 	
 	 
 	function sendIt() {
+		 var getId = RegExp(/^[a-z][a-z\d]{3,11}$/)
 		 var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 		 	
 		if ($("#joinuserid").val() == "") {
