@@ -53,6 +53,7 @@ public class InfoUpdateServlet extends HttpServlet {
 	        request.setAttribute("message", e.getMessage());
 	        view.forward(request, response);
 	    }
+	    
 
 	}
 

@@ -469,7 +469,7 @@
                <h6 class="card-header" id="card_info">Photos</h6>
                <div class="card-body">
                   <p class="card-text">With supporting text below as a natural
-                     lead-in to additional content.</p>
+                     lead-in to additional content.</p>     
                </div>
             </div>
             <br>
