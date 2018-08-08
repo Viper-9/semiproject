@@ -1,11 +1,16 @@
 package user.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import user.model.service.UserService;
+import user.model.vo.User;
 
 /**
  * Servlet implementation class InfoUpdateServlet
@@ -25,8 +30,30 @@ public class InfoUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("utf-8");
+		
+		String userId = request.getParameter("userid");
+	    	      
+	    RequestDispatcher view = null;
+	    
+	    try {
+	    	User user = new UserService().selectUser(userId);
+	    	
+	    	if(user != null){
+	    		view = request.getRequestDispatcher("views/user/mypage.jsp");
+	    		request.setAttribute("user", user);
+	    		view.forward(request, response);
+	    	}else{
+	    		view = request.getRequestDispatcher("views/user/UserException.java");
+		        request.setAttribute("message", userId+"값이 없음");
+		        view.forward(request, response);
+	    	}    	
+	    } catch (Exception e) {
+	        view = request.getRequestDispatcher("views/user/UserException.java");
+	        request.setAttribute("message", e.getMessage());
+	        view.forward(request, response);
+	    }
+
 	}
 
 	/**
