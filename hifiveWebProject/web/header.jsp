@@ -84,7 +84,7 @@ header {
 									class="messagelist" title="요청받은 목록">
 							</a>&nbsp;</th>
 
-							<th><a href="/hifive/views/user/profile.jsp"> <img
+							<th><a href="/hifive/info?userid=<%= userId %>"> <img
 									src="/hifive/resources/image/sample4.jpeg" alt="얼굴사진"
 									class="profileimg" title="프로필로 이동">
 							</a>&nbsp;</th>
@@ -96,15 +96,12 @@ header {
 										aria-haspopup="true" aria-expanded="false"> ... </a>
 
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item"
-											href="/hifive/views/support/notice/noticeList.jsp">공지사항</a> <a
-											class="dropdown-item"
-											href="/hifive/info?userid=<%= userId %>">마이페이지</a> <a
-											class="dropdown-item"
-											href="/hifive/views/support/report/reportList.jsp">신고게시판</a>
-										<a class="dropdown-item"
-											href="/hifive/views/support/tutorial.jsp">튜토리얼</a> <a
-											class="dropdown-item" href="/hifive/views/support/safety.jsp">안전유의사항</a>
+										<a class="dropdown-item" href="/hifive/views/support/notice/noticeList.jsp">공지사항</a> 
+										<a class="dropdown-item" href="/hifive/info?userid=<%= userId %>">마이페이지</a> 
+										<a class="dropdown-item" href="/hifive/views/support/report/reportList.jsp">신고게시판</a>
+										<a class="dropdown-item" href="/hifive/views/support/tutorial.jsp">튜토리얼</a> 
+										<a class="dropdown-item" href="/hifive/views/support/safety.jsp">안전유의사항</a>
+										<a class="dropdown-item" href="/hifive/logout">로그아웃</a>
 									</div>
 								</div>
 							</th>
