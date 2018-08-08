@@ -50,7 +50,7 @@
 					<form action="" method="post">
 						<div class="form-group">
     						<label for="">Email</label>
-    						<input type="email" class="form-control" id="useremail" placeholder="Email">
+    						<input type="email" class="form-control" id="searchuseremail" placeholder="Email">
     			
   						</div>
   						<br>

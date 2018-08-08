@@ -35,7 +35,7 @@ public class UserEnrollServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		String userId = request.getParameter("userid"); 
+		String userId = request.getParameter("joinuserid"); 
 		String userPwd = request.getParameter("userpwd");
 		String userName = request.getParameter("username");
 		String email = request.getParameter("email");

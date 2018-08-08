@@ -31,7 +31,7 @@ public class SearchIdServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userEmail = request.getParameter("useremail");
+		String userEmail = request.getParameter("searchuseremail");
 		String userPhone = request.getParameter("userphone");
 		
 		RequestDispatcher view = null;
@@ -40,11 +40,13 @@ public class SearchIdServlet extends HttpServlet {
 			String userId = new UserService().searchId(userEmail, userPhone);
 			if(userId.length() != 0) {
 				request.setAttribute("userId", userId);
+				
 			} else{
 				RequestDispatcher errorPage = request.getRequestDispatcher("");
 				request.setAttribute("message", "아이디 찾기 실패");
 				errorPage.forward(request, response);
 			}
+			
 		} catch(UserException e){
 			RequestDispatcher errorPage = request.getRequestDispatcher("");
 			request.setAttribute("message", e.getMessage());

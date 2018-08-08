@@ -59,7 +59,7 @@
 	
 	// 아이디 체크하여 가입버튼 비활성화, 중복확인 및 데이터 값에 따른 배경 색 변경 
 	function CheckId(){
-		var inputed = $('#userid').val();
+		var inputed = $('#joinuserid').val();
 		$.ajax({
 			url : "/hifive/checkid",
 			type : "post",
@@ -71,7 +71,7 @@
 					$(".signupbtn").css("background-color", "#aaaaaa");
 					idCheck = 0;
 				} else if (data == '0') {
-					$("#userid").css("background-color", "#FFCECE");
+					$("#joinuserid").css("background-color", "#FFCECE");
 					idCheck = 1;
 					if(idCheck == 1 && pwdCheck == 1) {
 						$(".signupbtn").prop("disabled", false);
@@ -81,7 +81,7 @@
 				} else if (data == '1') {
 					$(".signupbtn").prop("disabled", true);
                     $(".signupbtn").css("background-color", "#33ff66");
-                    $("#userid").css("background-color", "#33ff66");
+                    $("#joinuserid").css("background-color", "#33ff66");
                     idCheck = 0;
 				}
 				
@@ -127,8 +127,8 @@
 	
 	 function cancelbtn(){
 		 console.log("캔슬눌림");
-         $("#userid").val(null);
-         $("#userid").css("background-color", "#ffffff");
+         $("#joinuserid").val(null);
+         $("#joinuserid").css("background-color", "#ffffff");
          $("#userpwd1").val('');
          $(".signupbtn").prop("disabled", true);
          $(".signupbtn").css("background-color", "#aaaaaa");
@@ -155,7 +155,7 @@
 				<td width="150">ID</td>
 				<td width="500">
 				<input class="form-control" type="text" placeholder = "Enter ID" 
-					name="userid" id="userid" oninput = "CheckId();">
+					name="userid" id="joinuserid" oninput = "CheckId();">
 					&nbsp;
 					<%-- ><button id="checkid" oninput = "IdCheck();">중복확인</button>--%>
 					</td>
