@@ -107,6 +107,7 @@ float: left;
 <script type="text/javascript">
 
 </script>
+
 </head>
 <body>
    <div class="container">
@@ -161,7 +162,7 @@ float: left;
          </div>
          
          <div id="content2">  
-         	<a class="btn btn-primary" href="#" role="button">호스트 등록</a>
+         	<a class="btn btn-primary" data-toggle="modal" data-target="#hostenroll" role="button">호스트 등록</a>
          	<a class="btn btn-primary" href="#" role="button">호스트 찾기</a> 
           	&nbsp;&nbsp;  &nbsp;&nbsp;  
          	<a class="btn btn-primary" href="#" role="button">&nbsp;서퍼 등록&nbsp;</a>
@@ -287,6 +288,28 @@ float: left;
       <hr>
       <%@ include file="../../footer.jsp"%>
    </div>
+
+<!-- 호스트 등록 Modal -->
+		<div class="modal fade modal-lg" id="hostenroll" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title"><b>호스트 등록창</b></h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+					
+						<div style="text-align: center;">
+							<%-- <%@ include file="./views/hsp/hostEnroll.jsp" %> --%> <br>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 </body>
 </html>
