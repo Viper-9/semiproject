@@ -37,26 +37,70 @@
 /* 이게 왼쪽 메뉴부분!! float:left 가  다음 창을 붙여준다 */
 #menu {
    width: 250px;
+   height:1300px;
    margin: 5px 0 0 0;
    float: left;
 }
 /* 이게 오른쪽 본문 들어가는 부뷴 */
-#content1 {
+#content1 { /* 사진부분  */
    width: 740px;
    margin: 5px 0 0 0;
    float: left;
    padding: 0 0 0 10px;
    text-align: center;
 }
-#content2 {
+#content2 { /* 각각 등록찾기 버튼 부분 */
    width: 740px;
    margin: 5px 0 0 0;
    float: left;
    padding: 0 0 0 10px;
    text-align: center;
 }
+
+#content3 { /* 사용자 여행 부분 */
+   width: 740px;
+   margin: 5px 0 0 0;
+   float: left;
+   padding: 0 0 0 10px;
+   text-align: center;
+}
+#content4 { /* 사용자에게 요청받은 목록, 사용자가 요청한 목록 */
+   width: 740px;
+   margin: 5px 0 0 0;
+   float: left;
+   padding: 0 0 0 10px;
+   text-align: center;
+}
+
+
+
 .card-body{text-align: center;
 }
+#card_info { text-align:center; }
+
+#intro0{
+float: left;
+}
+
+#headingOne {
+  height:40px;
+  padding:0;
+  margin:0;
+} 
+
+#headingTwo{
+  height:40px;
+  padding:0;
+  margin:0;
+}
+
+#headingThree {
+  height:40px;
+  padding:0;
+  margin:0;
+}
+
+
 </style>
 
 <script type="text/javascript">
@@ -69,28 +113,173 @@
       <hr>
       <div id="main">
          <div id="menu">
-      
-      <div class="card" style="width: 250px;">
-  <div class="card-body">
-    <h5 class="card-title">사용자 기본정보</h5>
-    <h6 class="card-subtitle mb-2 text-muted">(이름및 지역)</h6>
-    <p class="card-text">......<br><br><br><br><br><br><br><br><br></p>
-    <a href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a>
+      			<div id="content0">
+      				<div class="card" style="width: 250px;">
+  						<div class="card-body">
+    						<h5 class="card-title">사용자 기본정보</h5>
+    						<h6 class="card-subtitle mb-2 text-muted">(이름및 지역)</h6>
+    						<p class="card-text">......<br><br><br><br>
+    						<a href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a>
+     
     
-  </div>
-</div>
    
+    
+ 						</div>
+					</div>
+   				</div>
          </div>
          <div id="content1">
-         메인오른쪽위
-   
-
-  
-
+        
+        	<div class="card-deck">
+  				<div class="card">
+    				<img class="card-img-top" src="/hifive/resources/image/sample10.jpg" alt="Card image cap">
+    				<div class="card-body">
+      					<h5 class="card-title">HOST</h5>
+      					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      					<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    				</div>
+  				</div>
+  				<div class="card">
+    				<img class="card-img-top" src="/hifive/resources/image/sample11.jpg" alt="Card image cap">
+    				<div class="card-body">
+      					<h5 class="card-title">SURFER</h5>
+      					<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+      					<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    				</div>
+  				</div>
+  				<div class="card">
+    				<img class="card-img-top" src="/hifive/resources/image/sample12.jpg" alt="Card image cap">
+    				<div class="card-body">
+      					<h5 class="card-title">PARTNER</h5>
+      					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      					<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    				</div>
+  				</div>
+			</div>
+		 <br>
          </div>
          
-         <div id="content2">   
-         메인 오른쪽 밑
+         <div id="content2">  
+         	<a class="btn btn-primary" href="#" role="button">호스트 등록</a>
+         	<a class="btn btn-primary" href="#" role="button">호스트 찾기</a> 
+          	&nbsp;&nbsp;  &nbsp;&nbsp;  
+         	<a class="btn btn-primary" href="#" role="button">&nbsp;서퍼 등록&nbsp;</a>
+         	<a class="btn btn-primary" href="#" role="button">&nbsp;서퍼 찾기&nbsp;</a> 
+          	&nbsp;&nbsp;  &nbsp;&nbsp; 
+         	<a class="btn btn-primary" href="#" role="button">파트너 등록</a>
+         	<a class="btn btn-primary" href="#" role="button">파트너 찾기</a>
+        	<br><br>
+         </div>
+        
+         <div id="content3">   
+        
+    		<div class="accordion" id="accordionExample">
+  				<div class="card">
+    				<div class="card-header" id="heading">
+      					<h5 class="text-dark">
+       						사용자 여행정보&nbsp;&nbsp;<a class="btn btn-secondary btn-sm" href="#" role="button">전체보기</a>
+      					</h5>
+    				</div>
+
+   
+  					<div class="card">
+    					<div class="card-header" id="headingOne">
+     					 <h5 class="mb-0">
+        				 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+          				 Host 매칭 목록
+        				 </button>
+      					 </h5>
+    					</div>
+    					<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      						<div class="card-body">
+     							.....
+     						 </div>
+    					</div>
+  					</div>
+  					<div class="card">
+    					<div class="card-header" id="headingTwo">
+      						<h5 class="mb-0">
+        					<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          					 Surfer 매칭 목록
+        					</button>
+      						</h5>
+    					</div>
+    					<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      						<div class="card-body">
+       						 .....
+      						</div>
+    					</div>
+  					</div>
+  					<div class="card">
+    					<div class="card-header" id="headingThree">
+      						<h5 class="mb-0">
+        					<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          					Partner 매칭 목록
+        					</button>
+      						</h5>
+    					</div>
+    					<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      						<div class="card-body">
+        					.....
+      						</div>
+    					</div>
+  					</div>
+				</div>
+            
+         </div>
+            <br>
+          
+         </div>
+         
+          <div id="content4">   
+        	<div id="intro0" class="card" style="width: 365px;">
+               <h6 class="card-header" id="card_info">사용자에게 호스트 요청</h6>
+               <div class="card-body">
+                  <p class="card-text">With supporting text below as a natural
+                     lead-in to additional content.</p>
+               </div>
+            </div>
+           
+            <div id="intro" class="card" style="width: 365px;">
+               <h6 class="card-header" id="card_info">사용자가 요청한 호스트</h6>
+               <div class="card-body">
+                  <p class="card-text">With supporting text below as a natural
+                     lead-in to additional content.</p>
+               </div>
+            </div>
+            <br>
+            <div id="intro0" class="card" style="width: 365px;">
+               <h6 class="card-header" id="card_info">사용자에게 서퍼 요청</h6>
+               <div class="card-body">
+                  <p class="card-text">With supporting text below as a natural
+                     lead-in to additional content.</p>
+               </div>
+            </div>
+           
+            <div id="intro" class="card" style="width: 365px;">
+               <h6 class="card-header" id="card_info">사용자가 요청한 서퍼</h6>
+               <div class="card-body">
+                  <p class="card-text">With supporting text below as a natural
+                     lead-in to additional content.</p>
+               </div>
+            </div>
+            <br>
+            
+            <div id="intro0" class="card" style="width: 365px;">
+               <h6 class="card-header" id="card_info">사용자에게 파트너 요청</h6>
+               <div class="card-body">
+                  <p class="card-text">With supporting text below as a natural
+                     lead-in to additional content.</p>
+               </div>
+            </div>
+           
+            <div id="intro" class="card" style="width: 365px;">
+               <h6 class="card-header" id="card_info">사용자가 요청한 파트너</h6>
+               <div class="card-body">
+                  <p class="card-text">With supporting text below as a natural
+                     lead-in to additional content.</p>
+               </div>
+            </div>
          </div>
       </div>
       <br>
