@@ -1,16 +1,21 @@
 package message.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import message.model.service.MessageService;
+import message.model.vo.Message;
+
 /**
  * Servlet implementation class MessageSendServlet
  */
-@WebServlet("/messagesend")
+@WebServlet("/msend")
 public class MessageSendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -23,19 +28,33 @@ public class MessageSendServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+
+		Message msg = new Message();
+		msg.setList_no(Integer.parseInt(request.getParameter("listno")));
+		msg.setSender(request.getParameter("userid"));
+		msg.setContent(request.getParameter("content"));
+		System.out.println(msg);
+	
+		RequestDispatcher view = null;
+		try{
+			if(new MessageService().sendMessage(msg) > 0) {
+				response.sendRedirect("/hifive/mpage?listno="+msg.getList_no()+"&uid="+msg.getSender());
+				
+			} else {
+				view = request.getRequestDispatcher("views/message/messageError.jsp");
+				request.setAttribute("message", "쪽지보내기 실패");
+				view.forward(request, response);
+			}
+		} catch(Exception e){
+			view = request.getRequestDispatcher("views/message/messageError.jsp");
+			request.setAttribute("message", e.getMessage());
+			view.forward(request, response);
+		}
 	}
 
 }
