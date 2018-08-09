@@ -4,36 +4,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>hostEnroll</title>
-<link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
-
-<script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<style type="text/css">
-
-</style>
-<script type="text/javascript">
-
-</script>
 </head>
 <body>
 	<div>
 		<form action="">
-			<div class="form-row">
-				<div class="col input-group mb-3" >
+			<table border="0">			
+			<tr ><td>
+				<div class="input-group mb-3" >
 					<div class="input-group-prepend">
+						&nbsp;&nbsp;&nbsp;
 						<span class="input-group-text" id="pnums">인원</span>
 					</div>
-					<input type="number" placeholder="0" max="10" class="form-control col-sm-6" id="pnumber">
-
+					<input type="number" placeholder="0" max="10" class="form-control" id="pnumber">
 				</div>
-				<div class="col input-group mb-3">
+				</td>
+				<td>
+				<div class="input-group mb-3">
 					<div class="input-group-prepend">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<span class="input-group-text" id="preferG">성별</span>
 					</div>
 					<select class="custom-select" id="hostprefergender" name="preferredgender">
@@ -44,7 +34,9 @@
 					</select>
 				</div>
 			</div>
-			
+			</td>
+			</tr>
+			</table>
 			<div class="col input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="pnums">가능 조건</span>
@@ -86,7 +78,7 @@
 	               <div class="input-group-prepend">
 						<span class="input-group-text">기타 사항</span>
 					</div>
-					<textarea class="form-control" name="hostetc" id="hostetc" rows="3" cols="60"></textarea>
+					<textarea class="form-control" name="hostetc" id="hostetc" rows="5" cols="60"></textarea>
                            </div> 
 					<button type="submit" class="btn btn-primary" id="hostenrollbtn">등록하기</button>
 		</form>
