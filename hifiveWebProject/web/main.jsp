@@ -10,8 +10,7 @@
 
 
 <meta charset="UTF-8">
-<meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>메인화면</title>
 
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
@@ -122,9 +121,6 @@ float: left;
     						<h6 class="card-subtitle mb-2 text-muted">(이름및 지역)</h6>
     						<p class="card-text">......<br><br><br><br>
     						<a href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a>
-     
-    
-   
     
  						</div>
 					</div>
@@ -162,13 +158,13 @@ float: left;
          </div>
          
          <div id="content2">  
-         	<a class="btn btn-primary" data-toggle="modal" data-target="#hostenroll" role="button">호스트 등록</a>
+         	<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#hostenroll" role="button">호스트 등록</a>
          	<a class="btn btn-primary" href="#" role="button">호스트 찾기</a> 
           	&nbsp;&nbsp;  &nbsp;&nbsp;  
-         	<a class="btn btn-primary" href="#" role="button">&nbsp;서퍼 등록&nbsp;</a>
+         	<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#surferenroll" role="button">&nbsp;서퍼 등록&nbsp;</a>
          	<a class="btn btn-primary" href="#" role="button">&nbsp;서퍼 찾기&nbsp;</a> 
           	&nbsp;&nbsp;  &nbsp;&nbsp; 
-         	<a class="btn btn-primary" href="#" role="button">파트너 등록</a>
+         	<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#partnerenroll" role="button">파트너 등록</a>
          	<a class="btn btn-primary" href="#" role="button">파트너 찾기</a>
         	<br><br>
          </div>
@@ -289,10 +285,10 @@ float: left;
       <%@ include file="../../footer.jsp"%>
    </div>
 
-<!-- 호스트 등록 Modal -->
-		<div class="modal fade modal-lg" id="hostenroll" tabindex="-1" role="dialog"
+		<!-- 호스트 등록 Modal -->
+		<div class="modal fade" id="hostenroll" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title"><b>호스트 등록창</b></h5>
@@ -301,10 +297,49 @@ float: left;
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">
-					
+					<div class="modal-body">		
 						<div style="text-align: center;">
-							<%-- <%@ include file="./views/hsp/hostEnroll.jsp" %> --%> <br>
+						<%@ include file="./views/hsp/hostEnroll.jsp"%>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 서퍼 등록 Modal -->
+		<div class="modal fade" id="surferenroll" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title"><b>서퍼 등록창</b></h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">		
+						<div style="text-align: center;">
+						<%@ include file="./views/hsp/surferEnroll.jsp"%>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 파트너 등록 Modal -->
+		<div class="modal fade" id="partnerenroll" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title"><b>파트너 등록창</b></h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">		
+						<div style="text-align: center;">
+						<%@ include file="./views/hsp/partnerEnroll.jsp"%>
 						</div>
 					</div>
 				</div>
