@@ -6,7 +6,7 @@ public class Host implements java.io.Serializable {
 	private static final long serialVersionUID = 9L;
 	
 	private String user_id;
-	private String user_num; // 수용 인원
+	private int user_num; // 수용 인원
 	private String p_gender;
 	private String check1;
 	private String check2;
@@ -20,7 +20,7 @@ public class Host implements java.io.Serializable {
 	
 	public Host() {}
 	
-	public Host(String user_id, String user_num, String p_gender, String check1, String check2, String content,
+	public Host(String user_id, int user_num, String p_gender, String check1, String check2, String content,
 			String process, Date start_date, Date end_date) {
 		super();
 		this.user_id = user_id;
@@ -34,7 +34,7 @@ public class Host implements java.io.Serializable {
 		this.end_date = end_date;
 	}
 	
-	public Host(String user_id, String user_num, String p_gender, String check1, String check2, String content,
+	public Host(String user_id, int user_num, String p_gender, String check1, String check2, String content,
 			String process, Date start_date, Date end_date, String image1, String image2, String image3) {
 		super();
 		this.user_id = user_id;
@@ -59,11 +59,11 @@ public class Host implements java.io.Serializable {
 		this.user_id = user_id;
 	}
 
-	public String getUser_num() {
+	public int getUser_num() {
 		return user_num;
 	}
 
-	public void setUser_num(String user_num) {
+	public void setUser_num(int user_num) {
 		this.user_num = user_num;
 	}
 
