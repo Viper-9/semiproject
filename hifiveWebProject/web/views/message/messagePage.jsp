@@ -64,6 +64,7 @@
 	<% } %>
 </div><br>
 
+
 <form action="/hifive/msend?listno=<%= msgList.get(0).getList_no()%>&userid=<%=userId%>" method="post">
 	<input type="text" name="content" size="48">
 	<input type="submit" value="보내기"​>
