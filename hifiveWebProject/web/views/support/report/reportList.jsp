@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ page import="report.model.vo.Report, java.util.ArrayList" %>
+<%
+	ArrayList<Report> reportlist = (ArrayList<Report>)request.getAttribute("reportList");
+	if(reportlist==null) {
+		System.out.println("실패");
+	}
+%>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +66,9 @@
 </style>
 
 <script type="text/javascript">
-   
+function showBoardWriteForm(){
+	location.href = "/hifive/views/support/report/reportWrite.jsp";
+}
 </script>
 </head>
 <body>
@@ -81,19 +90,25 @@
                
          </div>
          <div id="content1">
+         <div id="upmenu">
                     <div class="btn-group " role="group" aria-label="First group">
                  <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/notice/noticeList.jsp'">공지사항</button>
-   <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/report/reportList.jsp'">신고게시판</button>
+   <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/reportlist">신고게시판</button>
     <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/user/mypage.jsp'">마이 페이지</button>
     <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/safety.jsp'">안전 유의사항</button>
    <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/tutorial.jsp'">튜토리얼</button>
   </div>
-         </div>
-         <div id="content2">
-         
-   
-   
-            <table class="table table-sm" style="text-align: center;">
+  </div><br>
+  				<%
+					if (userId != null) {
+				%>
+				<div style="align: center; text-align: right;">
+					<button class="btn btn-primary" onclick="showBoardWriteForm();">글쓰기</button>
+				</div>
+				<% } %>
+				<br>
+         <div id="list">
+             <table class="table table-sm" style="text-align: center;">
                <thead>
                   <tr>
                      <th>글번호</th>
@@ -106,41 +121,26 @@
                   </tr>
                </thead>
                <tbody>
+               <% for(Report r : reportlist) { %>
                   <tr>
-                     <td>1</td>
-                     <td>Otto</td>
-                     <td>@mdo</td>
-                     <td>Mark</td>
-                     <td>Otto</td>
-                     <td>0</td>
+                     <td align="center"><%= r.getReport_no() %></td>
+                     <td><%= r.getTitle() %>
+                     <%-- 로그인한 사용자만 상세보기할 수 있도록 처리 --%>
+                   <%--   <% if(userId != null) { %>
+                     	<a href="/second/reportdetail?rnum=<%= r.getReport_no() %>&page=<%= currentPage %>"><%= r.getTitle() %></a>
+                     <% }else { %>
+					 <%= r.getTitle() %>
+					 <% } %>
+					 </td> --%>
+                     <td align="center"><%= r.getUser_id() %></td>
+                     <td align="center"><%= r.getComplete() %></td>
+                     <td align="center"><%= r.getReport_date() %></td>
+                     <td align="center"><%= r.getViews() %></td>
                   </tr>
-                  <tr>
-                     <td>2</td>
-                     <td>Thornton</td>
-                     <td>@fat</td>
-                     <td>Mark</td>
-                     <td>Otto</td>
-                     <td>0</td>
-                  </tr>
-                  <tr>
-                     <td>3</td>
-                     <td>the Bird</td>
-                     <td>@twitter</td>
-                     <td>Mark</td>
-                     <td>Otto</td>
-                     <td>0</td>
-                  </tr>
-                  <tr>
-                     <td>4</td>
-                     <td>오승연 짱</td>
-                     <td>ㅋ</td>
-                     <td>Mark</td>
-                     <td>Otto</td>
-                     <td>0</td>
-                  </tr>
+                <% } %>
                </tbody>
             </table>
-            <form>
+				<form>
                <div class="form-row align-items-center">            
                   <div class="col-auto my-1">                     
                      <select class="custom-select mr-sm-2">
@@ -160,7 +160,43 @@
 
 
             <!-- 페이징 처리 부분! 아직 서블릿 구현 안 해서 동작 X -->
-            <nav aria-label="Page navigation example">
+            
+ <%--            <div style="text-align: center">
+<% if(currentPage <= 1){ %>
+	[맨처음]&nbsp;
+<% }else{ %>
+	<a href="">[맨처음]</a>
+<% } %>
+<% if((currentPage - 10) < startPage && 
+		(currentPage - 10) > 1){ %>
+	<a href="">[이전]</a>
+<% }else{ %>
+	[이전]&nbsp;
+<% } %>
+startPage ~ endPage 출력
+<% for(int p = startPage; p <= endPage; p++){ 
+		if(p == currentPage){ 
+%>
+	<font color="red" size="4"></font>
+<%      }else{ %>
+	<a href=""></a>
+<% }} %>
+----------------
+<% if((currentPage + 10) > endPage && 
+		(currentPage + 10) < maxPage){ %>
+	<a href="">[다음]</a>
+<% }else{ %>
+	[다음]&nbsp;
+<% } %>
+
+<% if(currentPage >= maxPage){ %>
+	[맨끝]&nbsp;
+<% }else{ %>
+	<a href="">
+	[맨끝]</a>
+<% } %>
+</div> --%>
+           <!--  <nav aria-label="Page navigation example">
                <ul class="pagination justify-content-center">
                   <li class="page-item"><a class="page-link" href="#"
                      aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
@@ -174,8 +210,11 @@
                         class="sr-only">Next</span>
                   </a></li>
                </ul>
-            </nav>
+            </nav> -->
+            
+            
          </div>
+      </div>
       </div>
       <br>
       <hr>
