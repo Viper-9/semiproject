@@ -27,6 +27,7 @@
 			<input type="text" class="form-control" id="destinationS">
 		</div>
 		<br>
+		
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">여행기간</span>
