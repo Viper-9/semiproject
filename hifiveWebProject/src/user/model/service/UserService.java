@@ -74,11 +74,21 @@ public class UserService {
 		return userId;
 	}
 
-	public int selectCheckId(String userId) {
+	public int selectCheckId(String userId) throws UserException {
 		Connection con = getConnection();
 		int result = 
 				new UserDao().selectCheckId(con, userId);
 		close(con);
 		return result;
 	}
+
+	public int selectCheckEmail(String userEmail) throws UserException {
+		Connection con = getConnection();
+		int result = 
+				new UserDao().selectCheckEmail(con, userEmail);
+		close(con);
+		return result;
+	}
+
+
 }

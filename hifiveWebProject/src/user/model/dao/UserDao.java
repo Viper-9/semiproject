@@ -38,7 +38,7 @@ public class UserDao {
 				throw new UserException("아이디나 비밀번호가 일치하지 않습니다.");			
 		} catch(Exception e){
 			e.printStackTrace();
-			throw new UserException(e.getMessage());
+			
 		} finally{
 			close(rset);
 			close(pstmt);
@@ -233,7 +233,7 @@ public class UserDao {
 		return userId;
 	}
 
-	public int selectCheckId(Connection con, String userId) {
+	public int selectCheckId(Connection con, String userId)throws UserException {
 		int idCount = -1;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -262,4 +262,37 @@ public class UserDao {
 		return idCount;
 		
 	}
+
+	public int selectCheckEmail(Connection con, String userEmail)throws UserException {
+		int emailCount = -1;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select count(email) "
+						+ "from users where email = ? ";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userEmail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				emailCount = rset.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		return emailCount;
+		
+	}
+
+	
+	
 }

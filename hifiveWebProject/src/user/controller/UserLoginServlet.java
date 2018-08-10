@@ -1,6 +1,7 @@
 package user.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,7 +36,10 @@ public class UserLoginServlet extends HttpServlet {
 		String userId = request.getParameter("userid");
 		String userPw = request.getParameter("userpassword");
 		
-		try {
+		
+		
+		
+		  try {
 			String userName = new UserService().loginCheck(userId, userPw);
 		
 			if(userName != null){

@@ -27,7 +27,7 @@
 <style type="text/css">
 </style>
 
-<script type="text/javascript">
+<script type="text/javascript" >
 	//사용자가 입력한 인증번호와 만들어진 인증번호 비교
  	function checkCode() {
 		var v1 = $("#code_check1").val();
@@ -58,7 +58,7 @@
 			type : "post",
 			data : { id : inputed},
 			success : function(data){
-				console.log("success : " + data);
+				console.log("아이디 success : " + data);
 				if(inputed == "" && data == '0'){
 					$(".signupbtn").prop("disabled", true);
 					$(".signupbtn").css("background-color", "#FFCECE");
@@ -120,15 +120,6 @@
 	        } else {
 	        }
 	    }
-	//캔슬 눌렀을때 모든 텍스트필드 null 배경색 초기화
-	 function cancelbtn(){
-		 console.log("캔슬눌림");
-         $("#joinuserid").val(null);
-         $("#joinuserid").css("background-color", "#ffffff");
-         $("#userpwd1").val('');
-         $(".signupbtn").prop("disabled", true);
-        // $(".signupbtn").css("background-color", "#aaaaaa");
-	 } 
 	
 	function sendIt() {
 		var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/); //이메일 유효성 검사 영문(대소문자),숫자 + @ + 영문(대소문자),숫자 + . + 영문(대소문자,숫자)
@@ -296,6 +287,42 @@
 		
 	
 	}
+	var EmailCheck = 0;
+	//이메일 인증번호 누르기전 중복 확인 실시간 키입력으로 확인받음
+	function checkEmail(){
+		var Einputed = $('#receiver').val();
+		// ajax로 사용자가 입력한 이메일이 DB에 중복되어 있는지 실시간 체크
+		$.ajax({
+			url : "/hifive/checkemail",
+			type : "post",
+			data : { useremail : Einputed},
+			success : function(data){
+				console.log(" 이메일 중복확인 success : " + data)
+				if(Einputed == "" && data == '0'){
+					$("#emailsubmit").prop("disabled", true);
+					EmailCheck = 0;
+				} else if (data == '0') {
+					$("#receiver").css("background-color", "#FFCECE");
+					alert("이미 사용중인 이메일입니다");					
+					$("#receiver").val("");
+					$("#receiver").focus();
+					EmailCheck = 1;
+					$("#emailsubmit").prop("disabled", true);
+					
+					if(EmailCheck == 0){
+						$("#emailsubmit").prop("disabled", false);
+						$("#receiver").css("background-color", "#FFCECE");
+					}
+				} else if (data == '1') {
+					$("#emailsubmit").prop("disabled", false);
+					$("#receiver").css("background-color", "#B0F6AC");
+					EmailCheck = 0;
+				}
+			}
+		});
+	}
+	
+	
 	//이메일 인증번호보내기 눌렀을 때 
 	function Emailsubmit(){
 	
@@ -314,6 +341,25 @@
 			});
 	}
 
+	//캔슬 눌렀을때 모든 텍스트필드 null 배경색 초기화
+	 function cancelbtn(){
+		 console.log("캔슬눌림");
+        $("#joinuserid").val(null);
+        $("#joinuserid").css("background-color", "#ffffff");
+        $("#userpwd1").val('');
+        $("#userpwd2").val('');
+        $("#userpwd2").css("background-color", "#ffffff");
+        $("#username").val(null);
+        $("#receiver").val(null);
+        $("#receiver").css("background-color", "#ffffff");
+        $("#emailsubmit").prop("disabled", true);
+        $("#code_check1").val('');
+        $("#code_check1").css("background-color", "#ffffff");
+        $("#phone").val('');
+        $(".signupbtn").prop("disabled", true);
+       // $(".signupbtn").css("background-color", "#aaaaaa");
+	 } 
+	
 </script>
 
 </head>
@@ -351,9 +397,9 @@
 					<div class="input-group mb-3">
 						<input style="width: 150px;" class="form-control" type="email"
 							id="receiver" name="email" placeholder="이메일을 입력하시오" autocomplete = "off"
-							aria-label="이메일을 입력하시오" aria-describedby="emailsubmit" />
+							oninput = "checkEmail()" aria-label="이메일을 입력하시오" aria-describedby="emailsubmit" />
 						<div class="input-group-append">
-							<input style="width: 150px;" class="btn btn-primary"
+							<input style="width: 150px;" class="btn btn-primary" disabled = "disabled"
 								id="emailsubmit" type="button" value="인증번호발송" onclick = "Emailsubmit()">
 						</div>
 					</div> 

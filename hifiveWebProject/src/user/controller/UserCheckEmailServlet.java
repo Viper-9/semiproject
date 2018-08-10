@@ -8,19 +8,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import user.model.service.UserService;
 
 /**
- * Servlet implementation class UserCheckIdServlet
+ * Servlet implementation class UserCheckEmailServlet
  */
-@WebServlet("/checkid")
-public class UserCheckIdServlet extends HttpServlet {
+@WebServlet("/checkemail")
+public class UserCheckEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserCheckIdServlet() {
+    public UserCheckEmailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,24 +30,24 @@ public class UserCheckIdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("id");
-	
+		String userEmail = request.getParameter("useremail");
+		
 		try {
-		
-		int result = new UserService().selectCheckId(userId);
-		
-		String returnValue = "0";
-		if(result == 0)
-			returnValue = "1";
-		else
-			returnValue = "0";
-		
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		System.out.println(returnValue);
-		out.append(returnValue);
-		out.flush();
-		out.close();	
+			
+			int result = new UserService().selectCheckEmail(userEmail);
+			
+			String returnValue = "0";
+			if(result == 0)
+					returnValue = "1";
+			else
+					returnValue = "0";
+			
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			System.out.println(returnValue);
+			out.append(returnValue);
+			out.flush();
+			out.close();	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
