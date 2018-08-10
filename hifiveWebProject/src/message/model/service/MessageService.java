@@ -25,20 +25,12 @@ public class MessageService {
 		return result;
 	}
 
-	public ArrayList<Message> selectMyMessage(int list_no) throws MessageException {
+	public ArrayList<Message> selectMyMessage(int list_no) {
 		Connection con = getConnection();
 		ArrayList<Message> list = new MessageDao().selectMyMessage(con, list_no);
 		close(con);
 		return list;
 	}
-	
-	/*public ArrayList<Message> selectMyMessage(int list_no) throws MessageException {
-		Connection con = getConnection();
-		ArrayList<Message> list = new MessageDao().selectMyMessage(con, list_no);
-		close(con);
-		return list;
-	}*/
-	
 
 
 }

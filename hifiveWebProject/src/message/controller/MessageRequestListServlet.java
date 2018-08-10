@@ -15,6 +15,7 @@ import org.json.simple.JSONObject;
 
 import message.model.service.MessageRequestService;
 import message.model.vo.MessageRequest;
+import user.model.service.UserService;
 
 /**
  * Servlet implementation class MessageRequestListServlet
@@ -49,9 +50,11 @@ public class MessageRequestListServlet extends HttpServlet {
 			JSONObject job = new JSONObject();
 			job.put("request_no", mr.getRequest_no());
 			job.put("user_id", mr.getUser_id());
+
 			job.put("sender", mr.getSender());
 			job.put("accept", mr.getAccept());
-						
+			job.put("userName", new MessageRequestService().selectSenderName(user_id, mr.getSender())); // 이름
+			
 			jarr.add(job);
 		}
 		

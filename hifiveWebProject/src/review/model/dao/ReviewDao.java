@@ -1,9 +1,10 @@
 package review.model.dao;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import review.exception.ReviewException;
@@ -11,12 +12,39 @@ import review.model.vo.Review;
 
 public class ReviewDao {
 
-	public ArrayList<Review> selectAllReview(Connection con) {
+	// 나의 리뷰 전체 가져오기
+	public ArrayList<Review> selectAllReview(Connection con, String userId) {
 		ArrayList<Review> list = new ArrayList<Review>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 		
+		String query = "select * from review where r_user_id = ? order by review_no desc";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				Review review = new Review();
+				review.setReview_no(rset.getInt("review_no"));
+				review.setUser_id(rset.getString("user_id"));
+				review.setR_user_id(rset.getString("user_id"));
+				review.setReview_date(rset.getDate("review_date"));
+				review.setContent(rset.getString("content"));
+				list.add(review);
+			}			
+			
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally{
+			close(rset);
+			close(pstmt);
+		}
 		return list;
 	}
-
+	
 	public int insertReview(Connection con, Review review, String user_id, String r_user_id) {
 		int result = 0;
 		PreparedStatement pstmt = null;

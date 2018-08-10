@@ -55,6 +55,7 @@
 <body>
 
 <div id="msgpage">
+
 	<% for(int i=0; i<msgList.size(); i++) { %>
 		<% if( msgList.get(i).getSender().equals(userId) ){%>
 		<div class="me"><%= msgList.get(i).getContent() %></div><br>
@@ -62,12 +63,13 @@
 		<div class="you"><%= msgList.get(i).getContent() %></div><br>
 		<% } %>
 	<% } %>
+
 </div><br>
 
-<form action="/hifive/msend?listno=<%= msgList.get(0).getList_no()%>&userid=<%=userId%>" method="post">
+<form action="/hifive/msend?listno=<%= listNo %>&userid=<%=userId%>" method="post">
 	<input type="text" name="content" size="48">
 	<input type="submit" value="보내기"​>
-</form>
+</form> 
 
 <a href="JavaScript:window.location.reload()">페이지 새로고침</a> &nbsp;&nbsp; 
 <a href="views/message/messageList.jsp">이전 페이지로</a> &nbsp;&nbsp; <<-- 팝업으로 하면 없앰
