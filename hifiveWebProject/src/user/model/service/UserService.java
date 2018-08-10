@@ -64,7 +64,7 @@ public class UserService {
 		else
 			rollback(con);
 		close(con);
-		return 0;
+		return result;
 	}
 	
 	public String searchId(String userEmail, String userPhone) throws UserException {

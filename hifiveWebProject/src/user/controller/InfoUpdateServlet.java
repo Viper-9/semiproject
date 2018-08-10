@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import user.exception.UserException;
 import user.model.service.UserService;
 import user.model.vo.User;
 
@@ -33,9 +34,9 @@ public class InfoUpdateServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		User user = new User();
-		user.setUser_Id(request.getParameter("userId"));
-		user.setJob(request.getParameter("job"));
-		user.setEmail(request.getParameter("email"));
+		user.setAddress(request.getParameter("address"));
+		user.setUser_Id(request.getParameter("userid"));
+		user.setJob(request.getParameter("job"));		
 		user.setPhone(request.getParameter("phone"));
 		user.setHobby(String.join(",", request.getParameterValues("hobby")));
 		user.setContent(request.getParameter("introduction"));
@@ -44,18 +45,17 @@ public class InfoUpdateServlet extends HttpServlet {
 	    
 	    try {	      	
 	    	if(new UserService().updateUser(user) > 0){
-	    		response.sendRedirect("/hifive/index.jsp");
+	    		response.sendRedirect("/hifive/index.jsp");	    		
 	    	}else{
 	    		view = request.getRequestDispatcher("views/user/userError.jsp");
 		        request.setAttribute("message", "수정 실패");
 		        view.forward(request, response);
 	    	}    	
-	    } catch (Exception e) {
+	    } catch (UserException e) {
 	        view = request.getRequestDispatcher("views/user/userError.jsp");
 	        request.setAttribute("message", e.getMessage());
 	        view.forward(request, response);
-	    }
-	    
+	    }	    
 
 	}
 

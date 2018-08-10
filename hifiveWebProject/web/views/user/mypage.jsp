@@ -3,6 +3,7 @@
 <%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>    
 <% User user = (User)request.getAttribute("user");  
    Host host = (Host)request.getAttribute("host");   
+   SurferPartner sp = (SurferPartner)request.getAttribute("sp");
   
 	   String[] hchecked = new String[12];   		
 	   if(user.getHobby() == null){
@@ -28,20 +29,20 @@
 	   }
   
 	   
-  /*  String[] ochecked = new String[4];
-   if(host.getCheck1() == null){
-	   
-   } else {
-	   String[] checkOptions = host.getCheck1().split(",");
-	   for(String s : checkOptions){
-	      switch(s){
-	      case "smoking": ochecked[0]="active"; break;
-	      case "kid": ochecked[1]="active"; break;
-	      case "pet": ochecked[2]="active"; break;
-	      case "drinking": ochecked[3]="active"; break;
-	      } 
+ 	   String[] ochecked = new String[4]; 	   
+	   if(host.getCheck1() == null){
+		   
+	   } else {
+		   String[] checks = host.getCheck1().split(",");
+		   for(String s : checks){
+		      switch(s){
+		      case "smoking": ochecked[0]="active"; break;
+		      case "kid": ochecked[1]="active"; break;
+		      case "pet": ochecked[2]="active"; break;
+			  case "drinking": ochecked[3]="active"; break;
+		      }
+		   }
 	   }
-   } */
 %>
 <!DOCTYPE html>
 <html>
@@ -72,21 +73,21 @@
       
    </script>   
 </head>
-
 <body>
    <div id="tbox">
       <%@ include file="../../header.jsp"%>
+      <form action="/hifive/infoupdate" method="post">
+      <input type="hidden" name="userid" value="<%= user.getUser_Id() %>">
       <div id="main">
          <div id="menu">
-            <div class="card" style="width: 250px;">
-            <form action="/hifive/infoupdate" method="post">
+            <div class="card" style="width: 250px;">            
                <font size="3" align="left"><b>Mypage</b></font>               
                <img class="card-img-top" src="/hifive/resources/image/profile.png" alt="Card image cap" height="220px">
                <div class="card-body">
                   <p class="card-text">                  
                   <div id="mpageInfo" name="mpageInfo" align="center">
-                    <div class="col-sm-10">
-                    	<input type="text" readonly class="form-control" style="align:center;" name="username" value="<%= user.getUser_Name() %>">
+                    <div class="col-sm-10">                    	
+                    	<input type="text" readonly class="form-control" name="username" value="<%= user.getUser_Name() %>">                    	
                     </div>
                      <br>
                      <br>            
@@ -155,10 +156,8 @@
                      <br>
                      <table>
                         <tr>
-                           <th>
-                              
-                              <input type="button" class="btn btn-danger" style="width:200px;" value="회원 탈퇴">
-                             
+                           <th>                              
+                              <input type="button" class="btn btn-danger" style="width:200px;" value="회원 탈퇴">                             
                           </th>
                         </tr>
                      </table>
@@ -209,7 +208,11 @@
                         <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Job</label>
                            <div class="col-sm-10">
+                           <% if(user.getJob() == null){ %>
+                           		<input type="text" class="form-control" style="width:200px;" name="job" value="">
+                           <% }else{ %>
                            <input type="text" class="form-control" style="width:200px;" name="job" value="<%= user.getJob() %>">
+                           <% } %>
                            </div>
                         </div>
                     </li>     
@@ -217,7 +220,7 @@
                         <div class="form-group row">
                    <label class="col-sm-2 col-form-label">Email</label>
                       <div class="col-sm-10">
-                      <input type="email" class="form-control" style="width:300px;" name="email" value="<%= user.getEmail() %>" >
+                      <input type="email" readonly class="form-control" style="width:300px;" name="email" value="<%= user.getEmail() %>" >
                       </div>
                     </div>               
                       </li>                      
@@ -232,14 +235,13 @@
                      <li>
                         <div class="form-group row">
                            <label class="col-sm-2 col-form-label">Hobby</label>
-                        </div> 
-                       <%-- <% if(user.getHobby() != null){ %>  --%>               
+                        </div>                                  
                        <table style="text-align:center" cellspacing="0" cellpadding="2">
                            <tr>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm">
-	                                 <input type="checkbox" name="hobby" value="game" <%-- <%= hchecked[0] %> --%>checked> 게임
+	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[0] %>">
+	                                 <input type="checkbox" name="hobby" value="game"> 게임
 	                                 </label>
 	                              </div>
 	                           </td>
@@ -248,8 +250,7 @@
 	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[1] %>"> 
 	                                 <input type="checkbox" name="hobby" value="reading"> 독서
 	                                 </label>
-	                           </div>
-	                           
+	                           </div>	                           
 	                           </td>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
@@ -263,8 +264,7 @@
 	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[3] %>">
 	                                 <input type="checkbox" name="hobby" value="camping">  캠핑
 	                                 </label>
-	                              </div>
-	                           
+	                              </div>	                           
 	                           </td>
                            </tr>
                            <tr>
@@ -273,32 +273,28 @@
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[4] %>"> 
                                  <input type="checkbox" name="hobby" value="climb"> 등산
                                  </label>
-                              </div>
-                           
+                              </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[5] %>">
                                  <input type="checkbox" name="hobby" value="sport"> 운동
                                  </label>
-                              </div>
-                           
+                              </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[6] %>"> 
                                  <input type="checkbox" name="hobby" value="art"> 그림그리기
                                  </label>
-                              </div>
-                           
+                              </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[7] %>">
                                  <input type="checkbox" name="hobby" value="shopping"> 쇼핑
                                  </label>
-                              </div>
-                           
+                              </div>                           
                            </td>
                            </tr>
                            <tr>
@@ -307,36 +303,31 @@
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[8] %>">
                                  <input type="checkbox" name="hobby" value="bike"> 자전거
                                  </label>
-                              </div>
-                           
+                              </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[9] %>">
                                  <input type="checkbox" name="hobby" value="walk"> 산책
                                  </label>
-                              </div>
-                           
+                              </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[10] %>"> 
                                  <input type="checkbox" name="hobby" value="sleep"> 잠자기
                                  </label>
-                              </div>
-                           
+                              </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[11] %>"> 
                                  <input type="checkbox" name="hobby" value="dance"> 춤
                                  </label>
-                              </div>
-                           
+                              </div>                           
                            </td>
                            </tr>
-                        </table>      
-                        <%-- <% } %>  --%>               
+                        </table>                                          
                      </li>
                   </table>
                   </ul>
@@ -355,12 +346,21 @@
             <div id="intro" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Introduction</h6>
                <div class="card-body">
-                  <textarea class="form-control" name="introduction" rows="5" cols="90"><%-- <%= user.getContent() %> --%></textarea>
+               <% if(user.getContent() == null){ %>
+               		<textarea class="form-control" name="introduction" rows="5" cols="90" placeholder="자기소개를 작성해주세요"></textarea>
+               	<% }else{ %>
+               		<textarea class="form-control" name="introduction" rows="5" cols="90"><%= user.getContent() %></textarea>             
+               	<% } %>
+                  <br>
+                  <center>
+                  <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;&nbsp;
+               	 <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
+               	</center>
                </div>
             </div>
-            </form>
+           </form>
             <br>
-            <form action="/hifive/hostenroll" method="post">
+            <form action="/hifive/hosting" method="post">
             <div id="myhome" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">My Home</h6>
                <div class="card-body">
@@ -369,16 +369,26 @@
                   <table>
                      <tr>
                         <td><li>최대 가능 인원 : </li></td>
-                        <td><input type="number" class="form-control" name="hostnum" min="1" step="1" style="width:60px;"></td>
+                        <td><input type="number" class="form-control" name="hostnum" min="1" step="1" style="width:60px;" value="<%= host.getUser_num() %>"></td>
                      </tr>
                      <tr>
                         <td><li>선호하는 성별 : </li></td>
                         <td>
                            <select class="custom-select" name="preferredgender" style="width:150px;">
-                            <option selected>선택</option>
-                           <option value="male">남성</option>
-                           <option value="female">여성</option>
-                           <option value="both">상관없음</option>
+                           <!-- <option selected>선택</option> -->
+                           <% if(host.getP_gender().equals("FM")){ %>
+	                           <option value="male">남성</option>
+	                           <option value="female">여성</option>
+	                           <option value="both" selected>상관없음</option>
+	                       <% }else if(host.getP_gender().equals("F")){ %>
+	                       	   <option value="male">남성</option>
+	                           <option value="female" selected>여성</option>
+	                           <option value="both" >상관없음</option>
+	                       <% }else{ %>
+	                       	   <option value="male" selected>남성</option>
+	                           <option value="female">여성</option>
+	                           <option value="both">상관없음</option>
+	                       <% } %>
                            </select>
                         </td>
                      </tr>
@@ -389,28 +399,28 @@
                         	<tr>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%-- <%= ochecked[0] %> --%>">
+	                                 <label class="btn btn-outline-secondary btn-sm <%= ochecked[0] %>">
 	                                 <input type="checkbox" name="hostcheck" value="smoking"> 흡연
 	                                 </label>
 	                              </div>
 	                           </td>
 	                           <td>
 	                           <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%-- <%= ochecked[1] %> --%>"> 
+	                                 <label class="btn btn-outline-secondary btn-sm <%= ochecked[1] %>"> 
 	                                 <input type="checkbox" name="hostcheck" value="kid"> 아이동반
 	                                 </label>
 	                           </div>	                           
 	                           </td>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%-- <%= ochecked[2] %> --%>">
+	                                 <label class="btn btn-outline-secondary btn-sm <%= ochecked[2] %>">
 	                                 <input type="checkbox" name="hostcheck" value="pet"> 애완동물
 	                                 </label>
 	                              </div>
 	                           </td>
 	                           <td>
 	                           <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%-- <%= ochecked[3] %> --%>">
+	                                 <label class="btn btn-outline-secondary btn-sm <%= ochecked[3] %>">
 	                                 <input type="checkbox" name="hostcheck" value="drinking"> 음주
 	                                 </label>
 	                              </div>	                           
@@ -423,25 +433,51 @@
                         <td><li>수면 장소 : </li></td>
                         <td>
                            <select class="custom-select" name="sleeping" style="width:150px;">
-                                <option value="">선택</option>
-                              <option value="living">거실</option>
-                              <option value="single">단독 방</option>
-                              <option value="sharing">공용 방</option>
-                              <option value="sofa">소파</option>
+                                <!-- <option value="">선택</option> -->
+							<% if(host.getCheck2().equals("living")){ %>
+                            	<option value="living" selected>거실</option>
+	                            <option value="single">단독 방</option>
+	                            <option value="sharing">공용 방</option>
+	                            <option value="sofa">소파</option>
+                            <% }else if(host.getCheck2().equals("single")){ %>
+                           	    <option value="living">거실</option>
+                                <option value="single" selected>단독 방</option>
+                                <option value="sharing">공용 방</option>
+                                <option value="sofa">소파</option>
+                            <% }else if(host.getCheck2().equals("sharing")){ %>
+                            	<option value="living">거실</option>
+                                <option value="single">단독 방</option>
+                                <option value="sharing" selected>공용 방</option>
+                                <option value="sofa">소파</option>
+                             <% }else{ %>
+                             	<option value="living">거실</option>
+                                <option value="single">단독 방</option>
+                                <option value="sharing">공용 방</option>
+                                <option value="sofa" selected>소파</option>
+                             <% } %>
                            </select>                                 
                         </td>
                      </tr>               
                      <tr>
                         <td><li>추가 정보 : </li></td>
-                        <td><textarea class="form-control" name="etc" rows="3" cols="60"></textarea></td>
+                        <% if(host.getContent() == null){ %>
+                        	<td><textarea class="form-control" name="etc" rows="3" cols="60"></textarea></td>                    
+                        <% }else{ %>
+                        	<td><textarea class="form-control" name="etc" rows="3" cols="60"><%= host.getContent() %></textarea></td>
+                        <% } %>
                      </tr>
                      <tr>
                      	<td><li> 사진 : </li></td>
-                     	<td><img class="rounded-float" src="/hifive/resources/image/profile.png" width="100px" height="70px" border=""></td>
+                     	<td><img class="rounded-float" src="/hifive/resources/image/profile.png" width="100px" height="70px"></td>
                      </tr>
                   </table>
                   </ul>
                   </p>
+                  <br>
+                  <center>
+                  <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;&nbsp;
+               	 <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
+               	</center>
                </div>
             </div>
             </form>
@@ -473,11 +509,16 @@
                   </table>
                   </ul>                  
                   </p>
+                  <br>
+                  <center>
+                  <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;&nbsp;
+               	 <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
+               	</center>
                </div>
             </div>
             </form>
             <br>
-            <form action="/hifive/partnerenroll" method="post">
+            
             <div id="partner" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Partner</h6>
                <div class="card-body">
@@ -491,7 +532,7 @@
                      <tr>
                         <td><li>여행기간 : </li></td>
                         <td>
-                           <input type="date" class="form-control" na me="partnerstartday">
+                           <input type="date" class="form-control" name="partnerstartday">
                            <input type="date" class="form-control" name="partnerlastday">
                         </td>
                      </tr>
@@ -502,17 +543,22 @@
                   </table>
                   </ul>               
                   </p>
+                  <br>
+                  <center>
+                  <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;&nbsp;
+               	 <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
+               	</center>
                </div>
             </div>
-            </form>
+            <!-- </form> -->
             <br>
-            <!-- <div id="photo" class="card" style="width: auto;">
+            <div id="photo" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Photos</h6>
                <div class="card-body">
                   <p class="card-text">With supporting text below as a natural
                      lead-in to additional content.</p>     
                </div>
-            </div> -->
+            </div>
             <br>
             <div id="reference" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">References</h6>
@@ -523,10 +569,7 @@
             </div>
             <br>
             <br>
-            <br>
-               <input type="submit" class="btn btn-primary" style="width:200px;" value="수정">&nbsp;&nbsp;&nbsp;
-               <input type="reset" class="btn btn-primary" style="width:200px;" value="취소">   
-                     
+            <br>                  
             <br>
             <br>
             <br>

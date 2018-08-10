@@ -16,7 +16,7 @@ public class HostDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from host where user_id = ?";
+		String query = "select * from host where user_id = ?";		
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -37,7 +37,7 @@ public class HostDao {
 				host.setEnd_date(rset.getDate("end_date"));
 				host.setImage1(rset.getString("image1"));
 				host.setImage2(rset.getString("image2"));
-				host.setImage3(rset.getString("image3"));				
+				host.setImage3(rset.getString("image3"));	
 			} else {
 				throw new HostException("호스트 내역 조회 실패");
 			}

@@ -36,7 +36,7 @@ public class InfoServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		try {
 			User user = new UserService().selectUser(userId);
-		if(user != null){
+			if(user != null){
 				view = request.getRequestDispatcher("views/user/mypage.jsp"); // info 페이지
 				request.setAttribute("user", user);
 				view.forward(request, response);

@@ -36,7 +36,9 @@ public class HostingServlet extends HttpServlet {
 		
 		RequestDispatcher view = null;
 		try {
-			Host host = new HostService().selectHost(userId);			
+			Host host = new HostService().selectHost(userId);
+			System.out.println(host.toString());
+			
 			if(host != null){
 				view = request.getRequestDispatcher("views/user/mypage.jsp");
 				request.setAttribute("host", host);
