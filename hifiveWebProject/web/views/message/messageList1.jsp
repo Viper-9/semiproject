@@ -259,7 +259,7 @@
 											class="rounded-circle" title="프로필로 이동"></a></td>
 									<td>손오공</td>
 									<td><a href="">보기</a></td>
-						 			
+						 		 	
 
 								</tr>
 							</tbody>
