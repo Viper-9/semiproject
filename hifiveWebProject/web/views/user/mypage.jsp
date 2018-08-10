@@ -1,37 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8" %>
 <%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>    
 <% User user = (User)request.getAttribute("user");  
-   Host host = (Host)request.getAttribute("host");
-
-   /* String[] hobbies = user.getHobby().split(",");
-   String[] hchecked = new String[12];   
-   for(String s : hobbies){
-      switch(s){
-      case "게임": hchecked[0]="checked"; break;
-      case "독서": hchecked[1]="checked"; break;
-      case "음악감상": hchecked[2]="checked"; break;
-      case "캠핑": hchecked[3]="checked"; break;
-      case "등산": hchecked[4]="checked"; break;
-      case "운동": hchecked[5]="checked"; break;
-      case "그림그리기": hchecked[6]="checked"; break;
-      case "쇼핑": hchecked[7]="checked"; break;
-      case "자전거": hchecked[8]="checked"; break;
-      case "산책": hchecked[9]="checked"; break;
-      case "잠자기": hchecked[10]="checked"; break;
-      case "춤": hchecked[11]="checked"; break;      
-      }
-   }
-   
-   String[] checkOptions = host.getCheck1().split(",");
-   String[] ochecked = new String[4];
-   for(String s : checkOptions){
-      switch(s){
-      case "흡연": ochecked[0]="checked"; break;
-      case "아이동반": ochecked[1]="checked"; break;
-      case "애완동물": ochecked[2]="checked"; break;
-      case "음주": ochecked[3]="checked"; break;
-      } 
+   Host host = (Host)request.getAttribute("host");   
+  
+	   String[] hchecked = new String[12];   		
+	   if(user.getHobby() == null){
+		   
+	   } else {
+		   String[] hobbies = user.getHobby().split(",");
+		   for(String s : hobbies){
+		      switch(s){
+		      case "game": hchecked[0]="active"; break;
+		      case "reading": hchecked[1]="active"; break;
+		      case "music": hchecked[2]="active"; break;
+		      case "camping": hchecked[3]="active"; break;
+		      case "climb": hchecked[4]="active"; break;
+		      case "sport": hchecked[5]="active"; break;
+		      case "art": hchecked[6]="active"; break;
+		      case "shopping": hchecked[7]="active"; break;
+		      case "bike": hchecked[8]="active"; break;
+		      case "walk": hchecked[9]="active"; break;
+		      case "sleep": hchecked[10]="active"; break;
+		      case "dance": hchecked[11]="active"; break;      
+		      }
+		   }  
+	   }
+  
+	   
+  /*  String[] ochecked = new String[4];
+   if(host.getCheck1() == null){
+	   
+   } else {
+	   String[] checkOptions = host.getCheck1().split(",");
+	   for(String s : checkOptions){
+	      switch(s){
+	      case "smoking": ochecked[0]="active"; break;
+	      case "kid": ochecked[1]="active"; break;
+	      case "pet": ochecked[2]="active"; break;
+	      case "drinking": ochecked[3]="active"; break;
+	      } 
+	   }
    } */
 %>
 <!DOCTYPE html>
@@ -70,13 +79,15 @@
       <div id="main">
          <div id="menu">
             <div class="card" style="width: 250px;">
-               <font size="3" align="left"><b>Mypage</b></font>
+            <form action="/hifive/infoupdate" method="post">
+               <font size="3" align="left"><b>Mypage</b></font>               
                <img class="card-img-top" src="/hifive/resources/image/profile.png" alt="Card image cap" height="220px">
                <div class="card-body">
-                  <p class="card-text">
-                  <form action="/hifive/infoupdate" method="post">
+                  <p class="card-text">                  
                   <div id="mpageInfo" name="mpageInfo" align="center">
-                     <font size="4"><b>안선민</b></font><%-- <font size="4"><b><%= user.getUser_Name() %></b></font> --%>
+                    <div class="col-sm-10">
+                    	<input type="text" readonly class="form-control" style="align:center;" name="username" value="<%= user.getUser_Name() %>">
+                    </div>
                      <br>
                      <br>            
                      <div class="custom-file">
@@ -85,59 +96,42 @@
                  </div>      
                      <br>
                      <br>
-                     <input type="text" class="form-control" name="address" id="sample6_postcode" placeholder="우편번호" style="width:210px;">                     
-                     <textarea class="form-control" name="address" rows="3" cols="25" id="sample6_address" placeholder="주소"></textarea>
-                     <!-- <input type="text" id="sample6_address" placeholder="주소"> -->
-                     <input type="text" name="address" class="form-control" size="25" id="sample6_address2" placeholder="상세주소">      
-                     <input type="button" class="btn btn-outline-light text-dark" onclick="sample6_execDaumPostcode()" value="주소 입력"><br>               
-                     <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
-                     <script>
-                         function sample6_execDaumPostcode() {
-                             new daum.Postcode({
-                                 oncomplete: function(data) {
-                                     // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-                     
-                                     // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                                     // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                                     var fullAddr = ''; // 최종 주소 변수
-                                     var extraAddr = ''; // 조합형 주소 변수
-                     
-                                     // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                                     if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                                         fullAddr = data.roadAddress;
-                     
-                                     } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                                         fullAddr = data.jibunAddress;
-                                     }
-                     
-                                     // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-                                     if(data.userSelectedType === 'R'){
-                                         //법정동명이 있을 경우 추가한다.
-                                         if(data.bname !== ''){
-                                             extraAddr += data.bname;
-                                         }
-                                         // 건물명이 있을 경우 추가한다.
-                                         if(data.buildingName !== ''){
-                                             extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                                         }
-                                         // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                                         fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-                                     }
-                     
-                                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                                     document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
-                                     document.getElementById('sample6_address').value = fullAddr;
-                     
-                                     // 커서를 상세주소 필드로 이동한다.
-                                     document.getElementById('sample6_address2').focus();
-                                 }
-                             }).open();
-                         }
-                     </script>
+          			<textarea class="form-control" name="address" id="sample5_address" rows="3" cols="25" placeholder="주소"><%= user.getAddress() %></textarea>
+					<input type="button" class="btn btn-outline-light text-dark" onclick="sample5_execDaumPostcode()" value="주소 입력"><br>
+					<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+					<script>				
+					    function sample5_execDaumPostcode() {
+					        new daum.Postcode({
+					            oncomplete: function(data) {
+					                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					                var fullAddr = data.address; // 최종 주소 변수
+					                var extraAddr = ''; // 조합형 주소 변수
+					
+					                // 기본 주소가 도로명 타입일때 조합한다.
+					                if(data.addressType === 'R'){
+					                    //법정동명이 있을 경우 추가한다.
+					                    if(data.bname !== ''){
+					                        extraAddr += data.bname;
+					                    }
+					                    // 건물명이 있을 경우 추가한다.
+					                    if(data.buildingName !== ''){
+					                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+					                    }
+					                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+					                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+					                }
+					
+					                // 주소 정보를 해당 필드에 넣는다.
+					                document.getElementById("sample5_address").value = fullAddr;
+					            }
+					        }).open();
+					    }
+					</script>
                      <br>
                      <br>
                      <select class="custom-select form-control-sm" name="countries" style="width:200px;">
-                        <option>국적 선택</option>
+                        <option>국적 선택</option>              
                         <%
                              java.util.Locale locale = null;                
                              String[] countries = java.util.Locale.getISOCountries();                
@@ -194,15 +188,28 @@
                         <div class="form-group row">
                        <label class="col-sm-2 col-form-label">Gender</label>
                            <div class="col-sm-10">
-                           <input type="text" readonly class="form-control" style="width:40px;" name="gender" value="여"<%-- value="<%=user.getGender() %>" --%>>
+                           <input type="text" readonly class="form-control" style="width:60px;" name="gender" 
+                           		<% if(user.getGender().equals("F")){ %>
+                           			value="여성"
+                           		<% }else{ %>
+                           		    value="남성"      			
+                           		<% } %>>
                            </div>
                         </div>   
-                     </li>                     
+                     </li>
+                     <li>
+                        <div class="form-group row">
+                       <label class="col-sm-2 col-form-label">Birth</label>
+                           <div class="col-sm-10">
+                           <input type="text" readonly class="form-control" style="width:120px;" name="birth" value="<%= user.getBirth() %>">
+                           </div>
+                        </div>   
+                     </li>                             
                      <li>
                         <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Job</label>
                            <div class="col-sm-10">
-                           <input type="text" class="form-control" style="width:200px;" name="job" value="건물주" <%-- value="<%= user.getJob() %>" --%>>
+                           <input type="text" class="form-control" style="width:200px;" name="job" value="<%= user.getJob() %>">
                            </div>
                         </div>
                     </li>     
@@ -210,7 +217,7 @@
                         <div class="form-group row">
                    <label class="col-sm-2 col-form-label">Email</label>
                       <div class="col-sm-10">
-                      <input type="email" class="form-control" style="width:300px;" name="email" value="mh9460@naver.com" <%-- value="<%= user.getEmail() %>" --%>>
+                      <input type="email" class="form-control" style="width:300px;" name="email" value="<%= user.getEmail() %>" >
                       </div>
                     </div>               
                       </li>                      
@@ -218,42 +225,43 @@
                         <div class="form-group row">
                            <label class="col-sm-2 col-form-label">Phone</label>
                            <div class="col-sm-10">
-                              <input type="tel" class="form-control" style="width:200px;" name="phone" value="010-2383-7670" <%-- value="<%= user.getPhone() %>" --%> placeholder="000-0000-0000">
+                              <input type="tel" class="form-control" style="width:200px;" name="phone" value="<%= user.getPhone() %>" placeholder="000-0000-0000">
                               </div>
                         </div>
                      </li>                        
                      <li>
                         <div class="form-group row">
                            <label class="col-sm-2 col-form-label">Hobby</label>
-                        </div>
-						<table style="text-align:center" cellspacing="0" cellpadding="2">
+                        </div> 
+                       <%-- <% if(user.getHobby() != null){ %>  --%>               
+                       <table style="text-align:center" cellspacing="0" cellpadding="2">
                            <tr>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
 	                                 <label class="btn btn-outline-secondary btn-sm">
-	                                 <input type="checkbox" name="hobby" value="game"<%-- <%= checked[0] %> --%>> 게임
+	                                 <input type="checkbox" name="hobby" value="game" <%-- <%= hchecked[0] %> --%>checked> 게임
 	                                 </label>
 	                              </div>
 	                           </td>
 	                           <td>
 	                           <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm"> 
+	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[1] %>"> 
 	                                 <input type="checkbox" name="hobby" value="reading"> 독서
 	                                 </label>
-	                              </div>
+	                           </div>
 	                           
 	                           </td>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm">
+	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[2] %>">
 	                                 <input type="checkbox" name="hobby" value="music"> 음악감상
 	                                 </label>
 	                              </div>
 	                           </td>
 	                           <td>
 	                           <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm">
-	                                 <input type="checkbox" name="hobby" value="music"> 음악감상
+	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[3] %>">
+	                                 <input type="checkbox" name="hobby" value="camping">  캠핑
 	                                 </label>
 	                              </div>
 	                           
@@ -262,7 +270,7 @@
                            <tr>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm"> 
+                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[4] %>"> 
                                  <input type="checkbox" name="hobby" value="climb"> 등산
                                  </label>
                               </div>
@@ -270,7 +278,7 @@
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm">
+                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[5] %>">
                                  <input type="checkbox" name="hobby" value="sport"> 운동
                                  </label>
                               </div>
@@ -278,7 +286,7 @@
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm"> 
+                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[6] %>"> 
                                  <input type="checkbox" name="hobby" value="art"> 그림그리기
                                  </label>
                               </div>
@@ -286,8 +294,8 @@
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm">
-                                 <input type="checkbox" name="hobby" value="music"> 음악감상
+                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[7] %>">
+                                 <input type="checkbox" name="hobby" value="shopping"> 쇼핑
                                  </label>
                               </div>
                            
@@ -296,7 +304,7 @@
                            <tr>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm">
+                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[8] %>">
                                  <input type="checkbox" name="hobby" value="bike"> 자전거
                                  </label>
                               </div>
@@ -304,7 +312,7 @@
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm">
+                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[9] %>">
                                  <input type="checkbox" name="hobby" value="walk"> 산책
                                  </label>
                               </div>
@@ -312,7 +320,7 @@
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm"> 
+                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[10] %>"> 
                                  <input type="checkbox" name="hobby" value="sleep"> 잠자기
                                  </label>
                               </div>
@@ -320,14 +328,15 @@
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm"> 
-                                 <input type="checkbox" name="hobby" value="music"> 음악감상
+                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[11] %>"> 
+                                 <input type="checkbox" name="hobby" value="dance"> 춤
                                  </label>
                               </div>
                            
                            </td>
                            </tr>
-                        </table>
+                        </table>      
+                        <%-- <% } %>  --%>               
                      </li>
                   </table>
                   </ul>
@@ -346,10 +355,10 @@
             <div id="intro" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Introduction</h6>
                <div class="card-body">
-                  <center><textarea class="form-control" name="introduction" rows="5" cols="90"></textarea></center>
+                  <textarea class="form-control" name="introduction" rows="5" cols="90"><%-- <%= user.getContent() %> --%></textarea>
                </div>
             </div>
-              </form>
+            </form>
             <br>
             <form action="/hifive/hostenroll" method="post">
             <div id="myhome" class="card" style="width: auto;">
@@ -376,10 +385,38 @@
                      <tr>
                         <td><li>기타가능여부 : </li></td>
                         <td>
-                           <input type="checkbox" name="hostcheck" value="smoking"> 흡연 &nbsp;   
-                           <input type="checkbox" name="hostcheck" value="kid"> 아이동반 &nbsp;   
-                           <input type="checkbox" name="hostcheck" value="pet"> 애완동물 &nbsp;   
-                           <input type="checkbox" name="hostcheck" value="drinking"> 음주 &nbsp;            
+                        	<table>
+                        	<tr>
+	                           <td>
+	                              <div class="btn-group-toggle" data-toggle="buttons">
+	                                 <label class="btn btn-outline-secondary btn-sm <%-- <%= ochecked[0] %> --%>">
+	                                 <input type="checkbox" name="hostcheck" value="smoking"> 흡연
+	                                 </label>
+	                              </div>
+	                           </td>
+	                           <td>
+	                           <div class="btn-group-toggle" data-toggle="buttons">
+	                                 <label class="btn btn-outline-secondary btn-sm <%-- <%= ochecked[1] %> --%>"> 
+	                                 <input type="checkbox" name="hostcheck" value="kid"> 아이동반
+	                                 </label>
+	                           </div>	                           
+	                           </td>
+	                           <td>
+	                              <div class="btn-group-toggle" data-toggle="buttons">
+	                                 <label class="btn btn-outline-secondary btn-sm <%-- <%= ochecked[2] %> --%>">
+	                                 <input type="checkbox" name="hostcheck" value="pet"> 애완동물
+	                                 </label>
+	                              </div>
+	                           </td>
+	                           <td>
+	                           <div class="btn-group-toggle" data-toggle="buttons">
+	                                 <label class="btn btn-outline-secondary btn-sm <%-- <%= ochecked[3] %> --%>">
+	                                 <input type="checkbox" name="hostcheck" value="drinking"> 음주
+	                                 </label>
+	                              </div>	                           
+	                           </td>
+                           </tr>
+                           </table>                 
                         </td>
                      </tr>            
                      <tr>
@@ -397,6 +434,10 @@
                      <tr>
                         <td><li>추가 정보 : </li></td>
                         <td><textarea class="form-control" name="etc" rows="3" cols="60"></textarea></td>
+                     </tr>
+                     <tr>
+                     	<td><li> 사진 : </li></td>
+                     	<td><img class="rounded-float" src="/hifive/resources/image/profile.png" width="100px" height="70px" border=""></td>
                      </tr>
                   </table>
                   </ul>
@@ -465,13 +506,13 @@
             </div>
             </form>
             <br>
-            <div id="photo" class="card" style="width: auto;">
+            <!-- <div id="photo" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Photos</h6>
                <div class="card-body">
                   <p class="card-text">With supporting text below as a natural
                      lead-in to additional content.</p>     
                </div>
-            </div>
+            </div> -->
             <br>
             <div id="reference" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">References</h6>
@@ -484,7 +525,8 @@
             <br>
             <br>
                <input type="submit" class="btn btn-primary" style="width:200px;" value="수정">&nbsp;&nbsp;&nbsp;
-               <input type="reset" class="btn btn-primary" style="width:200px;" value="취소">            
+               <input type="reset" class="btn btn-primary" style="width:200px;" value="취소">   
+                     
             <br>
             <br>
             <br>

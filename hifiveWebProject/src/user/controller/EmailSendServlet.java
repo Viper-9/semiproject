@@ -63,6 +63,7 @@ public class EmailSendServlet extends HttpServlet {
 			
 			//이메일 수신자
 			String email = request.getParameter("sreceiver"); //사용자가 입력한 이멜 주소 받아오기
+			request.setAttribute("email", email);
 			InternetAddress to = new InternetAddress(email);
 			msg.setRecipient(Message.RecipientType.TO, to);
 			
@@ -77,14 +78,14 @@ public class EmailSendServlet extends HttpServlet {
 			//이메일 헤더
 			msg.setHeader("content-Type", "text/html");
 			javax.mail.Transport.send(msg);
-			System.out.println(session + "이 " + " 이메일 보내기를 성공");
+			System.out.println("[" + session + "]이 [" + email + "]<< 으로 이메일 보내기를 성공");
 			
 			response.setContentType("text/html; charset=utf-8");
 			
 			
 			PrintWriter out = response.getWriter();
-			
-			out.append(email);
+
+			out.append(email + ",  " + code);
 			out.flush();
 			out.close();
 			
