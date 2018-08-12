@@ -71,7 +71,7 @@
    <script type="text/javascript">
    $(function(){
 		var userid = $("#uid").val();		
-		// 나에게 온 대화신청 목록
+
 		$.ajax({	
 			url : "/hifive/reviewlist",
 			type : "get",
@@ -179,7 +179,8 @@
                   <div id="request" name="request" align="center">
                      <table align="center" border="0">
                         <tr>
-                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER" ></th>
+                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER"
+                           		onclick="location.href='/hifive/favoritelist?userid=<%= user.getUser_Id() %>'" ></th>
                         </tr>
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"></th>

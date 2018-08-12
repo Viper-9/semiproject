@@ -13,16 +13,16 @@ import favorite.exception.FavoriteException;
 import favorite.model.service.FavoriteService;
 
 /**
- * Servlet implementation class FavoriteDeleteServlet
+ * Servlet implementation class FavoriteInsertServlet
  */
-@WebServlet("/favoritedelete")
-public class FavoriteDeleteServlet extends HttpServlet {
+@WebServlet("/favoriteinsert")
+public class FavoriteInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FavoriteDeleteServlet() {
+    public FavoriteInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +32,14 @@ public class FavoriteDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userid");
-		String f_User_Id = request.getParameter("fuserid");
+		String f_User_Id = "user02";
 		
 		try{
-			if(new FavoriteService().deleteFavorite(userId, f_User_Id) > 0){
+			if(new FavoriteService().insertFavorite(userId, f_User_Id) > 0){
 				response.sendRedirect("/hifive/favoritelist?userid="+userId);
 			} else{
 				RequestDispatcher view = request.getRequestDispatcher("views/favorite/favoriteError.jsp");
-				request.setAttribute("message", "favorite 취소 실패");
+				request.setAttribute("message", "favorite 등록 실패");
 				view.forward(request, response);	
 			}
 		} catch(FavoriteException e){
