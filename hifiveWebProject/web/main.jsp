@@ -100,16 +100,57 @@ float: left;
   padding:0;
   margin:0;
 }
-
-
 </style>
 
 <script type="text/javascript">
+	$(function(){
+		var userid = $("#userid").val();
+		$.ajax({	
+			url : "/hifive/requestlist",
+			type : "get",
+			data : { uid : userid },
+			dataType : "json",			
+			success : function(data){
+				//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
+				var jsonStr = JSON.stringify(data);	
+				//문자열을 json 객체로 바꿈
+				var json = JSON.parse(jsonStr);
+			
+				var values = "";								
+				if(json.list1.length == 0){
+					values += "신청 내역이 없습니다.";
+					$("#p1").html($("#p1").html()+values);	
+				} else{					
+					for(var i in json.list1){
+						values += "아이디 : " + json.list1[i].r_user_id 
+						+"<br>날짜 : " + json.list1[i].request_date +"<br><br>";
+					}										
+					$("#p1").html($("#p1").html()+values);					
+				}
+				
+				var values2 = "";
+				if(json.list2.length == 0){
+					values2 += "신청 내역이 없습니다.";
+					$("#p2").html($("#p2").html()+values2);	
+				} else{					
+					for(var i in json.list2){
+						values2 += "아이디 : " + json.list2[i].user_id 
+						+"<br>날짜 : " + json.list2[i].request_date +"<br><br>";
+					}										
+					$("#p2").html($("#p2").html()+values);					
+				}
 
+			}, // success
+			error : function(jqXHR, textstatus, errorThrown){
+				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+			} // error
+		});
+	});
 </script>
 
 </head>
 <body>
+<input type="hidden" value="<%= userid %>" id="userid">
    <div class="container">
       <%@ include file="../../header.jsp"%>
       <hr>
@@ -269,17 +310,15 @@ float: left;
             
             <div id="intro0" class="card" style="width: 365px;">
                <h6 class="card-header" id="card_info">사용자에게 파트너 요청</h6>
-               <div class="card-body">
-                  <p class="card-text">With supporting text below as a natural
-                     lead-in to additional content.</p>
+               <div class="card-body" id="p1">
+                  
                </div>
             </div>
            
             <div id="intro" class="card" style="width: 365px;">
                <h6 class="card-header" id="card_info">사용자가 요청한 파트너</h6>
-               <div class="card-body">
-                  <p class="card-text">With supporting text below as a natural
-                     lead-in to additional content.</p>
+               <div class="card-body" id="p2">
+                  
                </div>
             </div>
          </div>
