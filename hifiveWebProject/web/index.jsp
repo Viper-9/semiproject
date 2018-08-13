@@ -101,7 +101,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body"><%@ include
+					<div class="modal-body"> <%@ include
 							file="./views/user/login.jsp"%> <br>
 						<div style="text-align: center;">
 							<button type="button" class="btn btn-secondary" style="width:100px;"

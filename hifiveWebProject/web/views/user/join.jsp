@@ -56,7 +56,7 @@
 		$.ajax({
 			url : "/hifive/checkid",
 			type : "post",
-			data : { id : inputed},
+			data : { id : inputed },
 			success : function(data){
 				console.log("아이디 success : " + data);
 				if(inputed == "" && data == '0'){
@@ -66,7 +66,7 @@
 				} else if (data == '0') {
 					$("#joinuserid").css("background-color", "#FFCECE");
 					alert("이미 사용중인 아이디입니다");
-					$("#joinuserid").val("");
+					//$("#joinuserid").val("");
 					$("#joinuserid").focus();
 					idCheck = 1;
 					
@@ -343,7 +343,6 @@
 
 	//캔슬 눌렀을때 모든 텍스트필드 null 배경색 초기화
 	 function cancelbtn(){
-		 console.log("캔슬눌림");
         $("#joinuserid").val(null);
         $("#joinuserid").css("background-color", "#ffffff");
         $("#userpwd1").val('');
@@ -396,7 +395,7 @@
 				<td><br>
 					<div class="input-group mb-3">
 						<input style="width: 150px;" class="form-control" type="email"
-							id="receiver" name="email" placeholder="이메일을 입력하시오" autocomplete = "off"
+							id="receiver" name="email" placeholder="TravelsCouch@welcome.com" autocomplete = "off"
 							oninput = "checkEmail()" aria-label="이메일을 입력하시오" aria-describedby="emailsubmit" />
 						<div class="input-group-append">
 							<input style="width: 150px;" class="btn btn-primary" disabled = "disabled"

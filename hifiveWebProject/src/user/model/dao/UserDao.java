@@ -35,7 +35,7 @@ public class UserDao {
 			if(rset.next())
 				userName = rset.getString("user_name");
 			else
-				throw new UserException("아이디나 비밀번호가 일치하지 않습니다.");			
+				userName = null;			
 		} catch(Exception e){
 			e.printStackTrace();
 			

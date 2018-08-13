@@ -88,6 +88,7 @@ public class EmailSendServlet extends HttpServlet {
 			out.append(email + ",  " + code);
 			out.flush();
 			out.close();
+			return;
 			
 			
 		} catch (AddressException e) {
