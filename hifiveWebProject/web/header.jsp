@@ -12,11 +12,8 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 <title>join</title>
-
- 
 <style type="text/css">
 header {
 	margin: 5px;
@@ -46,17 +43,27 @@ header {
 	border-radius: 30px 30px 30px 30px;
 }
 </style>
-
+<script src="/hifive/resources/js/jquery-3.3.1.min.js" ></script>
 <script type="text/javascript">
-	
+	function callMyPage() {
+		var userId = $("#userid").val();
+		
+		$.ajax({
+			url : "/hifive/info",
+			type : "post",
+			data : {id : userId},
+			dataType : "json",
+			success : function(data){					
+				console.log(data);				
+				location.href = "/hifive/views/user/mypage.jsp";
+			}			
+		}); //ajax
+	} //callMyPage
 </script>
-
-
-
-
 </head>
 
 <body>
+	<input type="hidden" id="userid" name="userid" value=<%= userId %>>
 	<script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -97,7 +104,7 @@ header {
 
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<a class="dropdown-item" href="/hifive/views/support/notice/noticeList.jsp">공지사항</a> 
-										<a class="dropdown-item" href="/hifive/info?userid=<%= userId %>">마이페이지</a> 
+										<a class="dropdown-item" href="/hifive/info?userid=<%= userId %>" onclick="callMyPage()">마이페이지</a> 
 										<a class="dropdown-item" href="/hifive/views/support/report/reportList.jsp">신고게시판</a>
 										<a class="dropdown-item" href="/hifive/views/support/tutorial.jsp">튜토리얼</a> 
 										<a class="dropdown-item" href="/hifive/views/support/safety.jsp">안전유의사항</a>

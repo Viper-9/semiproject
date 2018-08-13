@@ -49,7 +49,7 @@ public class UserService {
 		return result;
 	}
 
-	public User selectUser(String userId) throws UserException {
+	public User selectUser(String userId) throws UserException{
 		Connection con = getConnection();
 		User user = new UserDao().selectUser(con, userId);
 		close(con);

@@ -1,11 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
-    pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>    
-<% User user = (User)request.getAttribute("user");  
-   Host host = (Host)request.getAttribute("host");   
-   SurferPartner sp = (SurferPartner)request.getAttribute("sp");
-  
-	   String[] hchecked = new String[12];   		
+<%   	
+	   /* String[] hchecked = new String[12];   		
 	   if(user.getHobby() == null){
 		   
 	   } else {
@@ -26,10 +22,10 @@
 		      case "dance": hchecked[11]="active"; break;      
 		      }
 		   }  
-	   }
+	   } */
   
 	   
- 	   String[] ochecked = new String[4]; 	   
+/*  	   String[] ochecked = new String[4]; 	   
 	   if(host.getCheck1() == null){
 		   
 	   } else {
@@ -42,13 +38,12 @@
 			  case "drinking": ochecked[3]="active"; break;
 		      }
 		   }
-	   }
+	   } */
 %>
 <!DOCTYPE html>
 <html>
 <head>
-   <meta charset="UTF-8">
-   <meta charset="UTF-8">
+   <meta charset="UTF-8"> 
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <title>mypage</title>
    <link rel="stylesheet" href="/hifive/resources/css/modal.css">
@@ -59,25 +54,95 @@
    <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
    <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script>
    <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
-   <style type="text/css">
-      /* 여기 이새끼가 전체 우리 컨테이너 역할 */
-      #tbox{width:1000px;font-family:고딕; margin : 0 auto;}
-      /* 이게  우리가 이제 만들어야할 공간 */
-      #main{width:1000px;overflow:hidden;}
-      /* 이게 왼쪽 창 float:left 가  다음 창을 붙여준다 */
-      #menu{width:250px;margin:10px 0 5px 5px;float:left;}
-      /* 이게 오른족 꾸미는거  */
+   <style type="text/css">      
+      #tbox{width:1000px;font-family:고딕; margin : 0 auto;}      
+      #main{width:1000px;overflow:hidden;}      
+      #menu{width:250px;margin:10px 0 5px 5px;float:left;}      
       #content1{width:750;margin:10px 0 -3px 5px;float:left;padding:5px 0 0 5px;}   
    </style>   
-   <script type="text/javascript">
-      
-   </script>   
+  	<script type="text/javascript">
+       $(function(){        
+          
+          $.ajax({
+             url : "/hifive/info",
+             type : "post",
+             data : {id : $("#userid").val()},            
+             dataType : "json",
+             success : function(data){	 
+            	 alert(data);
+             	//이름
+                $("#name").val(data.name);    
+             	//document.getElementById("name").value = data.name;
+                
+              	//주소
+                $("#sample5_address").val(data.address);  
+              	//document.getElementById("address").value = data.address;
+              	
+             	//성별
+                if(data.gender == ("F")){
+                	$("#gender").val('여성');
+                } else {
+                	$("#gender").val('남성');
+                }   
+             	
+             	//이메일
+                $("#email").val(data.email);
+             	
+                //직업
+             	if(data.job == null){
+             		$("#job").val('');
+             	} else {
+             		$("#job").val(data.job);
+             	}
+                
+             	//생일
+                $("#birth").val(data.birth);
+             	
+                //전화번호
+                $("#phone").val(data.phone);
+                
+                //자기소개
+                if(data.content == null){
+                	$("#introduction").val();
+                } else {
+                	$("#introduction").val(data.content);
+                }}, 
+/*                 //취미
+                String[] hchecked = new String[12];   		
+         	    if(data.hobby == null){
+         		   $()
+         	   } else {
+         		   var[] hobbies = user.getHobby().split(",");
+         		   for(var s : hobbies){
+         		      switch(s){
+         		      case "game": hchecked[0]="active"; break;
+         		      case "reading": hchecked[1]="active"; break;
+         		      case "music": hchecked[2]="active"; break;
+         		      case "camping": hchecked[3]="active"; break;
+         		      case "climb": hchecked[4]="active"; break;
+         		      case "sport": hchecked[5]="active"; break;
+         		      case "art": hchecked[6]="active"; break;
+         		      case "shopping": hchecked[7]="active"; break;
+         		      case "bike": hchecked[8]="active"; break;
+         		      case "walk": hchecked[9]="active"; break;
+         		      case "sleep": hchecked[10]="active"; break;
+         		      case "dance": hchecked[11]="active"; break;      
+         		      }
+         		   }  
+         	   } 
+             }, */
+             error : function(jqXHR, textstatus, errorThrown){
+                console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
+             }
+          });
+       }); //document.ready
+    </script>     
 </head>
 <body>
    <div id="tbox">
       <%@ include file="../../header.jsp"%>
       <form action="/hifive/infoupdate" method="post">
-      <input type="hidden" name="userid" value="<%= user.getUser_Id() %>">
+      <input type="hidden" id="userid" name="userid" value="">
       <div id="main">
          <div id="menu">
             <div class="card" style="width: 250px;">            
@@ -86,8 +151,8 @@
                <div class="card-body">
                   <p class="card-text">                  
                   <div id="mpageInfo" name="mpageInfo" align="center">
-                    <div class="col-sm-10">                    	
-                    	<input type="text" readonly class="form-control" name="username" value="<%= user.getUser_Name() %>">                    	
+                    <div class="col-sm-10"> 
+                    	<input type="text" readonly id="name" class="form-control" name="username" style="width:100px;">                    	
                     </div>
                      <br>
                      <br>            
@@ -97,7 +162,7 @@
                  </div>      
                      <br>
                      <br>
-          			<textarea class="form-control" name="address" id="sample5_address" rows="3" cols="25" placeholder="주소"><%= user.getAddress() %></textarea>
+          			<textarea class="form-control" name="address" id="sample5_address" rows="3" cols="25" placeholder="주소"></textarea>
 					<input type="button" class="btn btn-outline-light text-dark" onclick="sample5_execDaumPostcode()" value="주소 입력"><br>
 					<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 					<script>				
@@ -187,12 +252,7 @@
                         <div class="form-group row">
                        <label class="col-sm-2 col-form-label">Gender</label>
                            <div class="col-sm-10">
-                           <input type="text" readonly class="form-control" style="width:60px;" name="gender" 
-                           		<% if(user.getGender().equals("F")){ %>
-                           			value="여성"
-                           		<% }else{ %>
-                           		    value="남성"      			
-                           		<% } %>>
+                           <input type="text" readonly id="gender" class="form-control" style="width:60px;" name="gender">                           		
                            </div>
                         </div>   
                      </li>
@@ -200,19 +260,15 @@
                         <div class="form-group row">
                        <label class="col-sm-2 col-form-label">Birth</label>
                            <div class="col-sm-10">
-                           <input type="text" readonly class="form-control" style="width:120px;" name="birth" value="<%= user.getBirth() %>">
+                           <input type="text" readonly id="birth" class="form-control" style="width:120px;" name="birth" size="300">
                            </div>
                         </div>   
                      </li>                             
                      <li>
                         <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Job</label>
-                           <div class="col-sm-10">
-                           <% if(user.getJob() == null){ %>
-                           		<input type="text" class="form-control" style="width:200px;" name="job" value="">
-                           <% }else{ %>
-                           <input type="text" class="form-control" style="width:200px;" name="job" value="<%= user.getJob() %>">
-                           <% } %>
+                           <div class="col-sm-10">                          
+                           		<input type="text" id="job" class="form-control" style="width:200px;" name="job">                           
                            </div>
                         </div>
                     </li>     
@@ -220,7 +276,7 @@
                         <div class="form-group row">
                    <label class="col-sm-2 col-form-label">Email</label>
                       <div class="col-sm-10">
-                      <input type="email" readonly class="form-control" style="width:300px;" name="email" value="<%= user.getEmail() %>" >
+                      <input type="email" readonly id="email" name="email" class="form-control" style="width:300px;" name="email">
                       </div>
                     </div>               
                       </li>                      
@@ -228,11 +284,11 @@
                         <div class="form-group row">
                            <label class="col-sm-2 col-form-label">Phone</label>
                            <div class="col-sm-10">
-                              <input type="tel" class="form-control" style="width:200px;" name="phone" value="<%= user.getPhone() %>" placeholder="000-0000-0000">
+                              <input type="tel" id="phone" class="form-control" style="width:200px;" name="phone">
                               </div>
                         </div>
                      </li>                        
-                     <li>
+                   <%--   <li>
                         <div class="form-group row">
                            <label class="col-sm-2 col-form-label">Hobby</label>
                         </div>                                  
@@ -241,28 +297,28 @@
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
 	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[0] %>">
-	                                 <input type="checkbox" name="hobby" value="game"> 게임
+	                                 <input type="checkbox" id="hobby" name="hobby" value="game"> 게임
 	                                 </label>
 	                              </div>
 	                           </td>
 	                           <td>
 	                           <div class="btn-group-toggle" data-toggle="buttons">
 	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[1] %>"> 
-	                                 <input type="checkbox" name="hobby" value="reading"> 독서
+	                                 <input type="checkbox" id="hobby" name="hobby" value="reading"> 독서
 	                                 </label>
 	                           </div>	                           
 	                           </td>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
 	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[2] %>">
-	                                 <input type="checkbox" name="hobby" value="music"> 음악감상
+	                                 <input type="checkbox" id="hobby" name="hobby" value="music"> 음악감상
 	                                 </label>
 	                              </div>
 	                           </td>
 	                           <td>
 	                           <div class="btn-group-toggle" data-toggle="buttons">
 	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[3] %>">
-	                                 <input type="checkbox" name="hobby" value="camping">  캠핑
+	                                 <input type="checkbox" id="hobby" name="hobby" value="camping">  캠핑
 	                                 </label>
 	                              </div>	                           
 	                           </td>
@@ -271,28 +327,28 @@
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[4] %>"> 
-                                 <input type="checkbox" name="hobby" value="climb"> 등산
+                                 <input type="checkbox" id="hobby" name="hobby" value="climb"> 등산
                                  </label>
                               </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[5] %>">
-                                 <input type="checkbox" name="hobby" value="sport"> 운동
+                                 <input type="checkbox" id="hobby" name="hobby" value="sport"> 운동
                                  </label>
                               </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[6] %>"> 
-                                 <input type="checkbox" name="hobby" value="art"> 그림그리기
+                                 <input type="checkbox" id="hobby" name="hobby" value="art"> 그림그리기
                                  </label>
                               </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[7] %>">
-                                 <input type="checkbox" name="hobby" value="shopping"> 쇼핑
+                                 <input type="checkbox" id="hobby" name="hobby" value="shopping"> 쇼핑
                                  </label>
                               </div>                           
                            </td>
@@ -301,7 +357,7 @@
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
                                  <label class="btn btn-outline-secondary btn-sm <%= hchecked[8] %>">
-                                 <input type="checkbox" name="hobby" value="bike"> 자전거
+                                 <input type="checkbox" id="hobby" name="hobby" value="bike"> 자전거
                                  </label>
                               </div>                           
                            </td>
@@ -328,7 +384,7 @@
                            </td>
                            </tr>
                         </table>                                          
-                     </li>
+                     </li> --%>
                   </table>
                   </ul>
                </div>
@@ -345,12 +401,8 @@
             <br>
             <div id="intro" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Introduction</h6>
-               <div class="card-body">
-               <% if(user.getContent() == null){ %>
-               		<textarea class="form-control" name="introduction" rows="5" cols="90" placeholder="자기소개를 작성해주세요"></textarea>
-               	<% }else{ %>
-               		<textarea class="form-control" name="introduction" rows="5" cols="90"><%= user.getContent() %></textarea>             
-               	<% } %>
+               <div class="card-body">               
+               		<textarea class="form-control" id="introduction" name="introduction" rows="5" cols="90" placeholder="자기소개를 작성해주세요"></textarea>               	
                   <br>
                   <center>
                   <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;&nbsp;
@@ -360,7 +412,7 @@
             </div>
            </form>
             <br>
-            <form action="/hifive/hosting" method="post">
+ <%--             <form action="/hifive/hosting" method="post">
             <div id="myhome" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">My Home</h6>
                <div class="card-body">
@@ -373,7 +425,7 @@
                      </tr>
                      <tr>
                         <td><li>선호하는 성별 : </li></td>
-                        <td>
+                         <td>
                            <select class="custom-select" name="preferredgender" style="width:150px;">
                            <!-- <option selected>선택</option> -->
                            <% if(host.getP_gender().equals("FM")){ %>
@@ -390,7 +442,7 @@
 	                           <option value="both">상관없음</option>
 	                       <% } %>
                            </select>
-                        </td>
+                        </td> 
                      </tr>
                      <tr>
                         <td><li>기타가능여부 : </li></td>
@@ -426,7 +478,7 @@
 	                              </div>	                           
 	                           </td>
                            </tr>
-                           </table>                 
+                           </table>                  
                         </td>
                      </tr>            
                      <tr>
@@ -470,7 +522,7 @@
                      	<td><li> 사진 : </li></td>
                      	<td><img class="rounded-float" src="/hifive/resources/image/profile.png" width="100px" height="70px"></td>
                      </tr>
-                  </table>
+                  </table> 
                   </ul>
                   </p>
                   <br>
@@ -480,7 +532,7 @@
                	</center>
                </div>
             </div>
-            </form>
+            </form>  --%>
             <br>
             <form action="/hifive/surferenroll" method="post">
             <div id="surfer" class="card" style="width: auto;">
@@ -574,9 +626,10 @@
             <br>
             <br>
             <br>
-         </div>               
+         </div>                       
       </div>      
       <%@ include file="../../footer.jsp"%>
-   </div>   
+   </div>
+      
 </body>
 </html>
