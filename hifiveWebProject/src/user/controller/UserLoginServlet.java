@@ -63,7 +63,7 @@ public class UserLoginServlet extends HttpServlet {
 			
 			response.setContentType("text/html; charset=utf-8");
 			
-			out.print("테스트");	
+			out.append(returnValue);	
 			out.close();
 			return;
 			

@@ -66,11 +66,14 @@
 						url : "/hifive/login",
 						type : "get",
 						data : { userid : userid, userpw : userpw},
-						success : function(result){
+						success : function(data){
 							
+								if(data == '0'){
+							alert("지금은은 테스트중입니다");
+								} else {
+									alert("아이디는 성공이네요");
+								}
 								
-							alert(result);
-							
 							
 							
 						}
@@ -93,7 +96,7 @@
 	<div class="container">
 			<!-- onsubmit = "return checklogin()" -->
 		<div> 
-			<form action="/hifive/login" method="post">
+			<form action="/hifive/login" method="post" onsubmit = "return false;">
 				<div class="form-group">
     				<label for="">ID</label>
     				<input type="text" class="form-control" name="userid" id="userid" 
