@@ -1,5 +1,30 @@
 package hsp.model.service;
 
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.getConnection;
+
+import java.sql.Connection;
+
+import hsp.exception.SurferPartnerException;
+import hsp.model.dao.SurferPartnerDao;
+import hsp.model.vo.SurferPartner;
+
 public class SurferPartnerService {
+
+	public SurferPartnerService(){}
+	
+	public SurferPartner selectSurfer(String userId)  throws SurferPartnerException{
+		Connection con = getConnection();
+		SurferPartner sp = new SurferPartnerDao().selectSurfer(con, userId);
+		close(con);
+		return sp;
+	}
+	
+	public SurferPartner selectPartner(String userId)  throws SurferPartnerException{
+		Connection con = getConnection();
+		SurferPartner sp = new SurferPartnerDao().selectPartner(con, userId);
+		close(con);
+		return sp;
+	}
 
 }

@@ -33,12 +33,12 @@ public class InfoUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		User user = new User();
+/*		User user = new User();
 		user.setAddress(request.getParameter("address"));
 		user.setUser_Id(request.getParameter("userid"));
 		user.setJob(request.getParameter("job"));		
 		user.setPhone(request.getParameter("phone"));
-		user.setHobby(String.join(",", request.getParameterValues("hobby")));
+		//user.setHobby(String.join(",", request.getParameterValues("hobby")));
 		user.setContent(request.getParameter("introduction"));
 		
 	    RequestDispatcher view = null;
@@ -55,8 +55,26 @@ public class InfoUpdateServlet extends HttpServlet {
 	        view = request.getRequestDispatcher("views/user/userError.jsp");
 	        request.setAttribute("message", e.getMessage());
 	        view.forward(request, response);
-	    }	    
-
+	    }*/
+		String userId = request.getParameter("id");
+		System.out.println("수정할 아이디 : "+userId);
+		
+		User user = new User();
+		user.setAddress(request.getParameter("address"));
+		user.setUser_Id(request.getParameter("userid"));
+		user.setJob(request.getParameter("job"));		
+		user.setPhone(request.getParameter("phone"));
+		//user.setHobby(String.join(",", request.getParameterValues("hobby")));
+		user.setContent(request.getParameter("introduction"));
+		
+		try {
+			if(new UserService().updateUser(user) > 0){
+				response.setContentType("application");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	/**

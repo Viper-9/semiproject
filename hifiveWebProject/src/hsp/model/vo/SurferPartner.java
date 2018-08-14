@@ -11,10 +11,12 @@ public class SurferPartner implements java.io.Serializable {
 	private String city;
 	private String role;
 	private String process;
+	private int num;
 	
 	public SurferPartner() {}
-	
-	public SurferPartner(String user_id, Date start_date, Date end_Date, String city, String role, String process) {
+
+	public SurferPartner(String user_id, Date start_date, Date end_Date, String city, String role, String process,
+			int num) {
 		super();
 		this.user_id = user_id;
 		this.start_date = start_date;
@@ -22,6 +24,7 @@ public class SurferPartner implements java.io.Serializable {
 		this.city = city;
 		this.role = role;
 		this.process = process;
+		this.num = num;
 	}
 
 	public String getUser_id() {
@@ -72,8 +75,12 @@ public class SurferPartner implements java.io.Serializable {
 		this.process = process;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
 	}
 	
 }

@@ -1,13 +1,15 @@
 package hsp.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 
 import hsp.exception.HostException;
 import hsp.model.service.HostService;
@@ -32,26 +34,28 @@ public class HostingServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userid");
+		String userId = request.getParameter("id");		
 		
-		RequestDispatcher view = null;
 		try {
 			Host host = new HostService().selectHost(userId);
-			System.out.println(host.toString());
+
+			JSONObject job = new JSONObject();
+			job.put("num", host.getUser_num());
+			job.put("gender", host.getP_gender());			
+			job.put("check1", host.getCheck1());
+			job.put("check2", host.getCheck2());
+			job.put("content", host.getContent());
+			System.out.println("job : "+job.toJSONString());
 			
-			if(host != null){
-				view = request.getRequestDispatcher("views/user/mypage.jsp");
-				request.setAttribute("host", host);
-				view.forward(request, response);
-			} else {
-				view = request.getRequestDispatcher("views/host/hostError.jsp");
-				request.setAttribute("message", userId + "호스트 내역 조회 실패");
-				view.forward(request, response);
-			}		
+			response.setContentType("application/json; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			
+			out.append(job.toJSONString());
+			out.flush();
+			out.close();
+			
 		} catch (HostException e) {
-			view = request.getRequestDispatcher("views/host/hostError.jsp");
-			request.setAttribute("message", e.getMessage());
-			view.forward(request, response);
+			e.printStackTrace();
 		}
 	}
 

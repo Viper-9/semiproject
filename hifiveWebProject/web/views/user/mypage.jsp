@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>    
 <%   	
-	   /* String[] hchecked = new String[12];   		
-	   if(user.getHobby() == null){
+	   String[] hchecked = new String[12];   		
+/* if(user.getHobby() == null){
 		   
 	   } else {
 		   String[] hobbies = user.getHobby().split(",");
@@ -25,8 +25,8 @@
 	   } */
   
 	   
-/*  	   String[] ochecked = new String[4]; 	   
-	   if(host.getCheck1() == null){
+  	   String[] ochecked = new String[4]; 	   
+	   /*	   if(host.getCheck1() == null){
 		   
 	   } else {
 		   String[] checks = host.getCheck1().split(",");
@@ -68,74 +68,297 @@
              type : "post",
              data : {id : $("#userid").val()},            
              dataType : "json",
-             success : function(data){	 
-            	 alert(data);
+             success : function(data){	             	 
              	//이름
-                $("#name").val(data.name);    
-             	//document.getElementById("name").value = data.name;
-                
+                $("#name").val(data.name);            	
               	//주소
-                $("#sample5_address").val(data.address);  
-              	//document.getElementById("address").value = data.address;
-              	
-             	//성별
-                if(data.gender == ("F")){
+                $("#sample5_address").val(data.address); 
+              	//국적
+              	if(data.nationality == null){
+              		$("nationality").val('');
+              	}else{
+              		$("#nationality").prop("selected", true);
+              	}
+              	//성별
+                if(data.gender == "F"){
                 	$("#gender").val('여성');
                 } else {
                 	$("#gender").val('남성');
-                }   
-             	
+                }                	
              	//이메일
-                $("#email").val(data.email);
-             	
+                $("#email").val(data.email);             	
                 //직업
              	if(data.job == null){
              		$("#job").val('');
              	} else {
              		$("#job").val(data.job);
-             	}
-                
+             	}                
              	//생일
-                $("#birth").val(data.birth);
-             	
+                $("#birth").val(data.birth);             	
                 //전화번호
-                $("#phone").val(data.phone);
-                
+                $("#phone").val(data.phone);                
                 //자기소개
                 if(data.content == null){
                 	$("#introduction").val();
                 } else {
                 	$("#introduction").val(data.content);
-                }}, 
-/*                 //취미
-                String[] hchecked = new String[12];   		
+                } 
+                //취미
+                //String[] hchecked = new String[12];   		
          	    if(data.hobby == null){
-         		   $()
-         	   } else {
-         		   var[] hobbies = user.getHobby().split(",");
-         		   for(var s : hobbies){
+         		   
+         	    }else{/* class="btn btn-outline-secondary btn-sm" */
+         		   var hobbies = (data.hobby).split(",");  
+         		   for(var s in hobbies){
          		      switch(s){
-         		      case "game": hchecked[0]="active"; break;
-         		      case "reading": hchecked[1]="active"; break;
-         		      case "music": hchecked[2]="active"; break;
-         		      case "camping": hchecked[3]="active"; break;
-         		      case "climb": hchecked[4]="active"; break;
-         		      case "sport": hchecked[5]="active"; break;
-         		      case "art": hchecked[6]="active"; break;
-         		      case "shopping": hchecked[7]="active"; break;
-         		      case "bike": hchecked[8]="active"; break;
-         		      case "walk": hchecked[9]="active"; break;
-         		      case "sleep": hchecked[10]="active"; break;
-         		      case "dance": hchecked[11]="active"; break;      
+         		      case "game": $("#game").prop("active", true); break;
+         		      case "reading": $("#reading").prop("active", true); break;
+         		      case "music": $("#music").prop("active", true); break;
+         		      case "camping": $("#camping").prop("active", true); break;
+         		      case "climb": $("#climb").prop("active", true); break;
+         		      case "sport": $("#sport").prop("active", true); break;
+         		      case "art": $("#art").prop("active", true); break;
+         		      case "shopping": $(".btn btn-outline-secondary btn-sm").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "bike": $("#bike").prop("active", true); break;
+         		      case "walk": $("#walk").prop("active", true); break;
+         		      case "sleep": $("#sleep").prop("active", true); break;
+         		      case "dance": $("#dance").prop("active", true); break;      
          		      }
          		   }  
-         	   } 
-             }, */
+         	    } 
+             },
              error : function(jqXHR, textstatus, errorThrown){
                 console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
              }
-          });
+          }); // userajax
+          
+          $.ajax({
+        	  url : "/hifive/hosting",
+        	  type : "post",
+        	  data : {id : $("#userid").val()},
+        	  dataType : "json",
+        	  success : function(data){        		  
+        		  //인원
+        		  if(data.num == null){
+        			  $("#h-num").val('');
+        		  } else {        			  
+        		      $("#h-num").val(data.num);
+        		      $("#rolecheck-host").attr("checked", true);
+        		  }
+        		  //성별        		  
+        		  if(data.gender == null){
+        			  $("#genderselect").prop("selected", true);
+        		  }else if(data.gender == "F"){
+        			  $("#female").prop("selected", true);
+        		  }else if(data.gender == "M"){
+        			  $("#male").prop("selected", true);
+        		  }else {
+        			  $("#both").prop("selected", true);
+        		  }
+        		  //옵션 
+        		  if(data.check1 == null){
+        			  
+        		  }else{
+        			  var checks = data.check1.split(",");
+        			  for(var s in checks){
+        				  switch(s){        			  
+		       			  case "smoking": $("smoking").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+		   			      case "kid": $("kid").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+		   			      case "pet": $("pet").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+		   				  case "drinking": $("drinking").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+        			 	 }
+        			  }
+        		  }
+        		  //수면장소
+        		  if(data.check2 == null){
+        			  $("#roomselect").prop("selected", true);
+        		  }else if(data.check2 == 'living'){
+        			  $("#living").prop("selected", true);
+        		  }else if(data.check2 == 'single'){
+        			  $("#single").prop("selected", true);
+        		  }else if(data.check2 == 'sharing'){
+        			  $("#sharing").prop("selected", true);
+        		  }else{
+        			  $("#sofa").prop("selected", true);
+        		  }
+        		  //추가 정보
+        		  if(data.content == null){
+        			  $("#hostcontent").val('');
+        		  }else{
+        			  $("#hostcontent").val(data.content);
+        		  }
+        	  },
+        	  error : function(jqXHR, textstatus, errorThrown){
+        		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
+        	  }        	  
+          }) //hostajax
+          
+          $.ajax({
+        	  url : "/hifive/surfing",
+        	  type : "post",
+        	  data : {id : $("#userid").val()},
+        	  dataType : "json",
+        	  success : function(data){
+        		  //목적지
+        		  if(data.destination == null){
+        			  $("#s-destination").val('');
+        		  }else{
+        			  $("#s-destination").val(data.destination);
+        			  $("#rolecheck-surfer").attr("checked", true);
+        		  }
+        		  //여행시작날짜
+        		  if(data.startdate == null){
+        			  $("#s-startdate").val('');
+        		  }else{
+        			  $("#s-startdate").val(data.startdate);
+        		  }
+        		  //여행끝날짜
+        		  if(data.enddate == null){
+        			  $("#s-enddate").val('');
+        		  }else{
+        			  $("#s-enddate").val(data.enddate);
+        		  }
+        		  //인원
+        		  if(data.num == null){
+        			  $("#s-num").val('');
+        		  }else{
+        			  $("#s-num").val(data.num);
+        		  }
+        	  },
+        	  error : function(jqXHR, textstatus, errorThrown){
+        		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
+        	  }    
+          })//surfing ajax
+          
+          $.ajax({
+        	  url : "/hifive/partnering",
+        	  type : "post",
+        	  data : {id : $("#userid").val()},
+        	  dataType : "json",
+        	  success : function(data){
+        		  //목적지
+        		  if(data.destination == null){
+        			  $("#p-destination").val('');
+        		  }else{
+        			  $("#p-destination").val(data.destination);
+        			  $("#rolecheck-partner").attr("checked", true);
+        		  }
+        		  //여행시작날짜
+        		  if(data.startdate == null){
+        			  $("#p-startdate").val('');
+        		  }else{
+        			  $("#p-startdate").val(data.startdate);
+        		  }
+        		  //여행끝날짜
+        		  if(data.enddate == null){
+        			  $("#p-enddate").val('');
+        		  }else{
+        			  $("#p-enddate").val(data.enddate);
+        		  }
+        		  //인원
+        		  if(data.num == null){
+        			  $("#p-num").val('');
+        		  }else{
+        			  $("#p-num").val(data.num);
+        		  }
+        	  },
+        	  error : function(jqXHR, textstatus, errorThrown){
+        		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
+        	  }    
+          })//partner ajax
+          
        }); //document.ready
+       
+      
+		function deleteUser(){
+			var result = confirm("정말 탈퇴하시겠습니까?");
+			
+			if(result){
+				$.ajax({
+	  				url : "/hifive/userdelete",
+	  				type : "post",
+	  				data : {id : $("#userid").val()},
+	  				success : function(data){
+	  					alert("탈퇴되었습니다.")
+	  				},
+	  				error : function(jqXHR, textstatus, errorThrown){
+	          		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
+	          	  }  
+	  			})
+			}else{
+				
+			}  			
+		} //deleteUser
+  	
+  		function userUpdate(){
+			$.ajax({
+				url : "/hifive/infoupdate",
+				type : "post",
+				data : {id : $("#userid").val()},
+				success : function(data){
+	             	//이름
+	                $("#name").val(data.name);            	
+	              	//주소
+	                $("#sample5_address").val(data.address); 
+	              	//국적
+	              	if(data.nationality == null){
+	              		$("nationality").val('');
+	              	}else{
+	              		$("#nationality").prop("selected", true);
+	              	}
+	              	//성별
+	                if(data.gender == "F"){
+	                	$("#gender").val('여성');
+	                } else {
+	                	$("#gender").val('남성');
+	                }                	
+	             	//이메일
+	                $("#email").val(data.email);             	
+	                //직업
+	             	if(data.job == null){
+	             		$("#job").val('');
+	             	} else {
+	             		$("#job").val(data.job);
+	             	}                
+	             	//생일
+	                $("#birth").val(data.birth);             	
+	                //전화번호
+	                $("#phone").val(data.phone);                
+	                //자기소개
+	                if(data.content == null){
+	                	$("#introduction").val();
+	                } else {
+	                	$("#introduction").val(data.content);
+	                } 
+	                //취미
+	                //String[] hchecked = new String[12];   		
+	         	    if(data.hobby == null){
+	         		   
+	         	    }else{/* class="btn btn-outline-secondary btn-sm" */
+	         		   var hobbies = (data.hobby).split(",");  
+	         		   for(var s in hobbies){
+	         		      switch(s){
+	         		      case "game": $("#game").prop("active", true); break;
+	         		      case "reading": $("#reading").prop("active", true); break;
+	         		      case "music": $("#music").prop("active", true); break;
+	         		      case "camping": $("#camping").prop("active", true); break;
+	         		      case "climb": $("#climb").prop("active", true); break;
+	         		      case "sport": $("#sport").prop("active", true); break;
+	         		      case "art": $("#art").prop("active", true); break;
+	         		      case "shopping": $(".btn btn-outline-secondary btn-sm").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+	         		      case "bike": $("#bike").prop("active", true); break;
+	         		      case "walk": $("#walk").prop("active", true); break;
+	         		      case "sleep": $("#sleep").prop("active", true); break;
+	         		      case "dance": $("#dance").prop("active", true); break;      
+	         		      }
+	         		   }  
+	         	    } 
+	             },
+				error : function(jqXHR, textstatus, errorThrown){
+	        		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
+	        	  }  
+			})
+		}       
     </script>     
 </head>
 <body>
@@ -197,9 +420,9 @@
                      <br>
                      <br>
                      <select class="custom-select form-control-sm" name="countries" style="width:200px;">
-                        <option>국적 선택</option>              
+                        <option id="nationality">국적 선택</option>              
                         <%
-                             java.util.Locale locale = null;                
+                            java.util.Locale locale = null;                
                              String[] countries = java.util.Locale.getISOCountries();                
                              for(String country : countries) {            
                                  locale = new java.util.Locale("ko", country);                                   
@@ -221,8 +444,10 @@
                      <br>
                      <table>
                         <tr>
-                           <th>                              
-                              <input type="button" class="btn btn-danger" style="width:200px;" value="회원 탈퇴">                             
+                           <th>  
+                           		<form action="/hifive/userdelete" method="post">                           
+                              		<input type="button" class="btn btn-danger" style="width:200px;" value="회원 탈퇴" onclick="deleteUser();">    
+								</form>                         
                           </th>
                         </tr>
                      </table>
@@ -240,9 +465,9 @@
                         <th>Partner</th>
                      </tr>
                      <tr>
-                        <td align="center"><input type="checkbox" class="form-check-input" name="role" value="host"></td>
-                        <td align="center"><input type="checkbox" class="form-check-input" name="role" value="surfer"></td>
-                        <td align="center"><input type="checkbox" class="form-check-input" name="role" value="partner"></td>
+                        <td align="center"><input type="checkbox" id="rolecheck-host" class="rolecheck" name="role" value="host"></td>                       
+                        <td align="center"><input type="checkbox" id="rolecheck-surfer" class="rolecheck" name="role" value="surfer"></td>
+                        <td align="center"><input type="checkbox" id="rolecheck-partner" class="rolecheck" name="role" value="partner"></td>
                      </tr>
                   </table>
                   <br>
@@ -288,7 +513,7 @@
                               </div>
                         </div>
                      </li>                        
-                   <%--   <li>
+                     <li>
                         <div class="form-group row">
                            <label class="col-sm-2 col-form-label">Hobby</label>
                         </div>                                  
@@ -296,29 +521,29 @@
                            <tr>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[0] %>">
-	                                 <input type="checkbox" id="hobby" name="hobby" value="game"> 게임
+	                                 <label class="btn btn-outline-secondary btn-sm" id="game">
+	                                 <input type="checkbox" name="hobby" value="game"> 게임
 	                                 </label>
 	                              </div>
 	                           </td>
 	                           <td>
 	                           <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[1] %>"> 
-	                                 <input type="checkbox" id="hobby" name="hobby" value="reading"> 독서
+	                                 <label class="btn btn-outline-secondary btn-sm" id="reading">  
+	                                 <input type="checkbox" name="hobby" value="reading"> 독서
 	                                 </label>
 	                           </div>	                           
 	                           </td>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[2] %>">
-	                                 <input type="checkbox" id="hobby" name="hobby" value="music"> 음악감상
+	                                 <label class="btn btn-outline-secondary btn-sm" id="music">
+	                                 <input type="checkbox" name="hobby" value="music"> 음악감상
 	                                 </label>
 	                              </div>
 	                           </td>
 	                           <td>
 	                           <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[3] %>">
-	                                 <input type="checkbox" id="hobby" name="hobby" value="camping">  캠핑
+	                                 <label class="btn btn-outline-secondary btn-sm" id="camping">
+	                                 <input type="checkbox" name="hobby" value="camping">  캠핑
 	                                 </label>
 	                              </div>	                           
 	                           </td>
@@ -326,29 +551,29 @@
                            <tr>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[4] %>"> 
-                                 <input type="checkbox" id="hobby" name="hobby" value="climb"> 등산
+                                 <label class="btn btn-outline-secondary btn-sm" id="climb"> 
+                                 <input type="checkbox" name="hobby" value="climb"> 등산
                                  </label>
                               </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[5] %>">
-                                 <input type="checkbox" id="hobby" name="hobby" value="sport"> 운동
+                                 <label class="btn btn-outline-secondary btn-sm" id="sport">
+                                 <input type="checkbox" name="hobby" value="sport"> 운동
                                  </label>
                               </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[6] %>"> 
-                                 <input type="checkbox" id="hobby" name="hobby" value="art"> 그림그리기
+                                 <label class="btn btn-outline-secondary btn-sm" id="art"> 
+                                 <input type="checkbox" name="hobby" value="art"> 그림그리기
                                  </label>
                               </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[7] %>">
-                                 <input type="checkbox" id="hobby" name="hobby" value="shopping"> 쇼핑
+                                 <label class="btn btn-outline-secondary btn-sm" id="shopping">
+                                 <input type="checkbox" name="hobby" value="shopping"> 쇼핑
                                  </label>
                               </div>                           
                            </td>
@@ -356,35 +581,35 @@
                            <tr>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[8] %>">
-                                 <input type="checkbox" id="hobby" name="hobby" value="bike"> 자전거
+                                 <label class="btn btn-outline-secondary btn-sm" id="bike">
+                                 <input type="checkbox" name="hobby" value="bike"> 자전거
                                  </label>
                               </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[9] %>">
+                                 <label class="btn btn-outline-secondary btn-sm" id="walk">
                                  <input type="checkbox" name="hobby" value="walk"> 산책
                                  </label>
                               </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[10] %>"> 
+                                 <label class="btn btn-outline-secondary btn-sm" id="sleep"> 
                                  <input type="checkbox" name="hobby" value="sleep"> 잠자기
                                  </label>
                               </div>                           
                            </td>
                            <td>
                            <div class="btn-group-toggle" data-toggle="buttons">
-                                 <label class="btn btn-outline-secondary btn-sm <%= hchecked[11] %>"> 
+                                 <label class="btn btn-outline-secondary btn-sm" id="dance"> 
                                  <input type="checkbox" name="hobby" value="dance"> 춤
                                  </label>
                               </div>                           
                            </td>
                            </tr>
                         </table>                                          
-                     </li> --%>
+                     </li>
                   </table>
                   </ul>
                </div>
@@ -405,14 +630,14 @@
                		<textarea class="form-control" id="introduction" name="introduction" rows="5" cols="90" placeholder="자기소개를 작성해주세요"></textarea>               	
                   <br>
                   <center>
-                  <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;&nbsp;
+                  <button class="btn btn-primary-sm" style="width:100px;" onclick="userUpdate();">수정</button>&nbsp;&nbsp;&nbsp;
                	 <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
                	</center>
                </div>
             </div>
            </form>
             <br>
- <%--             <form action="/hifive/hosting" method="post">
+            <form action="/hifive/hosting" method="post">
             <div id="myhome" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">My Home</h6>
                <div class="card-body">
@@ -421,58 +646,48 @@
                   <table>
                      <tr>
                         <td><li>최대 가능 인원 : </li></td>
-                        <td><input type="number" class="form-control" name="hostnum" min="1" step="1" style="width:60px;" value="<%= host.getUser_num() %>"></td>
+                        <td><input type="number" class="form-control" id="h-num" name="h-num" min="1" step="1" style="width:60px;"></td>
                      </tr>
                      <tr>
                         <td><li>선호하는 성별 : </li></td>
                          <td>
-                           <select class="custom-select" name="preferredgender" style="width:150px;">
-                           <!-- <option selected>선택</option> -->
-                           <% if(host.getP_gender().equals("FM")){ %>
-	                           <option value="male">남성</option>
-	                           <option value="female">여성</option>
-	                           <option value="both" selected>상관없음</option>
-	                       <% }else if(host.getP_gender().equals("F")){ %>
-	                       	   <option value="male">남성</option>
-	                           <option value="female" selected>여성</option>
-	                           <option value="both" >상관없음</option>
-	                       <% }else{ %>
-	                       	   <option value="male" selected>남성</option>
-	                           <option value="female">여성</option>
-	                           <option value="both">상관없음</option>
-	                       <% } %>
+                           <select class="custom-select" id="pgender" name="preferredgender" style="width:150px;">
+	                           <option id="genderselect" value="">선택</option>  
+	                           <option value="female" id="female">여성</option>
+	                           <option value="male" id="male">남성</option>
+	                           <option value="both" id="both">상관없음</option>
                            </select>
                         </td> 
                      </tr>
                      <tr>
-                        <td><li>기타가능여부 : </li></td>
+                       <td><li>기타가능여부 : </li></td>
                         <td>
-                        	<table>
+                        <table>
                         	<tr>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%= ochecked[0] %>">
+	                                 <label class="btn btn-outline-secondary btn-sm" id="smoking">
 	                                 <input type="checkbox" name="hostcheck" value="smoking"> 흡연
 	                                 </label>
 	                              </div>
 	                           </td>
 	                           <td>
 	                           <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%= ochecked[1] %>"> 
+	                                 <label class="btn btn-outline-secondary btn-sm" id="kid"> 
 	                                 <input type="checkbox" name="hostcheck" value="kid"> 아이동반
 	                                 </label>
 	                           </div>	                           
 	                           </td>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%= ochecked[2] %>">
+	                                 <label class="btn btn-outline-secondary btn-sm" id="pet">
 	                                 <input type="checkbox" name="hostcheck" value="pet"> 애완동물
 	                                 </label>
 	                              </div>
 	                           </td>
 	                           <td>
 	                           <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm <%= ochecked[3] %>">
+	                                 <label class="btn btn-outline-secondary btn-sm" id="drinking">
 	                                 <input type="checkbox" name="hostcheck" value="drinking"> 음주
 	                                 </label>
 	                              </div>	                           
@@ -485,38 +700,17 @@
                         <td><li>수면 장소 : </li></td>
                         <td>
                            <select class="custom-select" name="sleeping" style="width:150px;">
-                                <!-- <option value="">선택</option> -->
-							<% if(host.getCheck2().equals("living")){ %>
-                            	<option value="living" selected>거실</option>
-	                            <option value="single">단독 방</option>
-	                            <option value="sharing">공용 방</option>
-	                            <option value="sofa">소파</option>
-                            <% }else if(host.getCheck2().equals("single")){ %>
-                           	    <option value="living">거실</option>
-                                <option value="single" selected>단독 방</option>
-                                <option value="sharing">공용 방</option>
-                                <option value="sofa">소파</option>
-                            <% }else if(host.getCheck2().equals("sharing")){ %>
-                            	<option value="living">거실</option>
-                                <option value="single">단독 방</option>
-                                <option value="sharing" selected>공용 방</option>
-                                <option value="sofa">소파</option>
-                             <% }else{ %>
-                             	<option value="living">거실</option>
-                                <option value="single">단독 방</option>
-                                <option value="sharing">공용 방</option>
-                                <option value="sofa" selected>소파</option>
-                             <% } %>
+                                <option value="" id="roomselect">선택</option>
+                            	<option value="living" id="living">거실</option>
+	                            <option value="single" id="single">단독 방</option>
+	                            <option value="sharing" id="sharing">공용 방</option>
+	                            <option value="sofa" id="sofa">소파</option>
                            </select>                                 
                         </td>
                      </tr>               
                      <tr>
                         <td><li>추가 정보 : </li></td>
-                        <% if(host.getContent() == null){ %>
-                        	<td><textarea class="form-control" name="etc" rows="3" cols="60"></textarea></td>                    
-                        <% }else{ %>
-                        	<td><textarea class="form-control" name="etc" rows="3" cols="60"><%= host.getContent() %></textarea></td>
-                        <% } %>
+                        	<td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60"></textarea></td>   
                      </tr>
                      <tr>
                      	<td><li> 사진 : </li></td>
@@ -532,7 +726,7 @@
                	</center>
                </div>
             </div>
-            </form>  --%>
+            </form>
             <br>
             <form action="/hifive/surferenroll" method="post">
             <div id="surfer" class="card" style="width: auto;">
@@ -543,20 +737,20 @@
                   <table>
                      <tr>
                         <td><li>목적지 : </li></td>
-                        <td><textarea class="form-control" rows="1" cols="25"></textarea>
+                        <td><textarea class="form-control" id="s-destination" rows="1" cols="25"></textarea>
                      </tr>                     
                      <tr>
                         
                         <td><li><label>여행기간 : </label></li></td>
                         <td>
-                           <input type="date" class="form-control" name="surferstartday">
-                           <input type="date" class="form-control" name="surferlastday">
+                           <input type="date" id="s-startdate" class="form-control" name="s-startdate">
+                           <input type="date" id="s-enddate" class="form-control" name="s-enddate">
                         </td>
                        
                      </tr>
                      <tr>
                         <td><li>인원 : </li></td>
-                        <td><input type="number" class="form-control" name="surfernum" min="1" step="1" style="width:60px;"></td>
+                        <td><input type="number" id="s-num" class="form-control" name="s-num" min="1" step="1" style="width:60px;"></td>
                      </tr>
                   </table>
                   </ul>                  
@@ -579,18 +773,18 @@
                   <table>
                      <tr>
                         <td><li>목적지 : </li></td>
-                        <td><textarea class="form-control" rows="1" cols="25"></textarea>
+                        <td><textarea id="p-destination" class="form-control" rows="1" cols="25"></textarea>
                      </tr>                     
                      <tr>
                         <td><li>여행기간 : </li></td>
                         <td>
-                           <input type="date" class="form-control" name="partnerstartday">
-                           <input type="date" class="form-control" name="partnerlastday">
+                           <input type="date" id="p-startdate" class="form-control" name="partnerstartday">
+                           <input type="date" id="p-enddate" class="form-control" name="partnerlastday">
                         </td>
                      </tr>
                      <tr>
                         <td><li>인원 : </li></td>
-                        <td><input type="number" class="form-control" name="partnernum" min="1" step="1" style="width:60px;"></td>
+                        <td><input type="number" id="p-num" class="form-control" name="partnernum" min="1" step="1" style="width:60px;"></td>
                      </tr>
                   </table>
                   </ul>               

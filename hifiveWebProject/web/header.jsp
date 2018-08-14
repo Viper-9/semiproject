@@ -53,8 +53,7 @@ header {
 			type : "post",
 			data : {id : userId},
 			dataType : "json",
-			success : function(data){					
-				console.log(data);				
+			success : function(data){							
 				location.href = "/hifive/views/user/mypage.jsp";
 			}			
 		}); //ajax

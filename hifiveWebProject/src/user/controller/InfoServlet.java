@@ -48,6 +48,7 @@ public class InfoServlet extends HttpServlet {
 			job.put("gender", user.getGender());
 			job.put("email", user.getEmail());
 			job.put("birth", user.getBirth().toString());
+			job.put("nationality", user.getNationality());
 			job.put("job", user.getJob());
 			job.put("hobby", user.getHobby());
 			job.put("phone", user.getPhone());
