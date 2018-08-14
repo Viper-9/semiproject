@@ -203,18 +203,17 @@ public class UserDao {
 	}
 	
 	// 아이디 찾기
-	public String searchId(Connection con, String userEmail, String userPhone) throws UserException{
+	public String searchId(Connection con, String userEmail) throws UserException{
 		String userId = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String query = "select * from users "
-				+ "where email = ? and phone = ?";
+				+ "where email = ? ";
 		
 		try{
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, userEmail);
-			pstmt.setString(2, userPhone);
 			
 			rset = pstmt.executeQuery();
 			

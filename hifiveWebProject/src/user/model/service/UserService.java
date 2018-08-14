@@ -67,9 +67,9 @@ public class UserService {
 		return 0;
 	}
 	
-	public String searchId(String userEmail, String userPhone) throws UserException {
+	public String searchId(String userEmail) throws UserException {
 		Connection con = getConnection();
-		String userId = new UserDao().searchId(con, userEmail, userPhone);
+		String userId = new UserDao().searchId(con, userEmail);
 		close(con);
 		return userId;
 	}

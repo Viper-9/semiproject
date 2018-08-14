@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<meta charset="UTF-8">
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 	<link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
@@ -25,6 +25,31 @@
 		}
 		
 	</style>
+	<script type="text/javascript" src="/second/resources/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript">
+	
+	
+	function searchid(){
+		
+		var receiveremail = $('#searchuseremail').val();
+		
+		if($('#searchuseremail').val() == ''){
+			
+			alert("이메일을 입력하세요");
+			return false;
+		} 
+		
+		return true;
+		
+		
+			
+		
+		
+	}
+	
+	</script>
+	
+	
 	<title>search</title>
 </head>
 
@@ -47,15 +72,15 @@
   			<div class="tab-pane fade show active" id="pills-id" role="tabpanel" aria-labelledby="pills-id-tab">아이디를 잊어버리셨나요? <br> 가입할 때 입력한 이메일로 아이디를  <br>보내드립니다. 				
   				<div>
   					<br>
-					<form action="" method="post">
+					<form action="/hifive/searchid" method="post">
 						<div class="form-group">
     						<label for="">Email</label>
-    						<input type="email" class="form-control" id="searchuseremail" placeholder="Email">
+    						<input type="email" class="form-control" id="searchuseremail" name = "searchuseremail" placeholder="Email">
     			
   						</div>
   						<br>
   						
-  						<button type="submit" class="btn btn-primary btn-lg" id ="idsearch">아이디 찾기</button>
+  						<button type="submit" class="btn btn-primary btn-lg" id ="idsearch" >아이디 찾기</button>
 					</form>
 				</div>  			 			
   			</div>
