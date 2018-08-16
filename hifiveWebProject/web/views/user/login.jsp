@@ -72,6 +72,7 @@
 							alert("지금은은 테스트중입니다");
 								} else {
 									alert("아이디는 성공이네요");
+									location.href = "/hifive/main.jsp";
 								}
 								
 							
