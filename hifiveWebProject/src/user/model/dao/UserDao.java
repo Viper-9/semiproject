@@ -298,7 +298,7 @@ public class UserDao {
 			pstmt.setString(2, userid);
 						
 			result = pstmt.executeUpdate();
-			System.out.println("dao " + userid);
+
 			if(result <= 0)
 				throw new UserException("안전유의사항 체크 업데이트 실패!");
 		} catch (Exception e) {
