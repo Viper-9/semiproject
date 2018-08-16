@@ -10,27 +10,27 @@ import request.model.vo.Matching;
 
 public class MatchingService {
 	public MatchingService(){}
-
-	public ArrayList<Matching> hostMatching(String userid) {
+	
+	public Matching hostMatching(String userid) {
 		Connection con = getConnection();
-		ArrayList<Matching> list = new MatchingDao().hostMatching(con, userid);
+		Matching matching = new MatchingDao().hostMatching(con, userid);
 		close(con);
-		return list;
+		return matching;
 	}
 
-	public ArrayList<Matching> surferMatching(String userid) {
+	public Matching surferMatching(String userid) {
 		Connection con = getConnection();
-		ArrayList<Matching> list = new MatchingDao().surferMatching(con, userid);
+		Matching matching = new MatchingDao().surferMatching(con, userid);
 		close(con);
-		return list;
+		return matching;
 
 	}
 
-	public ArrayList<Matching> partnerMatching(String userid) {
+	public Matching partnerMatching(String userid) {
 		Connection con = getConnection();
-		ArrayList<Matching> list = new MatchingDao().partnerMatching(con, userid);
+		Matching matching = new MatchingDao().partnerMatching(con, userid);
 		close(con);
-		return list;
+		return matching;
 
 	}
 }
