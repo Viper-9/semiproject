@@ -107,8 +107,9 @@
                 //String[] hchecked = new String[12];   		
          	    if(data.hobby == null){
          		   
-         	    }else{/* class="btn btn-outline-secondary btn-sm" */
-         		   var hobbies = (data.hobby).split(",");  
+         	    }else{
+         		   var hobbies = (data.hobby).split(","); 
+         		   console.log(hobbies);
          		   for(var s in hobbies){
          		      switch(s){
          		      case "game": $("#game").prop("active", true); break;
@@ -118,7 +119,11 @@
          		      case "climb": $("#climb").prop("active", true); break;
          		      case "sport": $("#sport").prop("active", true); break;
          		      case "art": $("#art").prop("active", true); break;
-         		      case "shopping": $(".btn btn-outline-secondary btn-sm").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "shopping":
+         		    	  $("#shopping").attr("class", "btn btn-outline-secondary btn-sm active");
+         		    	 /*  $("#shopping").removeClass("btn btn-outline-secondary btn-sm");
+         		    	  $("#shopping").addClass("btn btn-outline-secondary btn-sm active"); */
+         		    	  break;
          		      case "bike": $("#bike").prop("active", true); break;
          		      case "walk": $("#walk").prop("active", true); break;
          		      case "sleep": $("#sleep").prop("active", true); break;

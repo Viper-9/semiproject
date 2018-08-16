@@ -32,22 +32,8 @@ public class UserDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("id");
-		System.out.println("탈퇴할 아이디 : "+userId);
 		
-		try {
-			if(new UserService().deleteUser(userId) > 0){
-				PrintWriter out = response.getWriter();
-				
-				//out.append(userId);
-				out.flush();
-				out.close();
-			}
-		} catch (UserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		/*try{
+		try{
 			if(new UserService().deleteUser(userId) > 0){
 				response.sendRedirect("/hifive/logout");
 			}else{
@@ -59,7 +45,7 @@ public class UserDeleteServlet extends HttpServlet {
 			RequestDispatcher errorPage = request.getRequestDispatcher("/views/member/memberError.jsp");
 			request.setAttribute("message", e.getMessage());
 			errorPage.forward(request, response);			
-		}*/	
+		}	
 	}
 
 
