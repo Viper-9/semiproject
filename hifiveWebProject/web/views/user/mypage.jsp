@@ -69,7 +69,40 @@
       #content1{width:750;margin:10px 0 -3px 5px;float:left;padding:5px 0 0 5px;}   
    </style>   
    <script type="text/javascript">
-      
+   $(function(){
+		var userid = $("#uid").val();		
+
+		$.ajax({	
+			url : "/hifive/reviewlist",
+			type : "get",
+			data : { uid : userid },
+			dataType : "json",			
+			success : function(data){
+				//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
+				var jsonStr = JSON.stringify(data);
+							
+				//문자열을 json 객체로 바꿈
+				var json = JSON.parse(jsonStr);
+				
+				var values = "";
+				if(json.list.length == 0){
+					values += "등록된 리뷰가 없습니다.";
+					$("#review").html($("#review").html()+values);	
+				} else{					
+					for(var i in json.list){
+						values += "아이디 : " + json.list[i].user_id 
+						+"<br>날짜 : " + json.list[i].review_date
+						+"<br>내용 : " + json.list[i].content +"<br><br>";
+					}										
+					$("#review").html($("#review").html()+values);			
+				}
+			}, // success
+			error : function(jqXHR, textstatus, errorThrown){
+				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+			} // error
+		});
+   });
+
    </script>   
 </head>
 
@@ -146,7 +179,8 @@
                   <div id="request" name="request" align="center">
                      <table align="center" border="0">
                         <tr>
-                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER" ></th>
+                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER"
+                           		onclick="location.href='/hifive/favoritelist?userid=<%= user.getUser_Id() %>'" ></th>
                         </tr>
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"></th>
@@ -514,13 +548,16 @@
                </div>
             </div> -->
             <br>
+            
+            <%-- ajax로 리뷰. 최근 리뷰가 맨위로 가게 내림차순 --%>
             <div id="reference" class="card" style="width: auto;">
+            <input type="hidden" id="uid" value="<%= user.getUser_Id() %>">
                <h6 class="card-header" id="card_info">References</h6>
-               <div class="card-body">
-                  <p class="card-text">With supporting text below as a natural
-                     lead-in to additional content.</p>
+               <div class="card-body" id="review">
+                  
                </div>
             </div>
+            
             <br>
             <br>
             <br>

@@ -1,4 +1,4 @@
-package request.controller;
+package favorite.controller;
 
 import java.io.IOException;
 
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import request.exception.RequestException;
-import request.model.service.RequestService;
+import favorite.exception.FavoriteException;
+import favorite.model.service.FavoriteService;
 
 /**
- * Servlet implementation class RequestDeleteServlet
+ * Servlet implementation class FavoriteInsertServlet
  */
-@WebServlet("/requestdelete")
-public class RequestDeleteServlet extends HttpServlet {
+@WebServlet("/favoriteinsert")
+public class FavoriteInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RequestDeleteServlet() {
+    public FavoriteInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +31,21 @@ public class RequestDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 내가 한 요청 취소할때 	
-		int request_no = Integer.parseInt(request.getParameter("request_no"));
-
-		RequestDispatcher view = null;
+		String userId = request.getParameter("userid");
+		String f_User_Id = "user02";
+		
 		try{
-			if(new RequestService().deleteRequest(request_no) > 0){
-				response.sendRedirect("/hifive/main.jsp");
+			if(new FavoriteService().insertFavorite(userId, f_User_Id) > 0){
+				response.sendRedirect("/hifive/favoritelist?userid="+userId);
 			} else{
-				view = request.getRequestDispatcher("views/request/requestError.jsp");
-				request.setAttribute("message", "요청 취소 에러");
-				view.forward(request, response);			}
-			
-		} catch(RequestException e){
-			view = request.getRequestDispatcher("views/request/requestError.jsp");
+				RequestDispatcher view = request.getRequestDispatcher("views/favorite/favoriteError.jsp");
+				request.setAttribute("message", "favorite 등록 실패");
+				view.forward(request, response);	
+			}
+		} catch(FavoriteException e){
+			RequestDispatcher view = request.getRequestDispatcher("views/favorite/favoriteError.jsp");
 			request.setAttribute("message", e.getMessage());
-			view.forward(request, response);
+			view.forward(request, response);	
 		}
 	}
 

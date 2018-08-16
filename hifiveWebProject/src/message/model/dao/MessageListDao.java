@@ -133,4 +133,58 @@ public class MessageListDao {
 		return list_no;
 	}
 
+	public String selectUserName(Connection con, String user1, String user2) {
+		String userName = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select u.user_name "
+				+ "from message_list m "
+				+ "join users u on(m.user2 = u.user_id) "
+				+ "where user1 =? and user2 = ?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user1);
+			pstmt.setString(2, user2);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+				userName = rset.getString(1);
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally{
+			close(rset);
+			close(pstmt);
+		}
+		return userName;
+	}
+
+	public String selectUserName2(Connection con, String user2, String user1) {
+		String userName = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select u.user_name "
+				+ "from message_list m "
+				+ "join users u on(m.user1 = u.user_id) "
+				+ "where user2 =? and user1 = ?";
+
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user2);
+			pstmt.setString(2, user1);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+				userName = rset.getString(1);
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally{
+			close(rset);
+			close(pstmt);
+		}
+		return userName;
+	}
+
 }

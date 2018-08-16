@@ -36,7 +36,7 @@ public class UserEnrollServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String userId = request.getParameter("joinuserid"); 
-		String userPwd = request.getParameter("userpwd1");
+		String userPwd = request.getParameter("userpwd");
 		String userName = request.getParameter("username");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");

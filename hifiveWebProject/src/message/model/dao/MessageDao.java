@@ -39,7 +39,7 @@ public class MessageDao {
 		return result;
 	}
 
-	public ArrayList<Message> selectMyMessage(Connection con, int list_no) throws MessageException {
+	public ArrayList<Message> selectMyMessage(Connection con, int list_no) {
 		ArrayList<Message> list = new ArrayList<Message>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -51,7 +51,7 @@ public class MessageDao {
 			pstmt.setInt(1, list_no);
 			
 			rset = pstmt.executeQuery();
-			
+
 			while(rset.next()){
 				Message msg = new Message();
 				msg.setMessage_no(rset.getInt("message_no"));
@@ -62,7 +62,7 @@ public class MessageDao {
 				list.add(msg);
 			}
 		} catch(Exception e){
-			e.printStackTrace();
+			
 		} finally{
 			close(rset);
 			close(pstmt);

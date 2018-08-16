@@ -52,7 +52,8 @@ public class MessageRequestDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from message_request where user_id = ?";
+		String query = "select * from message_request where user_id = ? and accept='A'";
+
 		try{
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, user_id);
@@ -87,7 +88,7 @@ public class MessageRequestDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from message_request where sender = ?";
+		String query = "select * from message_request where sender = ? and accept='A'";
 		try{
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, user_id);
@@ -187,7 +188,57 @@ public class MessageRequestDao {
 		}
 		return result;
 	}
-
-
+	
+	// 나에게 온 대화신청 목록에서 이름 출력
+	public String selectSenderName(Connection con, String user_id, String sender) {
+		String userName = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select u.user_name "
+				+ "from message_request m "
+				+ "join users u on (m.sender = u.user_id) "
+				+ "where m.user_id=? and m.sender=?";	
+			try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user_id);
+			pstmt.setString(2, sender);
+			
+			rset = pstmt.executeQuery();
+				if(rset.next())
+				userName = rset.getString(1);	
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);	
+		}	
+		return userName;
+	}
+	// 내가 신청한 대화 목록에서 이름 출력
+	public String selectUserIdName(Connection con, String sender, String user_id) {
+		String userName = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select u.user_name "
+				+ "from message_request m "
+				+ "join users u on (m.user_id = u.user_id) "
+				+ "where m.sender=? and m.user_id=?";	
+	
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, sender);
+			pstmt.setString(2, user_id);
+			
+			rset = pstmt.executeQuery();
+				if(rset.next())
+				userName = rset.getString(1);	
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);	
+		}	
+		return userName;
+	}
 	
 }

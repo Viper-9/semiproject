@@ -1,26 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
-<link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
-<title>join</title>
 
+<meta charset="UTF-8">
+<meta name="viewport"
+   content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>메시지 레이아웃</title>
+
+<link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
+<script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
+<script
+   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script
+   src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <style type="text/css">
-	.container{
-		margin: 0 auto;
-	}
-	
-	header, footer {
-   		margin: 5px;
-   		padding: 10px;
-   		width: 1000px;
-	}
-   	 				
+/* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
+
+/* 여기 이새끼가 전체 우리 컨테이너 역할 */
+.container {
+   margin: 0 auto;
+   padding: 10px;
+}
+
+/* 이게  우리가 이제 만들어야할 공간 */
+#main {
+   width: 1000px;
+   overflow: hidden;
+}
+/* 이게 왼쪽 메뉴부분!! float:left 가  다음 창을 붙여준다 */
+#menu {
+   width: 250px;
+   margin: 5px 0 0 0;
+   float: left;
+}
+/* 이게 오른쪽 본문 들어가는 부뷴 */
+#content1 {
+   width: 740px;
+   margin: 5px 0 0 0;
+   float: left;
+   padding: 0 0 0 10px;
+   text-align: center;
+}
+
+#content2 {
+   width: 740px;
+   margin: 5px 0 0 0;
+   float: left;
+   padding: 0 0 0 10px;
+   text-align: center;
+}
+
+.card-body {
+   text-align: center;
+}
+
+.rounded-circle {
+   width: 50px;
+   height: 50px;
+}
 </style>
-<script type="text/javascript" src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
+
 <script type="text/javascript">
 	$(function(){
 		var userid = $("#uid").val();
@@ -37,23 +78,27 @@
 							
 				//문자열을 json 객체로 바꿈
 				var json = JSON.parse(jsonStr);
-				
+
 				var values = "";
 				for(var i in json.list){
-					values += "<tr><td>" + json.list[i].sender + "</td><td>" 
-					+ json.list[i].accept + "</td><td><a href='/hifive/mraccept?sender=" 
-					+ json.list[i].sender + "&uid=" + userid + "'>" 
-					+ "수락</a></td><td><a href='/hifive/mrreject?sender="
-					+ json.list[i].sender + "&uid=" + userid  +"'>" +  "거절</a></td></tr>";
+					values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
+					+ json.list[i].userName + "</td><td><a href='/hifive/mraccept?sender=" 
+					+ json.list[i].sender + "&uid=" + userid + "'>" + "수락</a> / "
+					+ "<a href='/hifive/mrreject?sender=" + json.list[i].sender + "&uid=" + userid  +"'>" +  "거절</a></td></tr>";
 				}										
-				$("#mrlist").html($("#mrlist").html()+values);			
+				$("#mrlist").html($("#mrlist").html()+values);	
+				
+				
+				/* <a href=''><img
+                src='/hifive/resources/image/sample10.jpg' alt=''
+                class='rounded-circle' title='프로필로 이동'></a> */
 				
 			}, // success
 			error : function(jqXHR, textstatus, errorThrown){
 				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
 			} // error
 		});
-
+	
 		// 내가 한 대화신청 목록
 		$.ajax({	
 			url : "/hifive/mrlist_m",
@@ -69,11 +114,9 @@
 				
 				var values = "";
 				for(var i in json.list){
-					values += "<tr><td>" + json.list[i].user_id + "</td><td>" 
-					+ json.list[i].accept + "</td><td><a href='/hifive/mrequestc?sender="+ userid + "&userid=" + json.list[i].user_id 
+					values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
+					+  json.list[i].userName + "</td><td><a href='/hifive/mrequestc?sender="+ userid + "&userid=" + json.list[i].user_id 
 					+ "'>"+ "취소" +"</a></td></tr>";
-					/* values += "<tr><td>" + json.list[i].user_id + "</td><td>" 
-					+ json.list[i].accept + "</td></tr>"; */
 				}										
 				$("#mrlist_m").html($("#mrlist_m").html()+values);			
 				
@@ -83,7 +126,7 @@
 			} // error
 		});
 		
-
+	
 		// 나의 대화 목록
 		$.ajax({			
 			url : "/hifive/mlist",
@@ -97,21 +140,21 @@
 				var json = JSON.parse(jsonStr);
 				
 				var values = "";
-				for(var i in json.list){
-					
-					if(json.list[i].user1 != userid){
-						values += "<tr><td>" + json.list[i].list_no
-						+ "</td><td><a href='/hifive/mpage?listno=" + json.list[i].list_no 
-						+ "&uid=" + userid  + "'>" + json.list[i].user1
-						+ "</a></td><td>" + json.list[i].user2
-						+ "</td></tr>";
-					} else{
-						values += "<tr><td>" + json.list[i].list_no
-						+ "</td><td>" + json.list[i].user1
+				for(var i in json.list){					
+					if(json.list[i].user1 == userid){
+						values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
+						+ json.list[i].userName
 						+ "</td><td><a href='/hifive/mpage?listno=" + json.list[i].list_no 
 						+ "&uid=" + userid  + "'>" + json.list[i].user2
 						+ "</a></td></tr>";
+					} else{
+						values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
+						+ json.list[i].userName
+						+ "</td><td><a href='/hifive/mpage?listno=" + json.list[i].list_no 
+						+ "&uid=" + userid  + "'>" + json.list[i].user1
+						+ "</a></td></tr>";
 					}
+									
 				}			
 								
 				$("#mlist").html($("#mlist").html()+values);
@@ -126,61 +169,132 @@
 	});	
 </script>
 
-
-	
 </head>
-
 <body>
+   <div class="container">
+      <%@ include file="../../header.jsp"%>
+      <hr>
+      <div id="main">
+         <div id="menu">
+            <div class="card" style="width: 250px;">
+               <div class="card-body">
+                  <h5 class="card-title">사용자 기본정보</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">(이름및 지역)</h6>
+                  <p class="card-text">
+                     ......<br>
+                     <br>
+                     <br>
+                     <br>
+                     <br>
+                     <br>
+                     <br>
+                     <br>
+                     <br>
+                  </p>
+                  <a href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>	
-	
-	<div class="container">
-		<%@ include file="../../header.jsp" %> <hr>
-			
-		<section>
-			<h4 style="background:olive; color:white;">나에게 온 대화신청 목록</h4>
-			내아이디 : <input type="text" id="uid" value="<%= userId %>" size="15" readonly style="text-align:center;">
-			<table id="mrlist" border="1" cellspacing="0">
-				<tr><th>요청자</th><th>상태</th><th>수락</th><th>거절</th></tr>
-			</table>
-			<br> 수정해야됨..!!!!!!<br><br>
-		</section>
-		
-		<section>
-			<h4 style="background:olive; color:white;">내가 한 대화신청 목록</h4>
-			내아이디 : <input type="text" id="uid" value="<%= userId %>" size="15" readonly style="text-align:center;">
-			<table id="mrlist_m" border="1" cellspacing="0">
-				<tr><th>상대방 아이디</th><th>상태</th><th>취소</th></tr>
-			</table>
-			<br>수락/거절 a태그로 만듬. 이미 수락된요청은 안보이게 바꿔야됨..!! 디자인 수정해야됨..!!!!!!<br><br><br>
-			<a href="/hifive/mrequest?userid=<%= userId  %>">user02에게 대화신청</a> <br>
-			아직 회원검색 안되서, 임의의 아이디를 주고, 신청/취소 해봄<br><br>
-			
-			
-		</section>
-		
-		<section>
-			<h4 style="background:olive; color:white;">내 대화목록</h4>
-			내아이디 : <input type="text" id="uid" value="<%= userId %>" size="15" readonly style="text-align:center;">
-			<table id="mlist" border="1" cellspacing="0">
-				<tr>
-					<th>번호</th>
-					<th>아이디1</th>
-					<th>아이디2</th>
-				</tr>
-			</table>
-			<br>아이디 클릭하면 대화창나옴. 없는것도 빈화면만 나오게 바꾸기..<br><br>
-		</section>
-		
-		<br>
-		<br>
-		<br>
+               </div>
+            </div>
 
-		<hr>
-		
-		<%@ include file="../../footer.jsp" %> 
-	</div>
-	
+         </div>
+         <div id="content1">
+            <div class="btn-group " role="group" aria-label="First group">
+               <button type="button"
+                  class="btn btn-secondary btn-outline-secondary"
+                  onclick="location.href='/hifive/views/support/notice/noticeList.jsp'">공지사항</button>
+               <button type="button"
+                  class="btn btn-secondary btn-outline-secondary"
+                  onclick="location.href='/hifive/views/support/report/reportList.jsp'">신고게시판</button>
+               <button type="button"
+                  class="btn btn-secondary btn-outline-secondary"
+                  onclick="location.href='/hifive/views/user/mypage.jsp'">마이
+                  페이지</button>
+               <button type="button"
+                  class="btn btn-secondary btn-outline-secondary"
+                  onclick="location.href='/hifive/views/support/safety.jsp'">안전
+                  유의사항</button>
+               <button type="button"
+                  class="btn btn-secondary btn-outline-secondary"
+                  onclick="location.href='/hifive/views/support/tutorial.jsp'">튜토리얼</button>
+            </div>            
+            <br><br>
+            
+            <input type="hidden" id="uid" value="<%= userId %>">
+            <div class="card border-light mb-3" style="max-width: outo">
+                 <div class="card-header">나에게 온 대화신청 목록</div>
+                 <div class="card-body">
+                   
+                   <table class="table table-sm" id="youList">
+                  
+                     <thead>
+                        <tr>
+                           <th scope="col">프로필</th>
+                           <th scope="col">이름</th>
+                           <th scope="col">수락/거절</th>
+                           
+                        </tr>
+                     </thead>
+                     <tbody id="mrlist">
+                        <%-- 나에게 온 대화신청 목록 출력 --%>
+                     </tbody>
+                  </table>
+                 </div>
+            </div>
+            
+            <br><br>
+            <div class="card border-light mb-3" style="max-width: outo">
+                 <div class="card-header">내가 신청한 대화 목록</div>
+                 <div class="card-body">
+                   <table class="table table-sm" id="myList">
+                  
+                     <thead>
+                        <tr>
+                           <th scope="col">프로필</th>
+                           <th scope="col">이름</th>
+                           <th scope="col">취소</th>
+                           
+                        </tr>
+                     </thead>
+                     <tbody id="mrlist_m">
+                        <%-- 내가 신청한 대화 목록 출력 --%>
+                     </tbody>
+                  </table>
+                 </div>
+            </div>
+            
+            <br><br>
+            <div class="card border-light mb-3" style="max-width: outo">
+                 <div class="card-header">나의 대화 목록</div>
+                 <div class="card-body">
+                   <table class="table table-sm" id="chatList">
+                  
+                     <thead>
+                        <tr>
+                           <th scope="col">프로필</th>
+                           <th scope="col">이름</th>
+                           <th scope="col">대화내역</th>
+                           
+                        </tr>
+                     </thead>
+                     <tbody id="mlist">
+                        <%-- 나의 대화 목록 출력  --%>
+                     </tbody>
+                  </table> 
+                 </div>  
+            </div>
+
+
+ 
+
+
+         </div>
+
+         <div id="content2"></div>
+      </div>
+      <br>
+      <hr>
+      <%@ include file="../../footer.jsp"%>
+   </div>
+
 </body>
 </html>

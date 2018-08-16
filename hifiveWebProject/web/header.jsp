@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 <title>join</title>
 
- 
+
 <style type="text/css">
 header {
 	margin: 5px;
@@ -91,7 +91,7 @@ header {
 
 							<th>
 								<div class="dropdown" id="support">
-									<a class="btn btn-secondary btn-outline-secondary dropdown-toggle" href="#"
+									<a class="btn btn-secondary dropdown-toggle" href="#"
 										role="button" id="dropdownMenuLink" data-toggle="dropdown"
 										aria-haspopup="true" aria-expanded="false"> ... </a>
 

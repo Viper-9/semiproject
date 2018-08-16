@@ -32,26 +32,24 @@ public class InfoUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		User user = new User();
-		user.setUser_Id(request.getParameter("userId"));
-		user.setJob(request.getParameter("job"));
-		user.setEmail(request.getParameter("email"));
-		user.setPhone(request.getParameter("phone"));
-		user.setHobby(String.join(",", request.getParameterValues("hobby")));
-		user.setContent(request.getParameter("introduction"));
-		
+		String userId = request.getParameter("userid");
+	    	      
 	    RequestDispatcher view = null;
 	    
-	    try {	      	
-	    	if(new UserService().updateUser(user) > 0){
-	    		response.sendRedirect("/hifive/index.jsp");
+	    try {
+	    	User user = new UserService().selectUser(userId);
+	    	
+	    	if(user != null){
+	    		view = request.getRequestDispatcher("views/user/mypage.jsp");
+	    		request.setAttribute("user", user);
+	    		view.forward(request, response);
 	    	}else{
-	    		view = request.getRequestDispatcher("views/user/userError.jsp");
-		        request.setAttribute("message", "수정 실패");
+	    		view = request.getRequestDispatcher("views/user/UserException.java");
+		        request.setAttribute("message", userId+"값이 없음");
 		        view.forward(request, response);
 	    	}    	
 	    } catch (Exception e) {
-	        view = request.getRequestDispatcher("views/user/userError.jsp");
+	        view = request.getRequestDispatcher("views/user/UserException.java");
 	        request.setAttribute("message", e.getMessage());
 	        view.forward(request, response);
 	    }

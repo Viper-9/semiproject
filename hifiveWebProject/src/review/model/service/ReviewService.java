@@ -13,15 +13,15 @@ public class ReviewService {
 	public ReviewService(){}
 	
 	// 리뷰 전체 조회
-	public ArrayList<Review> selectAllReview() throws ReviewException {
+	public ArrayList<Review> selectAllReview(String userId) {
 		Connection con = getConnection();
-		ArrayList<Review> list = new ReviewDao().selectAllReview(con);
+		ArrayList<Review> list = new ReviewDao().selectAllReview(con, userId);
 		close(con);
 		return list;
 	}
 	
 	// 리뷰 등록
-	public int insertReview(Review review, String user_id, String r_user_id) throws ReviewException {
+	/*public int insertReview(Review review, String user_id, String r_user_id) throws ReviewException {
 		Connection con = getConnection();
 		int result = new ReviewDao().insertReview(con, review, user_id, r_user_id);
 		if(result > 0)
@@ -51,6 +51,6 @@ public class ReviewService {
 		else
 			rollback(con);
 		return result;
-	}
+	}*/
 				
 }

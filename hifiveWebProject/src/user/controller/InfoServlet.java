@@ -51,7 +51,6 @@ public class InfoServlet extends HttpServlet {
 			view.forward(request, response);
 		}
 
-		
 	}
 
 	/**
