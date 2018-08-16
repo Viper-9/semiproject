@@ -82,6 +82,7 @@ public class UserService {
 		return result;
 	}
 
+
 	public int selectCheckEmail(String userEmail) throws UserException {
 		Connection con = getConnection();
 		int result = 
@@ -90,5 +91,13 @@ public class UserService {
 		return result;
 	}
 
+	// 안전 유의사항 체크
+	public int safetyCheck(String userid) throws UserException {
+		Connection con = getConnection();
+		int result = 
+				new UserDao().safetyCheck(con, userid);
+		close(con);
+		return result;
+	}
 
 }

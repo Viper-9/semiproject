@@ -78,21 +78,14 @@
    
          </div>
          <div id="content1">
-  <div class="btn-group " role="group" aria-label="First group">
-                 <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/notice/noticeList.jsp'">공지사항</button>
-   <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/report/reportList.jsp'">신고게시판</button>
-    <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/user/mypage.jsp'">마이 페이지</button>
-    <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/safety.jsp'">안전 유의사항</button>
-   <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/tutorial.jsp'">튜토리얼</button>
-  </div>
+ 			<%@ include file="../../supportmenu.jsp"%>  
+ 			</div>
  
-   
-
   
-
-         </div>
          
-         <div id="content2">   
+         <div id="content2">
+         <br>
+            
          </div>
       </div>
       <br>

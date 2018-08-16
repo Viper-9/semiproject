@@ -1,4 +1,4 @@
-package notice.controller;
+package user.controller;
 
 import java.io.IOException;
 
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import notice.exception.NoticeException;
-import notice.model.service.NoticeService;
-import notice.model.vo.Notice;
+import user.exception.UserException;
+import user.model.service.UserService;
+import user.model.vo.User;
 
 /**
- * Servlet implementation class NoticeDetailServlet
+ * Servlet implementation class ProfileInfoServlet
  */
-@WebServlet("/noticedetail")
-public class NoticeDetailServlet extends HttpServlet {
+@WebServlet("/profileinfo")
+public class ProfileInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailServlet() {
+    public ProfileInfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,33 +32,24 @@ public class NoticeDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html; charset=utf-8");
+		String userId = request.getParameter("userid");
 		
-		int noticeno = Integer.parseInt(request.getParameter("rnum"));
-		System.out.println(noticeno);
-		
-		NoticeService nservice = new NoticeService();
 		RequestDispatcher view = null;
-
-		try {								
-			Notice noticeN = nservice.selectNotice(noticeno);
-
-			if(noticeN != null){
-				view = request.getRequestDispatcher(
-						"views/support/notice/noticeDetail.jsp");
-				request.setAttribute("noticeN", noticeN);
-				
+		try {
+			User user = new UserService().selectUser(userId);
+			if(user != null){
+				view = request.getRequestDispatcher("views/user/profile.jsp"); // info 페이지
+				request.setAttribute("user", user);
 				view.forward(request, response);
-				
-			}else{
-				view = request.getRequestDispatcher(
-						"views/support/notice/noticeDetail.jsp");
-				request.setAttribute("message", "내용이 없습니다.");
+			} else {
+				view = request.getRequestDispatcher(""); // 에러페이지
+				request.setAttribute("message", userId + "에 대한 조회 실패");
 				view.forward(request, response);
-			}		
-		
-		} catch (NoticeException e) {
-			System.out.println("실패");
+			}
+		} catch(UserException e){
+			view = request.getRequestDispatcher(""); //에러페이지
+			request.setAttribute("message", e.getMessage());
+			view.forward(request, response);
 		}
 	}
 

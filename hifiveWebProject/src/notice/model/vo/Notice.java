@@ -68,7 +68,9 @@ public class Notice implements java.io.Serializable {
 	
 	@Override
 	public String toString(){
-		return this.notice_no + ", " +  this.notice_date + ", " 
-				+ this.views + ", " +  this.title + ", " +  this.content;
+	
+		
+		return "Notice [notice_no=" + notice_no + ", notice_date=" + notice_date + ", views="
+		+ views + ", title=" + title + ", content=" + content + "]";
 	}
 }

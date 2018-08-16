@@ -90,7 +90,7 @@
           $.ajax({
              url : "/hifive/info",
              type : "post",
-             data : {id : $("#userid").val()},            
+             data : {userid : $("#userid").val()},            
              dataType : "json",
              success : function(data){	             	 
              	//이름
@@ -164,7 +164,7 @@
           $.ajax({
         	  url : "/hifive/hosting",
         	  type : "post",
-        	  data : {id : $("#userid").val()},
+        	  data : {userid : $("#userid").val()},
         	  dataType : "json",
         	  success : function(data){        		  
         		  //인원
@@ -225,7 +225,7 @@
           $.ajax({
         	  url : "/hifive/surfing",
         	  type : "post",
-        	  data : {id : $("#userid").val()},
+        	  data : {userid : $("#userid").val()},
         	  dataType : "json",
         	  success : function(data){
         		  //목적지
@@ -262,7 +262,7 @@
           $.ajax({
         	  url : "/hifive/partnering",
         	  type : "post",
-        	  data : {id : $("#userid").val()},
+        	  data : {userid : $("#userid").val()},
         	  dataType : "json",
         	  success : function(data){
         		  //목적지
@@ -306,7 +306,7 @@
 				$.ajax({
 	  				url : "/hifive/userdelete",
 	  				type : "post",
-	  				data : {id : $("#userid").val()},
+	  				data : {userid : $("#userid").val()},
 	  				success : function(data){
 	  					alert("탈퇴되었습니다.")
 	  				},
@@ -323,7 +323,7 @@
 			$.ajax({
 				url : "/hifive/infoupdate",
 				type : "post",
-				data : {id : $("#userid").val()},
+				data : {userid : $("#userid").val()},
 				success : function(data){
 	             	//이름
 	                $("#name").val(data.name);            	

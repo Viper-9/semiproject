@@ -79,8 +79,9 @@
     			
   						</div>
   						<br>
-  						
-  						<button type="submit" class="btn btn-primary btn-lg" id ="idsearch" >아이디 찾기</button>
+  						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  						<button type="submit" class="btn btn-primary btn-lg" id ="idsearch">아이디 찾기</button>
+
 					</form>
 				</div>  			 			
   			</div>
@@ -99,6 +100,7 @@
     						<input type="email" class="form-control" id="useremail" placeholder="Email">
   						</div>
   						<br>
+  						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   						<button type="submit" class="btn btn-primary btn-lg" id ="passwordsearch">비밀번호 찾기</button>
 					</form>
 				</div>  			 

@@ -35,7 +35,7 @@ public class InfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		String userId = request.getParameter("id");
+		String userId = request.getParameter("userid");
 		System.out.println("id : " + userId);				
 		
 		try {
