@@ -5,7 +5,7 @@
    String userid = (String)session.getAttribute("userId");
 %>
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
 
 
