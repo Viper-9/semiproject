@@ -33,16 +33,15 @@ public class SurfingServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("id");
+		String userId = request.getParameter("userid");		
 		
-		try {
 			SurferPartner sp = new SurferPartnerService().selectSurfer(userId);
 			
 			JSONObject job = new JSONObject();
 			job.put("destination", sp.getCity());
 			job.put("startdate", sp.getStart_date().toString());
-			job.put("enddate", sp.getEnd_Date().toString());
-			job.put("num", sp.getNum());
+			job.put("enddate", sp.getEnd_date().toString());
+			job.put("num", sp.getUser_num());
 			System.out.println(job.toJSONString());
 			
 			response.setContentType("application/json; charset=utf-8");
@@ -50,12 +49,7 @@ public class SurfingServlet extends HttpServlet {
 			
 			out.append(job.toJSONString());
 			out.flush();
-			out.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+			out.close();			
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package user.controller;
+package hsp.controller;
 
 import java.io.IOException;
 
@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import user.exception.UserException;
-import user.model.service.UserService;
-import user.model.vo.User;
+import hsp.exception.HostException;
+import hsp.model.service.HostService;
+import hsp.model.vo.Host;
 
 /**
- * Servlet implementation class InfoUpdateServlet
+ * Servlet implementation class HostUpdate
  */
-@WebServlet("/infoupdate")
-public class InfoUpdateServlet extends HttpServlet {
+@WebServlet("/hupdate")
+public class HostUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public InfoUpdateServlet() {
+    public HostUpdate() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -33,30 +34,30 @@ public class InfoUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		User user = new User();
-		user.setUser_Id(request.getParameter("userid"));		
-		user.setAddress(request.getParameter("address"));
-		user.setJob(request.getParameter("job"));		
-		user.setPhone(request.getParameter("phone"));
-		//user.setHobby(String.join(",", request.getParameterValues("hobby")));
-		user.setContent(request.getParameter("introduction"));
+		Host host = new Host();
+		host.setUser_id(request.getParameter("userid"));
+		System.out.println("호스ㅡ 수정:"+request.getParameter("userid"));
+		host.setUser_num(Integer.parseInt(request.getParameter("num")));
+		host.setP_gender(request.getParameter("gender"));
+		//host.setCheck1(String.join(",", request.getParameterValues("check1")));
+		host.setCheck2(request.getParameter("sleeping"));
+		host.setContent(request.getParameter("etc"));
 		
-	    RequestDispatcher view = null;
-	    
-	    try {	      	
-	    	if(new UserService().updateUser(user) > 0){
-	    		response.sendRedirect("/hifive/index.jsp");	    		
-	    	}else{
-	    		view = request.getRequestDispatcher("views/user/userError.jsp");
+		RequestDispatcher view = null;
+		
+		try {
+			if(new HostService().updateHost(host) > 0){
+				response.sendRedirect("/hifive/index.jsp");
+			}else{
+	    		view = request.getRequestDispatcher("views/user/hostError.jsp");
 		        request.setAttribute("message", "수정 실패");
 		        view.forward(request, response);
 	    	}    	
-	    } catch (UserException e) {
-	        view = request.getRequestDispatcher("views/user/userError.jsp");
+	    } catch (HostException e) {
+	        view = request.getRequestDispatcher("views/user/hostError.jsp");
 	        request.setAttribute("message", e.getMessage());
 	        view.forward(request, response);
 	    }		
-		
 	}
 
 	/**

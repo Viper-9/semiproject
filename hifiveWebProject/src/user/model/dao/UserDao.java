@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import hsp.model.vo.SurferPartner;
 import user.exception.UserException;
 import user.model.vo.User;
 
@@ -178,7 +179,7 @@ public class UserDao {
 				user.setHobby(rset.getString("hobby"));
 				user.setJob(rset.getString("job"));
 				user.setLanguage(rset.getString("language"));
-				user.setContent(rset.getString("contents"));	
+				user.setContent(rset.getString("content"));	
 				user.setRestriction(rset.getString("restriction"));
 				user.setProfile_image(rset.getString("profile_image"));
 			} else {
@@ -199,7 +200,7 @@ public class UserDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "update users set address=?, job=?, phone=?, hobby=?, contents=? where user_id = ?";
+		String query = "update users set address=?, job=?, phone=?, content=? where user_id = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -207,13 +208,13 @@ public class UserDao {
 			/*pstmt.setString(2, user.getNationality());*/
 			pstmt.setString(2, user.getJob());
 			pstmt.setString(3, user.getPhone());
-			pstmt.setString(4, user.getHobby());
-			pstmt.setString(5, user.getContent());
-			pstmt.setString(6, user.getUser_Id());
+			//pstmt.setString(4, user.getHobby());
+			pstmt.setString(4, user.getContent());
+			pstmt.setString(5, user.getUser_Id());
 			
 			result = pstmt.executeUpdate();
 			
-			if(result <= 0){
+			if(result < 0){
 				throw new UserException("마이페이지 수정 실패");
 			}
 		} catch (Exception e) {
@@ -286,4 +287,5 @@ public class UserDao {
 		return idCount;
 		
 	}
+
 }

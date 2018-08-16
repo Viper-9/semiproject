@@ -51,7 +51,7 @@ header {
 		$.ajax({
 			url : "/hifive/info",
 			type : "post",
-			data : {id : userId},
+			data : {userid : userId},
 			dataType : "json",
 			success : function(data){							
 				location.href = "/hifive/views/user/mypage.jsp";

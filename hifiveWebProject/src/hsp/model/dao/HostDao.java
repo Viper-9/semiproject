@@ -11,7 +11,7 @@ public class HostDao {
 
 	public HostDao(){}
 
-	public Host selectHost(Connection con, String userId) throws HostException{
+	public Host selectHost(Connection con, String userId) {
 		Host host = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -31,25 +31,51 @@ public class HostDao {
 				host.setP_gender(rset.getString("p_gender"));
 				host.setCheck1(rset.getString("check1"));
 				host.setCheck2(rset.getString("check2"));
-				host.setContent(rset.getString("contents"));
+				host.setContent(rset.getString("content"));
 				host.setProcess(rset.getString("process"));
 				host.setStart_date(rset.getDate("start_date"));
 				host.setEnd_date(rset.getDate("end_date"));				
 				host.setImage1(rset.getString("image1"));
 				host.setImage2(rset.getString("image2"));
 				host.setImage3(rset.getString("image3"));	
-			} else {
-				throw new HostException("호스트 내역 조회 실패");
 			}
 		} catch (Exception e) {
-			 e.printStackTrace();
-			 throw new HostException(e.getMessage());
+			 
 		} finally {
 			close(rset);
 			close(pstmt);			
 		}
 		return host;
 		
+	}
+
+	public int updateHost(Connection con, Host host) throws HostException{
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update host set user_num=?, p_gender=?, check2=?, content=? where user_id=?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, host.getUser_num());
+			pstmt.setString(2, host.getP_gender());
+			/*pstmt.setString(3, host.getCheck1());*/
+			pstmt.setString(3, host.getCheck2());
+			pstmt.setString(4, host.getContent());
+			pstmt.setString(5, host.getUser_id());
+			
+			result = pstmt.executeUpdate();
+			
+			if(result < 0){
+				throw new HostException("호스트 수정 실패");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new HostException(e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 

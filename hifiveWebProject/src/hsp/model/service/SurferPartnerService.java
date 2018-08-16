@@ -1,30 +1,55 @@
 package hsp.model.service;
 
 import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 
 import hsp.exception.SurferPartnerException;
 import hsp.model.dao.SurferPartnerDao;
 import hsp.model.vo.SurferPartner;
+import user.model.dao.UserDao;
 
 public class SurferPartnerService {
 
 	public SurferPartnerService(){}
 	
-	public SurferPartner selectSurfer(String userId)  throws SurferPartnerException{
+	public SurferPartner selectSurfer(String userId){
 		Connection con = getConnection();
 		SurferPartner sp = new SurferPartnerDao().selectSurfer(con, userId);
 		close(con);
 		return sp;
 	}
 	
-	public SurferPartner selectPartner(String userId)  throws SurferPartnerException{
+	public SurferPartner selectPartner(String userId) {
 		Connection con = getConnection();
 		SurferPartner sp = new SurferPartnerDao().selectPartner(con, userId);
 		close(con);
 		return sp;
+	}
+
+	public int updateSurfer(SurferPartner sp) throws SurferPartnerException{
+		Connection con = getConnection();
+		int result = new SurferPartnerDao().updateSurfer(con, sp);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+
+	public int updatePartner(SurferPartner sp) throws SurferPartnerException{
+		Connection con = getConnection();
+		int result = new SurferPartnerDao().updatePartner(con, sp);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
 	}
 
 }

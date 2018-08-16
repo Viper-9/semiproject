@@ -1,7 +1,6 @@
 package hsp.model.service;
 
-import static common.JDBCTemplate.close;
-import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
@@ -17,6 +16,17 @@ public class HostService {
 		Host host = new HostDao().selectHost(con, userId);
 		close(con);		
 		return host;
+	}
+
+	public int updateHost(Host host) throws HostException{
+		Connection con = getConnection();
+		int result = new HostDao().updateHost(con, host);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
 	}
 
 }

@@ -1,4 +1,4 @@
-package user.controller;
+package hsp.controller;
 
 import java.io.IOException;
 
@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import user.exception.UserException;
-import user.model.service.UserService;
-import user.model.vo.User;
+import hsp.exception.SurferPartnerException;
+import hsp.model.service.SurferPartnerService;
+import hsp.model.vo.SurferPartner;
 
 /**
- * Servlet implementation class InfoUpdateServlet
+ * Servlet implementation class PartnerUpdate
  */
-@WebServlet("/infoupdate")
-public class InfoUpdateServlet extends HttpServlet {
+@WebServlet("/pupdate")
+public class PartnerUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public InfoUpdateServlet() {
+    public PartnerUpdate() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -33,30 +34,27 @@ public class InfoUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		User user = new User();
-		user.setUser_Id(request.getParameter("userid"));		
-		user.setAddress(request.getParameter("address"));
-		user.setJob(request.getParameter("job"));		
-		user.setPhone(request.getParameter("phone"));
-		//user.setHobby(String.join(",", request.getParameterValues("hobby")));
-		user.setContent(request.getParameter("introduction"));
+		SurferPartner sp = new SurferPartner();
+		sp.setCity(request.getParameter("city"));		
+		sp.setStart_date(java.sql.Date.valueOf(request.getParameter("startdate")));
+		sp.setEnd_date(java.sql.Date.valueOf(request.getParameter("enddate")));
+		sp.setUser_num(Integer.parseInt(request.getParameter("num")));
 		
-	    RequestDispatcher view = null;
-	    
-	    try {	      	
-	    	if(new UserService().updateUser(user) > 0){
-	    		response.sendRedirect("/hifive/index.jsp");	    		
+		RequestDispatcher view = null;
+		
+		try {
+			if(new SurferPartnerService().updatePartner(sp) > 0){
+				response.sendRedirect("/hifive.index.jsp");
 	    	}else{
-	    		view = request.getRequestDispatcher("views/user/userError.jsp");
+	    		view = request.getRequestDispatcher("");
 		        request.setAttribute("message", "수정 실패");
 		        view.forward(request, response);
 	    	}    	
-	    } catch (UserException e) {
-	        view = request.getRequestDispatcher("views/user/userError.jsp");
+	    } catch (SurferPartnerException e) {
+	        view = request.getRequestDispatcher("");
 	        request.setAttribute("message", e.getMessage());
 	        view.forward(request, response);
-	    }		
-		
+	    }
 	}
 
 	/**
