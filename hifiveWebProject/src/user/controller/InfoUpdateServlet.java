@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import user.exception.UserException;
 import user.model.service.UserService;
 import user.model.vo.User;
 
@@ -32,10 +33,19 @@ public class InfoUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		String userId = request.getParameter("userid");
-	    	      
+
+/*		User user = new User();
+		user.setAddress(request.getParameter("address"));
+		user.setUser_Id(request.getParameter("userid"));
+		user.setJob(request.getParameter("job"));		
+		user.setPhone(request.getParameter("phone"));
+		//user.setHobby(String.join(",", request.getParameterValues("hobby")));
+		user.setContent(request.getParameter("introduction"));
+		
+>>>>>>> branch 'min' of https://github.com/semiprojecthifive/semiproject.git
 	    RequestDispatcher view = null;
 	    
+<<<<<<< HEAD
 	    try {
 	    	User user = new UserService().selectUser(userId);
 	    	
@@ -43,18 +53,41 @@ public class InfoUpdateServlet extends HttpServlet {
 	    		view = request.getRequestDispatcher("views/user/mypage.jsp");
 	    		request.setAttribute("user", user);
 	    		view.forward(request, response);
+=======
+	    try {	      	
+	    	if(new UserService().updateUser(user) > 0){
+	    		response.sendRedirect("/hifive/index.jsp");	    		
+>>>>>>> branch 'min' of https://github.com/semiprojecthifive/semiproject.git
 	    	}else{
 	    		view = request.getRequestDispatcher("views/user/UserException.java");
 		        request.setAttribute("message", userId+"값이 없음");
 		        view.forward(request, response);
 	    	}    	
-	    } catch (Exception e) {
-	        view = request.getRequestDispatcher("views/user/UserException.java");
+
+	    } catch (UserException e) {
+	        view = request.getRequestDispatcher("views/user/userError.jsp");
 	        request.setAttribute("message", e.getMessage());
 	        view.forward(request, response);
-	    }
-	    
-
+	    }*/
+		String userId = request.getParameter("id");
+		System.out.println("수정할 아이디 : "+userId);
+		
+		User user = new User();
+		user.setAddress(request.getParameter("address"));
+		user.setUser_Id(request.getParameter("userid"));
+		user.setJob(request.getParameter("job"));		
+		user.setPhone(request.getParameter("phone"));
+		//user.setHobby(String.join(",", request.getParameterValues("hobby")));
+		user.setContent(request.getParameter("introduction"));
+		
+		try {
+			if(new UserService().updateUser(user) > 0){
+				response.setContentType("application");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 	/**

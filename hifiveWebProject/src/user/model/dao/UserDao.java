@@ -74,7 +74,7 @@ public class UserDao {
 				user.setHobby(rset.getString("hobby"));
 				user.setJob(rset.getString("job"));
 				user.setLanguage(rset.getString("language"));
-				user.setContent(rset.getString("content"));
+				user.setContent(rset.getString("contents"));
 				user.setRestriction(rset.getString("restriction"));
 				user.setProfile_image(rset.getString("profile_image"));
 
@@ -149,7 +149,7 @@ public class UserDao {
 	}
 	
 	// 회원 한 명 선택
-	public User selectUser(Connection con, String userId) throws UserException {
+	public User selectUser(Connection con, String userId) throws UserException{
 		User user = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -178,7 +178,7 @@ public class UserDao {
 				user.setHobby(rset.getString("hobby"));
 				user.setJob(rset.getString("job"));
 				user.setLanguage(rset.getString("language"));
-				user.setContent(rset.getString("content"));	
+				user.setContent(rset.getString("contents"));	
 				user.setRestriction(rset.getString("restriction"));
 				user.setProfile_image(rset.getString("profile_image"));
 			} else {
@@ -197,7 +197,31 @@ public class UserDao {
 	// 회원 정보 수정
 	public int updateUser(Connection con, User user) throws UserException {
 		int result = 0;
+		PreparedStatement pstmt = null;
 		
+		String query = "update users set address=?, job=?, phone=?, hobby=?, contents=? where user_id = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user.getAddress());
+			/*pstmt.setString(2, user.getNationality());*/
+			pstmt.setString(2, user.getJob());
+			pstmt.setString(3, user.getPhone());
+			pstmt.setString(4, user.getHobby());
+			pstmt.setString(5, user.getContent());
+			pstmt.setString(6, user.getUser_Id());
+			
+			result = pstmt.executeUpdate();
+			
+			if(result <= 0){
+				throw new UserException("마이페이지 수정 실패");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new UserException(e.getMessage());
+		} finally {
+			close(pstmt);
+		}
 		
 		return result;
 	}

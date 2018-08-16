@@ -1,6 +1,8 @@
 package user.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 
 import user.exception.UserException;
 import user.model.service.UserService;
@@ -30,26 +34,37 @@ public class InfoServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userid");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		String userId = request.getParameter("id");
+		System.out.println("id : " + userId);				
 		
-		RequestDispatcher view = null;
 		try {
-			User user = new UserService().selectUser(userId);
-		if(user != null){
-				view = request.getRequestDispatcher("views/user/mypage.jsp"); // info 페이지
-				request.setAttribute("user", user);
-				view.forward(request, response);
-			} else {
-				view = request.getRequestDispatcher(""); // 에러페이지
-				request.setAttribute("message", userId + "에 대한 조회 실패");
-				view.forward(request, response);
-			}
-		} catch(UserException e){
-			view = request.getRequestDispatcher(""); //에러페이지
-			request.setAttribute("message", e.getMessage());
-			view.forward(request, response);
-		}
+
+			User user = new UserService().selectUser(userId);			
+		
+			JSONObject job = new JSONObject();
+			job.put("id", user.getUser_Id());
+			job.put("name", user.getUser_Name());
+			job.put("address", user.getAddress());
+			job.put("gender", user.getGender());
+			job.put("email", user.getEmail());
+			job.put("birth", user.getBirth().toString());
+			job.put("nationality", user.getNationality());
+			job.put("job", user.getJob());
+			job.put("hobby", user.getHobby());
+			job.put("phone", user.getPhone());
+			job.put("content", user.getContent());
+			System.out.println("job : " + job.toJSONString());
+			
+			response.setContentType("application/json; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			
+			out.append(job.toJSONString());
+			out.flush();
+			out.close();
+		} catch (UserException e) {			
+			e.printStackTrace();
+		}			
 
 	}
 

@@ -5,17 +5,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import hsp.exception.HostException;
 import hsp.model.vo.Host;
 
 public class HostDao {
 	
 	// 현재 진행중인 내 호스트 정보
-	public Host selectHost(Connection con, String userid) {
+	public Host selectHost(Connection con, String userid)throws HostException {
 		Host host = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		String query = "select * from host where user_id=? and process='M'";
+
+		String query = "select * from host where user_id = ?";		
+
 		
 		try{
 			pstmt = con.prepareStatement(query);
@@ -33,10 +35,13 @@ public class HostDao {
 				host.setContent(rset.getString("content"));
 				host.setProcess(rset.getString("process"));
 				host.setStart_date(rset.getDate("start_date"));
-				host.setEnd_date(rset.getDate("end_date"));
+				host.setEnd_date(rset.getDate("end_date"));				
 				host.setImage1(rset.getString("image1"));
 				host.setImage2(rset.getString("image2"));
-				host.setImage3(rset.getString("image3"));				
+				host.setImage3(rset.getString("image3"));	
+			} else {
+				throw new HostException("호스트 내역 조회 실패");
+
 			}
 		} catch(Exception e){
 			

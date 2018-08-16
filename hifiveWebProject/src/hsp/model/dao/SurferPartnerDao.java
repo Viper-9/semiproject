@@ -1,53 +1,85 @@
 package hsp.model.dao;
 
-import static common.JDBCTemplate.close;
 
+import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import hsp.model.vo.Host;
+import hsp.exception.SurferPartnerException;
 import hsp.model.vo.SurferPartner;
 
 public class SurferPartnerDao {
 
-	// 현재 진행중인 내 서퍼 정보
-	public SurferPartner selectSurfer(Connection con, String userid) {
-		SurferPartner surfer = null;
+
+
+	public SurferPartner selectSurfer(Connection con, String userId) throws SurferPartnerException{
+		SurferPartner sp = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from surfer_partner where user_id=? and role='S' and process='M'";
+		String query = "select * from surfer_partner where role='S' and user_id=?";
 		
-		try{
+		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, userid);
+			pstmt.setString(1, userId);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()){
-				surfer = new SurferPartner();
-				surfer.setUser_id(rset.getString("user_id"));				
-				surfer.setStart_date(rset.getDate("start_date"));
-				surfer.setEnd_date(rset.getDate("end_date"));
-				surfer.setUser_num(rset.getInt("user_num"));
-				surfer.setCity(rset.getString("city"));
-				surfer.setRole(rset.getString("role"));
-				surfer.setProcess(rset.getString("process"));		
+				sp = new SurferPartner();
+				sp.setUser_id(userId);
+				sp.setStart_date(rset.getDate("start_date"));
+				sp.setEnd_date(rset.getDate("end_date"));
+				sp.setCity(rset.getString("city"));
+				sp.setProcess(rset.getString("process"));
+				sp.setNum(rset.getInt("user_num"));
+			}else{
+				throw new SurferPartnerException("서퍼 내역 조회 실패");
 			}
-		} catch(Exception e){
-			
-		} finally{
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SurferPartnerException(e.getMessage());
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		return surfer;
+		return sp;
 	}
 
-	// 현재 진행중인 내 파트너 정보
-	public SurferPartner selectPartner(Connection con, String userid) {
-		SurferPartner partner = null;
-		return partner;
+	public SurferPartner selectPartner(Connection con, String userId) throws SurferPartnerException{
+		SurferPartner sp = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from surfer_partner where role='P' and user_id=?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				sp = new SurferPartner();
+				sp.setUser_id(userId);
+				sp.setStart_date(rset.getDate("start_date"));
+				sp.setEnd_date(rset.getDate("end_date"));
+				sp.setCity(rset.getString("city"));
+				sp.setProcess(rset.getString("process"));
+				sp.setNum(rset.getInt("user_num"));
+			}else{
+				throw new SurferPartnerException("파트너 내역 조회 실패");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SurferPartnerException(e.getMessage());
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sp;
+		
+
 	}
 
 }

@@ -1,6 +1,11 @@
 package hsp.model.service;
 
+
 import static common.JDBCTemplate.*;
+import java.sql.Connection;
+import hsp.exception.SurferPartnerException;
+import hsp.model.dao.SurferPartnerDao;
+import hsp.model.vo.SurferPartner;
 
 import java.sql.Connection;
 
@@ -8,21 +13,23 @@ import hsp.model.dao.SurferPartnerDao;
 import hsp.model.vo.SurferPartner;
 
 public class SurferPartnerService {
+	
+
 	public SurferPartnerService(){}
 	
-	// 현재 진행중인 내 서퍼 정보
-	public SurferPartner selectSurfer(String userid) {
+	public SurferPartner selectSurfer(String userId)  throws SurferPartnerException{
 		Connection con = getConnection();
-		SurferPartner surfer = new SurferPartnerDao().selectSurfer(con, userid);
+		SurferPartner sp = new SurferPartnerDao().selectSurfer(con, userId);
 		close(con);
-		return surfer;
+		return sp;
 	}
 	
-	// 현재 진행중인 내 파트너 정보
-	public SurferPartner selectPartner(String userid) {
+	public SurferPartner selectPartner(String userId)  throws SurferPartnerException{
 		Connection con = getConnection();
-		SurferPartner partner = new SurferPartnerDao().selectPartner(con, userid);
+		SurferPartner sp = new SurferPartnerDao().selectPartner(con, userId);
 		close(con);
-		return partner;
+		return sp;
 	}
+
+
 }
