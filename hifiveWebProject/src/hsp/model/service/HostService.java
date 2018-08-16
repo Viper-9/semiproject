@@ -12,7 +12,7 @@ import hsp.model.vo.Host;
 public class HostService {
 	public HostService(){}	
 
-	public Host selectHost(String userId) throws HostException{
+	public Host selectHost(String userId){
 		Connection con = getConnection();
 		Host host = new HostDao().selectHost(con, userId);
 		close(con);		
