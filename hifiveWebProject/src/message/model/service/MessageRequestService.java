@@ -74,6 +74,21 @@ public class MessageRequestService {
 		return result;
 	}
 
+		// 나에게 온 대화신청 목록에서 이름 출력
+	public String selectSenderName(String user_id, String sender) {
+		Connection con = getConnection();
+		String userName = new MessageRequestDao().selectSenderName(con, user_id, sender);
+		close(con);
+		return userName;
+	}
+	// 내가 신청한 대화 목록에서 이름 출력
+	public Object selectUserIdName(String sender, String user_id) {
+		Connection con = getConnection();
+		String userName = new MessageRequestDao().selectUserIdName(con, sender, user_id);
+		close(con);
+		return userName;
+	}
+
 
 
 }

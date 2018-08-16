@@ -29,8 +29,9 @@ public class UserCheckIdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	String userId = request.getParameter("id");
+		String userId = request.getParameter("id");
 	
+		try {
 		
 		int result = new UserService().selectCheckId(userId);
 		
@@ -42,10 +43,14 @@ public class UserCheckIdServlet extends HttpServlet {
 		
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		System.out.println(returnValue);
 		out.append(returnValue);
 		out.flush();
 		out.close();	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**

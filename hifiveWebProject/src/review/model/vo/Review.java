@@ -6,8 +6,8 @@ public class Review implements java.io.Serializable {
 	private static final long serialVersionUID = 2L;
 	
 	private int review_no;
-	private String user_id;
-	private String r_user_id;
+	private String user_id; // 리뷰 작성자 아이디
+	private String r_user_id; // 리뷰 당사자 아이디
 	private Date review_date;
 	private String content;
 	

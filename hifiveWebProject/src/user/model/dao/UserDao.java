@@ -35,10 +35,10 @@ public class UserDao {
 			if(rset.next())
 				userName = rset.getString("user_name");
 			else
-				throw new UserException("아이디나 비밀번호가 일치하지 않습니다.");			
+				userName = null;			
 		} catch(Exception e){
 			e.printStackTrace();
-			throw new UserException(e.getMessage());
+			
 		} finally{
 			close(rset);
 			close(pstmt);
@@ -74,7 +74,7 @@ public class UserDao {
 				user.setHobby(rset.getString("hobby"));
 				user.setJob(rset.getString("job"));
 				user.setLanguage(rset.getString("language"));
-				user.setContent(rset.getString("content"));
+				user.setContent(rset.getString("contents"));
 				user.setRestriction(rset.getString("restriction"));
 				user.setProfile_image(rset.getString("profile_image"));
 
@@ -149,7 +149,7 @@ public class UserDao {
 	}
 	
 	// 회원 한 명 선택
-	public User selectUser(Connection con, String userId) throws UserException {
+	public User selectUser(Connection con, String userId) throws UserException{
 		User user = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -178,7 +178,7 @@ public class UserDao {
 				user.setHobby(rset.getString("hobby"));
 				user.setJob(rset.getString("job"));
 				user.setLanguage(rset.getString("language"));
-				user.setContent(rset.getString("contents"));	
+				user.setContent(rset.getString("content"));	
 				user.setRestriction(rset.getString("restriction"));
 				user.setProfile_image(rset.getString("profile_image"));
 			} else {
@@ -197,24 +197,47 @@ public class UserDao {
 	// 회원 정보 수정
 	public int updateUser(Connection con, User user) throws UserException {
 		int result = 0;
+		PreparedStatement pstmt = null;
 		
+		String query = "update users set address=?, job=?, phone=?, hobby=?, contents=? where user_id = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user.getAddress());
+			/*pstmt.setString(2, user.getNationality());*/
+			pstmt.setString(2, user.getJob());
+			pstmt.setString(3, user.getPhone());
+			pstmt.setString(4, user.getHobby());
+			pstmt.setString(5, user.getContent());
+			pstmt.setString(6, user.getUser_Id());
+			
+			result = pstmt.executeUpdate();
+			
+			if(result <= 0){
+				throw new UserException("마이페이지 수정 실패");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new UserException(e.getMessage());
+		} finally {
+			close(pstmt);
+		}
 		
 		return result;
 	}
 	
 	// 아이디 찾기
-	public String searchId(Connection con, String userEmail, String userPhone) throws UserException{
+	public String searchId(Connection con, String userEmail) throws UserException{
 		String userId = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String query = "select * from users "
-				+ "where email = ? and phone = ?";
+				+ "where email = ? ";
 		
 		try{
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, userEmail);
-			pstmt.setString(2, userPhone);
 			
 			rset = pstmt.executeQuery();
 			
@@ -233,7 +256,7 @@ public class UserDao {
 		return userId;
 	}
 
-	public int selectCheckId(Connection con, String userId) {
+	public int selectCheckId(Connection con, String userId)throws UserException {
 		int idCount = -1;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -260,6 +283,64 @@ public class UserDao {
 		}
 		
 		return idCount;
+	}
+	
+	// 안전 유의사항 체크
+	public int safetyCheck(Connection con, String userid) throws UserException {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update users set safety_check = ? where user_id = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);			
+			pstmt.setString(1, "Y");
+			pstmt.setString(2, userid);
+						
+			result = pstmt.executeUpdate();
+			System.out.println("dao " + userid);
+			if(result <= 0)
+				throw new UserException("안전유의사항 체크 업데이트 실패!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new UserException(e.getMessage());
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectCheckEmail(Connection con, String userEmail)throws UserException {
+		int emailCount = -1;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select count(email) "
+						+ "from users where email = ? ";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userEmail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				emailCount = rset.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		return emailCount;
 		
 	}
+
+	
+	
 }

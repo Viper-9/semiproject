@@ -101,14 +101,13 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body"><%@ include
-							file="./views/user/login.jsp"%> <br>
+					<div class="modal-body"> <%@ include file="./views/user/login.jsp" %> <br>
 						<div style="text-align: center;">
-							<button type="button" class="btn btn-secondary" style="width:100px;"
+							<!-- <button type="button" class="btn btn-secondary" style="width:100px;"
 								data-dismiss="modal" data-toggle="modal" data-target="#join">회원가입</button>
 							<button type="button" data-dismiss="modal" data-toggle="modal"
 								data-target="#ipsearch" style="width:215px;"class="btn btn-secondary">아이디/비밀번호
-								찾기</button><br>
+								찾기</button><br> -->
 						</div>
 					</div>
 				</div>

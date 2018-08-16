@@ -44,4 +44,20 @@ public class MessageListService {
 		close(con);
 		return list_no;
 	}
+
+	
+	
+	public String selectUserName(String user1, String user2) {
+		Connection con = getConnection();
+		String userName = new MessageListDao().selectUserName(con, user1, user2);
+		close(con);
+		return userName;
+	}
+	
+	public String selectUserName2(String user2, String user1) {
+		Connection con = getConnection();
+		String userName = new MessageListDao().selectUserName2(con, user2, user1);
+		close(con);
+		return userName;
+	}
 }

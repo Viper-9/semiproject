@@ -35,27 +35,17 @@ public class MessagePageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int list_no = Integer.parseInt(request.getParameter("listno")); // 대화번호받음..
 		String user_id = request.getParameter("uid"); // 내 아이디 받음...
-		String user_id2 = request.getParameter("uid2"); // 상대방 아이디
-		
+
 		RequestDispatcher view = null;
-		try{
-			//MessageList mList = new MessageListService().selectOne(list_no);
-			ArrayList<Message> myMessage = new MessageService().selectMyMessage(list_no);
-			if(myMessage.size() != 0){
-				view = request.getRequestDispatcher("views/message/messagePage.jsp");
-				request.setAttribute("mList", myMessage);
-				request.setAttribute("user_id", user_id);
-				view.forward(request, response);
-			} else{
-				view = request.getRequestDispatcher("views/message/messageError.jsp");
-				request.setAttribute("message", "대화창 불러오기 실패");
-				view.forward(request, response);
-			}
-		} catch(MessageException e){
-			view = request.getRequestDispatcher("views/message/messageError.jsp");
-			request.setAttribute("message", e.getMessage());
-			view.forward(request, response);
-		}
+
+		ArrayList<Message> myMessage = new MessageService().selectMyMessage(list_no);
+		
+		view = request.getRequestDispatcher("views/message/messagePage.jsp");
+		request.setAttribute("mList", myMessage);
+		request.setAttribute("user_id", user_id);
+		request.setAttribute("list_no", list_no);
+		view.forward(request, response);
+
 	}
 
 	/**

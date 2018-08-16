@@ -49,7 +49,7 @@ public class UserService {
 		return result;
 	}
 
-	public User selectUser(String userId) throws UserException {
+	public User selectUser(String userId) throws UserException{
 		Connection con = getConnection();
 		User user = new UserDao().selectUser(con, userId);
 		close(con);
@@ -64,21 +64,40 @@ public class UserService {
 		else
 			rollback(con);
 		close(con);
-		return 0;
+		return result;
 	}
 	
-	public String searchId(String userEmail, String userPhone) throws UserException {
+	public String searchId(String userEmail) throws UserException {
 		Connection con = getConnection();
-		String userId = new UserDao().searchId(con, userEmail, userPhone);
+		String userId = new UserDao().searchId(con, userEmail);
 		close(con);
 		return userId;
 	}
 
-	public int selectCheckId(String userId) {
+	public int selectCheckId(String userId) throws UserException {
 		Connection con = getConnection();
 		int result = 
 				new UserDao().selectCheckId(con, userId);
 		close(con);
 		return result;
 	}
+
+
+	public int selectCheckEmail(String userEmail) throws UserException {
+		Connection con = getConnection();
+		int result = 
+				new UserDao().selectCheckEmail(con, userEmail);
+		close(con);
+		return result;
+	}
+
+	// 안전 유의사항 체크
+	public int safetyCheck(String userid) throws UserException {
+		Connection con = getConnection();
+		int result = 
+				new UserDao().safetyCheck(con, userid);
+		close(con);
+		return result;
+	}
+
 }

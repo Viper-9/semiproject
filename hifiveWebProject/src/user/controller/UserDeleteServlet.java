@@ -1,6 +1,7 @@
 package user.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,7 +31,7 @@ public class UserDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userid");
+		String userId = request.getParameter("id");
 		
 		try{
 			if(new UserService().deleteUser(userId) > 0){
@@ -44,7 +45,7 @@ public class UserDeleteServlet extends HttpServlet {
 			RequestDispatcher errorPage = request.getRequestDispatcher("/views/member/memberError.jsp");
 			request.setAttribute("message", e.getMessage());
 			errorPage.forward(request, response);			
-		}
+		}	
 	}
 
 

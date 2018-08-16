@@ -29,7 +29,8 @@ public class UserLogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if(session != null){
 			session.invalidate(); // 세션 객체 없앰
-			response.sendRedirect("index.jsp"); // 시작페이지로
+			response.sendRedirect("index.jsp");// 시작페이지로
+			return;
 		}
 	}
 

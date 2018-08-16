@@ -5,19 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>surferEnroll</title>
-<!-- <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places" type="text/javascript"></script> 
-<script src="https://maps.googleapis.com/maps/api/place/autocomplete/json?sensor=false&amp;libraries=places&key=AIzaSyC1PejTS_mPvUuakgb1rMn0_WcInfKrqgM"></script>  -->
-<script type="text/javascript">
-/* var autoComplete = new google.maps.places.Autocomplete(
-		document.getElementById(search), {
-		types: ['(cities)']
-		});
- */
- </script>
+<title>Insert title here</title>
+<link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
+<script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
+
 <div>
 	<form>
 		<div class="input-group mb-3">
@@ -27,6 +29,7 @@
 			<input type="text" class="form-control" id="destinationS">
 		</div>
 		<br>
+		
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">여행기간</span>
@@ -45,7 +48,5 @@
 		<button type="submit" class="btn btn-primary" id="surferenrollbtn">등록하기</button>
 	</form>
 </div>
-</body>
-</html>
 </body>
 </html>

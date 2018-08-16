@@ -16,23 +16,9 @@ public class Host implements java.io.Serializable {
 	private Date end_date;
 	private String image1;
 	private String image2;
-	private String image3;
+	private String image3;	
 	
 	public Host() {}
-	
-	public Host(String user_id, int user_num, String p_gender, String check1, String check2, String content,
-			String process, Date start_date, Date end_date) {
-		super();
-		this.user_id = user_id;
-		this.user_num = user_num;
-		this.p_gender = p_gender;
-		this.check1 = check1;
-		this.check2 = check2;
-		this.content = content;
-		this.process = process;
-		this.start_date = start_date;
-		this.end_date = end_date;
-	}
 	
 	public Host(String user_id, int user_num, String p_gender, String check1, String check2, String content,
 			String process, Date start_date, Date end_date, String image1, String image2, String image3) {
@@ -48,9 +34,9 @@ public class Host implements java.io.Serializable {
 		this.end_date = end_date;
 		this.image1 = image1;
 		this.image2 = image2;
-		this.image3 = image3;
+		this.image3 = image3;		
 	}
-
+	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -145,12 +131,8 @@ public class Host implements java.io.Serializable {
 
 	public void setImage3(String image3) {
 		this.image3 = image3;
-	}
+	}	
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
 	@Override
 	public String toString(){
 		return this.user_id + ", " + this.user_num + ", " + this.p_gender + ", " + this.check1

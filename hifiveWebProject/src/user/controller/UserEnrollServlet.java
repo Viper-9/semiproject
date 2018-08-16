@@ -36,7 +36,7 @@ public class UserEnrollServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		String userId = request.getParameter("joinuserid"); 
-		String userPwd = request.getParameter("userpwd1");
+		String userPwd = request.getParameter("userpwd");
 		String userName = request.getParameter("username");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
@@ -55,15 +55,17 @@ public class UserEnrollServlet extends HttpServlet {
 		try{
 			if(new UserService().insertUser(user) > 0){ //회원가입 성공
 				response.sendRedirect("/hifive/index.jsp");
+				return;
 			} else{
-				RequestDispatcher errorPage = request.getRequestDispatcher("에러페이지");
+			/*	RequestDispatcher errorPage = request.getRequestDispatcher("에러페이지");
 				request.setAttribute("message", "회원 가입 실패");
-				errorPage.forward(request, response);
+				errorPage.forward(request, response);*/
 			}
 		} catch(UserException e){
-			RequestDispatcher errorPage = request.getRequestDispatcher("에러페이지");
+			e.printStackTrace();
+			/*RequestDispatcher errorPage = request.getRequestDispatcher("에러페이지");
 			request.setAttribute("message", e.getMessage());
-			errorPage.forward(request, response);
+			errorPage.forward(request, response);*/
 		}
 		
 	}
