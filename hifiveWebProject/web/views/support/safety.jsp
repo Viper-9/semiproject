@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import = "user.model.vo.User" %>
 <% 
    String safetyuserid = (String)session.getAttribute("userId");
-%>	
+   User safetyuser = (User)session.getAttribute("user");
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +66,17 @@
 </style>
 
 <script type="text/javascript">
-	
+
+function CheckForm() {
+
+	var chk1 = document.safety.safetyCheck.checked;
+
+	if (!chk1) {
+		alert('체크 안 함');
+		return false;
+	}
+}
+
 </script>
 </head>
 <body>
@@ -73,8 +87,8 @@
 			<div id="menu">
 				<div class="card" style="width: 250px;">
 					<div class="card-body">
-						<h5 class="card-title"><%= safetyuserid %></h5>
-						<h6 class="card-subtitle mb-2 text-muted">(이름및 지역)</h6>
+						<h5 class="card-title"><%= userId %></h5>
+						<h6 class="card-subtitle mb-2 text-muted"><%= safetyuser %></h6>
 						<p class="card-text">
 							......<br> <br> <br> <br> <br> <br>
 							<br> <br> <br>
@@ -88,7 +102,7 @@
 			<div id="content1">
 				<%@ include file="../../supportmenu.jsp"%>
 				</div>
-
+			<br><br>
 			<div id="content2">
 			<br>
 				<div class="card" style="width: 600px;" id="safetycard">
@@ -99,27 +113,20 @@
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<br>
-				
-						<form onsubmit="return CheckForm()" action="/hifive/safetycheck?userid=<%= userid %>" method="get" name="safety">
+						<% if(headeruser.getSafety_check().equals("N")) { %>	
+						<form id="checksafety" action="/hifive/safetycheck" onsubmit="return CheckForm()" method="get" name="safety">
 							<div class="form-group form-check">
 								<input type="checkbox" class="form-check-input"
 									id="safetyCheck" name="safetyCheck"> 
 								<label class="form-check-label"
 									for="safetyCheck">Check me out</label>
+								<input type="hidden" name="userid" value="<%= safetyuserid %>">
 							</div>
 							<input type="submit" class="btn btn-primary" value="동의합니다">
 						</form>
-						<script type="text/javascript">
-							function CheckForm() {
-
-								var chk1 = document.safety.safetyCheck.checked;
-
-								if (!chk1) {
-									alert('체크 안 함');
-									return false;
-								}
-							}
-						</script>
+						<% } else { %>
+							<button>야호</button>
+						<% } %>
 					</div>
 				</div>
 			</div>
