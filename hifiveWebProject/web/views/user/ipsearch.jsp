@@ -28,23 +28,38 @@
 	<script type="text/javascript" src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript">
 	
+	function changebg(){
+		$("#searchuseremail").css("background-color", "#FFFFFF");
+	}
+	
 	
 	function searchid(){
 		
 		var receiveremail = $('#searchuseremail').val();
 		
 		if($('#searchuseremail').val() == ''){
-			
 			alert("이메일을 입력하세요");
-			return false;
-		} 
-		
-		return true;
-		
-		
-			
-		
-		
+			$("#searchuseremail").focus();
+			$("#searchuseremail").css("background-color", "#FFCECE");
+		} else {
+			$.ajax({
+				url : "/hifive/searchid",
+				type : "post",
+				data : { searchuseremail : receiveremail},
+				success : function(data) {
+					if(data =='0'){
+						alert("해당 이메일은 존재하지 않습니다.");
+					}else if(data == '1'){
+						alert("입력하신 이메일로 ID를 발송하였습니다")
+						location.href = "/hifive/index.jsp";
+					}else {
+						alert("알수없는 오류입니다. 관리자에게 문의해주세요")
+					}
+						
+					
+				}
+			});	
+		}		
 	}
 	
 	</script>
@@ -72,15 +87,18 @@
   			<div class="tab-pane fade show active" id="pills-id" role="tabpanel" aria-labelledby="pills-id-tab">아이디를 잊어버리셨나요? <br> 가입할 때 입력한 이메일로 아이디를  <br>보내드립니다. 				
   				<div>
   					<br>
-					<form action="/hifive/searchid" method="post">
+  					
+  					<!-- 이메일 쓰는란 -->
+					<form action="/hifive/searchid" method="post" onsubmit = "return false;">
 						<div class="form-group">
     						<label for="">Email</label>
-    						<input type="email" class="form-control" id="searchuseremail" name = "searchuseremail" placeholder="Email">
+    						<input type="email" class="form-control" id="searchuseremail" oninput = "changebg()"
+    						name = "searchuseremail" placeholder="Email">
     			
   						</div>
   						<br>
   						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  						<button type="submit" class="btn btn-primary btn-lg" id ="idsearch">아이디 찾기</button>
+  						<button type="submit" class="btn btn-primary btn-lg" onclick = "searchid()" id ="idsearch">아이디 찾기</button>
 
 					</form>
 				</div>  			 			

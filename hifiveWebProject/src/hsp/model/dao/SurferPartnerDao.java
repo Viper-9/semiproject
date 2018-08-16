@@ -71,8 +71,8 @@ public class SurferPartnerDao {
 				throw new SurferPartnerException("파트너 내역 조회 실패");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new SurferPartnerException(e.getMessage());
+			/*e.printStackTrace();
+			throw new SurferPartnerException(e.getMessage());*/
 		} finally {
 			close(rset);
 			close(pstmt);

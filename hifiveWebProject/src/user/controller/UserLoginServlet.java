@@ -31,10 +31,7 @@ public class UserLoginServlet extends HttpServlet {
 		
     	String userId = request.getParameter("userid");
 		String userPw = request.getParameter("userpw");
-		
-		
-		System.out.println(userId + ", " + userPw);
-		
+				
 		
 		
 		  try {
@@ -45,7 +42,6 @@ public class UserLoginServlet extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			
 			if(userName != null){
-				System.out.println(userName);
 				HttpSession session = request.getSession();
 				// session.setMaxInactiveInterval(10*60); // 자동 로그아웃...
 				session.setAttribute("userName", userName);
