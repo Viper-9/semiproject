@@ -41,7 +41,7 @@ public class PartneringServlet extends HttpServlet {
 			JSONObject job = new JSONObject();
 			job.put("destination", sp.getCity());
 			job.put("startdate", sp.getStart_date().toString());
-			job.put("enddate", sp.getEnd_Date().toString());
+			job.put("enddate", sp.getEnd_date().toString());
 			job.put("num", sp.getNum());
 			System.out.println(job.toJSONString());
 			
