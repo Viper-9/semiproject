@@ -17,14 +17,14 @@ public class SurferPartnerService {
 
 	public SurferPartnerService(){}
 	
-	public SurferPartner selectSurfer(String userId)  throws SurferPartnerException{
+	public SurferPartner selectSurfer(String userId) {
 		Connection con = getConnection();
 		SurferPartner sp = new SurferPartnerDao().selectSurfer(con, userId);
 		close(con);
 		return sp;
 	}
 	
-	public SurferPartner selectPartner(String userId)  throws SurferPartnerException{
+	public SurferPartner selectPartner(String userId)  {
 		Connection con = getConnection();
 		SurferPartner sp = new SurferPartnerDao().selectPartner(con, userId);
 		close(con);

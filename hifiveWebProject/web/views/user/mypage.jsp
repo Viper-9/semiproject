@@ -1,48 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>    
-<%   	
-	    String[] hchecked = new String[12];   	
-		/* User user = (User)request.getAttribute("user");  
-		Host host = (Host)request.getAttribute("host");   */
-	   
-	   
-/* if(user.getHobby() == null){
-		   
-	   } else {
-		   String[] hobbies = user.getHobby().split(",");
-		   for(String s : hobbies){
-		      switch(s){
-		      case "game": hchecked[0]="active"; break;
-		      case "reading": hchecked[1]="active"; break;
-		      case "music": hchecked[2]="active"; break;
-		      case "camping": hchecked[3]="active"; break;
-		      case "climb": hchecked[4]="active"; break;
-		      case "sport": hchecked[5]="active"; break;
-		      case "art": hchecked[6]="active"; break;
-		      case "shopping": hchecked[7]="active"; break;
-		      case "bike": hchecked[8]="active"; break;
-		      case "walk": hchecked[9]="active"; break;
-		      case "sleep": hchecked[10]="active"; break;
-		      case "dance": hchecked[11]="active"; break;      
-		      }
-		   }  
-	   } */
-  
-	   
-  	   String[] ochecked = new String[4]; 	   
-	   /*	   if(host.getCheck1() == null){
-		   
-	   } else {
-		   String[] checks = host.getCheck1().split(",");
-		   for(String s : checks){
-		      switch(s){
-		      case "smoking": ochecked[0]="active"; break;
-		      case "kid": ochecked[1]="active"; break;
-		      case "pet": ochecked[2]="active"; break;
-			  case "drinking": ochecked[3]="active"; break;
-		      }
-		   }
-	   } */
+<% 
+	String[] hchecked = new String[12];   	
+	String[] ochecked = new String[4]; 	   	
 %>
 <!DOCTYPE html>
 <html>
@@ -85,7 +45,7 @@
 </style>   
 
   <script type="text/javascript">
-       $(function(){        
+       $(function(){      
           
           $.ajax({
              url : "/hifive/info",
@@ -133,17 +93,16 @@
          		   
          	    }else{
          		   var hobbies = (data.hobby).split(","); 
-         		   console.log(hobbies);
-         		   for(var s in hobbies){
-         		      switch(s){
-         		      case "game": $("#game").prop("active", true); break;
-         		      case "reading": $("#reading").prop("active", true); break;
-         		      case "music": $("#music").prop("active", true); break;
-         		      case "camping": $("#camping").prop("active", true); break;
-         		      case "climb": $("#climb").prop("active", true); break;
-         		      case "sport": $("#sport").prop("active", true); break;
-         		      case "art": $("#art").prop("active", true); break;
-         		      case "shopping":
+         		   for(var i in hobbies){
+         			   switch(hobbies[i]){
+         		       case "game": $("#game").prop("checked", true); break;         		       
+         		       case "reading": $("#reading").prop("active", true); break;
+         		       case "music": $("#music").prop("active", true); break;
+         		       case "camping": $("#camping").prop("active", true); break;
+         		       case "climb": $("#climb").prop("active", true); break;
+         		       case "sport": $("#sport").prop("active", true); break;
+         		       case "art": $("#art").prop("active", true); break;
+         		       case "shopping":
          		    	  $("#shopping").attr("class", "btn btn-outline-secondary btn-sm active");
          		    	 /*  $("#shopping").removeClass("btn btn-outline-secondary btn-sm");
          		    	  $("#shopping").addClass("btn btn-outline-secondary btn-sm active"); */
@@ -151,7 +110,7 @@
          		      case "bike": $("#bike").prop("active", true); break;
          		      case "walk": $("#walk").prop("active", true); break;
          		      case "sleep": $("#sleep").prop("active", true); break;
-         		      case "dance": $("#dance").prop("active", true); break;      
+         		      case "dance": $("#dance").prop("active", true); break; 
          		      }
          		   }  
          	    } 
@@ -220,9 +179,9 @@
         	  error : function(jqXHR, textstatus, errorThrown){
         		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
         	  }        	  
-          }) //hostajax
-          
-          $.ajax({
+          }); //hostajax
+
+          /* $.ajax({
         	  url : "/hifive/surfing",
         	  type : "post",
         	  data : {userid : $("#userid").val()},
@@ -295,99 +254,43 @@
         		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
         	  }    
           })//partner ajax
+           */
+           
+          $.ajax({	
+        	  url : "/hifive/reviewlist",
+          		type : "get",
+    			data : {userid : $("#userid").val()},
+    			dataType : "json",			
+    			success : function(data){
+    				//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
+    				var jsonStr = JSON.stringify(data);
+    							
+    				//문자열을 json 객체로 바꿈
+    				var json = JSON.parse(jsonStr);
+    			
+    				var values = "";
+    				if(json.list.length == 0){
+    					values += "등록된 리뷰가 없습니다.";
+    					$("#review").html($("#review").html()+values);	
+    				} else{					
+    					for(var i in json.list){
+    						values += "아이디 : " + json.list[i].user_id 
+    						+"<br>날짜 : " + json.list[i].review_date
+    						+"<br>내용 : " + json.list[i].content +"<br><br>";
+    					}										
+    					$("#review").html($("#review").html()+values);
+    					
+    				}
+    			}, // success
+    			error : function(jqXHR, textstatus, errorThrown){
+    				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+    			} // error
+    		});
           
        }); //document.ready
        
+       
       
-		function deleteUser(){
-			var result = confirm("정말 탈퇴하시겠습니까?");
-			
-			if(result){
-				$.ajax({
-	  				url : "/hifive/userdelete",
-	  				type : "post",
-	  				data : {userid : $("#userid").val()},
-	  				success : function(data){
-	  					alert("탈퇴되었습니다.")
-	  				},
-	  				error : function(jqXHR, textstatus, errorThrown){
-	          		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
-	          	  }  
-	  			})
-			}else{
-				
-			}  			
-		} //deleteUser
-  	
-  		function userUpdate(){
-			$.ajax({
-				url : "/hifive/infoupdate",
-				type : "post",
-				data : {userid : $("#userid").val()},
-				success : function(data){
-	             	//이름
-	                $("#name").val(data.name);            	
-	              	//주소
-	                $("#sample5_address").val(data.address); 
-	              	//국적
-	              	if(data.nationality == null){
-	              		$("nationality").val('');
-	              	}else{
-	              		$("#nationality").prop("selected", true);
-	              	}
-	              	//성별
-	                if(data.gender == "F"){
-	                	$("#gender").val('여성');
-	                } else {
-	                	$("#gender").val('남성');
-	                }                	
-	             	//이메일
-	                $("#email").val(data.email);             	
-	                //직업
-	             	if(data.job == null){
-	             		$("#job").val('');
-	             	} else {
-	             		$("#job").val(data.job);
-	             	}                
-	             	//생일
-	                $("#birth").val(data.birth);             	
-	                //전화번호
-	                $("#phone").val(data.phone);                
-	                //자기소개
-	                if(data.content == null){
-	                	$("#introduction").val();
-	                } else {
-	                	$("#introduction").val(data.content);
-	                } 
-	                //취미
-	                //String[] hchecked = new String[12];   		
-	         	    if(data.hobby == null){
-	         		   
-	         	    }else{/* class="btn btn-outline-secondary btn-sm" */
-	         		   var hobbies = (data.hobby).split(",");  
-	         		   for(var s in hobbies){
-	         		      switch(s){
-	         		      case "game": $("#game").prop("active", true); break;
-	         		      case "reading": $("#reading").prop("active", true); break;
-	         		      case "music": $("#music").prop("active", true); break;
-	         		      case "camping": $("#camping").prop("active", true); break;
-	         		      case "climb": $("#climb").prop("active", true); break;
-	         		      case "sport": $("#sport").prop("active", true); break;
-	         		      case "art": $("#art").prop("active", true); break;
-	         		      case "shopping": $(".btn btn-outline-secondary btn-sm").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-	         		      case "bike": $("#bike").prop("active", true); break;
-	         		      case "walk": $("#walk").prop("active", true); break;
-	         		      case "sleep": $("#sleep").prop("active", true); break;
-	         		      case "dance": $("#dance").prop("active", true); break;      
-	         		      }
-	         		   }  
-	         	    } 
-	             },
-				error : function(jqXHR, textstatus, errorThrown){
-	        		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
-	        	  }  
-			})
-		}       
     </script>     
 
 </head>
@@ -466,7 +369,7 @@
                      <table align="center" border="0">
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER"
-                           		onclick="location.href='/hifive/favoritelist?userid=<%-- <%= user.getUser_Id() %> --%>'" ></th>
+                           		onclick="location.href='/hifive/favoritelist?userid=<%=userId%>'"></th>
                         </tr>
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"></th>
@@ -552,8 +455,8 @@
                            <tr>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm" id="game">
-	                                 <input type="checkbox" name="hobby" value="game"> 게임
+	                                 <label class="btn btn-outline-secondary btn-sm" >
+	                                 <input type="checkbox" name="hobby" value="game" id="game" > 게임
 	                                 </label>
 	                              </div>
 	                           </td>

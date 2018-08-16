@@ -12,7 +12,7 @@ public class SurferPartnerDao {
 
 
 
-	public SurferPartner selectSurfer(Connection con, String userId) throws SurferPartnerException{
+	public SurferPartner selectSurfer(Connection con, String userId){
 		SurferPartner sp = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -32,13 +32,11 @@ public class SurferPartnerDao {
 				sp.setEnd_date(rset.getDate("end_date"));
 				sp.setCity(rset.getString("city"));
 				sp.setProcess(rset.getString("process"));
-				sp.setNum(rset.getInt("user_num"));
-			}else{
-				throw new SurferPartnerException("서퍼 내역 조회 실패");
+				sp.setUser_num(rset.getInt("user_num"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new SurferPartnerException(e.getMessage());
+			
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -46,7 +44,7 @@ public class SurferPartnerDao {
 		return sp;
 	}
 
-	public SurferPartner selectPartner(Connection con, String userId) throws SurferPartnerException{
+	public SurferPartner selectPartner(Connection con, String userId) {
 		SurferPartner sp = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -66,7 +64,7 @@ public class SurferPartnerDao {
 				sp.setEnd_date(rset.getDate("end_date"));
 				sp.setCity(rset.getString("city"));
 				sp.setProcess(rset.getString("process"));
-				sp.setNum(rset.getInt("user_num"));
+				sp.setUser_num(rset.getInt("user_num"));
 			}else{
 				throw new SurferPartnerException("파트너 내역 조회 실패");
 			}

@@ -11,7 +11,7 @@ import hsp.model.vo.Host;
 public class HostDao {
 	
 	// 현재 진행중인 내 호스트 정보
-	public Host selectHost(Connection con, String userid)throws HostException {
+	public Host selectHost(Connection con, String userid) {
 		Host host = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
