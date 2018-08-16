@@ -260,6 +260,31 @@ public class UserDao {
 		}
 		
 		return idCount;
+	}
+	
+	// 안전 유의사항 체크
+	public int safetyCheck(Connection con, String userid) throws UserException {
+		int result = 0;
+		PreparedStatement pstmt = null;
 		
+		String query = "update users set safety_check = ? where user_id = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);			
+			pstmt.setString(1, "Y");
+			pstmt.setString(2, userid);
+						
+			result = pstmt.executeUpdate();
+			System.out.println("dao " + userid);
+			if(result <= 0)
+				throw new UserException("안전유의사항 체크 업데이트 실패!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new UserException(e.getMessage());
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

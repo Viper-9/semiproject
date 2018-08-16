@@ -1,11 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ page import="report.model.vo.Report, java.util.ArrayList" %>
+<%@ page import="report.model.vo.Report, user.model.vo.User, java.util.ArrayList" %>
 <%
 	ArrayList<Report> reportlist = (ArrayList<Report>)request.getAttribute("reportList");
 	if(reportlist==null) {
 		System.out.println("실패");
 	}
+	
+	int listCount = ((Integer)request.getAttribute("listCount")).intValue();
+	int startPage = ((Integer)request.getAttribute("startPage")).intValue();
+	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
+	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
+	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
+	
+	String message = (String)request.getAttribute("message");
+	if(message == null) {
+		message = "1";
+	}
+	
+	int result = ((Integer)request.getAttribute("result")).intValue();
+	
+	User user = (User)request.getAttribute("user");
 %>   
 <!DOCTYPE html>
 <html>
@@ -61,7 +76,12 @@
    text-align: center;
 }
 
-.card-body{text-align: center;
+.card-body{
+	text-align: center;
+}
+
+.searchdiv {
+	text-align: center;
 }
 </style>
 
@@ -77,11 +97,15 @@ function showBoardWriteForm(){
       <hr>
       <div id="main">
          <div id="menu">
-            
+      
             <div class="card" style="width: 250px;">
   <div class="card-body">
-    <h5 class="card-title">사용자 기본정보</h5>
-    <h6 class="card-subtitle mb-2 text-muted">(이름및 지역)</h6>
+    <h5 class="card-title"><%-- <%= user.getUser_Name() %> --%></h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+    <%-- <%= user.getAddress() %>
+    <br>
+    <b><%= user.getNationality() %></b> --%>
+    </h6>
     <p class="card-text">......<br><br><br><br><br><br><br><br><br></p>
     <a href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a>
     
@@ -90,29 +114,20 @@ function showBoardWriteForm(){
                
          </div>
          <div id="content1">
-         <div id="upmenu">
-                    <div class="btn-group " role="group" aria-label="First group">
-                 <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/notice/noticeList.jsp'">공지사항</button>
-   <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/reportlist">신고게시판</button>
-    <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/user/mypage.jsp'">마이 페이지</button>
-    <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/safety.jsp'">안전 유의사항</button>
-   <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/tutorial.jsp'">튜토리얼</button>
-  </div>
-  </div><br>
-  				<%
-					if (userId != null) {
-				%>
-				<div style="align: center; text-align: right;">
-					<button class="btn btn-primary" onclick="showBoardWriteForm();">글쓰기</button>
-				</div>
-				<% } %>
-				<br>
-         <div id="list">
+            <%@ include file="../../../supportmenu.jsp"%>
+		 </div>
+  	     	
+			
+			
+        	 <div id="content2">
+        	 <br>
+        	 <!-- 작성글이 있거나 검색결과 있을때 -->
+        	 <% if(message.equals("1")) { %>  
              <table class="table table-sm" style="text-align: center;">
                <thead>
                   <tr>
                      <th>글번호</th>
-                     <th width="300px">제 목</th>
+                     <th width="250px">제 목</th>
                      <th>작성자</th>
                      <th>접수상태</th>
                      <th>작성일자</th>
@@ -124,97 +139,107 @@ function showBoardWriteForm(){
                <% for(Report r : reportlist) { %>
                   <tr>
                      <td align="center"><%= r.getReport_no() %></td>
-                     <td><%= r.getTitle() %>
+                     <td>
                      <%-- 로그인한 사용자만 상세보기할 수 있도록 처리 --%>
-                   <%--   <% if(userId != null) { %>
-                     	<a href="/second/reportdetail?rnum=<%= r.getReport_no() %>&page=<%= currentPage %>"><%= r.getTitle() %></a>
+                     <% if(userId != null) { %>
+                     	<a href="/hifive/reportdetail?rnum=<%= r.getReport_no() %>&page=<%= currentPage %>"><%= r.getTitle() %></a>
                      <% }else { %>
 					 <%= r.getTitle() %>
 					 <% } %>
-					 </td> --%>
-                     <td align="center"><%= r.getUser_id() %></td>
-                     <td align="center"><%= r.getComplete() %></td>
+					 </td>
+                     <td align="center"><a href="/hifive/profileinfo?userid=<%= r.getUser_id() %>"><%= r.getUser_id() %></a></td>
+                     <td align="center">
+                     <% if(r.getComplete().toUpperCase().equals("Y")) { %>
+                     	처리완료
+                     <% }else { %>
+						처리중
+					 <% } %>
+                     </td>
                      <td align="center"><%= r.getReport_date() %></td>
                      <td align="center"><%= r.getViews() %></td>
                   </tr>
                 <% } %>
                </tbody>
             </table>
-				<form>
-               <div class="form-row align-items-center">            
+            <!-- 작성글이 없거나 검색 결과 없을때 -->
+            <% } else { %> 
+            <br><br>
+            	<h5><b><%= message %></b></h5>
+            	<br><br>
+            <% } %>
+			<form action="/hifive/reportsearch" method="get">
+               <div class="form-row" id="searchdiv">            
                   <div class="col-auto my-1">                     
-                     <select class="custom-select mr-sm-2">
-                        <option selected id="RsearchTitle">제목</option>
-                        <option value="1" id="RsearchTitleId">아이디</option>
+                     <select class="custom-select mr-sm-2" name="rsearchfilter">
+                        <option selected >제목</option>
+                        <option>아이디</option>
                      </select>
                   </div>
                   <div class="col-auto my-1">
-                     <input type="text" style="width:550px" class="form-control col-auto my-1" id="RsearchContent">
+                     <input type="text" style="width:460px;" class="form-control" id="RsearchContent" name="RsearchContent">
                   </div>
                   <div class="col-auto my-1">
-                     <button type="submit" class="btn btn-primary">검색</button>
+                     <input type="submit" class="btn btn-primary" value="검색">
                   </div>
+                  <%if (userId != null) {%>
+				  <div class="col-auto my-1">
+					 <button class="btn btn-primary" onclick="showBoardWriteForm();">글쓰기</button>
+				  </div>
+				  <% } %>
                </div>
-            </form>
-
-
-
-            <!-- 페이징 처리 부분! 아직 서블릿 구현 안 해서 동작 X -->
-            
- <%--            <div style="text-align: center">
-<% if(currentPage <= 1){ %>
-	[맨처음]&nbsp;
-<% }else{ %>
-	<a href="">[맨처음]</a>
-<% } %>
-<% if((currentPage - 10) < startPage && 
-		(currentPage - 10) > 1){ %>
-	<a href="">[이전]</a>
-<% }else{ %>
-	[이전]&nbsp;
-<% } %>
-startPage ~ endPage 출력
-<% for(int p = startPage; p <= endPage; p++){ 
-		if(p == currentPage){ 
-%>
-	<font color="red" size="4"></font>
-<%      }else{ %>
-	<a href=""></a>
-<% }} %>
-----------------
-<% if((currentPage + 10) > endPage && 
-		(currentPage + 10) < maxPage){ %>
-	<a href="">[다음]</a>
-<% }else{ %>
-	[다음]&nbsp;
-<% } %>
-
-<% if(currentPage >= maxPage){ %>
-	[맨끝]&nbsp;
-<% }else{ %>
-	<a href="">
-	[맨끝]</a>
-<% } %>
-</div> --%>
-           <!--  <nav aria-label="Page navigation example">
+               </form>
+			
+			<!-- 페이지 넘어가는 부분 -->
+			<% if(result == 0) { %>
+            <nav aria-label="Page navigation example">
                <ul class="pagination justify-content-center">
-                  <li class="page-item"><a class="page-link" href="#"
+                  <li class="page-item">
+                  <% if((currentPage - 10) < startPage && (currentPage - 10) > 1){ %>
+                  <a class="page-link" href="/hifive/reportlist?page=<%= startPage - 10 %>"
                      aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                  </a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#"
+                        <span class="sr-only">Previous</span></a>
+               	  <% }else { %> 
+               	  <a class="page-link" href="#"
+                     aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span> 
+                  <span	class="sr-only">Previous</span> </a>
+				  <% } %>
+				  </li>
+				  
+				  <% for(int p = startPage; p <= endPage; p++){ 
+					 if(p == currentPage){ %>
+					 <li class="page-item"><a class="page-link" href="/hifive/reportlist?page=<%= p %>"><b><%= p %></b></a></li>
+					 <%      }else{ %>
+                  <li class="page-item"><a class="page-link" href="/hifive/reportlist?page=<%= p %>"><%= p %></a></li>
+                  <% }} %>
+                  
+                  <li class="page-item">
+                  <% if((currentPage + 10) > endPage && 
+					(currentPage + 10) < maxPage){ %>  
+                  <a class="page-link" href="/hifive/reportlist?page=<%= endPage + 10 %>"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
-                  </a></li>
+                  </a>
+                  
+                  <% }else{ %>
+				  <a class="page-link" href="/hifive/reportlist?page=<%= endPage + 10 %>"
+                     aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+                        class="sr-only">Next</span>
+				  <% } %>
+				  </a>
+                  </li>
                </ul>
-            </nav> -->
+            </nav>
+            <!-- 검색하면 페이지 넘어가는거 처리 X -->
+            <% } else { %>
+            <br>
+            <a class="btn btn-primary btn-sm" href="/hifive/reportlist">목록보기</a>
             
+            <% } %>
+            
+           
             
          </div>
-      </div>
       </div>
       <br>
       <hr>

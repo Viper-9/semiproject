@@ -1,4 +1,4 @@
-package report.controller;
+package user.controller;
 
 import java.io.IOException;
 
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import notice.exception.NoticeException;
-import notice.model.service.NoticeService;
-import notice.model.vo.Notice;
+import user.exception.UserException;
+import user.model.service.UserService;
+import user.model.vo.User;
 
 /**
- * Servlet implementation class ReportDeleteServlet
+ * Servlet implementation class SafetyCheckServlet
  */
-@WebServlet("/reportdelete")
-public class ReportDeleteServlet extends HttpServlet {
+@WebServlet("/safetycheck")
+public class SafetyCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportDeleteServlet() {
+    public SafetyCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,6 +33,20 @@ public class ReportDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String userid = request.getParameter("userid");
+		
+		RequestDispatcher view = null;
+		try {
+			int result = new UserService().safetyCheck(userid);
+			System.out.println("서블릿 : " + userid);
+			if(result > 0){
+				
+			} else {
+				
+			}
+		} catch(UserException e){
+			
+		}
 	}
 
 	/**

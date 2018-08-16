@@ -37,7 +37,7 @@ public class ProfileInfoServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		try {
 			User user = new UserService().selectUser(userId);
-		if(user != null){
+			if(user != null){
 				view = request.getRequestDispatcher("views/user/profile.jsp"); // info 페이지
 				request.setAttribute("user", user);
 				view.forward(request, response);

@@ -1,5 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ page import="notice.model.vo.Notice, java.util.ArrayList" %>
+<%
+	ArrayList<Notice> noticelist = (ArrayList<Notice>)request.getAttribute("noticeList");
+	if(noticelist==null) {
+		System.out.println("실패");
+	} 
+	
+	int listCount = ((Integer)request.getAttribute("listCount")).intValue();
+	int startPage = ((Integer)request.getAttribute("startPage")).intValue();
+	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
+	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
+	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue(); 
+	
+	String message = (String)request.getAttribute("message");
+	if(message == null) {
+		message = "1";
+	}
+	
+	int result = ((Integer)request.getAttribute("result")).intValue();
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,12 +27,14 @@
 <meta charset="UTF-8">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>공지사항</title>
+<title>NoticeLsit</title>
 
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
 <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 <style type="text/css">
@@ -49,8 +71,11 @@
 </style>
 
 <script type="text/javascript">
-
+function showBoardWriteForm(){
+	location.href = "/hifive/views/support/notice/noticeWrite.jsp"	
+}
 </script>
+
 </head>
 <body>
    <div class="container">
@@ -58,6 +83,7 @@
       <hr>
       <div id="main">
          <div id="menu">
+         
             <div class="card" style="width: 250px;">
   <div class="card-body">
     <h5 class="card-title">사용자 기본정보</h5>
@@ -69,101 +95,109 @@
 </div>
          </div>
          <div id="content1">
-          <div class="btn-group " role="group" aria-label="First group">
-                 <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/notice/noticeList.jsp'">공지사항</button>
-   <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/report/reportList.jsp'">신고게시판</button>
-    <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/user/mypage.jsp'">마이 페이지</button>
-    <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/safety.jsp'">안전 유의사항</button>
-   <button type="button" class="btn btn-secondary btn-outline-secondary" onclick="location.href='/hifive/views/support/tutorial.jsp'">튜토리얼</button>
-  </div>
-         </div>
-         <div id="content2">
-           
-
-   
-            <table class="table table-sm" style="text-align: center;">
+          <%@ include file="../../../supportmenu.jsp"%>
+          </div>
+			 <div id="content2">
+			 <br>
+			 <!-- 작성글이 있거나 검색결과 있을때 -->
+        	 <% if(message.equals("1")) { %> 
+             <table class="table table-sm" style="text-align: center;">
                <thead>
                   <tr>
                      <th>글번호</th>
-                     <th width="300px">제 목</th>
-                     <th>작성자</th>
-                     <th>접수상태</th>
-                     <th>작성일자</th>
+                     <th width="250px">제 목</th>
+					 <th>작성일자</th>
                      <th>조회수</th>
-
                   </tr>
                </thead>
                <tbody>
+               <% for(Notice n : noticelist) { %>
                   <tr>
-                     <td>1</td>
-                     <td>Otto</td>
-                     <td>@mdo</td>
-                     <td>Mark</td>
-                     <td>Otto</td>
-                     <td>0</td>
+                     <td align="center"><%= n.getNotice_no() %></td>
+                     <td>              
+                     	<a href="/hifive/noticedetail?rnum=<%= n.getNotice_no() %>&page=<%= currentPage %>"><%= n.getTitle() %></a>
+					 </td>
+                     <td align="center"><%= n.getNotice_date() %></td>                                
+                     <td align="center"><%= n.getViews() %></td>
                   </tr>
-                  <tr>
-                     <td>2</td>
-                     <td>Thornton</td>
-                     <td>@fat</td>
-                     <td>Mark</td>
-                     <td>Otto</td>
-                     <td>0</td>
-                  </tr>
-                  <tr>
-                     <td>3</td>
-                     <td>the Bird</td>
-                     <td>@twitter</td>
-                     <td>Mark</td>
-                     <td>Otto</td>
-                     <td>0</td>
-                  </tr>
-                  <tr>
-                     <td>4</td>
-                     <td>오승연 짱</td>
-                     <td>ㅋ</td>
-                     <td>Mark</td>
-                     <td>Otto</td>
-                     <td>0</td>
-                  </tr>
+                <% } %>
                </tbody>
             </table>
-            <form>
+            
+            <!-- 작성글이 없거나 검색 결과 없을때 -->
+            <% } else { %> 
+            <br><br>
+            	<h5><b><%= message %></b></h5>
+            	<br><br>
+            <% } %>
+            	
+            	<form action="/hifive/noticesearch" method="get">
                <div class="form-row align-items-center">            
                   <div class="col-auto my-1">                     
-                     <select class="custom-select mr-sm-2">
-                        <option selected id="RsearchTitle">제목</option>
-                        <option value="1" id="RsearchTitleId">아이디</option>
+                     <select class="custom-select mr-sm-2" name="nsearchfilter">
+                        <option selected >제목</option>
+                        <option>내용</option>
                      </select>
                   </div>
                   <div class="col-auto my-1">
-                     <input type="text" style="width:550px" class="form-control col-auto my-1" id="RsearchContent">
+                     <input type="text" style="width:550px" class="form-control col-auto my-1" id="nsearchContent" name="nsearchContent">
                   </div>
                   <div class="col-auto my-1">
-                     <button type="submit" class="btn btn-primary">검색</button>
+                     <input type="submit" class="btn btn-primary" value="검색">
                   </div>
                </div>
-            </form>
-
-
-
-            <!-- 페이징 처리 부분! 아직 서블릿 구현 안 해서 동작 X -->
+               </form>
+			
+			<!-- 페이지 넘어가는 부분 -->
+			<% if(result == 0) { %>
             <nav aria-label="Page navigation example">
                <ul class="pagination justify-content-center">
-                  <li class="page-item"><a class="page-link" href="#"
+                  <li class="page-item">
+                  <% if((currentPage - 10) < startPage && (currentPage - 10) > 1){ %>
+                  <a class="page-link" href="/hifive/noticelist?page=<%= startPage - 10 %>"
                      aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                  </a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#"
+                        <span class="sr-only">Previous</span></a>
+               	  <% }else { %> 
+               	  <a class="page-link" href="/hifive/noticelist?page=<%= startPage - 10 %>"
+                     aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span> 
+                  <span	class="sr-only">Previous</span> </a>
+				  <% } %>
+				  </li>
+				  
+				  <% for(int p = startPage; p <= endPage; p++){ 
+					 if(p == currentPage){ %>
+					 <li class="page-item"><a class="page-link" href="/hifive/noticelist?page=<%= p %>"><b><%= p %></b></a></li>
+					 <%      }else{ %>
+                  <li class="page-item"><a class="page-link" href="/hifive/noticelist?page=<%= p %>"><%= p %></a></li>
+                  <% }} %>
+                  
+                  <li class="page-item">
+                  <% if((currentPage + 10) > endPage && 
+					(currentPage + 10) < maxPage){ %>  
+                  <a class="page-link" href="/hifive/noticelist?page=<%= endPage + 10 %>"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
-                  </a></li>
+                  </a>
+                  
+                  <% }else{ %>
+				  <a class="page-link" href="/hifive/noticelist?page=<%= endPage + 10 %>"
+                     aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+                        class="sr-only">Next</span>
+				  <% } %>
+				  </a>
+                  </li>
                </ul>
             </nav>
-         </div>
+            <!-- 검색하면 페이지 넘어가는거 처리 X -->
+            <% } else { %>
+            <br>
+            <a class="btn btn-primary btn-sm" href="/hifive/noticelist">목록보기</a>
+            
+            <% } %>
+            
+            
+         </div>                                         
       </div>
       <br>
       <hr>

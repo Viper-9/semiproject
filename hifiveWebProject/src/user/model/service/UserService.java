@@ -81,4 +81,13 @@ public class UserService {
 		close(con);
 		return result;
 	}
+
+	// 안전 유의사항 체크
+	public int safetyCheck(String userid) throws UserException {
+		Connection con = getConnection();
+		int result = 
+				new UserDao().safetyCheck(con, userid);
+		close(con);
+		return result;
+	}
 }

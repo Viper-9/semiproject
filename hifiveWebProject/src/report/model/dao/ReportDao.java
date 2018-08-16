@@ -44,17 +44,29 @@ public class ReportDao {
 		}
 	
 	// 전체 글 조회
-	public ArrayList<Report> selectAllReport(Connection con) throws ReportException {
+	public ArrayList<Report> selectAllReport(Connection con, int currentPage, 
+			int limit) throws ReportException {
 		ArrayList<Report> list = new ArrayList<Report>();
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "select * from report_board";
+		String query = "select * from ("
+				+ "select rownum rnum, report_no, "
+				+ "views, title, contents, "
+				+ "report_date, complete, user_id "
+				+ "from (select * from report_board "
+				+ "order by report_no desc)) "
+				+ "where rnum >= ? and rnum <= ?";
 
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		
 		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()){
 				Report r = new Report();
@@ -77,7 +89,7 @@ public class ReportDao {
 			throw new ReportException(e.getMessage());		
 		} finally{
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}		
 		return list;
 	}
@@ -88,11 +100,19 @@ public class ReportDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from report_board where title like ?";
-		
+		String query = "select * from ("
+				+ "select rownum rnum, report_no, "
+				+ "views, title, contents, "
+				+ "report_date, complete, user_id "
+				+ "from (select * from report_board "
+				+ "order by report_no desc)) "
+				+ "where title like ?";
+				
 		try{
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "%" + keyword + "%");
+			
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()){
 				Report r = new Report();
@@ -101,7 +121,7 @@ public class ReportDao {
 				r.setReport_date(rset.getDate("report_date"));
 				r.setViews(rset.getInt("views"));
 				r.setTitle(rset.getString("title"));
-				r.setContent(rset.getString("content"));
+				r.setContent(rset.getString("contents"));
 				r.setComplete(rset.getString("complete"));
 				r.setUser_id(rset.getString("user_id"));
 				
@@ -119,10 +139,56 @@ public class ReportDao {
 		}		
 		return list;
 	}
+	
+	//  아이디로 검색조회
+		public ArrayList<Report> selectId(Connection con, String writer) throws ReportException {
+			ArrayList<Report> list = new ArrayList<Report>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			String query = "select * from ("
+					+ "select rownum rnum, report_no, "
+					+ "views, title, contents, "
+					+ "report_date, complete, user_id "
+					+ "from (select * from report_board "
+					+ "order by report_no desc)) "
+					+ "where user_id like ?";
+
+			try{
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, "%" + writer + "%");
+
+				rset = pstmt.executeQuery();
+
+				while(rset.next()){
+					Report r = new Report();
+
+					r.setReport_no(rset.getInt("report_no"));
+					r.setReport_date(rset.getDate("report_date"));
+					r.setViews(rset.getInt("views"));
+					r.setTitle(rset.getString("title"));
+					r.setContent(rset.getString("contents"));
+					r.setComplete(rset.getString("complete"));
+					r.setUser_id(rset.getString("user_id"));
+
+					list.add(r);
+
+					if(list.size() == 0)
+						throw new ReportException("제목 검색 조회 실패");			
+				}
+			} catch(Exception e){
+				e.printStackTrace();
+				throw new ReportException(e.getMessage());		
+			} finally{
+				close(rset);
+				close(pstmt);
+			}		
+			return list;
+		}
 
 	// 글 내용 상세조회
-	public Report selectReport(Connection con, int ReportNo) throws ReportException {
-		Report Report = null;
+	public Report selectReport(Connection con, int reportNo) throws ReportException {
+		Report r = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -130,23 +196,23 @@ public class ReportDao {
 		
 		try{
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, ReportNo);
+			pstmt.setInt(1, reportNo);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()){
-				Report r = new Report();
+				r = new Report();
 				
 				r.setReport_no(rset.getInt("report_no"));
 				r.setReport_date(rset.getDate("report_date"));
 				r.setViews(rset.getInt("views"));
 				r.setTitle(rset.getString("title"));
-				r.setContent(rset.getString("content"));
+				r.setContent(rset.getString("contents"));
 				r.setComplete(rset.getString("complete"));
 				r.setUser_id(rset.getString("user_id"));
 				
 				
-				if(Report == null)
+				if(r == null)
 					throw new ReportException("글 내용 조회 실패");			
 			}
 		} catch(Exception e){
@@ -156,7 +222,7 @@ public class ReportDao {
 			close(rset);
 			close(pstmt);
 		}		
-		return Report;
+		return r;
 	}
 
 	// 신고게시판 입력

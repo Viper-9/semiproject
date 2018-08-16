@@ -23,25 +23,33 @@ public class ReportService {
 	}
 
 	// 신고게시판 전체 조회
-	public ArrayList<Report> selectAllReport() throws ReportException {
+	public ArrayList<Report> selectAllReport(int currentPage, int limit) throws ReportException {
 		Connection con = getConnection();
-		ArrayList<Report> list = new ReportDao().selectAllReport(con);
+		ArrayList<Report> list = new ReportDao().selectAllReport(con, currentPage, limit);
 		close(con);		
 		return list;
 	}
 	
 	// 신고게시판 제목으로 검색조회
-	public ArrayList<Report> selectTitle(String keyword) throws ReportException{
+	public ArrayList<Report> selectTitle(String title) throws ReportException{
 		Connection con = getConnection();
-		ArrayList<Report> list = new ReportDao().selectTitle(con, keyword);
+		ArrayList<Report> list = new ReportDao().selectTitle(con, title);
 		close(con);
 		return list;
 	}
-	
-	// 글 상세 페이지
-	public Report selectReport(int ReportNo) throws ReportException {
+
+	// 신고게시판 아이디로 검색조회
+	public ArrayList<Report> selectId(String writer) throws ReportException{
 		Connection con = getConnection();
-		Report Report = new ReportDao().selectReport(con, ReportNo);
+		ArrayList<Report> list = new ReportDao().selectId(con, writer);
+		close(con);
+		return list;
+	}
+
+	// 글 상세 페이지
+	public Report selectReport(int reportNo) throws ReportException {
+		Connection con = getConnection();
+		Report Report = new ReportDao().selectReport(con, reportNo);
 		close(con);
 		return Report;
 	}

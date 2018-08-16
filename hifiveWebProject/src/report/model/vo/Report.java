@@ -2,7 +2,7 @@ package report.model.vo;
 
 import java.sql.Date;
 
-public class Report {
+public class Report implements java.io.Serializable {
 private static final long serialVersionUID = 5L;
 	
 	private int report_no;
