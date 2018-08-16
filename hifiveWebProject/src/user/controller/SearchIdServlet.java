@@ -101,7 +101,6 @@ public class SearchIdServlet extends HttpServlet {
 			out.close();
 			
 			
-			
 		} catch (AddressException e) {
 			e.printStackTrace();
 		} catch (MessagingException e2) {
