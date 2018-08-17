@@ -73,21 +73,20 @@ public class NoticeListServlet extends HttpServlet {
 				endPage = maxPage;
 			if(noticeList.size() > 0){
 				view = request.getRequestDispatcher("views/support/notice/noticeList.jsp");
-				request.setAttribute("noticeList", noticeList);
-				request.setAttribute("currentPage", currentPage);
-				request.setAttribute("maxPage", maxPage);
-				request.setAttribute("startPage", startPage);
-				request.setAttribute("endPage", endPage);
-				request.setAttribute("listCount", listCount);
-				request.setAttribute("result", 0);
-				
-	        	view.forward(request, response);	        	
+				request.setAttribute("noticeList", noticeList);	        	
 			}else{
 				view = request.getRequestDispatcher(
 						"views/support/notice/noticeList.jsp");
 				request.setAttribute("message", "게시글이 없습니다.");
-				view.forward(request, response);
 			}		
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("maxPage", maxPage);
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("listCount", listCount);
+			request.setAttribute("result", 0);
+			
+        	view.forward(request, response);
 		
 		} catch (NoticeException e) {
 			System.out.println("실패");

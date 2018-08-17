@@ -7,7 +7,7 @@ public class SurferPartner implements java.io.Serializable {
 	
 	private String user_id;
 	private Date start_date;
-	private Date end_date;
+	private Date End_date;
 	private String city;
 	private String role;
 	private String process;
@@ -23,7 +23,7 @@ public class SurferPartner implements java.io.Serializable {
 		super();
 		this.user_id = user_id;
 		this.start_date = start_date;
-		this.end_date = end_date;
+		End_date = end_date;
 		this.city = city;
 		this.role = role;
 		this.process = process;
@@ -48,11 +48,15 @@ public class SurferPartner implements java.io.Serializable {
 	}
 
 	public Date getEnd_date() {
-		return end_date;
+
+		return End_date;
+
 	}
 
 	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
+
+		End_date = end_date;
+
 	}
 
 	public String getCity() {
@@ -79,16 +83,12 @@ public class SurferPartner implements java.io.Serializable {
 		this.process = process;
 	}
 
-
 	public int getUser_num() {
 		return user_num;
 	}
-
 
 	public void setUser_num(int user_num) {
 		this.user_num = user_num;
 	}
 
-
-	
 }

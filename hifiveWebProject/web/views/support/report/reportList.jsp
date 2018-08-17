@@ -19,8 +19,6 @@
 	}
 	
 	int result = ((Integer)request.getAttribute("result")).intValue();
-	
-	User user = (User)request.getAttribute("user");
 %>   
 <!DOCTYPE html>
 <html>
@@ -98,19 +96,7 @@ function showBoardWriteForm(){
       <div id="main">
          <div id="menu">
       
-            <div class="card" style="width: 250px;">
-  <div class="card-body">
-    <h5 class="card-title"><%-- <%= user.getUser_Name() %> --%></h5>
-    <h6 class="card-subtitle mb-2 text-muted">
-    <%-- <%= user.getAddress() %>
-    <br>
-    <b><%= user.getNationality() %></b> --%>
-    </h6>
-    <p class="card-text">......<br><br><br><br><br><br><br><br><br></p>
-    <a href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a>
-    
-  </div>
-</div>
+        <%@ include file="../../../information.jsp"%>
                
          </div>
          <div id="content1">
@@ -181,14 +167,15 @@ function showBoardWriteForm(){
                   <div class="col-auto my-1">
                      <input type="submit" class="btn btn-primary" value="검색">
                   </div>
-                  <%if (userId != null) {%>
+                 
+				  
+               </div>
+               </form>
+               <%if (userId != null) {%>
 				  <div class="col-auto my-1">
 					 <button class="btn btn-primary" onclick="showBoardWriteForm();">글쓰기</button>
 				  </div>
-				  <% } %>
-               </div>
-               </form>
-			
+			<% } %>
 			<!-- 페이지 넘어가는 부분 -->
 			<% if(result == 0) { %>
             <nav aria-label="Page navigation example">

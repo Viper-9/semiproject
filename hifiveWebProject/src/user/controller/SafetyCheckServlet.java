@@ -34,13 +34,11 @@ public class SafetyCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String userid = request.getParameter("userid");
-		
-		RequestDispatcher view = null;
+
 		try {
-			int result = new UserService().safetyCheck(userid);
-			System.out.println("서블릿 : " + userid);
-			if(result > 0){
-				
+			if(new UserService().safetyCheck(userid) > 0){
+				response.sendRedirect("/hifive/views/support/safety.jsp");
+				System.out.println("업데이트 성공");
 			} else {
 				
 			}
