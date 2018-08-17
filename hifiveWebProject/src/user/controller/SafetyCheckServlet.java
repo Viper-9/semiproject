@@ -1,6 +1,7 @@
 package user.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import user.exception.UserException;
 import user.model.service.UserService;
@@ -35,10 +37,17 @@ public class SafetyCheckServlet extends HttpServlet {
 		
 		String userid = request.getParameter("userid");
 
+		String returnValue = "0";
+		PrintWriter out = response.getWriter();
+		
 		try {
-			if(new UserService().safetyCheck(userid) > 0){
-				response.sendRedirect("/hifive/views/support/safety.jsp");
-				System.out.println("업데이트 성공");
+			User user = new UserService().selectUser(userid);
+			
+			if(new UserService().safetyCheck(userid) > 0 && user != null){
+				HttpSession session = request.getSession();
+				session.setAttribute("loginuser", user);
+				returnValue = "1";
+				out.flush();
 			} else {
 				
 			}

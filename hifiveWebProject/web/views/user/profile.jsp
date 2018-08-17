@@ -229,11 +229,87 @@
                </div>
             </div>
             <br>
-            <div id="myhome" class="card" style="width: auto;">
+           <div id="myhome" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">My Home</h6>
                <div class="card-body">
-                  <p class="card-text">With supporting text below as a natural
-                     lead-in to additional content.</p>
+                  <p class="card-text">
+                  <ul>
+                  <table>
+                     <tr>
+                        <td><li>최대 가능 인원</li></td>
+                        <td><input type="text" class="form-control" disabled style="width:60px;background-color: #ffffff; text-align:center;"></td>
+                     </tr>
+                     <tr>
+                        <td><li>선호하는 성별</li></td>
+                         <td>
+                           <input type="text" class="form-control" name="gender" disabled style="width:150px;background-color: #ffffff; text-align:center;">
+                        </td> 
+                     </tr>
+                     <tr>
+                       <td><li>기타가능여부</li></td>
+                        <td>
+                        <table>
+                        	<tr>
+	                           <td>
+	                              <div class="btn-group-toggle" data-toggle="buttons">
+	                                 <label class="btn btn-outline-secondary btn-sm" id="smoking">
+	                                 <input type="checkbox" name="hostcheck" value="smoking"> 흡연
+	                                 </label>
+	                              </div>
+	                           </td>
+	                           <td>
+	                           <div class="btn-group-toggle" data-toggle="buttons">
+	                                 <label class="btn btn-outline-secondary btn-sm" id="kid"> 
+	                                 <input type="checkbox" name="hostcheck" value="kid"> 아이동반
+	                                 </label>
+	                           </div>	                           
+	                           </td>
+	                           <td>
+	                              <div class="btn-group-toggle" data-toggle="buttons">
+	                                 <label class="btn btn-outline-secondary btn-sm" id="pet">
+	                                 <input type="checkbox" name="hostcheck" value="pet"> 애완동물
+	                                 </label>
+	                              </div>
+	                           </td>
+	                           <td>
+	                           <div class="btn-group-toggle" data-toggle="buttons">
+	                                 <label class="btn btn-outline-secondary btn-sm" id="drinking">
+	                                 <input type="checkbox" name="hostcheck" value="drinking"> 음주
+	                                 </label>
+	                              </div>	                           
+	                           </td>
+                           </tr>
+                           </table>                  
+                        </td>
+                     </tr>            
+                     <tr>
+                        <td><li>수면 장소 : </li></td>
+                        <td>
+                           <select class="custom-select" name="sleeping" style="width:150px;">
+                                <option value="" id="roomselect">선택</option>
+                            	<option value="living" id="living">거실</option>
+	                            <option value="single" id="single">단독 방</option>
+	                            <option value="sharing" id="sharing">공용 방</option>
+	                            <option value="sofa" id="sofa">소파</option>
+                           </select>                                 
+                        </td>
+                     </tr>               
+                     <tr>
+                        <td><li>추가 정보 : </li></td>
+                        	<td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60"></textarea></td>   
+                     </tr>
+                     <tr>
+                     	<td><li> 사진 : </li></td>
+                     	<td><img class="rounded-float" src="/hifive/resources/image/profile.png" width="100px" height="70px"></td>
+                     </tr>
+                  </table> 
+                  </ul>
+                  </p>
+                  <br>
+                  <center>
+                  <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;&nbsp;
+               	 <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
+               	</center>
                </div>
             </div>
             <br>
@@ -361,7 +437,7 @@
          address : myaddress
       }, function(status, response) {
          if (status !== naver.maps.Service.Status.OK) {
-            return alert(myaddress + '의 검색 결과가 없거나 기타 네트워크 에러');
+            
          }
          var result = response.result;
          // 검색 결과 갯수: result.total
