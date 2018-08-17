@@ -13,8 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import hsp.model.service.HostService;
+import hsp.model.service.SurferPartnerService;
+import hsp.model.vo.Host;
+import hsp.model.vo.SurferPartner;
 import request.model.service.RequestService;
 import request.model.vo.Request;
+import user.model.service.UserService;
 
 /**
  * Servlet implementation class RequestListServlet
@@ -57,36 +62,56 @@ public class RequestListServlet extends HttpServlet {
 
       for(Request r : h_list_1){
          JSONObject job = new JSONObject();
+         SurferPartner surfer = new SurferPartnerService().selectSurfer(r.getR_user_id()); // 상대(서퍼) 정보 불러옴         
          job.put("request_no", r.getRequest_no());
          job.put("r_user_id", r.getR_user_id()); // 상대방 아이디
-         job.put("request_date", r.getRequest_date().toString()); // 요청 날짜
+         job.put("request_date", r.getRequest_date().toString()); // 요청 날짜         
+         job.put("user_name", new UserService().getUserName(r.getR_user_id())); // 이름
+         job.put("image", new UserService().getProfileImage(r.getR_user_id())); // 프로필사진
+         job.put("start_date", surfer.getStart_date().toString());
+         job.put("end_date", surfer.getEnd_date().toString());
          
          jarr_h1.add(job);   
       }
                
       for(Request r : h_list_2){
          JSONObject job = new JSONObject();
+         SurferPartner surfer = new SurferPartnerService().selectSurfer(r.getUser_id());
          job.put("request_no", r.getRequest_no());
          job.put("user_id", r.getUser_id()); // 상대방 아이디
          job.put("request_date", r.getRequest_date().toString()); // 요청 날짜
+         job.put("user_name", new UserService().getUserName(r.getUser_id()));
+         job.put("image", new UserService().getProfileImage(r.getUser_id()));
+         job.put("start_date", surfer.getStart_date().toString());
+         job.put("end_date", surfer.getEnd_date().toString());
          
          jarr_h2.add(job);   
       }
-      
+            
       for(Request r : s_list_1){
          JSONObject job = new JSONObject();
+         Host host = new HostService().selectHost(r.getR_user_id());
          job.put("request_no", r.getRequest_no());
          job.put("r_user_id", r.getR_user_id()); // 상대방 아이디
          job.put("request_date", r.getRequest_date().toString()); // 요청 날짜
+         job.put("user_name", new UserService().getUserName(r.getR_user_id()));
+         job.put("image", new UserService().getProfileImage(r.getR_user_id()));
+         job.put("start_date", host.getStart_date().toString());
+         job.put("end_date", host.getEnd_date().toString());
          
          jarr_s1.add(job);   
       }
                
       for(Request r : s_list_2){
          JSONObject job = new JSONObject();
+         Host host = new HostService().selectHost(r.getUser_id());
          job.put("request_no", r.getRequest_no());
          job.put("user_id", r.getUser_id()); // 상대방 아이디
          job.put("request_date", r.getRequest_date().toString()); // 요청 날짜
+         job.put("user_name", new UserService().getUserName(r.getUser_id()));
+         job.put("image", new UserService().getProfileImage(r.getUser_id()));
+         job.put("start_date", host.getStart_date().toString());
+         job.put("end_date", host.getEnd_date().toString());
          
          jarr_s2.add(job);   
       }
@@ -94,19 +119,27 @@ public class RequestListServlet extends HttpServlet {
       
       for(Request r : p_list_1){
          JSONObject job = new JSONObject();
+         SurferPartner partner = new SurferPartnerService().selectPartner(r.getR_user_id());
          job.put("request_no", r.getRequest_no());
          job.put("r_user_id", r.getR_user_id()); // 상대방 아이디
          job.put("request_date", r.getRequest_date().toString()); // 요청 날짜
-         
+         job.put("user_name", new UserService().getUserName(r.getR_user_id())); // 이름
+         job.put("image", new UserService().getProfileImage(r.getR_user_id())); // 프로필사진
+         job.put("start_date", partner.getStart_date().toString());
+         job.put("end_date", partner.getEnd_date().toString());
          jarr_p1.add(job);   
       }
                
       for(Request r : p_list_2){
          JSONObject job = new JSONObject();
+         SurferPartner partner = new SurferPartnerService().selectPartner(r.getUser_id());
          job.put("request_no", r.getRequest_no());
          job.put("user_id", r.getUser_id()); // 상대방 아이디
          job.put("request_date", r.getRequest_date().toString()); // 요청 날짜
-         
+         job.put("user_name", new UserService().getUserName(r.getUser_id()));
+         job.put("image", new UserService().getProfileImage(r.getUser_id()));
+         job.put("start_date", partner.getStart_date().toString());
+         job.put("end_date", partner.getEnd_date().toString());
          jarr_p2.add(job);   
       }
       

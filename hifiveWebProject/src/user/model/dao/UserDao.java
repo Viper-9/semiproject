@@ -340,6 +340,55 @@ public class UserDao {
 		return emailCount;
 		
 	}
+	
+	// 회원 이름 조회
+	public String getUserName(Connection con, String userid) {
+		String userName = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select user_name from users where user_id = ?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userid);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+				userName = rset.getString(1);
+		} catch(Exception e){
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return userName;
+	}
+
+	public String getProfileImage(Connection con, String userid) {
+		String profileImage = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select profile_image from users where user_id = ?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userid);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+				profileImage = rset.getString(1);
+		} catch(Exception e){
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return profileImage;
+	}
 
 	public String searchPw(Connection con, String userId, String userEmail) {
 		String userpw = null;

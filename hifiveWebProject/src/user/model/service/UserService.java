@@ -118,5 +118,22 @@ public class UserService {
 		return userPw;
 		
 	}
+	
+	// 회원 이름 검색
+	public String getUserName(String userid){
+		Connection con = getConnection();
+		String userName = new UserDao().getUserName(con, userid);
+		close(con);
+		return userName;
+	}
+	
+	// 프로필 사진
+	public String getProfileImage(String userid){
+		Connection con = getConnection();
+		String profileImage = new UserDao().getProfileImage(con, userid);
+		close(con);
+		return profileImage;
+
+	}
 
 }
