@@ -37,7 +37,7 @@ public class EmailSendServlet extends HttpServlet {
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Properties props = System.getProperties();
-		 props.put("mail.smtp.user", "rlruddnr828@gmail.com");
+		 props.put("mail.smtp.user", "trevelsfriend@gmail.com");
 		 props.put("mail.smtp.host", "smtp.gmail.com");
 		 props.put("mail.smtp.port", "465");
 		 props.put("mail.smtp.starttls.enable", "true");
@@ -56,7 +56,7 @@ public class EmailSendServlet extends HttpServlet {
 		 try {
 			 //편지 보낸 시간
 			msg.setSentDate(new Date());
-			InternetAddress from = new InternetAddress("rlruddnr828@gmail.com");
+			InternetAddress from = new InternetAddress("trevelsfriend@gmail.com");
 			
 			//이메일 발신자
 			msg.setFrom(from);
@@ -113,7 +113,7 @@ public class EmailSendServlet extends HttpServlet {
 			
 			public MyAuthentication(){
 				
-				String id = "rlruddnr828@gmail.com"; // 구글 id
+				String id = "trevelsfriend@gmail.com"; // 구글 id
 				String pw = "ruddnr4657!"; //구글 비밀번호
 				
 				//ID와 비밀번호를 입력한다.

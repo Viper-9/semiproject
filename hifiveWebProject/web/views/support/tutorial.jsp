@@ -66,15 +66,7 @@
       <hr>
       <div id="main">
          <div id="menu">
-            <div class="card" style="width: 250px;">
-  <div class="card-body">
-    <h5 class="card-title">사용자 기본정보</h5>
-    <h6 class="card-subtitle mb-2 text-muted">(이름및 지역)</h6>
-    <p class="card-text">......<br><br><br><br><br><br><br><br><br></p>
-    <a href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a>
-    
-  </div>
-</div>
+          <%@ include file="../../information.jsp"%>
    
          </div>
          <div id="content1">

@@ -36,12 +36,13 @@ public class HostingServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String userId = request.getParameter("id");		
-		
-		try {
-			Host host = new HostService().selectHost(userId);
+		String userId = request.getParameter("userid");		
 
+		
+			Host host = new HostService().selectHost(userId);
+			
 			JSONObject job = new JSONObject();
+		
 			job.put("num", host.getUser_num());
 			job.put("gender", host.getP_gender());			
 			job.put("check1", host.getCheck1());
@@ -54,11 +55,8 @@ public class HostingServlet extends HttpServlet {
 			
 			out.append(job.toJSONString());
 			out.flush();
-			out.close();
+			out.close();		
 			
-		} catch (HostException e) {
-			e.printStackTrace();
-		}
 
 	}
 

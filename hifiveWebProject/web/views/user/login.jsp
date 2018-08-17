@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 
 <html>
@@ -43,9 +44,11 @@
 		var logincheck = 0;
 		function checkidpw(){
 			
+			var userid = $('#userid').val();
+			var userpw = $('#userpw').val();
 			
 			
-			/* 	//아이디 공백 확인
+			 	//아이디 공백 확인
 				if ($("#userid").val() == "") {
 					alert("아이디를 입력해주세요");
 					$("#userid").focus();
@@ -53,39 +56,36 @@
 					return false;
 				}
 				//비밀번호 공백 확인
-				else if ($("#userpassword").val() == "") {
+				else if ($("#userpw").val() == "") {
 					alert("비밀번호를 재입력하세요");
-					$("#userpassword").focus();
-					$("#userpassword").css("background-color", "#FFCECE");
+					$("#userpw").focus();
+					$("#userpw").css("background-color", "#FFCECE");
 					return false;
-				} else if  (userid != null && userpw != null){ */
-					var userid = $('#userid').val();
-					var userpw = $('#userpw').val();
+					
+				} else if  (userid != null && userpw != null){ 
 					
 					$.ajax({
 						url : "/hifive/login",
-						type : "get",
+						type : "post",
 						data : { userid : userid, userpw : userpw},
 						success : function(data){
 							
 								if(data == '0'){
-							alert("지금은은 테스트중입니다");
-								} else {
-									alert("아이디는 성공이네요");
+									alert("아이디 혹은 비밀번호가 일치하지 않습니다");
+									$("#userpw").val('');
+								} else if(data == '1') {
 									location.href = "/hifive/main.jsp";
-								}
-								
-							
-							
+								} else {
+									alert("알수없는 오류입니다. 관리자에게 문의하세요")
+								}							
+						}, error : function(jqXHR, textstatus, errorThrown){
+			                console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
 						}
 					});
 					
-				/* } */
+			 } 
 					
 		}
-
-		
-		
 		
 	</script>
 </head>
@@ -95,7 +95,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
 	<div class="container">
-			<!-- onsubmit = "return checklogin()" -->
 		<div> 
 			<form action="/hifive/login" method="post" onsubmit = "return false;">
 				<div class="form-group">
@@ -110,8 +109,8 @@
     				 placeholder="Password" oninput = "changePWbg()">
   				</div>
 				<br>
- 				<div class = "input-group-append" style="text-align:center;">
-  				<input type="submit" class="btn btn-primary" value = "log-in" id ="loginbtn" onclick = "checkidpw()" >
+ 				<div class = "input-group-append" style="text-align:center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  				<input type="submit" class="btn btn-primary" value = "log-in" id ="loginbtn" onclick = "checkidpw()">
   				</div>
 			</form>
 		</div>

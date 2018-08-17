@@ -8,7 +8,6 @@
 <html>
 <head>
 
-
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -116,11 +115,170 @@
 </style>
 
 <script type="text/javascript">
-	
+
+	$(function(){
+	     var userid = '<%= userid %>';
+	      
+	      // 나의 여행 계획
+	     $.ajax({
+	    	  url : "/hifive/myplan",
+	    	  type : "get",
+	    	  data : { userid : userid },
+	    	  dataType : "json",
+	    	  success : function(data){
+	    		//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
+		        var jsonStr = JSON.stringify(data);   
+		        //문자열을 json 객체로 바꿈
+		        var json = JSON.parse(jsonStr);
+	        
+		        var values1 = "";   		        
+		        if(Object.keys(json.host) == 0){
+	               values1 += "신청 내역이 없습니다.";
+	               $("#hostlist").html($("#hostlist").html()+values1);   
+	            } else{
+	            	values1 += "서퍼 아이디 : " + json.host.user_id 
+	                  +"<br>기간 : " + json.host.start_date + " ~ " + json.host.end_date 
+	                  +"<br>인원 : " + json.host.user_num + " 명<br><br>";	                                      
+	               $("#hostlist").html($("#hostlist").html()+values1);               
+	            }
+		        
+		        var values2 = "";   		        
+		        if(Object.keys(json.surfer) == 0){
+	               values2 += "신청 내역이 없습니다.";
+	               $("#surferlist").html($("#surferlist").html()+values2);   
+	            } else{
+	            	values2 += "호스트 아이디 : " + json.surfer.user_id
+	                  + "<br>체크1 : " + json.surfer.check1 
+	                  + "<br>체크2 : " + json.surfer.check2
+	                  + "<br>내용 : " + json.surfer.content
+	                  + "<br>기간 : " + json.surfer.start_date + " ~ " + json.surfer.end_date
+	                  + "<br>사진 : " + json.surfer.image1 + json.surfer.image2 + json.surfer.image3;                                     
+	               $("#surferlist").html($("#surferlist").html()+values2);               
+	            }
+		        
+		        var values3 = "";   		        
+		        if(Object.keys(json.partner) == 0){
+	               values3 += "신청 내역이 없습니다.";
+	               $("#partnerlist").html($("#partnerlist").html()+values3);   
+	            } else{
+	            	values3 += "서퍼 아이디 : " + json.partner.user_id 
+	                  +"<br>기간 : " + json.partner.start_date + " ~ " + json.partner.end_date 
+	                  +"<br>인원 : " + json.partner.user_num + " 명<br><br>";	                                      
+	               $("#partnerlist").html($("#partnerlist").html()+values3);               
+	            }
+       
+		        
+	    	  }, // success 
+	    	  error : function(jqXHR, textstatus, errorThrown){
+		            console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+		      } // error  
+	      });
+	      
+	      // 신청받은 리스트 목록
+	      $.ajax({   
+	         url : "/hifive/requestlist",
+	         type : "get",
+	         data : { uid : userid },
+	         dataType : "json",         
+	         success : function(data){
+	            //배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
+	            var jsonStr = JSON.stringify(data);   
+	            //문자열을 json 객체로 바꿈
+	            var json = JSON.parse(jsonStr);
+	            
+	            var values1 = "";                        
+	            if(json.list_h1.length == 0){
+	               values1 += "신청 내역이 없습니다.";
+	               $("#h1").html($("#h1").html()+values1);   
+	            } else{               
+	               for(var i in json.list_h1){
+	                  values1 += "아이디 : " + json.list_h1[i].r_user_id 
+	                  +"<br>날짜 : " + json.list_h1[i].request_date 
+	                  +"<br><a href='/hifive/requestrefuse?request_no=" + json.list_h1[i].request_no +"'>취소</a>" + "<br><br>";
+	               }                              
+	               $("#h1").html($("#h1").html()+values1);               
+	            }
+	            
+	            var values2 = "";
+	            if(json.list_h2.length == 0){
+	               values2 += "신청 내역이 없습니다.";
+	               $("#h2").html($("#h2").html()+values2);   
+	            } else{               
+	               for(var i in json.list_h2){
+	            	   values2 += "아이디 : " + json.list_h2[i].user_id 
+		                  +"<br>날짜 : " + json.list_h2[i].request_date
+		                  +"<br><a href='/hifive/requestaccept?request_no=" + json.list_h2[i].request_no +"'>수락</a> &nbsp;"
+		                  +"<a href='/hifive/requestdelete?request_no=" + json.list_h2[i].request_no +"'>취소</a>" + "<br><br>";
+	               }                              
+	               $("#h2").html($("#h2").html()+values2);               
+	            }
+	            
+	            var values3 = "";                        
+	            if(json.list_s1.length == 0){
+	               values3 += "신청 내역이 없습니다.";
+	               $("#s1").html($("#s1").html()+values3);   
+	            } else{               
+	               for(var i in json.list_s1){
+	            	   values3 += "아이디 : " + json.list_s1[i].r_user_id 
+		                  +"<br>날짜 : " + json.list_s1[i].request_date 
+		                  +"<br><a href='/hifive/requestrefuse?request_no=" + json.list_s1[i].request_no +"'>취소</a>" + "<br><br>";
+	               }                              
+	               $("#s1").html($("#s1").html()+values3);               
+	            }
+	            
+	            var values4 = "";
+	            if(json.list_s2.length == 0){
+	               values4 += "신청 내역이 없습니다.";
+	               $("#s2").html($("#s2").html()+values4);   
+	            } else{               
+	               for(var i in json.list_s2){
+	            	   values4 += "아이디 : " + json.list_s2[i].user_id 
+		                  +"<br>날짜 : " + json.list_s2[i].request_date
+		                  +"<br><a href='/hifive/requestaccept?request_no=" + json.list_s2[i].request_no +"'>수락</a> &nbsp;"
+		                  +"<a href='/hifive/requestdelete?request_no=" + json.list_s2[i].request_no +"'>취소</a>" + "<br><br>";
+	               }                              
+	               $("#s2").html($("#s2").html()+values4);               
+	            }
+	         
+	            var values5 = "";                        
+	            if(json.list_p1.length == 0){
+	               values5 += "신청 내역이 없습니다.";
+	               $("#p1").html($("#p1").html()+values5);   
+	            } else{               
+	               for(var i in json.list_p1){
+	            	   values5 += "아이디 : " + json.list_p1[i].r_user_id 
+		                  +"<br>날짜 : " + json.list_p1[i].request_date 
+		                  +"<br><a href='/hifive/requestrefuse?request_no=" + json.list_p1[i].request_no +"'>취소</a>" + "<br><br>";
+	               }                              
+	               $("#p1").html($("#p1").html()+values5);               
+	            }
+	            
+	            var values6 = "";
+	            if(json.list_p2.length == 0){
+	               values6 += "신청 내역이 없습니다.";
+	               $("#p2").html($("#p2").html()+values6);   
+	            } else{               
+	               for(var i in json.list_p2){
+	            	   values6 += "아이디 : " + json.list_p2[i].user_id 
+		                  +"<br>날짜 : " + json.list_p2[i].request_date
+		                  +"<br><a href='/hifive/requestaccept?request_no=" + json.list_p2[i].request_no +"'>수락</a> &nbsp;"
+		                  +"<a href='/hifive/requestdelete?request_no=" + json.list_p2[i].request_no +"'>취소</a>" + "<br><br>";
+	               }                              
+	               $("#p2").html($("#p2").html()+values6);               
+	            }
+
+	         }, // success
+	         error : function(jqXHR, textstatus, errorThrown){
+	            console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+	         } // error
+		});
+	});
+
 </script>
 
 </head>
 <body>
+
 	<div class="container">
 		<%@ include file="../../header.jsp"%>
 		<hr>
@@ -562,9 +720,5 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
 </body>
 </html>

@@ -3,9 +3,8 @@
 <%@ page import = "user.model.vo.User" %>
 <% 
    String safetyuserid = (String)session.getAttribute("userId");
-   User safetyuser = (User)session.getAttribute("user");
-%>
-
+	User safetyuser = (User)session.getAttribute("user");
+%>	 
 
 <!DOCTYPE html>
 <html>
@@ -85,21 +84,10 @@ function CheckForm() {
 		<hr>
 		<div id="main">
 			<div id="menu">
-				<div class="card" style="width: 250px;">
-					<div class="card-body">
-						<h5 class="card-title"><%= userId %></h5>
-						<h6 class="card-subtitle mb-2 text-muted"><%= safetyuser %></h6>
-						<p class="card-text">
-							......<br> <br> <br> <br> <br> <br>
-							<br> <br> <br>
-						</p>
-						<a href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a>
-
-					</div>
-				</div>
-
+				<%@ include file="../../information.jsp"%>
 			</div>
 			<div id="content1">
+
 				<%@ include file="../../supportmenu.jsp"%>
 				</div>
 			<br><br>
@@ -113,7 +101,7 @@ function CheckForm() {
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<br>
-						<% if(headeruser.getSafety_check().equals("N")) { %>	
+						<%-- <% if(headeruser.getSafety_check().equals("N")) { %>	
 						<form id="checksafety" action="/hifive/safetycheck" onsubmit="return CheckForm()" method="get" name="safety">
 							<div class="form-group form-check">
 								<input type="checkbox" class="form-check-input"
@@ -126,7 +114,8 @@ function CheckForm() {
 						</form>
 						<% } else { %>
 							<button>야호</button>
-						<% } %>
+						<% } %> --%>
+
 					</div>
 				</div>
 			</div>

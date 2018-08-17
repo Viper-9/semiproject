@@ -40,7 +40,40 @@
 </style>
 
 <script type="text/javascript">
-
+	$(function(){
+		var userid = '<%= user.getUser_Id() %>';
+		
+		$.ajax({	
+	  	  url : "/hifive/reviewlist",
+	    		type : "get",
+				data : {userid : userid},
+				dataType : "json",			
+				success : function(data){
+					//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
+					var jsonStr = JSON.stringify(data);
+								
+					//문자열을 json 객체로 바꿈
+					var json = JSON.parse(jsonStr);
+				
+					var values = "";
+					if(json.list.length == 0){
+						values += "등록된 리뷰가 없습니다.";
+						$("#review").html($("#review").html()+values);	
+					} else{					
+						for(var i in json.list){
+							values += "아이디 : " + json.list[i].user_id 
+							+"<br>날짜 : " + json.list[i].review_date
+							+"<br>내용 : " + json.list[i].content +"<br><br>";
+						}										
+						$("#review").html($("#review").html()+values);
+						
+					}
+				}, // success
+				error : function(jqXHR, textstatus, errorThrown){
+					console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+				} // error
+			});
+	});
 </script>
 </head>
 <body>
@@ -237,13 +270,8 @@
             <br>
             <div id="reference" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">References</h6>
-               <div class="card-body">
-                  <p class="card-text">With
-                     supportinzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzvvvvvvvvvzzzzzzzzzzzzzg text
-                     below as a natural lead-in to additional content.</p>
-                  <br> <br> <br> <br> <br> <br> <br>
-                  <br> <br> <br> <br> <br> <br> <br>
-                  <br> <br>
+               <div class="card-body" id="review">
+                  
                </div>
             </div>
          </div>
