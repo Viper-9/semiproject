@@ -61,16 +61,16 @@ public class HostDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "update host set user_num=?, p_gender=?, check2=?, content=? where user_id=?";
+		String query = "update host set user_num=?, p_gender=?, check1=?, check2=?, content=? where user_id=?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, host.getUser_num());
 			pstmt.setString(2, host.getP_gender());
-			/*pstmt.setString(3, host.getCheck1());*/
-			pstmt.setString(3, host.getCheck2());
-			pstmt.setString(4, host.getContent());
-			pstmt.setString(5, host.getUser_id());
+			pstmt.setString(3, host.getCheck1());
+			pstmt.setString(4, host.getCheck2());
+			pstmt.setString(5, host.getContent());
+			pstmt.setString(6, host.getUser_id());
 			
 			result = pstmt.executeUpdate();
 			
