@@ -35,8 +35,7 @@ public class InfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		String userId = request.getParameter("userid");
-		System.out.println("id : " + userId);				
+		String userId = request.getParameter("userid");					
 		
 		try {
 			User user = new UserService().selectUser(userId);			
@@ -53,7 +52,8 @@ public class InfoServlet extends HttpServlet {
 			job.put("hobby", user.getHobby());
 			job.put("phone", user.getPhone());
 			job.put("content", user.getContent());
-			System.out.println("job : " + job.toJSONString());
+			job.put("profileimg", user.getProfile_image());
+			System.out.println(userId+":"+job.toJSONString());
 			
 			response.setContentType("application/json; charset=utf-8");
 			PrintWriter out = response.getWriter();

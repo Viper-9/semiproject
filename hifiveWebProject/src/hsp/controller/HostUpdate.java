@@ -35,11 +35,10 @@ public class HostUpdate extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		Host host = new Host();
-		host.setUser_id(request.getParameter("userid"));
-		System.out.println("호스ㅡ 수정:"+request.getParameter("userid"));
+		host.setUser_id(request.getParameter("userid"));		
 		host.setUser_num(Integer.parseInt(request.getParameter("num")));
 		host.setP_gender(request.getParameter("gender"));
-		//host.setCheck1(String.join(",", request.getParameterValues("check1")));
+		host.setCheck1(String.join(",", request.getParameterValues("hostcheck")));
 		host.setCheck2(request.getParameter("sleeping"));
 		host.setContent(request.getParameter("etc"));
 		

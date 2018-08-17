@@ -82,5 +82,10 @@ public class SurferPartner implements java.io.Serializable {
 	public void setUser_num(int user_num) {
 		this.user_num = user_num;
 	}
+	
+	@Override
+	public String toString(){
+		return this.user_id+", "+this.start_date+", "+this.End_date+", "+this.city+", "+this.role+", "+this.process+", "+this.user_num;
+	}
 
 }

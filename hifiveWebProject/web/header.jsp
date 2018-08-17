@@ -90,7 +90,7 @@ header {
 									class="messagelist" title="요청받은 목록">
 							</a>&nbsp;</th>
 
-							<th><a href="/hifive/info?userid=<%= userId %>"> <img
+							<th><a href="/hifive/profileinfo?userid=<%= userId %>"> <img
 									src="/hifive/resources/image/sample4.jpeg" alt="얼굴사진"
 									class="profileimg" title="프로필로 이동">
 							</a>&nbsp;</th>

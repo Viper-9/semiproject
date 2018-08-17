@@ -32,12 +32,32 @@
              type : "post",
              data : {userid : $("#userid").val()},            
              dataType : "json",
-             success : function(data){	             	 
+             success : function(data){	  
+                //프로필
+                /* var fileTarget = $("input[name=profileimg]");
+              	console.log(fileTarget);
+              	fileTarget.on("change", function(){
+              		if(window.fileReader){
+              			var filename = $(this)[0].files[0].name;
+              		}
+              		$(".card-img-top").attr("src", data.profileimg);
+              	})           */              	
+              	var fileTarget = $("input[name=profileimg]");
+              	console.log("읽어온파일명:"+data.profileimg);
+              	console.log("입력된 파일명:"+fileTarget);
+              	fileTarget.on("change", function(){
+              		$(".card-img-top").attr("src", "/hifive/resources/image/"+data.profileimg);
+              		console.log("입력된 파일명:"+fileTarget);
+              	})
              	//이름
                 $("#name").val(data.name);            	
               	//주소
-                $("#sample5_address").val(data.address); 
-              	//국적
+              	if(data.address == null){
+              		$("#sample5_address").val(''); 
+              	}else{
+               		$("#sample5_address").val(data.address); 
+              	}
+              	//국적 
               	if(data.nationality == null){
               		$("nationality").val('');
               	}else{
@@ -241,7 +261,7 @@
 <body>
    <div id="tbox">
       <%@ include file="../../header.jsp"%>
-      <form action="/hifive/infoupdate?userid=<%= userId %>" method="post">
+      <form action="/hifive/infoupdate?userid=<%= userId %>" method="post" enctype="multipart/form-data">
       <input type="hidden" id="userid" name="userid" value="">
       <div id="main">
          <div id="menu">
@@ -256,10 +276,11 @@
                     </div>
                      <br>
                      <br>            
-                     <div class="custom-file">
-                 <input type="file" class="custom-file-input" name="profileimg">
-                 <label class="custom-file-label">파일 선택 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                 </div>      
+<!--                      <div class="custom-file">                                    
+		                 <input type="file" class="custom-file-input" name="profileimg" accept="image/*">
+		                 <label class="custom-file-label">파일 선택 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                 	</div>    -->                                   
+		                 <input type="file" name="profileimg" accept="image/*">  
                      <br>
                      <br>
           			<textarea class="form-control" name="address" id="sample5_address" rows="3" cols="25" placeholder="주소"></textarea>
@@ -324,7 +345,7 @@
 	                     <table>
 	                        <tr>
 	                         	<th>                           
-	                           		<input type="submit" class="btn btn-danger" style="width:200px;" value="회원 탈퇴" > 
+	                           		<input type="submit" class="btn btn-danger" style="width:200px;" value="회원 탈퇴">	                           		
 	                          </th>
 	                        </tr>
 	                     </table>
