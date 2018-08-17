@@ -40,6 +40,7 @@ public class SurferUpdate extends HttpServlet {
 		sp.setStart_date(java.sql.Date.valueOf(request.getParameter("startdate")));
 		sp.setEnd_date(java.sql.Date.valueOf(request.getParameter("enddate")));
 		sp.setUser_num(Integer.parseInt(request.getParameter("num")));
+		System.out.println(sp.toString());
 		
 		RequestDispatcher view = null;
 		
