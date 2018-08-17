@@ -130,44 +130,65 @@
 		        var jsonStr = JSON.stringify(data);   
 		        //문자열을 json 객체로 바꿈
 		        var json = JSON.parse(jsonStr);
-	        
-		        var values1 = "";   		        
-		        if(Object.keys(json.host) == 0){
-	               values1 += "신청 내역이 없습니다.";
-	               $("#hostlist").html($("#hostlist").html()+values1);   
-	            } else{
-	            	values1 += "서퍼 아이디 : " + json.host.user_id 
-	                  +"<br>기간 : " + json.host.start_date + " ~ " + json.host.end_date 
-	                  +"<br>인원 : " + json.host.user_num + " 명<br><br>";	                                      
-	               $("#hostlist").html($("#hostlist").html()+values1);               
-	            }
+	        	
+		        var valueAll = ""; // 모든 여행정보
 		        
 		        var values2 = "";   		        
 		        if(Object.keys(json.surfer) == 0){
 	               values2 += "신청 내역이 없습니다.";
-	               $("#surferlist").html($("#surferlist").html()+values2);   
-	            } else{
-	            	values2 += "호스트 아이디 : " + json.surfer.user_id
-	                  + "<br>체크1 : " + json.surfer.check1 
-	                  + "<br>체크2 : " + json.surfer.check2
-	                  + "<br>내용 : " + json.surfer.content
-	                  + "<br>기간 : " + json.surfer.start_date + " ~ " + json.surfer.end_date
-	                  + "<br>사진 : " + json.surfer.image1 + json.surfer.image2 + json.surfer.image3;                                     
-	               $("#surferlist").html($("#surferlist").html()+values2);               
+	               $("#m_host").html($("#m_host").html()+values2);   
+	            } else{	            	
+	            	values2 += "<tr><td width='20%' style='font-weight:bold;'>Host</td><td width='20%'>";
+	            	if(json.surfer.image != null) { 
+		          	   values2 += "<a href=''><img src='" + json.surfer.image + "' alt='' class='rounded-circle' title='프로필로 이동'>";
+		            } else{ // 프로필 사진 없으면
+		           	   values2 += "<a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'>";
+		            }
+	            	values2 += "</td><td width='20%'>" + json.surfer.user_name + "</td><td width='40%'>" 
+	  			    + json.surfer.start_date + " ~ " + json.surfer.end_date + "</td></tr>"; 
+	  			    valueAll += values2;
+	               $("#m_host").html($("#m_host").html()+values2);               
 	            }
-		        
+
+		        var values1 = "";   		        
+		        if(Object.keys(json.host) == 0){
+	               values1 += "신청 내역이 없습니다.";
+	               $("#m_surfer").html($("#m_surfer").html()+values1);   
+	            } else{
+	            	values1 += "<tr><td width='20%' style='font-weight:bold;'>Surfer</td><td width='20%'>";
+	            	if(json.host.image != null) { 
+		          	   values1 += "<a href=''><img src='" + json.host.image + "' alt='' class='rounded-circle' title='프로필로 이동'>";
+		            } else{ // 프로필 사진 없으면
+		           	   values1 += "<a href=''><img src='/hifive/resources/image/sample12.jpg' alt='' class='rounded-circle' title='프로필로 이동'>";
+		            }
+	            	values1 += "</td><td width='20%'>" + json.host.user_name + "</td><td width='40%'>" 
+	  			    + json.host.start_date + " ~ " + json.host.end_date + "</td></tr>";	
+	  			  valueAll += values1;
+	               $("#m_surfer").html($("#m_surfer").html()+values1);               
+	            }
+	        
 		        var values3 = "";   		        
 		        if(Object.keys(json.partner) == 0){
 	               values3 += "신청 내역이 없습니다.";
-	               $("#partnerlist").html($("#partnerlist").html()+values3);   
+	               $("#m_partner").html($("#m_partner").html()+values3);   
 	            } else{
-	            	values3 += "서퍼 아이디 : " + json.partner.user_id 
-	                  +"<br>기간 : " + json.partner.start_date + " ~ " + json.partner.end_date 
-	                  +"<br>인원 : " + json.partner.user_num + " 명<br><br>";	                                      
-	               $("#partnerlist").html($("#partnerlist").html()+values3);               
+	            	values3 += "<tr><td width='20%' style='font-weight:bold;'>Partner</td><td width='20%'>";
+	            	if(json.partner.image != null) { 
+		          	   values3 += "<a href=''><img src='" + json.partner.image + "' alt='' class='rounded-circle' title='프로필로 이동'>";
+		            } else{ // 프로필 사진 없으면
+		           	   values3 += "<a href=''><img src='/hifive/resources/image/sample11.jpg' alt='' class='rounded-circle' title='프로필로 이동'>";
+		            }
+	            	values3 += "</td><td width='20%'>" + json.partner.user_name + "</td><td width='40%'>" 
+	  			    + json.partner.start_date + " ~ " + json.partner.end_date + "</td></tr>";
+	  			  valueAll += values3;
+	               $("#m_partner").html($("#m_partner").html()+values3);               
 	            }
-       
 		        
+		        if(valueAll==""){
+		        	$("#m_all").html("신청 내역이 없습니다.");
+		        } else{
+		        	$("#m_all").html($("#m_all").html()+valueAll); // 모든 여행 정보
+		        }
 	    	  }, // success 
 	    	  error : function(jqXHR, textstatus, errorThrown){
 		            console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
@@ -186,85 +207,122 @@
 	            //문자열을 json 객체로 바꿈
 	            var json = JSON.parse(jsonStr);
 	            
-	            var values1 = "";                        
-	            if(json.list_h1.length == 0){
-	               values1 += "신청 내역이 없습니다.";
-	               $("#h1").html($("#h1").html()+values1);   
-	            } else{               
-	               for(var i in json.list_h1){
-	                  values1 += "아이디 : " + json.list_h1[i].r_user_id 
-	                  +"<br>날짜 : " + json.list_h1[i].request_date 
-	                  +"<br><a href='/hifive/requestrefuse?request_no=" + json.list_h1[i].request_no +"'>취소</a>" + "<br><br>";
-	               }                              
-	               $("#h1").html($("#h1").html()+values1);               
-	            }
-	            
 	            var values2 = "";
 	            if(json.list_h2.length == 0){
 	               values2 += "신청 내역이 없습니다.";
-	               $("#h2").html($("#h2").html()+values2);   
+	               $("#h1").html($("#h1").html()+values2);   
 	            } else{               
-	               for(var i in json.list_h2){
-	            	   values2 += "아이디 : " + json.list_h2[i].user_id 
-		                  +"<br>날짜 : " + json.list_h2[i].request_date
-		                  +"<br><a href='/hifive/requestaccept?request_no=" + json.list_h2[i].request_no +"'>수락</a> &nbsp;"
-		                  +"<a href='/hifive/requestdelete?request_no=" + json.list_h2[i].request_no +"'>취소</a>" + "<br><br>";
-	               }                              
-	               $("#h2").html($("#h2").html()+values2);               
+	            	for(var i in json.list_h2){
+		            	   if(json.list_h2[i].image != null) { 
+		            		   values2 += "<tr><td><a href=''><img src='" + json.list_h2[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+		            	   } else{ // 프로필 사진 없으면
+		            		   values2 += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+		            	   }
+		            	   values2 += "</td><td>" + json.list_h2[i].user_name
+		            	   + "</td><td>" + json.list_h2[i].start_date + " ~ " + json.list_h2[i].end_date
+		            	   +"</td><td><a href='/hifive/requestaccept?request_no=" + json.list_h2[i].request_no + "'>수락</a> &nbsp;"
+		            	   +"</td><td><a href='/hifive/requestrefuse?request_no=" + json.list_h2[i].request_no +"'>거절</a>"
+		            	   + "</td></tr><br>";
+		               }                               
+	               $("#h1").html($("#h1").html()+values2);               
 	            }
 	            
-	            var values3 = "";                        
-	            if(json.list_s1.length == 0){
-	               values3 += "신청 내역이 없습니다.";
-	               $("#s1").html($("#s1").html()+values3);   
+	            var values1 = "";                        
+	            if(json.list_h1.length == 0){
+	               values1 += "신청 내역이 없습니다.";
+	               $("#h2").html($("#h2").html()+values1);   
 	            } else{               
-	               for(var i in json.list_s1){
-	            	   values3 += "아이디 : " + json.list_s1[i].r_user_id 
-		                  +"<br>날짜 : " + json.list_s1[i].request_date 
-		                  +"<br><a href='/hifive/requestrefuse?request_no=" + json.list_s1[i].request_no +"'>취소</a>" + "<br><br>";
-	               }                              
-	               $("#s1").html($("#s1").html()+values3);               
+	               for(var i in json.list_h1){
+	            	   if(json.list_h1[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
+	            		   values1 += "<tr><td><a href=''><img src='" + json.list_h1[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+	            	   } else{ // 프로필 사진 없으면
+	            		   values1 += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+	            	   }
+	            	   values1 += "</td><td>" + json.list_h1[i].user_name
+	            	   + "</td><td>" + json.list_h1[i].start_date + " ~ " + json.list_h1[i].end_date
+	            	   +"</td><td><a href='/hifive/requestdelete?request_no=" + json.list_h1[i].request_no + "'>취소</a>"
+	            	   +"</td></tr><br>";
+	               }                  
+	               $("#h2").html($("#h2").html()+values1);               
+	            }
+	            
+	            var values3 = "";    
+	            if(json.list_s1.length == 0){
+	               values3 = "신청 내역이 없습니다.";
+	               $("#s2").html($("#s2").html()+values3);
+	            } else{               
+	            	for(var i in json.list_s1){
+		              if(json.list_s1[i].image != null) { 
+		           	   values3 += "<tr><td><a href=''><img src='" + json.list_s1[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+		              } else{ // 프로필 사진 없으면
+		           	   values3 += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+		              }
+		              values3 += "</td><td>" + json.list_s1[i].user_name
+		              + "</td><td>" + json.list_s1[i].start_date + " ~ " + json.list_s1[i].end_date
+		              +"</td><td><a href='/hifive/requestdelete?request_no=" + json.list_s1[i].request_no + "'>취소</a>"
+		              +"</td></tr><br>";
+		            }                                 
+	               $("#s2").html($("#s2").html()+values3);               
 	            }
 	            
 	            var values4 = "";
 	            if(json.list_s2.length == 0){
 	               values4 += "신청 내역이 없습니다.";
-	               $("#s2").html($("#s2").html()+values4);   
+
+	               $("#s1").html($("#s1").html()+values4);   
 	            } else{               
-	               for(var i in json.list_s2){
-	            	   values4 += "아이디 : " + json.list_s2[i].user_id 
-		                  +"<br>날짜 : " + json.list_s2[i].request_date
-		                  +"<br><a href='/hifive/requestaccept?request_no=" + json.list_s2[i].request_no +"'>수락</a> &nbsp;"
-		                  +"<a href='/hifive/requestdelete?request_no=" + json.list_s2[i].request_no +"'>취소</a>" + "<br><br>";
-	               }                              
-	               $("#s2").html($("#s2").html()+values4);               
+	            	for(var i in json.list_s2){
+		          	   if(json.list_s2[i].image != null) { 
+		          		   values4 += "<tr><td><a href=''><img src='" + json.list_s2[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+		          	   } else{ // 프로필 사진 없으면
+		          		   values4 += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+		          	   }
+		          	   values4 += "</td><td>" + json.list_s2[i].user_name
+		          	   + "</td><td>" + json.list_s2[i].start_date + " ~ " + json.list_s2[i].end_date
+		          	   +"</td><td><a href='/hifive/requestaccept?request_no=" + json.list_s2[i].request_no + "'>수락</a> &nbsp;"
+		          	   +"</td><td><a href='/hifive/requestrefuse?request_no=" + json.list_s2[i].request_no +"'>거절</a>"
+		          	   + "</td></tr><br>";
+		            }                              
+	               $("#s1").html($("#s1").html()+values4);               
 	            }
-	         
+	            
 	            var values5 = "";                        
 	            if(json.list_p1.length == 0){
 	               values5 += "신청 내역이 없습니다.";
-	               $("#p1").html($("#p1").html()+values5);   
+	               $("#p2").html($("#p2").html()+values5);   
 	            } else{               
 	               for(var i in json.list_p1){
-	            	   values5 += "아이디 : " + json.list_p1[i].r_user_id 
-		                  +"<br>날짜 : " + json.list_p1[i].request_date 
-		                  +"<br><a href='/hifive/requestrefuse?request_no=" + json.list_p1[i].request_no +"'>취소</a>" + "<br><br>";
-	               }                              
-	               $("#p1").html($("#p1").html()+values5);               
+	            	   if(json.list_p1[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
+	            		   values5 += "<tr><td><a href=''><img src='" + json.list_p1[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+	            	   } else{ // 프로필 사진 없으면
+	            		   values5 += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+	            	   }
+	            	   values5 += "</td><td>" + json.list_p1[i].user_name
+	            	   + "</td><td>" + json.list_p1[i].start_date + " ~ " + json.list_p1[i].end_date
+	            	   +"</td><td><a href='/hifive/requestdelete?request_no=" + json.list_p1[i].request_no + "'>취소</a>"
+	            	   +"</td></tr><br>";
+	               }                  
+	               $("#p2").html($("#p2").html()+values5);               
 	            }
-	            
+	                 
 	            var values6 = "";
 	            if(json.list_p2.length == 0){
 	               values6 += "신청 내역이 없습니다.";
-	               $("#p2").html($("#p2").html()+values6);   
+	               $("#p1").html($("#p1").html()+values6);   
 	            } else{               
-	               for(var i in json.list_p2){
-	            	   values6 += "아이디 : " + json.list_p2[i].user_id 
-		                  +"<br>날짜 : " + json.list_p2[i].request_date
-		                  +"<br><a href='/hifive/requestaccept?request_no=" + json.list_p2[i].request_no +"'>수락</a> &nbsp;"
-		                  +"<a href='/hifive/requestdelete?request_no=" + json.list_p2[i].request_no +"'>취소</a>" + "<br><br>";
-	               }                              
-	               $("#p2").html($("#p2").html()+values6);               
+	            	for(var i in json.list_p2){
+		           	   if(json.list_p2[i].image != null) { 
+		           		   values6 += "<tr><td><a href=''><img src='" + json.list_p2[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+		           	   } else{ // 프로필 사진 없으면
+		           		   values6 += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+		           	   }
+		           	   values6 += "</td><td>" + json.list_p2[i].user_name
+		           	   + "</td><td>" + json.list_p2[i].start_date + " ~ " + json.list_p2[i].end_date
+		           	   +"</td><td><a href='/hifive/requestaccept?request_no=" + json.list_p2[i].request_no + "'>수락</a> &nbsp;"
+		           	   +"</td><td><a href='/hifive/requestrefuse?request_no=" + json.list_p2[i].request_no +"'>거절</a>"
+		           	   + "</td></tr><br>";
+		            }                                                         
+	               $("#p1").html($("#p1").html()+values6);               
 	            }
 
 	         }, // success
@@ -284,17 +342,7 @@
 		<hr>
 		<div id="main">
 			<div id="menu">
-				<div id="content0">
-					<div class="card" style="width: 250px;">
-						<div class="card-body">
-							<h5 class="card-title">사용자 기본정보</h5>
-							<h6 class="card-subtitle mb-2 text-muted">(이름및 지역)</h6>
-							<p class="card-text">
-								......<br> <br> <br> <br> <a
-									href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a>
-						</div>
-					</div>
-				</div>
+				<%@ include file="../../information.jsp"%>
 			</div>
 			<div id="content1">
 
@@ -384,35 +432,7 @@
 									<th scope="col">날짜</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">host</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample10.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>치치</td>
-									<td>18-08-12 ~ 18-09-20</td>
-
-								</tr>
-								<tr>
-									<th scope="row">surfer</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample11.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>기뉴특전대</td>
-									<td>18-08-12 ~ 18-09-20</td>
-
-								</tr>
-								<tr>
-									<th scope="row">partner</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample12.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>손오공</td>
-									<td>18-10-08 ~ 18-11-11</td>
-
-								</tr>
-							</tbody>
+							<tbody id="m_all"></tbody>
 						</table>
 
 					</div>
@@ -428,17 +448,7 @@
 									<th scope="col">날짜</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">host</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample10.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>치치</td>
-									<td>18-08-12 ~ 18-09-20</td>
-								</tr>
-
-							</tbody>
+							<tbody id="m_host"></tbody>
 						</table>
 					</div>
 
@@ -454,18 +464,7 @@
 
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<th scope="row">surfer</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample11.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>기뉴특전대</td>
-									<td>18-08-12 ~ 18-09-20</td>
-
-								</tr>
-
-							</tbody>
+							<tbody id="m_surfer"></tbody>
 						</table>
 					</div>
 					<div class="tab-pane fade" id="partnerlist" role="tabpanel"
@@ -481,19 +480,7 @@
 
 								</tr>
 							</thead>
-							<tbody>
-
-
-								<tr>
-									<th scope="row">partner</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample12.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>손오공</td>
-									<td>18-10-08 ~ 18-11-11</td>
-
-								</tr>
-							</tbody>
+							<tbody id="m_partner"></tbody>
 						</table>
 					</div>
 				</div>
@@ -504,146 +491,56 @@
 
 			<div id="content4">
 				<div id="intro0" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">사용자에게 호스트 요청</h6>
-					<div class="card-body3">
-
+					<h6 class="card-header" id="card_info">나에게 호스트를 요청한 서퍼 목록</h6>
+					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
-
-							<tbody>
-								<tr>
-									<th>&nbsp;</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample10.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>&nbsp;&nbsp;&nbsp;치치&nbsp;&nbsp;</td>
-									<td>18-08-12 ~ 18-09-20</td>
-
-								</tr>
-
-
-
-							</tbody>
+							<tbody id='h1'> </tbody>
 						</table>
-
-
-
-
-
 					</div>
 				</div>
 
 				<div id="intro" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">사용자가 요청한 호스트</h6>
-					<div class="card-body3">
+					<h6 class="card-header" id="card_info">내가 서퍼에게 요청한 호스트 목록</h6>
+					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
-
-							<tbody>
-								<tr>
-									<th>&nbsp;</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample10.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>&nbsp;&nbsp;&nbsp;치치&nbsp;&nbsp;</td>
-									<td>18-08-12 ~ 18-09-20</td>
-
-								</tr>
-
-
-
-							</tbody>
+							<tbody id='h2'> </tbody>
 						</table>
 					</div>
 				</div>
 				<br>
 				<div id="intro0" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">사용자에게 서퍼 요청</h6>
-					<div class="card-body3">
+					<h6 class="card-header" id="card_info">나에게 서퍼 요청한 호스트 목록</h6>
+					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
-
-							<tbody>
-								<tr>
-									<th>&nbsp;</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample10.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>&nbsp;&nbsp;&nbsp;치치&nbsp;&nbsp;</td>
-									<td>18-08-12 ~ 18-09-20</td>
-
-								</tr>
-
-
-
-							</tbody>
+							<tbody id='s1'> </tbody>
 						</table>
 					</div>
 				</div>
 
 				<div id="intro" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">사용자가 요청한 서퍼</h6>
-					<div class="card-body3">
+					<h6 class="card-header" id="card_info">내가 호스트에게 요청한 서퍼 목록</h6>
+					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
-
-							<tbody>
-								<tr>
-									<th>&nbsp;</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample10.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>&nbsp;&nbsp;&nbsp;치치&nbsp;&nbsp;</td>
-									<td>18-08-12 ~ 18-09-20</td>
-
-								</tr>
-
-
-
-							</tbody>
+							<tbody id='s2'>	</tbody>
 						</table>
 					</div>
 				</div>
 				<br>
 
 				<div id="intro0" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">사용자에게 파트너 요청</h6>
-					<div class="card-body3">
+					<h6 class="card-header" id="card_info">나에게 파트너 요청한 유저 목록</h6>
+					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
-
-							<tbody>
-								<tr>
-									<th>&nbsp;</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample10.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>&nbsp;&nbsp;&nbsp;치치&nbsp;&nbsp;</td>
-									<td>18-08-12 ~ 18-09-20</td>
-
-								</tr>
-
-
-
-							</tbody>
+							<tbody id='p1'> </tbody>
 						</table>
 					</div>
 				</div>
 
 				<div id="intro" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">사용자가 요청한 파트너</h6>
-					<div class="card-body3">
+					<h6 class="card-header" id="card_info">내가 파트너 요청한 유저 목록</h6>
+					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
-
-							<tbody>
-								<tr>
-									<th>&nbsp;&nbsp;</th>
-									<td><a href=""><img
-											src="/hifive/resources/image/sample10.jpg" alt=""
-											class="rounded-circle" title="프로필로 이동"></a></td>
-									<td>&nbsp;&nbsp;&nbsp;치치&nbsp;&nbsp;</td>
-									<td>18-08-12 ~ 18-09-20</td>
-
-								</tr>
-
-
-
-							</tbody>
+							<tbody id='p2'> </tbody>
 						</table>
 					</div>
 				</div>
