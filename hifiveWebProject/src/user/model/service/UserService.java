@@ -114,6 +114,10 @@ public class UserService {
 	public String updatePass(User user) {
 		Connection con = getConnection();
 		String userPw = new UserDao().updatePass(con, user);
+		if(userPw != null)
+			commit(con);
+		else
+			rollback(con);
 		close(con);
 		return userPw;
 		

@@ -421,20 +421,21 @@ public class UserDao {
 	public String updatePass(Connection con, User user) {
 		String userpw = null;
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
 		
-		String query = "update users set user_pw=? where user_id = ?";
+		
+		String query = "update users set user_pw = ? where user_id = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, user.getUser_Pw());
 			pstmt.setString(2, user.getUser_Id());
 			
-			rset = pstmt.executeQuery();
+			int result = pstmt.executeUpdate();
 			
-			if(rset.next()){
-				userpw = rset.getString("user_pw");	
+			if(result > 0 ){
+			userpw = user.getUser_Pw();
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			
