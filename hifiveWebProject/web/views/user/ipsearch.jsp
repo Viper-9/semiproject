@@ -28,11 +28,17 @@
 	<script type="text/javascript" src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript">
 	
-	function changebg(){
+	//틀린 이후 배경색 하얀색 초기화
+	function changeembg(){
 		$("#searchuseremail").css("background-color", "#FFFFFF");
 	}
 	
+	function changepwbg(){
+		$("#usereid").css("background-color", "#FFFFFF");
+		$("#useremail").css("background-color", "#FFFFFF");
+	}
 	
+	//아이디 ajax 찾는구문
 	function searchid(){
 		
 		var receiveremail = $('#searchuseremail').val();
@@ -49,17 +55,52 @@
 				success : function(data) {
 					if(data =='0'){
 						alert("해당 이메일은 존재하지 않습니다.");
+						$("#searchuseremail").focus();
+						$("#searchuseremail").css("background-color", "#FFCECE");
 					}else if(data == '1'){
 						alert("입력하신 이메일로 ID를 발송하였습니다")
 						location.href = "/hifive/index.jsp";
 					}else {
-						alert("알수없는 오류입니다. 관리자에게 문의해주세요")
-					}
-						
-					
+						alert("관리자에게 문의하십시요");
+						$("#searchuseremail").css("background-color", "#FFCECE");
+					}									
 				}
 			});	
 		}		
+	}
+	
+	function searchpw(){
+		 var spwid = $('#usereid').val();
+		 var spwemail = $('#useremail').val();
+		 
+		 if($('#usereid').val() == ''){
+				alert("아이디를 입력하세요");
+				$("#usereid").focus();
+				$("#usereid").css("background-color", "#FFCECE");
+		
+		}else if($('#useremail').val() == ''){
+				alert("이메일을 입력하세요");
+				$("#useremail").focus();
+				$("#useremail").css("background-color", "#FFCECE");
+		}else {
+			//아이디 이메일 확인해서 해당 이메일로 임시 비밀번호 보내는 ajax 구문
+			$.ajax({
+				url : "/hifive/searchpwd",
+				type : "post",
+				data : { spwid : spwid, spwemail : spwemail },
+				success : function(data){
+					if(data == '0'){
+						alert("아이디 혹은 이메일이 올바르지 않습니다");
+						
+					}else if(data == '1'){
+						alert("해당 이메일로 임시비밀번호를 발송하였습니다");
+						
+					}else{
+						alert("관리자에게 문의하십시요");
+					}
+				}				
+			});			
+		}
 	}
 	
 	</script>
@@ -92,7 +133,7 @@
 					<form action="/hifive/searchid" method="post" onsubmit = "return false;">
 						<div class="form-group">
     						<label for="">Email</label>
-    						<input type="email" class="form-control" id="searchuseremail" oninput = "changebg()"
+    						<input type="email" class="form-control" id="searchuseremail" oninput = "changeembg()"
     						name = "searchuseremail" placeholder="Email">
     			
   						</div>
@@ -107,19 +148,20 @@
   			<div class="tab-pane fade" id="pills-password" role="tabpanel" aria-labelledby="pills-password-tab">비밀번호를 잊어버리셨나요? <br> 가입할 때 입력한 이메일로 비밀번호를  <br>보내드립니다.
   				<div>
   					<br>
-					<form action="" method="post">
+  					<!-- 아이디 & 이메일 치는란 -->
+					<form action="/hifive/searchpwd" method="post" onsubmit = "return false;">
 						<div class="form-group">
     						<label for="">ID</label>
-    						<input type="text" class="form-control" id="usereid" placeholder="ID">
+    						<input type="text" class="form-control" id="usereid" oninput = "changepwbg()" placeholder="ID">
     			
   						</div>
   						<div class="form-group">
     						<label for="">Email</label>
-    						<input type="email" class="form-control" id="useremail" placeholder="Email">
+    						<input type="email" class="form-control" id="useremail"  oninput = "changepwbg()" placeholder="Email">
   						</div>
   						<br>
   						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  						<button type="submit" class="btn btn-primary btn-lg" id ="passwordsearch">비밀번호 찾기</button>
+  						<button type="submit" class="btn btn-primary btn-lg" onclick = "searchpw()" id ="passwordsearch">비밀번호 찾기</button>
 					</form>
 				</div>  			 
   			</div> 

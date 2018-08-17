@@ -57,7 +57,7 @@
 				}
 				//비밀번호 공백 확인
 				else if ($("#userpw").val() == "") {
-					alert("비밀번호를 재입력하세요");
+					alert("비밀번호를 입력하세요");
 					$("#userpw").focus();
 					$("#userpw").css("background-color", "#FFCECE");
 					return false;
@@ -76,7 +76,7 @@
 								} else if(data == '1') {
 									location.href = "/hifive/main.jsp";
 								} else {
-									alert("알수없는 오류입니다. 관리자에게 문의하세요")
+									alert("알수없는 오류입니다. 관리자에게 문의하세요");
 								}							
 						}, error : function(jqXHR, textstatus, errorThrown){
 			                console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);

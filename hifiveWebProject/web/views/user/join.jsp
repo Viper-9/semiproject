@@ -58,7 +58,6 @@
 			type : "post",
 			data : { id : inputed },
 			success : function(data){
-				console.log("아이디 success : " + data);
 				if(inputed == "" && data == '0'){
 					$(".signupbtn").prop("disabled", true);
 					$(".signupbtn").css("background-color", "#FFCECE");
@@ -297,7 +296,6 @@
 			type : "post",
 			data : { useremail : Einputed},
 			success : function(data){
-				console.log(" 이메일 중복확인 success : " + data)
 				if(Einputed == "" && data == '0'){
 					$("#emailsubmit").prop("disabled", true);
 					EmailCheck = 0;

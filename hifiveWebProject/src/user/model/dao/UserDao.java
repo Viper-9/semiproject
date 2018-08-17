@@ -183,11 +183,11 @@ public class UserDao {
 				user.setRestriction(rset.getString("restriction"));
 				user.setProfile_image(rset.getString("profile_image"));
 			} else {
-				throw new UserException("회원 조회 실패");
+				
 			}
 		} catch(Exception e){
 			e.printStackTrace();
-			throw new UserException(e.getMessage());
+			
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -244,12 +244,10 @@ public class UserDao {
 			
 			if(rset.next()){
 				userId = rset.getString("user_id");						
-			} else {
-				throw new UserException("회원 조회 실패");
-			}
+			} 
 		} catch(Exception e){
 			e.printStackTrace();
-			throw new UserException(e.getMessage());
+			
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -342,5 +340,59 @@ public class UserDao {
 		
 	}
 
+	public String searchPw(Connection con, String userId, String userEmail) {
+		String userpw = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from users "
+				+ "where user_id = ? and email = ? ";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userEmail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				userpw = rset.getString("user_pw");						
+			} 
+		} catch(Exception e){
+			e.printStackTrace();
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return userpw;
+	}
+
+	public String updatePass(Connection con, User user) {
+		String userpw = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "update users set user_pw=? where user_id = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user.getUser_Pw());
+			pstmt.setString(2, user.getUser_Id());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				userpw = rset.getString("user_pw");	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return userpw;
+	}
 
 }
