@@ -12,6 +12,6 @@
 </head>
 <body>
 <h1>favorite 에러 발생하였습니다.</h1>
-<h3>에러 메시지 : <%= message %></h3>
+<h3>에러 메시지 :<%= message %></h3>
 </body>
 </html>
