@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>    
-<% User user = (User)request.getAttribute("user");  
+<%
+	User user = (User)request.getAttribute("user");
   /*  Host host = (Host)request.getAttribute("host");  */  	   
  %>
 <!DOCTYPE html>
@@ -253,7 +254,7 @@
    </div>
 
 
-   <!-- Modal -->
+   <!-- 주소 지도 Modal -->
    <div class="modal fade" id="openMap" tabindex="-1" role="dialog"
       aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -268,7 +269,11 @@
                </button>
             </div>
             <div class="modal-body">
+            <% if(user.getAddress() != null) { %>
                <div id="map" style="width: 470px; height: 400px;"></div>
+            <% } else { %>
+                       주소를 입력하지 않았습니다.
+            <% } %>
             </div>
          </div>
       </div>
