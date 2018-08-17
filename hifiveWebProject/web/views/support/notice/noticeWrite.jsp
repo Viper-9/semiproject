@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport"
-   content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>신고게시판 글쓰기</title>
+   content="width=device-width, initial-scale=1, shrink-to-fit=no">>
+<title>공지사항 글쓰기</title>
 
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
@@ -84,7 +84,7 @@
 </script>
 </head>
 <body>
-   <div class="container">
+<div class="container">
       <%@ include file="../../../header.jsp"%>
       <hr>
       <div id="main">
@@ -101,7 +101,7 @@
 
                </div>
             </div>
- 
+
          </div>
          <div id="content1">
             <%@ include file="../../../supportmenu.jsp"%>
@@ -111,8 +111,6 @@
 
             <br>
               <div class="card border-0" style="width: 600px;" id="reporttable1">
-             <form action="/hifive/reportwrite" method="post"
-             enctype="mulitpart/form-data">
             <table
                class="table table-borderless table-sm border"
                id=reporttable>
@@ -122,18 +120,18 @@
                
                 <tr class="p-3 mb-2 bg-light text-dark">
                      <th style="width:70px">제목</th>
-                     <td colspan="2" class="text-left"><input type="text" class="form-control" style="width:400px" name="rtitle" ></td>
+                     <td colspan="2" class="text-left"><input type="text" class="form-control" style="width:400px" name="ntitle" ></td>
                   </tr>
                   <tr >
                      <th>작성자</th>
 
-                     <td class="text-left"><input type="text" class="form-control" style="width:150px" name="rwriter" value="<%= userId %>" readonly></td>
+                     <td class="text-left"><input type="text" class="form-control" style="width:150px" name="nwriter" value="관리자" readonly></td>
                      <td></td>
                   </tr>
                   <tr>
                      <th >내용</th>
                      <td class="text-left"> 
-                        <textarea name="rcontent" class="form-control" cols="70" rows="7"></textarea>
+                        <textarea name="ncontent" class="form-control" cols="70" rows="7"></textarea>
                      </td> 
                      <td></td>
                   </tr>
@@ -142,11 +140,10 @@
 
                      <td colspan="3">
                         <button type="submit" class="btn btn-primary btn-sm">등록</button>
-                        <button type="reset" class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist'">취소</button></td>
+                        <button type="submit" class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist'">취소</button></td>
                   </tr>
                </tbody>
             </table>
-            </form>
 
          </div>
       </div>
@@ -157,5 +154,6 @@
       <%@ include file="../../../footer.jsp"%>
    
 </div>
+
 </body>
-</html> 
+</html>

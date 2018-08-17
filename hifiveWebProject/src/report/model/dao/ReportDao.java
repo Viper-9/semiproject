@@ -230,13 +230,18 @@ public class ReportDao {
 		int result = 0;
 		PreparedStatement pstmt = null; 
 		
-		String query = "insert into report_board values (?, default, default, ?, ?)";
+		String query = "insert into report_board values ( (select max(report_no) + 1 from report_board), "
+		     + "?, sysdate, ?, ?, ?, default )";
+		     		
 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, Report.getReport_no());
-			pstmt.setString(2, Report.getTitle());
-			pstmt.setString(3, Report.getContent());
+			pstmt.setString(3, Report.getTitle());
+			pstmt.setString(1, Report.getUser_id());
+			pstmt.setString(4, Report.getContent());
+			pstmt.setInt(2, Report.getViews());
+	
+			
 			
 			result = pstmt.executeUpdate();
 			

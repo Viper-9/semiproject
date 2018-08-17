@@ -183,7 +183,7 @@ public class NoticeDao {
 
 	// 글 내용 상세조회
 	public Notice selectNotice(Connection con, int NoticeNo) throws NoticeException {
-		Notice Notice = null;
+		Notice n = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
@@ -196,7 +196,7 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 
 			if(rset.next()){
-				Notice n = new Notice();
+				n = new Notice();
 
 				n.setNotice_no(rset.getInt("notice_no"));
 				n.setNotice_date(rset.getDate("notice_date"));
@@ -205,7 +205,7 @@ public class NoticeDao {
 				n.setContent(rset.getString("contents"));
 
 
-				if(Notice == null)
+				if(n == null)
 					throw new NoticeException("글 내용 조회 실패");			
 			}
 		} catch(Exception e){
@@ -215,7 +215,7 @@ public class NoticeDao {
 			close(rset);
 			close(pstmt);
 		}		
-		return Notice;
+		return n;
 	}
 
 	// 공지글 입력

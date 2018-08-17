@@ -16,11 +16,11 @@
 <script type="text/javascript">
  
 </script> 
-
+ 
 </head>
 <body>
 <div class="card" style="width: 250px;">
-					<div class="card-body">
+					<div class="card-body"> 
 
 						<h4 class="card-title"><b><%= infoUser.getUser_Name() %></b> </h4>
 						<br>

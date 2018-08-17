@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ page import="report.model.vo.Report" %>
+    pageEncoding="UTF-8"%>
+<%@ page import="notice.model.vo.Notice" %>
 <%
-	Report r = (Report)request.getAttribute("reportR");
-%>   
-<!DOCTYPE html>
+	Notice n = (Notice)request.getAttribute("noticeN");
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>ReportList</title>
+<title>NoticeDetail</title>
 
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
@@ -86,7 +86,7 @@ function showBoardWriteForm(){
 </script>
 </head>
 <body>
-   <div class="container">
+ <div class="container">
       <%@ include file="../../../header.jsp"%>
       <hr>
       <div id="main">
@@ -107,10 +107,10 @@ function showBoardWriteForm(){
                id=reporttable>
                <thead>
                   <tr class="p-3 mb-2 bg-light text-dark">
-                     <th class="text-left">&nbsp;&nbsp;<%= r.getReport_no() %> &nbsp;&nbsp; <%= r.getTitle() %></th>
+                     <th class="text-left">&nbsp;&nbsp;<%= n.getNotice_no() %> &nbsp;&nbsp; <%= n.getTitle() %></th>
                      <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                      <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                     <th class="text-right"><%= r.getReport_date() %> &nbsp;&nbsp;</th>
+                     <th class="text-right"><%= n.getNotice_date() %> &nbsp;&nbsp;</th>
 
                   </tr>
                </thead>
@@ -119,7 +119,7 @@ function showBoardWriteForm(){
                      <td class="text-left">&nbsp;&nbsp;<img
                         src="/hifive/resources/image/sample11.jpg" alt="..."
                         class="rounded-circle" id="circle2"> &nbsp;&nbsp;
-                        <%= r.getUser_id() %>
+                        관리자
                      </td>
 
                      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -129,30 +129,21 @@ function showBoardWriteForm(){
                   </tr>
                   <tr>
                      <td colspan="4">
-                        <p class="text-justify"><%= r.getContent() %></p>
+                        <p class="text-justify"><%= n.getContent() %></p>
 
                      </td>
                   </tr>
                   <tr>
 
-                     <td colspan="4" class="text-secondary"><font size="2">처리상태
-                           : <%= r.getComplete() %></font></td>
+                     <td colspan="4" class="text-secondary"><font size="2">
+                     관리자 공지사항
                   </tr> 
                   <tr>
 
                      <td colspan="4"><button type="submit"
-                           class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist'">목록</button>
-                          <% if(r.getUser_id().equals(userId)) { %>
-                           <button type="submit" class="btn btn-primary btn-sm">수정</button>
-                     	  <% }else { %>
-                     	   <button type="submit" class="btn btn-primary btn-sm" disabled>수정</button>
-					      <% } %>
-					
-                          <% if(r.getUser_id().equals(userId)) { %>              
-                           <button type="submit" class="btn btn-primary btn-sm">삭제</button>
-                          <% }else { %> 
-                           <button type="submit" class="btn btn-primary btn-sm" disabled>삭제</button>
-                          <% } %>
+                           class="btn btn-primary btn-sm" onclick="location.href='/hifive/noticelist'">목록</button>
+                       
+                                                                         
                      </td>
                            
                   </tr> 
@@ -168,5 +159,6 @@ function showBoardWriteForm(){
       <%@ include file="../../../footer.jsp"%>
    
 </div>
+
 </body>
 </html>
