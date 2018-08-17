@@ -22,7 +22,7 @@
 </head>
 <body>
 <div class="card" style="width: 250px;">
-					<div class="card-body">
+					<div class="card-body"> 
 
 						<h5 class="card-title"> <%= userId1 %></h5>
 
