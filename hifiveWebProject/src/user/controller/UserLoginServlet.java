@@ -48,7 +48,7 @@ public class UserLoginServlet extends HttpServlet {
 				// session.setMaxInactiveInterval(10*60); // 자동 로그아웃...
 				session.setAttribute("userName", userName);
 				session.setAttribute("userId", userId);
-				session.setAttribute("user", user);
+				session.setAttribute("loginuser", user);
 				
 				returnValue = "1";
 				out.flush();
