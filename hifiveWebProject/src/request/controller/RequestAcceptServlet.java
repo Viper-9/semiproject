@@ -1,4 +1,4 @@
-package user.controller;
+package request.controller;
 
 import java.io.IOException;
 
@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import user.exception.UserException;
-import user.model.service.UserService;
-import user.model.vo.User;
+import request.exception.RequestException;
+import request.model.service.RequestService;
 
 /**
- * Servlet implementation class SafetyCheckServlet
+ * Servlet implementation class RequestAcceptServlet
  */
-@WebServlet("/safetycheck")
-public class SafetyCheckServlet extends HttpServlet {
+@WebServlet("/requestaccept")
+public class RequestAcceptServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SafetyCheckServlet() {
+    public RequestAcceptServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,19 +31,23 @@ public class SafetyCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int request_no = Integer.parseInt(request.getParameter("request_no"));
 		
-		String userid = request.getParameter("userid");
-
-		try {
-			if(new UserService().safetyCheck(userid) > 0){
-				response.sendRedirect("/hifive/views/support/safety.jsp");
-				System.out.println("업데이트 성공");
-			} else {
-				
-			}
-		} catch(UserException e){
-			
+		RequestDispatcher view = null;
+		try{
+			if(new RequestService().acceptRequest(request_no) > 0){
+				response.sendRedirect("/hifive/main.jsp");
+			} else{
+				view = request.getRequestDispatcher("views/request/requestError.jsp");
+				request.setAttribute("message", "요청 거절 에러");
+				view.forward(request, response);			}
+					
+		} catch(RequestException e){
+			view = request.getRequestDispatcher("views/request/requestError.jsp");
+			request.setAttribute("message", e.getMessage());
+			view.forward(request, response);
 		}
+		
 	}
 
 	/**

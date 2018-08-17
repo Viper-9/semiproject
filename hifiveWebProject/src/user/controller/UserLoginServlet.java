@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import user.exception.UserException;
 import user.model.service.UserService;
+import user.model.vo.User;
 
 
 @WebServlet("/login")
@@ -31,25 +32,25 @@ public class UserLoginServlet extends HttpServlet {
 		
     	String userId = request.getParameter("userid");
 		String userPw = request.getParameter("userpw");
-		
-		
-		System.out.println(userId + ", " + userPw);
-		
+				
 		
 		
 		  try {
-			  
+			
+			User user = new UserService().selectUser(userId);
+			
 			String userName = new UserService().loginCheck(userId, userPw);
 			
 			String returnValue = "0";
 			PrintWriter out = response.getWriter();
 			
 			if(userName != null){
-				System.out.println(userName);
 				HttpSession session = request.getSession();
 				// session.setMaxInactiveInterval(10*60); // 자동 로그아웃...
 				session.setAttribute("userName", userName);
 				session.setAttribute("userId", userId);
+				session.setAttribute("user", user);
+				
 				returnValue = "1";
 				out.flush();
 				

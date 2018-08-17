@@ -8,15 +8,27 @@ import hsp.model.dao.HostDao;
 import hsp.model.vo.Host;
 
 public class HostService {
-	public HostService(){}
-	
-	// 호스트 정보
-	public Host selectHost(String userid)throws HostException {
+
+	public HostService(){}	
+
+	public Host selectHost(String userId){
+
 		Connection con = getConnection();
-		Host host = new HostDao().selectHost(con, userid);
+		Host host = new HostDao().selectHost(con, userId);
 		close(con);
 		return host;
 	}
-	
-	
+
+
+	public int updateHost(Host host) throws HostException{
+		Connection con = getConnection();
+		int result = new HostDao().updateHost(con, host);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+
 }

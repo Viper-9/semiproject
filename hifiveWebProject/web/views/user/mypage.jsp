@@ -1,48 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>    
-<%   	
-	    String[] hchecked = new String[12];   	
-		/* User user = (User)request.getAttribute("user");  
-		Host host = (Host)request.getAttribute("host");   */
-	   
-	   
-/* if(user.getHobby() == null){
-		   
-	   } else {
-		   String[] hobbies = user.getHobby().split(",");
-		   for(String s : hobbies){
-		      switch(s){
-		      case "game": hchecked[0]="active"; break;
-		      case "reading": hchecked[1]="active"; break;
-		      case "music": hchecked[2]="active"; break;
-		      case "camping": hchecked[3]="active"; break;
-		      case "climb": hchecked[4]="active"; break;
-		      case "sport": hchecked[5]="active"; break;
-		      case "art": hchecked[6]="active"; break;
-		      case "shopping": hchecked[7]="active"; break;
-		      case "bike": hchecked[8]="active"; break;
-		      case "walk": hchecked[9]="active"; break;
-		      case "sleep": hchecked[10]="active"; break;
-		      case "dance": hchecked[11]="active"; break;      
-		      }
-		   }  
-	   } */
-  
-	   
-  	   String[] ochecked = new String[4]; 	   
-	   /*	   if(host.getCheck1() == null){
-		   
-	   } else {
-		   String[] checks = host.getCheck1().split(",");
-		   for(String s : checks){
-		      switch(s){
-		      case "smoking": ochecked[0]="active"; break;
-		      case "kid": ochecked[1]="active"; break;
-		      case "pet": ochecked[2]="active"; break;
-			  case "drinking": ochecked[3]="active"; break;
-		      }
-		   }
-	   } */
+<%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>
+<%   			
+	   String[] hchecked = new String[12];   			   
+  	   String[] ochecked = new String[4]; 	    		 
 %>
 <!DOCTYPE html>
 <html>
@@ -85,7 +45,7 @@
 </style>   
 
   <script type="text/javascript">
-       $(function(){        
+       $(function(){      
           
           $.ajax({
              url : "/hifive/info",
@@ -132,32 +92,38 @@
          	    if(data.hobby == null){
          		   
          	    }else{
-         		   var hobbies = (data.hobby).split(","); 
-         		   console.log(hobbies);
-         		   for(var s in hobbies){
-         		      switch(s){
-         		      case "game": $("#game").prop("active", true); break;
-         		      case "reading": $("#reading").prop("active", true); break;
-         		      case "music": $("#music").prop("active", true); break;
-         		      case "camping": $("#camping").prop("active", true); break;
-         		      case "climb": $("#climb").prop("active", true); break;
-         		      case "sport": $("#sport").prop("active", true); break;
-         		      case "art": $("#art").prop("active", true); break;
-         		      case "shopping":
-         		    	  $("#shopping").attr("class", "btn btn-outline-secondary btn-sm active");
-         		    	 /*  $("#shopping").removeClass("btn btn-outline-secondary btn-sm");
-         		    	  $("#shopping").addClass("btn btn-outline-secondary btn-sm active"); */
-         		    	  break;
-         		      case "bike": $("#bike").prop("active", true); break;
-         		      case "walk": $("#walk").prop("active", true); break;
-         		      case "sleep": $("#sleep").prop("active", true); break;
-         		      case "dance": $("#dance").prop("active", true); break;      
+
+         		   var hobbies = (data.hobby).split(",");          		   
+         		   for(var s in hobbies){         			   
+         		      switch(hobbies[s]){
+         		      case "game":
+         		    	  $("#game").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "reading":
+         		    	  $("#reading").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "music":
+         		    	  $("#music").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "camping":
+         		    	  $("#camping").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "climb":
+         		    	  $("#climb").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "sport":
+         		    	  $("#sport").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "art":
+         		    	  $("#art").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "shopping":         		    	  
+         		    	  $("#shopping").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "bike":
+         		    	  $("#bike").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "walk":
+         		    	  $("#walk").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "sleep":
+         		    	  $("#sleep").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+         		      case "dance": 
+         		    	  $("#dance").attr("class", "btn btn-outline-secondary btn-sm active"); break;      
+
          		      }
          		   }  
          	    } 
-             },
-             error : function(jqXHR, textstatus, errorThrown){
-                console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
              }
           }); // userajax
           
@@ -190,11 +156,15 @@
         		  }else{
         			  var checks = data.check1.split(",");
         			  for(var s in checks){
-        				  switch(s){        			  
-		       			  case "smoking": $("smoking").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-		   			      case "kid": $("kid").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-		   			      case "pet": $("pet").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-		   				  case "drinking": $("drinking").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+        				  switch(checks[s]){        			  
+		       			  case "smoking":
+		       				  $("#smoking").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+		   			      case "kid":
+		   			    	  $("#kid").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+		   			      case "pet":
+		   			    	  $("#pet").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+		   				  case "drinking":
+		   					  $("#drinking").attr("class", "btn btn-outline-secondary btn-sm active"); break;
         			 	 }
         			  }
         		  }
@@ -216,13 +186,15 @@
         		  }else{
         			  $("#hostcontent").val(data.content);
         		  }
+
         	  },
         	  error : function(jqXHR, textstatus, errorThrown){
         		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
         	  }        	  
-          }) //hostajax
-          
+          }); //hostajax
+  	            
           $.ajax({
+
         	  url : "/hifive/surfing",
         	  type : "post",
         	  data : {userid : $("#userid").val()},
@@ -253,11 +225,8 @@
         		  }else{
         			  $("#s-num").val(data.num);
         		  }
-        	  },
-        	  error : function(jqXHR, textstatus, errorThrown){
-        		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
-        	  }    
-          })//surfing ajax
+        	  }   
+          });//surfing ajax
           
           $.ajax({
         	  url : "/hifive/partnering",
@@ -290,111 +259,51 @@
         		  }else{
         			  $("#p-num").val(data.num);
         		  }
-        	  },
-        	  error : function(jqXHR, textstatus, errorThrown){
-        		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
-        	  }    
-          })//partner ajax
+
+        	  }
+          });
+        	 
+           
+          $.ajax({	
+        	  url : "/hifive/reviewlist",
+          		type : "get",
+    			data : {userid : $("#userid").val()},
+    			dataType : "json",			
+    			success : function(data){
+    				//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
+    				var jsonStr = JSON.stringify(data);
+    							
+    				//문자열을 json 객체로 바꿈
+    				var json = JSON.parse(jsonStr);
+    			
+    				var values = "";
+    				if(json.list.length == 0){
+    					values += "등록된 리뷰가 없습니다.";
+    					$("#review").html($("#review").html()+values);	
+    				} else{					
+    					for(var i in json.list){
+    						values += "아이디 : " + json.list[i].user_id 
+    						+"<br>날짜 : " + json.list[i].review_date
+    						+"<br>내용 : " + json.list[i].content +"<br><br>";
+    					}										
+    					$("#review").html($("#review").html()+values);
+    					
+    				}
+    			}, // success
+    			error : function(jqXHR, textstatus, errorThrown){
+    				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+    			} // error
+    		});
           
        }); //document.ready
-       
-      
-		function deleteUser(){
-			var result = confirm("정말 탈퇴하시겠습니까?");
-			
-			if(result){
-				$.ajax({
-	  				url : "/hifive/userdelete",
-	  				type : "post",
-	  				data : {userid : $("#userid").val()},
-	  				success : function(data){
-	  					alert("탈퇴되었습니다.")
-	  				},
-	  				error : function(jqXHR, textstatus, errorThrown){
-	          		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
-	          	  }  
-	  			})
-			}else{
-				
-			}  			
-		} //deleteUser
-  	
-  		function userUpdate(){
-			$.ajax({
-				url : "/hifive/infoupdate",
-				type : "post",
-				data : {userid : $("#userid").val()},
-				success : function(data){
-	             	//이름
-	                $("#name").val(data.name);            	
-	              	//주소
-	                $("#sample5_address").val(data.address); 
-	              	//국적
-	              	if(data.nationality == null){
-	              		$("nationality").val('');
-	              	}else{
-	              		$("#nationality").prop("selected", true);
-	              	}
-	              	//성별
-	                if(data.gender == "F"){
-	                	$("#gender").val('여성');
-	                } else {
-	                	$("#gender").val('남성');
-	                }                	
-	             	//이메일
-	                $("#email").val(data.email);             	
-	                //직업
-	             	if(data.job == null){
-	             		$("#job").val('');
-	             	} else {
-	             		$("#job").val(data.job);
-	             	}                
-	             	//생일
-	                $("#birth").val(data.birth);             	
-	                //전화번호
-	                $("#phone").val(data.phone);                
-	                //자기소개
-	                if(data.content == null){
-	                	$("#introduction").val();
-	                } else {
-	                	$("#introduction").val(data.content);
-	                } 
-	                //취미
-	                //String[] hchecked = new String[12];   		
-	         	    if(data.hobby == null){
-	         		   
-	         	    }else{/* class="btn btn-outline-secondary btn-sm" */
-	         		   var hobbies = (data.hobby).split(",");  
-	         		   for(var s in hobbies){
-	         		      switch(s){
-	         		      case "game": $("#game").prop("active", true); break;
-	         		      case "reading": $("#reading").prop("active", true); break;
-	         		      case "music": $("#music").prop("active", true); break;
-	         		      case "camping": $("#camping").prop("active", true); break;
-	         		      case "climb": $("#climb").prop("active", true); break;
-	         		      case "sport": $("#sport").prop("active", true); break;
-	         		      case "art": $("#art").prop("active", true); break;
-	         		      case "shopping": $(".btn btn-outline-secondary btn-sm").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-	         		      case "bike": $("#bike").prop("active", true); break;
-	         		      case "walk": $("#walk").prop("active", true); break;
-	         		      case "sleep": $("#sleep").prop("active", true); break;
-	         		      case "dance": $("#dance").prop("active", true); break;      
-	         		      }
-	         		   }  
-	         	    } 
-	             },
-				error : function(jqXHR, textstatus, errorThrown){
-	        		  console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
-	        	  }  
-			})
-		}       
+
     </script>     
 
 </head>
 <body>
    <div id="tbox">
       <%@ include file="../../header.jsp"%>
-      <form action="/hifive/infoupdate" method="post">
+      <form action="/hifive/infoupdate?userid=<%= userId %>" method="post">
       <input type="hidden" id="userid" name="userid" value="">
       <div id="main">
          <div id="menu">
@@ -461,27 +370,28 @@
                         <% } %>
                         </select>                     
                   </div>
+                  </form>
                   <br>
                   <div id="request" name="request" align="center">
                      <table align="center" border="0">
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER"
-                           		onclick="location.href='/hifive/favoritelist?userid=<%-- <%= user.getUser_Id() %> --%>'" ></th>
+                           		onclick="location.href='/hifive/favoritelist?userid=<%=userId%>'"></th>
                         </tr>
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"></th>
                         </tr>
                      </table>
                      <br>
-                     <table>
-                        <tr>
-                           <th>  
-                           		<form action="/hifive/userdelete" method="post">                           
-                              		<input type="button" class="btn btn-danger" style="width:200px;" value="회원 탈퇴" onclick="deleteUser();">    
-								</form>                         
-                          </th>
-                        </tr>
-                     </table>
+                     	<form action="/hifive/userdelete?userid=<%=userId %>" method="post">
+	                     <table>
+	                        <tr>
+	                         	<th>                           
+	                           		<input type="submit" class="btn btn-danger" style="width:200px;" value="회원 탈퇴" > 
+	                          </th>
+	                        </tr>
+	                     </table>
+                     </form>                         
                   </div>                  
                </div>
             </div>
@@ -552,8 +462,8 @@
                            <tr>
 	                           <td>
 	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm" id="game">
-	                                 <input type="checkbox" name="hobby" value="game"> 게임
+	                                 <label class="btn btn-outline-secondary btn-sm" >
+	                                 <input type="checkbox" name="hobby" value="game" id="game" > 게임
 	                                 </label>
 	                              </div>
 	                           </td>
@@ -668,7 +578,7 @@
             </div>
            </form>
             <br>
-            <form action="/hifive/hosting" method="post">
+            <form action="/hifive/hupdate?userid=<%=userId %>" method="post">
             <div id="myhome" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">My Home</h6>
                <div class="card-body">
@@ -677,12 +587,12 @@
                   <table>
                      <tr>
                         <td><li>최대 가능 인원 : </li></td>
-                        <td><input type="number" class="form-control" id="h-num" name="h-num" min="1" step="1" style="width:60px;"></td>
+                        <td><input type="number" class="form-control" id="h-num" name="num" min="1" step="1" style="width:60px;"></td>
                      </tr>
                      <tr>
                         <td><li>선호하는 성별 : </li></td>
                          <td>
-                           <select class="custom-select" id="pgender" name="preferredgender" style="width:150px;">
+                           <select class="custom-select" id="pgender" name="gender" style="width:150px;">
 	                           <option id="genderselect" value="">선택</option>  
 	                           <option value="female" id="female">여성</option>
 	                           <option value="male" id="male">남성</option>
@@ -759,7 +669,7 @@
             </div>
             </form>
             <br>
-            <form action="/hifive/surferenroll" method="post">
+            <form action="/hifive/supdate?userid=<%=userId %>" method="post">
             <div id="surfer" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Surfer</h6>
                <div class="card-body">
@@ -768,20 +678,20 @@
                   <table>
                      <tr>
                         <td><li>목적지 : </li></td>
-                        <td><textarea class="form-control" id="s-destination" rows="1" cols="25"></textarea>
+                        <td><textarea class="form-control" name="city" id="s-destination" rows="1" cols="25"></textarea>
                      </tr>                     
                      <tr>
                         
                         <td><li><label>여행기간 : </label></li></td>
                         <td>
-                           <input type="date" id="s-startdate" class="form-control" name="s-startdate">
-                           <input type="date" id="s-enddate" class="form-control" name="s-enddate">
+                           <input type="date" id="s-startdate" class="form-control" name="startdate">
+                           <input type="date" id="s-enddate" class="form-control" name="enddate">
                         </td>
                        
                      </tr>
                      <tr>
                         <td><li>인원 : </li></td>
-                        <td><input type="number" id="s-num" class="form-control" name="s-num" min="1" step="1" style="width:60px;"></td>
+                        <td><input type="number" id="s-num" class="form-control" name="num" min="1" step="1" style="width:60px;"></td>
                      </tr>
                   </table>
                   </ul>                  
@@ -795,7 +705,7 @@
             </div>
             </form>
             <br>
-            
+            <form action="/hifive/pupdate?userid=<%=userId %>" method="post">
             <div id="partner" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Partner</h6>
                <div class="card-body">
@@ -804,18 +714,18 @@
                   <table>
                      <tr>
                         <td><li>목적지 : </li></td>
-                        <td><textarea id="p-destination" class="form-control" rows="1" cols="25"></textarea>
+                        <td><textarea id="p-destination" name="city" class="form-control" rows="1" cols="25"></textarea>
                      </tr>                     
                      <tr>
                         <td><li>여행기간 : </li></td>
                         <td>
-                           <input type="date" id="p-startdate" class="form-control" name="partnerstartday">
-                           <input type="date" id="p-enddate" class="form-control" name="partnerlastday">
+                           <input type="date" id="p-startdate" class="form-control" name="startdate">
+                           <input type="date" id="p-enddate" class="form-control" name="enddate">
                         </td>
                      </tr>
                      <tr>
                         <td><li>인원 : </li></td>
-                        <td><input type="number" id="p-num" class="form-control" name="partnernum" min="1" step="1" style="width:60px;"></td>
+                        <td><input type="number" id="p-num" class="form-control" name="num" min="1" step="1" style="width:60px;"></td>
                      </tr>
                   </table>
                   </ul>               
@@ -827,7 +737,7 @@
                	</center>
                </div>
             </div>
-            <!-- </form> -->
+            </form>
             <br>
             <div id="photo" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Photos</h6>
