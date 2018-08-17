@@ -56,6 +56,7 @@ public class NoticeService {
 		Connection con = getConnection();
 		Notice Notice = new NoticeDao().selectNotice(con, NoticeNo);
 		close(con);
+
 		return Notice;
 	}
 	

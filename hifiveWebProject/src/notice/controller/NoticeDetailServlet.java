@@ -58,7 +58,7 @@ public class NoticeDetailServlet extends HttpServlet {
 			}		
 		
 		} catch (NoticeException e) {
-			System.out.println("실패");
+			System.out.println("실패1");
 		}
 	}
 
