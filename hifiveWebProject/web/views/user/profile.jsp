@@ -2,8 +2,10 @@
    pageEncoding="UTF-8"%>
 <%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>    
 <%
-	User user = (User)request.getAttribute("user");
-  /*  Host host = (Host)request.getAttribute("host");  */  	   
+	User user = (User)request.getAttribute("profileuser");
+    Host profileH = (Host)request.getAttribute("profileH");	
+    SurferPartner profileS = (SurferPartner)request.getAttribute("profileS");
+    SurferPartner profileP = (SurferPartner)request.getAttribute("profileP");
  %>
 <!DOCTYPE html>
 <html>
@@ -117,16 +119,38 @@
                   <div id="request" name="request" align="center">
                      <table border="0">
                         <tr>
-                           <th><input type="button" class="btn btn-primary"
-                              value="Host에게 요청하기" style="width: 200px;"></th>
+                           <th>
+                          <% if(profileH != null) { %>
+                          <input type="button" class="btn btn-primary"
+                              value="Host에게 요청하기" id="requestH" style="width: 200px;">
+                           <%} else { %> 
+                            <input type="button" class="btn btn-primary"
+                              value="Host에게 요청하기" disabled id="requestH" style="width: 200px;">
+						   <% } %> 
+                           </th>
+                              
                         </tr>
                         <tr>
-                           <th><input type="button" class="btn btn-primary"
-                              value="Surfer에게 요청하기" style="width: 200px;" disabled></th>
+                           <th>
+                           <% if(profileS != null) { %>
+                           <input type="button" class="btn btn-primary"
+                              value="Surfer에게 요청하기" id="requestS" style="width: 200px;">
+                              <%} else { %> 
+                              <input type="button" class="btn btn-primary"
+                              value="Surfer에게 요청하기" disabled id="requestS" style="width: 200px;">
+                              <% } %>  
+                              </th>
                         </tr>
                         <tr>
-                           <th><input type="button" class="btn btn-primary"
-                              value="Partner에게 요청하기" style="width: 200px;" disabled></th>
+                           <th>
+                           <% if(profileP != null) { %>
+                           <input type="button" class="btn btn-primary"
+                              value="Partner에게 요청하기" id="requestP" style="width: 200px;">
+                               <%} else { %> 
+                               <input type="button" class="btn btn-primary"
+                              value="Surfer에게 요청하기" disabled id="requestS" style="width: 200px;">
+                               <% } %> 
+                              </th>
                         </tr>
                      </table>
                   </div>
@@ -180,16 +204,14 @@
                     <li>
                      	<div class="form-group row">
                         <label class="col-sm-2 col-form-label">Hobby</label>
-                           <div class="col-sm-10">
-                                    
+                           <div class="col-sm-10">          
                            <% if(user.getHobby() == null){ %>
                     		    선택된 취미가 없습니다.
                     	   <% } else { 
                     		   String[] hobbies = user.getHobby().split(","); %>
                     		   <% for(String s : hobbies) { %>
                     		   		<input type="button" class="btn btn-outline-dark" name="hobby"
-                    		   		value="<%= s %>"
-                    		   		>
+                    		   		value="<%= s %>">                    		   		>
                     		   <% } %>
 		               	   <% } %>
               
@@ -233,101 +255,128 @@
                <h6 class="card-header" id="card_info">My Home</h6>
                <div class="card-body">
                   <p class="card-text">
+                  <% if(profileH == null) { %>
+                  		호스트를 등록하지 않았습니다.
+                  <%} else { %>
                   <ul>
-                  <table>
+                  <table cellpadding="10px">
                      <tr>
-                        <td><li>최대 가능 인원</li></td>
-                        <td><input type="text" class="form-control" disabled style="width:60px;background-color: #ffffff; text-align:center;"></td>
+                        <td width="150px"><li>최대 가능 인원</li></td>
+                        <td width="500px"><input type="text" class="form-control col-sm-3" readonly style="background-color: #ffffff; text-align:center;" value="<%= profileH.getUser_num() %>"></td>
                      </tr>
                      <tr>
                         <td><li>선호하는 성별</li></td>
                          <td>
-                           <input type="text" class="form-control" name="gender" disabled style="width:150px;background-color: #ffffff; text-align:center;">
+                           <input type="text" class="form-control col-sm-3" name="gender" readonly style="background-color: #ffffff; text-align:center;" value="<%= profileH.getP_gender() %>">
                         </td> 
                      </tr>
                      <tr>
                        <td><li>기타가능여부</li></td>
                         <td>
                         <table>
-                        	<tr>
-	                           <td>
-	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm" id="smoking">
-	                                 <input type="checkbox" name="hostcheck" value="smoking"> 흡연
-	                                 </label>
-	                              </div>
+                        <tr>
+                         <% if(profileH.getCheck1() == null){ %>
+                    		  아이, 애완동물, 흡연, 음주 모두 가능하지 않습니다.
+                    	   <% } else { 
+                    		   String[] possible = profileH.getCheck1().split(","); %>
+                    		   <% for(String s : possible) { %>
+                    		   <td>
+	                               <input class="btn btn-outline-secondary btn-sm" id="smoking" type="checkbox" name="hostcheck" value="<%= s %>"><%= s %>
 	                           </td>
-	                           <td>
-	                           <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm" id="kid"> 
-	                                 <input type="checkbox" name="hostcheck" value="kid"> 아이동반
-	                                 </label>
-	                           </div>	                           
-	                           </td>
-	                           <td>
-	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm" id="pet">
-	                                 <input type="checkbox" name="hostcheck" value="pet"> 애완동물
-	                                 </label>
-	                              </div>
-	                           </td>
-	                           <td>
-	                           <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm" id="drinking">
-	                                 <input type="checkbox" name="hostcheck" value="drinking"> 음주
-	                                 </label>
-	                              </div>	                           
-	                           </td>
-                           </tr>
+                    		   <% } %>
+		               	   <% } %>
+		               	   </tr>
                            </table>                  
                         </td>
                      </tr>            
                      <tr>
-                        <td><li>수면 장소 : </li></td>
+                        <td><li>수면 장소 </li></td>
                         <td>
-                           <select class="custom-select" name="sleeping" style="width:150px;">
-                                <option value="" id="roomselect">선택</option>
-                            	<option value="living" id="living">거실</option>
-	                            <option value="single" id="single">단독 방</option>
-	                            <option value="sharing" id="sharing">공용 방</option>
-	                            <option value="sofa" id="sofa">소파</option>
-                           </select>                                 
+                           <input type="text" class="form-control col-sm-3" readonly name="sleeping" style="background-color: #ffffff; text-align:center;" value="<%= profileH.getCheck2() %>">                               
                         </td>
                      </tr>               
                      <tr>
-                        <td><li>추가 정보 : </li></td>
-                        	<td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60"></textarea></td>   
-                     </tr>
-                     <tr>
-                     	<td><li> 사진 : </li></td>
-                     	<td><img class="rounded-float" src="/hifive/resources/image/profile.png" width="100px" height="70px"></td>
+                        <td><li>추가 정보</li></td>
+                        <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" readonly style="background-color: #ffffff;"><%= profileH.getContent() %>"</textarea></td>   
                      </tr>
                   </table> 
                   </ul>
+                  <% } %>
                   </p>
-                  <br>
-                  <center>
-                  <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;&nbsp;
-               	 <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
-               	</center>
                </div>
             </div>
             <br>
             <div id="surfer" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Surfer</h6>
                <div class="card-body">
-                  <p class="card-text">With supporting text below as a natural
-                     lead-in to additional content.</p>
+                  <p class="card-text">
+                  <% if(profileS== null) { %>
+                  		서퍼를 등록하지 않았습니다.
+                  <%} else { %>
+                   <ul>
+                  <table>
+                     <table cellpadding="10px">
+                     <tr>
+                        <td width="150px"><li>목적지</li></td>
+                        <td width="500px"><input type="text" value="<%= profileS.getCity() %>" class="form-control col-sm-7" name="city" id="s-destination" readonly style="background-color: #ffffff;S">
+                     </tr>                     
+                     <tr>
+                        
+                        <td><li><label>여행기간</label></li></td>
+                        <td>
+                        <div class="form-row">  
+                           &nbsp;
+                           <input type="text" value="<%= profileS.getStart_date() %>" class="form-control col-sm-3" id="s-startdate" readonly style="background-color: #ffffff; text-align:center;" name="s-startdate">&nbsp;&nbsp; ~ &nbsp;&nbsp;
+                           <input type="text" value="<%= profileS.getEnd_date() %>" class="form-control col-sm-3" id="s-enddate" readonly style="background-color: #ffffff; text-align:center;" name="s-enddate">
+                        </div>
+                        </td>
+                       
+                     </tr>
+                     <tr>
+                        <td><li>인원</li></td>
+                        <td><input type="text" id="s-num" value="<%= profileS.getUser_num() %>" class="form-control col-sm-3" name="s-num" readonly style="background-color: #ffffff; text-align:center;"></td>
+                     </tr>
+                  </table>
+                  </ul> 
+                  <% } %>            
+                  </p>
                </div>
             </div>
             <br>
             <div id="partner" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Partner</h6>
                <div class="card-body">
-                  <p class="card-text">With supporting text below as a natural
-                     lead-in to additional content.</p>
-                  <br> <br> <br> <br> <br> <br> <br>
-                  <br>
+                  <p class="card-text">
+                  <% if(profileP == null) { %>
+                  		파트너를 등록하지 않았습니다.
+                  <%} else { %> 
+                  <ul>
+                  <table>
+                     <table cellpadding="10px">
+                     <tr>
+                        <td width="150px"><li>목적지</li></td>
+                        <td width="500px"><input type="text" value="<%= profileP.getCity() %>" class="form-control col-sm-7" name="city" id="p-destination" readonly style="background-color: #ffffff;"></textarea>
+                     </tr>                     
+                     <tr>
+                        
+                        <td><li><label>여행기간</label></li></td>
+                        <td>
+                        <div class="form-row">  
+                           &nbsp;
+                           <input type="text" class="form-control col-sm-3" value="<%= profileP.getStart_date() %>" id="p-startdate" readonly style="background-color: #ffffff; text-align:center;" name="p-startdate">&nbsp;&nbsp; ~ &nbsp;&nbsp;
+                           <input type="text" class="form-control col-sm-3" value="<%= profileP.getEnd_date() %>" id="p-enddate" readonly style="background-color: #ffffff; text-align:center;" name="p-enddate">
+                        </div>
+                        </td>
+                       
+                     </tr>
+                     <tr>
+                        <td><li>인원</li></td>
+                        <td><input type="text" id="p-num" value="<%= profileP.getUser_num() %>" class="form-control col-sm-3" name="p-num" readonly style="background-color: #ffffff; text-align:center;"></td>
+                     </tr>
+                  </table>
+                  </ul> 
+                  <% } %>
+                  </p>
                </div>
             </div>
             <br>
