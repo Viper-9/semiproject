@@ -14,16 +14,16 @@ import notice.model.service.NoticeService;
 import notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeUpdateServlet
+ * Servlet implementation class NoticeUpdateDetailServlet
  */
-@WebServlet("/noticeupdate")
-public class NoticeUpdateServlet extends HttpServlet {
+@WebServlet("/nupdatedetail")
+public class NoticeUpdateDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeUpdateServlet() {
+    public NoticeUpdateDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,32 +32,35 @@ public class NoticeUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html; charset=utf-8");
-	      RequestDispatcher view =null;
+		int noticeno = Integer.parseInt(request.getParameter("noticeno"));
 	      
-	      Notice notice = new Notice();
-	      notice.setTitle(request.getParameter("ntitle"));
-	      // 엔터값 처리
-	      String content = request.getParameter("ncontent");
-	      content = content.replace("\r\n", "<br>");
-	      notice.setContent(content);	      
-	      notice.setNotice_no(Integer.parseInt(request.getParameter("noticeno")));
-	      try{
-	         if(new NoticeService().updateNotice(notice) > 0){
-	            response.sendRedirect("/hifive/noticelist");
-	         }else{
-	            view = request.getRequestDispatcher("views/support/notice/noticeError.jsp");
-	            request.setAttribute("message", "신고글 수정 실패");
+	      NoticeService nservice = new NoticeService();
+	      RequestDispatcher view = null;
+
+	      try {                        
+	         Notice noticeN = nservice.selectNotice(noticeno);
+	         
+	         // 엔터값 처리
+	         String content = noticeN.getContent();
+	         content = content.replace("<br>", "\r\n");
+	         noticeN.setContent(content);
+	         
+	         if(noticeN != null){
+	            view = request.getRequestDispatcher(
+	                  "views/support/notice/noticeUpdate.jsp");
+	            request.setAttribute("noticedetail", noticeN);
+	            
 	            view.forward(request, response);
-	         }
-
-	      } catch (NoticeException e){
-
-	         view = request.getRequestDispatcher("views/support/notice/noticeError.jsp");
-	         request.setAttribute("message", e.getMessage());
-	         view.forward(request, response);
-
-
+	            
+	         }else{
+	            view = request.getRequestDispatcher(
+	                  "views/support/notice/noticeDetail.jsp");
+	            request.setAttribute("message", "게시글이 없습니다.");
+	            view.forward(request, response);
+	         }      
+	      
+	      } catch (NoticeException e) {
+	         System.out.println("실패");
 	      }
 	}
 

@@ -95,6 +95,18 @@ public class NoticeService {
 		close(con);
 		return result;
 	}
+	
+    // 조회수 처리
+	   public void addReadCount(int boardNum) throws NoticeException {
+	      Connection con = getConnection();
+	      int result = new NoticeDao().addReadCount(con, boardNum);
+	      if (result > 0)
+	         commit(con);
+	      else
+	         rollback(con);
+	      close(con);
+	   }
+
 
 
 }
