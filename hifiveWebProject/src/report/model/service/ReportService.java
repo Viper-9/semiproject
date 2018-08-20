@@ -89,4 +89,15 @@ public class ReportService {
 		close(con);
 		return result;
 	}
+	
+	// 조회수 처리
+	public void addReadCount(int boardNum) throws ReportException {
+		Connection con = getConnection();
+		int result = new ReportDao().addReadCount(con, boardNum);
+		if (result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+	}
 }

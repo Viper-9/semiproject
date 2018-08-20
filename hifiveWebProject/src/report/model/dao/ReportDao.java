@@ -226,22 +226,20 @@ public class ReportDao {
 	}
 
 	// 신고게시판 입력
-	public int insertReport(Connection con, Report Report) throws ReportException {
+	public int insertReport(Connection con, Report report) throws ReportException {
 		int result = 0;
 		PreparedStatement pstmt = null; 
 		
-		String query = "insert into report_board values ( (select max(report_no) + 1 from report_board), "
+		String query = "insert into report_board values ( REPORT_NO_SEQ.nextval, "
 		     + "?, sysdate, ?, ?, ?, default )";
 		     		
 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(3, Report.getTitle());
-			pstmt.setString(1, Report.getUser_id());
-			pstmt.setString(4, Report.getContent());
-			pstmt.setInt(2, Report.getViews());
-	
-			
+			pstmt.setString(3, report.getTitle());
+			pstmt.setString(1, report.getUser_id());
+			pstmt.setString(4, report.getContent());
+			pstmt.setInt(2, report.getViews());
 			
 			result = pstmt.executeUpdate();
 			
@@ -257,19 +255,19 @@ public class ReportDao {
 	}
 
 	// 공지글 수정
-	public int updateReport(Connection con, Report Report) throws ReportException {
+	public int updateReport(Connection con, Report report) throws ReportException {
 		int result = 0;
 		PreparedStatement pstmt = null;
 
 		String query = "update report_board set "
-				+ "title = ?, content = ? "
-				+ "where Report_no = ?";
+				+ "title = ?, contents = ?, report_date=sysdate "
+				+ "where report_no = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, Report.getTitle());
-			pstmt.setString(2, Report.getContent());
-			pstmt.setInt(3, Report.getReport_no());
+			pstmt.setString(1, report.getTitle());
+			pstmt.setString(2, report.getContent());
+			pstmt.setInt(3, report.getReport_no());
 			
 			result = pstmt.executeUpdate();
 			
@@ -284,21 +282,21 @@ public class ReportDao {
 		return result;	
 	}
 	
-	// 공지글 삭제
-	public int deleteReport(Connection con, int ReportNo) throws ReportException {
+	// 삭제
+	public int deleteReport(Connection con, int reportno) throws ReportException {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "delete from report_board where Report_no = ?";
+		String query = "delete from report_board where report_no = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, ReportNo);
+			pstmt.setInt(1, reportno);
 			
 			result = pstmt.executeUpdate();
 			
 			if(result <= 0)
-				throw new ReportException(ReportNo + "번 공지 삭제 실패!");
+				throw new ReportException(reportno + "번 신고글 삭제 실패!");
 		} catch(Exception e){
 			e.printStackTrace();
 			throw new ReportException(e.getMessage());
@@ -306,5 +304,34 @@ public class ReportDao {
 			close(pstmt);
 		}		
 		return result;		
+	}
+	
+	// 조회수 처리
+	public int addReadCount(Connection con, 
+			int boardNum) throws ReportException {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update report_board "
+				+ "set views = views + 1 "
+				+ "where report_no = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, boardNum);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result <= 0)
+				throw new ReportException(
+						boardNum + "번 게시글 조회수 증가 처리 실패!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ReportException(e.getMessage());
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

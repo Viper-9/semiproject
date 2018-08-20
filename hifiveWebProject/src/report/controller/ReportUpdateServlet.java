@@ -9,29 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
 import report.exception.ReportException;
 import report.model.service.ReportService;
 import report.model.vo.Report;
 
 /**
- * Servlet implementation class ReportWriteServlet
+ * Servlet implementation class ReportUpdateServlet
  */
-@WebServlet("/reportwrite")
-public class ReportWriteServlet extends HttpServlet {
+@WebServlet("/reportupdate")
+public class ReportUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportWriteServlet() {
+    public ReportUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
-    } 
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -42,19 +37,18 @@ public class ReportWriteServlet extends HttpServlet {
 	
 		Report report = new Report();
 		report.setTitle(request.getParameter("rtitle"));
-		report.setUser_id(request.getParameter("rwriter"));
-		
 		// 엔터값 처리
 		String content = request.getParameter("rcontent");
 		content = content.replace("\r\n", "<br>");
-		report.setContent(content);		
-
+		report.setContent(content);
+		report.setReport_no(Integer.parseInt(request.getParameter("reportno")));
+		
 		try{
-			if(new ReportService().insertReport(report) > 0){
+			if(new ReportService().updateReport(report) > 0){
 				response.sendRedirect("/hifive/reportlist");
 			}else{
 				view = request.getRequestDispatcher("views/support/report/reportError.jsp");
-				request.setAttribute("message", "신고글 등록 실패");
+				request.setAttribute("message", "신고글 수정 실패");
 				view.forward(request, response);
 			}
 

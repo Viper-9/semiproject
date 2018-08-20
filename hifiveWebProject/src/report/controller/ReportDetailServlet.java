@@ -36,14 +36,16 @@ public class ReportDetailServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		int reportno = Integer.parseInt(request.getParameter("rnum"));
-		System.out.println(reportno);
 		
 		ReportService rservice = new ReportService();
 		RequestDispatcher view = null;
 
-		try {								
+		try {		
+			//상세보기시 조회수 1 증가 처리
+			rservice.addReadCount(reportno);
+			
 			Report reportR = rservice.selectReport(reportno);
-
+			
 			if(reportR != null){
 				view = request.getRequestDispatcher(
 						"views/support/report/reportDetail.jsp");

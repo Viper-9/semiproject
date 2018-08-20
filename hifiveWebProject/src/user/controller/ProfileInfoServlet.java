@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hsp.model.service.HostService;
+import hsp.model.service.SurferPartnerService;
+import hsp.model.vo.Host;
+import hsp.model.vo.SurferPartner;
 import user.exception.UserException;
 import user.model.service.UserService;
 import user.model.vo.User;
@@ -37,9 +41,23 @@ public class ProfileInfoServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		try {
 			User user = new UserService().selectUser(userId);
+			
+			Host host = new HostService().selectHost(userId);
+			SurferPartner surfer = new SurferPartnerService().selectSurfer(userId);
+			SurferPartner partner = new SurferPartnerService().selectPartner(userId);
+			 
 			if(user != null){
 				view = request.getRequestDispatcher("views/user/profile.jsp"); // info 페이지
-				request.setAttribute("user", user);
+				request.setAttribute("profileuser", user);
+				if(host != null) {
+					request.setAttribute("profileH", host);
+				}
+				if(surfer != null) {
+					request.setAttribute("profileS", surfer);
+				}
+				if(partner != null) {
+					request.setAttribute("profileP", partner);
+				}
 				view.forward(request, response);
 			} else {
 				view = request.getRequestDispatcher(""); // 에러페이지
