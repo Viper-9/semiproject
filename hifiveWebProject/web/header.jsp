@@ -93,9 +93,15 @@ header {
 									class="messagelist" title="요청받은 목록">
 							</a>&nbsp;</th>
 
-							<th><a href="/hifive/profileinfo?userid=<%= userId %>"> <img
-									src="/hifive/resources/image/sample4.jpeg" alt="얼굴사진"
-									class="profileimg rounded-circle"" title="프로필로 이동">
+							<th><a href="/hifive/profileinfo?userid=<%= userId %>"> 
+							<% if(headeruser.getProfile_image() == null) { %>
+                  <img class="profileimg rounded-circle"
+                  src="/hifive/resources/profileUpfiles/profile.png" alt="기본 사진" title="프로필로 이동">
+                  <% } else { %>
+                   <img class="profileimg rounded-circle"
+                  src="/hifive/resources/profileUpfiles/<%= headeruser.getProfile_image() %>" alt="프로필 사진" title="프로필로 이동">
+                  <% } %>
+
 							</a>&nbsp;</th>
 
 							<th>

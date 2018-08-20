@@ -85,9 +85,15 @@
       <div  id="main">
          <div id="menu">
             <div class="card" style="width: 250px;">
-               <font size="3"><b>Profile</b></font> <img class="card-img-top"
-                  src="/hifive/resources/profileUpfiles/<%= user.getProfile_image() %>" alt="Card image cap"
-                  height="220px">
+               <font size="3"><b>Profile</b></font> 
+                  <% if(user.getProfile_image() == null) { %>
+                  <img class="card-img-top"
+                  src="/hifive/resources/profileUpfiles/profile.png" alt="Card image cap" height="220px">
+                  <% } else { %>
+                   <img class="card-img-top"
+                  src="/hifive/resources/profileUpfiles/<%= user.getProfile_image() %>" alt="Card image cap" height="220px">
+                  <% } %>
+                  
                <div class="card-body">
                   <p class="card-text">
                   <div id="userInfo" name="userInfo" align="center">
@@ -105,10 +111,11 @@
                      <%= user.getAddress() %>
                      <% } %> 
                      </font>
-                     <form action="/hifive/pimage" method="get" enctype="multipart/form-data">
-                     <input type="file" name="profileimage">
-                     <input type="text" name="userid" value="<%= user.getUser_Id() %>">
-                     <input type="submit" value="프사업로드">
+                     <form action="/hifive/pimage" method="post" enctype="multipart/form-data">
+                     <input type="file" id="pimg" name="pimg">
+                     <input type="hidden" id="imguserid" name="imguserid" value="<%= user.getUser_Id() %>">
+                     
+                     <input type="submit" id="imgbtn" value="프사업로드">
                      </form>
                   </div>
                   <br> 

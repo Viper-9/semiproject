@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,7 +41,14 @@ public class ProfileImageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html; charset=utf-8");
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		
 		// 업로드할 파일의 용량 제한 : 10Mbyte로 제한한다면
 		int maxSize = 1024 * 1024 * 10;
@@ -48,10 +56,8 @@ public class ProfileImageServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		// enctype 속성이 "multipart/form-data"로 전송 체크
 		if (!ServletFileUpload.isMultipartContent(request)) {
-			request.setAttribute("message", "enctype 속성 값 에러!");
-			view.forward(request, response);
+			
 		}
-		System.out.println(request.getParameter("userid"));
 		// 파일이 업로드되어 저장될 폴더 지정
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/profileUpfiles");
 
@@ -59,16 +65,14 @@ public class ProfileImageServlet extends HttpServlet {
 		MultipartRequest mrequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
 				new DefaultFileRenamePolicy());
 
-	
-		String userid = request.getParameter("userid");
-		System.out.println(userid);
+		
+		String userid = mrequest.getParameter("imguserid");
 		// 저장폴더에 기록된 원래 파일명 조회
-		String originalFileName = mrequest.getFilesystemName("profileimage");
+		String originalFileName = mrequest.getFilesystemName("pimg");
 		String renameFileName = "";
-		System.out.println(userid+originalFileName);
-		// 업로드된 파일명을 "년월일시분초.확장자" 로 변경함
+		
 		if (originalFileName != null) {
-			renameFileName = userid + "profileimage" 
+			renameFileName = userid + "profileimage." 
 					+ originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
 
 			// 파일명 바꾸려면 File 객체의 renameTo() 사용함
@@ -97,6 +101,7 @@ public class ProfileImageServlet extends HttpServlet {
 
 			
 		}
+		
 		User user = new User();
 		UserService uService = new UserService();
 		
@@ -106,21 +111,13 @@ public class ProfileImageServlet extends HttpServlet {
 			user.setProfile_image(renameFileName);
 			
 			if(uService.updateUser(user) > 0) {
-				response.sendRedirect("/hifive/profileinfo");
+				response.sendRedirect("/hifive/profileinfo?userid="+userid);
 				HttpSession session = request.getSession();
 				session.setAttribute("loginuser", user);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }
