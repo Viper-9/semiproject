@@ -38,7 +38,7 @@ public class MatchingDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(matching);
+
 		return matching;
 	}
 
