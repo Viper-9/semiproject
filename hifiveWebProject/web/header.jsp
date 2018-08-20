@@ -8,7 +8,6 @@
    String userId = (String)session.getAttribute("userId");
    String userName = (String)session.getAttribute("userName");
    User headeruser = (User)session.getAttribute("loginuser");
-
 %>
  
 <!DOCTYPE html>
