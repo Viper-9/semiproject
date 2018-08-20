@@ -100,6 +100,7 @@ public class ProfileImageServlet extends HttpServlet {
 		User user = new User();
 		UserService uService = new UserService();
 		
+		
 		try {
 			user = uService.selectUser(userid);
 			user.setProfile_image(renameFileName);
