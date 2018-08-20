@@ -35,17 +35,18 @@ public class SurferUpdate extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		SurferPartner sp = new SurferPartner();
-		System.out.println("서퍼 수정:"+request.getParameter("userid"));
+		sp.setUser_id(request.getParameter("userid"));		
 		sp.setCity(request.getParameter("city"));
 		sp.setStart_date(java.sql.Date.valueOf(request.getParameter("startdate")));
 		sp.setEnd_date(java.sql.Date.valueOf(request.getParameter("enddate")));
+		sp.setRole("S");
 		sp.setUser_num(Integer.parseInt(request.getParameter("num")));
 		
 		RequestDispatcher view = null;
 		
 		try {
 			if(new SurferPartnerService().updateSurfer(sp) > 0){
-				response.sendRedirect("/hifive.index.jsp");
+				response.sendRedirect("/hifive/index.jsp");
 	    	}else{
 	    		view = request.getRequestDispatcher("");
 		        request.setAttribute("message", "수정 실패");

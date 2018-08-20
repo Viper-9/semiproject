@@ -59,37 +59,40 @@ public class SearchIdServlet extends HttpServlet {
 		 MimeMessage msg = new MimeMessage(session);
 		 
 		 try {			 
-			//편지 보낸 시간
-			msg.setSentDate(new Date());
-			InternetAddress from = new InternetAddress("trevelsfriend@gmail.com");
 			
-			//이메일 발신자
-			msg.setFrom(from);
-			
-			//이메일 수신자
-			String userEmail = request.getParameter("searchuseremail"); //사용자가 입력한 이멜 주소 받아오기
-			InternetAddress to = new InternetAddress(userEmail);
-			msg.setRecipient(Message.RecipientType.TO, to);
-			
+			String userEmail = request.getParameter("searchuseremail");
 			String userId = new UserService().searchId(userEmail); 
 			String returnValue = "0";
-			
-			
-			//이메일 제목
-			msg.setSubject("Travel's couch 고객센터 입니다. ","UTF-8");
-			
-			//이메일 내용
-			msg.setText("문의하신" + userEmail + "로 가입된 아이디는 " + userId + " 입니다", "UTF-8");
-			
-			//이메일 헤더
-			msg.setHeader("content-Type", "text/html");
-			javax.mail.Transport.send(msg);
-			System.out.println(session + "이 " + " 이메일 보내기를 성공");
 			
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			
 			if(userId != null){
+				//편지 보낸 시간
+				msg.setSentDate(new Date());
+				InternetAddress from = new InternetAddress("trevelsfriend@gmail.com");
+				
+				//이메일 발신자
+				msg.setFrom(from);
+				
+				//이메일 수신자
+				 //사용자가 입력한 이멜 주소 받아오기
+				InternetAddress to = new InternetAddress(userEmail);
+				msg.setRecipient(Message.RecipientType.TO, to);
+								
+				
+				//이메일 제목
+				msg.setSubject("Travel's couch 고객센터 입니다. ","UTF-8");
+				
+				//이메일 내용
+				msg.setText("문의하신" + userEmail + "로 가입된 아이디는 " + userId + " 입니다", "UTF-8");
+				
+				//이메일 헤더
+				msg.setHeader("content-Type", "text/html");
+				javax.mail.Transport.send(msg);
+				System.out.println(session + "이 " + " 이메일 보내기를 성공");
+				
+				
 				returnValue = "1";
 				out.append(returnValue);
 				out.flush();

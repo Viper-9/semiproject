@@ -35,16 +35,17 @@ public class PartnerUpdate extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		SurferPartner sp = new SurferPartner();
+		sp.setUser_id(request.getParameter("userid"));		
 		sp.setCity(request.getParameter("city"));		
 		sp.setStart_date(java.sql.Date.valueOf(request.getParameter("startdate")));
 		sp.setEnd_date(java.sql.Date.valueOf(request.getParameter("enddate")));
-		sp.setUser_num(Integer.parseInt(request.getParameter("num")));
+		sp.setUser_num(Integer.parseInt(request.getParameter("num")));		
 		
 		RequestDispatcher view = null;
 		
 		try {
 			if(new SurferPartnerService().updatePartner(sp) > 0){
-				response.sendRedirect("/hifive.index.jsp");
+				response.sendRedirect("/hifive/index.jsp");
 	    	}else{
 	    		view = request.getRequestDispatcher("");
 		        request.setAttribute("message", "수정 실패");

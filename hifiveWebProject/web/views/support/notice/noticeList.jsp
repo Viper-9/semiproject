@@ -3,9 +3,6 @@
 <%@ page import="notice.model.vo.Notice, java.util.ArrayList" %>
 <%
 	ArrayList<Notice> noticelist = (ArrayList<Notice>)request.getAttribute("noticeList");
-	if(noticelist==null) {
-		System.out.println("실패");
-	} 
 	
 	int listCount = ((Integer)request.getAttribute("listCount")).intValue();
 	int startPage = ((Integer)request.getAttribute("startPage")).intValue();

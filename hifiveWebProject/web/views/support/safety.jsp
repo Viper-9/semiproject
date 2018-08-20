@@ -3,7 +3,6 @@
 <%@ page import = "user.model.vo.User" %>
 <% 
    String safetyuserid = (String)session.getAttribute("userId");
-	User safetyuser = (User)session.getAttribute("user");
 %>	 
 
 <!DOCTYPE html>
@@ -65,13 +64,39 @@
 </style>
 
 <script type="text/javascript">
+   
+
+function safetyUpdateForm() {
+	var userid = $("#userid").val();
+	
+	var allData = { "userid" : userid };
+	
+	var chk = document.safety.safetyCheck.checked;
+	
+	if(chk) {
+		$.ajax({
+			url :"/hifive/safetycheck",
+			type : 'post',
+			data : allData,
+	        success : function(data){
+	        	if(data == '0'){
+	        		alert("안전유의사항 업데이트 실패" + userid);
+	        	} else {
+	        		alert("안전유의사항 업데이트 성공");
+	        		location.href = "/hifive/views/support/safety.jsp";
+	        	}
+	        }, error : function(jqXHR, textstatus, errorThrown){
+	            console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
+			}		
+		});
+	}
+	
+} 
 
 function CheckForm() {
-
-	var chk1 = document.safety.safetyCheck.checked;
-
-	if (!chk1) {
-		alert('체크 안 함');
+	var chk = document.safety.safetyCheck.checked;
+	if(!chk) {
+		alert("체크 안 함");
 		return false;
 	}
 }
@@ -101,21 +126,26 @@ function CheckForm() {
 						<p class="card-text">Some quick example text to build on the
 							card title and make up the bulk of the card's content.</p>
 						<br>
-						<%-- <% if(headeruser.getSafety_check().equals("N")) { %>	
-						<form id="checksafety" action="/hifive/safetycheck" onsubmit="return CheckForm()" method="get" name="safety">
+						<% if(headeruser.getSafety_check().equals("N")) { %>	
+						<form id="checksafety" action="/hifive/safetycheck" onsubmit="return CheckForm()"method="get"  name="safety">
 							<div class="form-group form-check">
 								<input type="checkbox" class="form-check-input"
-									id="safetyCheck" name="safetyCheck"> 
+									id="safetyCheck" name="safetyCheck" value="readSafety"> 
 								<label class="form-check-label"
 									for="safetyCheck">Check me out</label>
-								<input type="hidden" name="userid" value="<%= safetyuserid %>">
+								<input type="hidden" id= "userid" name="userid" value="<%= headeruser.getUser_Id() %>">
 							</div>
-							<input type="submit" class="btn btn-primary" value="동의합니다">
+							<input type="submit" class="btn btn-primary" id="agreeBtn" value="동의합니다" onclick="safetyUpdateForm();">
 						</form>
 						<% } else { %>
-							<button>야호</button>
-						<% } %> --%>
-
+						<div class="form-group form-check">
+								<input type="checkbox" class="form-check-input"
+									id="safetyCheck" name="safetyCheck" value="readSafety" checked disabled> 
+								<label class="form-check-label"
+									for="safetyCheck">Check me out</label>
+							</div>
+					<input type="submit" class="btn btn-primary" id="agreeBtn" disabled value="동의합니다">
+					<% } %>
 					</div>
 				</div>
 			</div>

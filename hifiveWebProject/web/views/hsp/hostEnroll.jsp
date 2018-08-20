@@ -16,13 +16,13 @@
 </head>
 <body>
 	<div>
-		<form action="">
+		<form action="/hifive/hostenroll" method="post">
 			<div class="form-row">
 				<div class="col input-group mb-3" >
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="pnums">인원</span>
 					</div>
-					<input type="number" placeholder="0" max="10" class="form-control col-sm-6" id="pnumber">
+					<input type="number" placeholder="0" max="10" class="form-control col-sm-6" id="pnumber" name="pnumber">
 
 				</div>
 				<div class="col input-group mb-3">

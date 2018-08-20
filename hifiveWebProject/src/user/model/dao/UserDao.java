@@ -183,11 +183,11 @@ public class UserDao {
 				user.setRestriction(rset.getString("restriction"));
 				user.setProfile_image(rset.getString("profile_image"));
 			} else {
-				throw new UserException("회원 조회 실패");
+				
 			}
 		} catch(Exception e){
 			e.printStackTrace();
-			throw new UserException(e.getMessage());
+			
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -200,7 +200,7 @@ public class UserDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "update users set address=?, job=?, phone=?, content=? where user_id = ?";
+		String query = "update users set address=?, job=?, phone=?, hobby=?, content=?, profile_img=? where user_id = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -208,9 +208,10 @@ public class UserDao {
 			/*pstmt.setString(2, user.getNationality());*/
 			pstmt.setString(2, user.getJob());
 			pstmt.setString(3, user.getPhone());
-			//pstmt.setString(4, user.getHobby());
-			pstmt.setString(4, user.getContent());
-			pstmt.setString(5, user.getUser_Id());
+			pstmt.setString(4, user.getHobby());
+			pstmt.setString(5, user.getContent());
+			pstmt.setString(6, user.getProfile_image());
+			pstmt.setString(7, user.getUser_Id());
 			
 			result = pstmt.executeUpdate();
 			
@@ -244,12 +245,10 @@ public class UserDao {
 			
 			if(rset.next()){
 				userId = rset.getString("user_id");						
-			} else {
-				throw new UserException("회원 조회 실패");
-			}
+			} 
 		} catch(Exception e){
 			e.printStackTrace();
-			throw new UserException(e.getMessage());
+			
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -341,6 +340,109 @@ public class UserDao {
 		return emailCount;
 		
 	}
+	
+	// 회원 이름 조회
+	public String getUserName(Connection con, String userid) {
+		String userName = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select user_name from users where user_id = ?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userid);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+				userName = rset.getString(1);
+		} catch(Exception e){
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return userName;
+	}
 
+	public String getProfileImage(Connection con, String userid) {
+		String profileImage = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select profile_image from users where user_id = ?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userid);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+				profileImage = rset.getString(1);
+		} catch(Exception e){
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return profileImage;
+	}
+
+	public String searchPw(Connection con, String userId, String userEmail) {
+		String userpw = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from users "
+				+ "where user_id = ? and email = ? ";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userEmail);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				userpw = rset.getString("user_pw");						
+			} 
+		} catch(Exception e){
+			e.printStackTrace();
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return userpw;
+	}
+
+	public String updatePass(Connection con, User user) {
+		String userpw = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "update users set user_pw=? where user_id = ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user.getUser_Pw());
+			pstmt.setString(2, user.getUser_Id());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				userpw = rset.getString("user_pw");	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return userpw;
+	}
 
 }

@@ -104,4 +104,36 @@ public class UserService {
 		return result;
 	}
 
+	public String searchPw(String userId, String userEmail) throws UserException{
+		Connection con = getConnection();
+		String userPw = new UserDao().searchPw(con, userId, userEmail);
+		close(con);
+		return userPw;
+	}
+
+	public String updatePass(User user) {
+		Connection con = getConnection();
+		String userPw = new UserDao().updatePass(con, user);
+		close(con);
+		return userPw;
+		
+	}
+	
+	// 회원 이름 검색
+	public String getUserName(String userid){
+		Connection con = getConnection();
+		String userName = new UserDao().getUserName(con, userid);
+		close(con);
+		return userName;
+	}
+	
+	// 프로필 사진
+	public String getProfileImage(String userid){
+		Connection con = getConnection();
+		String profileImage = new UserDao().getProfileImage(con, userid);
+		close(con);
+		return profileImage;
+
+	}
+
 }

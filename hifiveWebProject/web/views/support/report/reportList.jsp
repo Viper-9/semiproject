@@ -3,9 +3,6 @@
 <%@ page import="report.model.vo.Report, user.model.vo.User, java.util.ArrayList" %>
 <%
 	ArrayList<Report> reportlist = (ArrayList<Report>)request.getAttribute("reportList");
-	if(reportlist==null) {
-		System.out.println("실패");
-	}
 	
 	int listCount = ((Integer)request.getAttribute("listCount")).intValue();
 	int startPage = ((Integer)request.getAttribute("startPage")).intValue();
@@ -153,9 +150,10 @@ function showBoardWriteForm(){
             	<h5><b><%= message %></b></h5>
             	<br><br>
             <% } %>
-			<form action="/hifive/reportsearch" method="get">
+			
                <div class="form-row" id="searchdiv">            
-                  <div class="col-auto my-1">                     
+                  <div class="col-auto my-1">     
+                  <form action="/hifive/reportsearch" method="get">                
                      <select class="custom-select mr-sm-2" name="rsearchfilter">
                         <option selected >제목</option>
                         <option>아이디</option>
@@ -167,15 +165,16 @@ function showBoardWriteForm(){
                   <div class="col-auto my-1">
                      <input type="submit" class="btn btn-primary" value="검색">
                   </div>
-                 
-				  
-               </div>
-               </form>
-               <%if (userId != null) {%>
+                  </form>
+                  <%if (userId != null) {%>
 				  <div class="col-auto my-1">
 					 <button class="btn btn-primary" onclick="showBoardWriteForm();">글쓰기</button>
 				  </div>
 			<% } %>
+				  
+               </div>
+               
+              
 			<!-- 페이지 넘어가는 부분 -->
 			<% if(result == 0) { %>
             <nav aria-label="Page navigation example">
