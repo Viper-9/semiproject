@@ -80,18 +80,18 @@
 				var json = JSON.parse(jsonStr);
 
 				var values = "";
-				for(var i in json.list){
-					values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
-					+ json.list[i].userName + "</td><td><a href='/hifive/mraccept?sender=" 
-					+ json.list[i].sender + "&uid=" + userid + "'>" + "수락</a> / "
-					+ "<a href='/hifive/mrreject?sender=" + json.list[i].sender + "&uid=" + userid  +"'>" +  "거절</a></td></tr>";
-				}										
+			
+				if(json.list.length!=0){
+					for(var i in json.list){
+						values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
+						+ json.list[i].userName + "</td><td><a href='/hifive/mraccept?sender=" 
+						+ json.list[i].sender + "&uid=" + userid + "'>" + "수락</a> / "
+						+ "<a href='/hifive/mrreject?sender=" + json.list[i].sender + "&uid=" + userid  +"'>" +  "거절</a></td></tr>";
+					}
+				} else{
+					values += "<tr><td colspan='3'>나에게 온 대화 신청이 없습니다.</td></tr>";
+				}
 				$("#mrlist").html($("#mrlist").html()+values);	
-				
-				
-				/* <a href=''><img
-                src='/hifive/resources/image/sample10.jpg' alt=''
-                class='rounded-circle' title='프로필로 이동'></a> */
 				
 			}, // success
 			error : function(jqXHR, textstatus, errorThrown){
@@ -113,13 +113,17 @@
 				var json = JSON.parse(jsonStr);
 				
 				var values = "";
-				for(var i in json.list){
-					values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
-					+  json.list[i].userName + "</td><td><a href='/hifive/mrequestc?sender="+ userid + "&userid=" + json.list[i].user_id 
-					+ "'>"+ "취소" +"</a></td></tr>";
-				}										
-				$("#mrlist_m").html($("#mrlist_m").html()+values);			
 				
+				if(json.list.length!=0){
+					for(var i in json.list){
+						values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
+						+  json.list[i].userName + "</td><td><a href='/hifive/mrequestc?sender="+ userid + "&userid=" + json.list[i].user_id 
+						+ "'>"+ "취소" +"</a></td></tr>";
+					}													
+				} else{
+					values += "<tr><td colspan='3'>내가 한 대화 신청이 없습니다.</td></tr>";
+				}
+				$("#mrlist_m").html($("#mrlist_m").html()+values);
 			}, // success
 			error : function(jqXHR, textstatus, errorThrown){
 				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
@@ -140,21 +144,25 @@
 				var json = JSON.parse(jsonStr);
 				
 				var values = "";
-				for(var i in json.list){					
-					if(json.list[i].user1 == userid){
-						values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
-						+ json.list[i].userName
-						+ "</td><td><a href='/hifive/mpage?listno=" + json.list[i].list_no 
-						+ "&uid=" + userid  + "'>" + json.list[i].user2
-						+ "</a></td></tr>";
-					} else{
-						values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
-						+ json.list[i].userName
-						+ "</td><td><a href='/hifive/mpage?listno=" + json.list[i].list_no 
-						+ "&uid=" + userid  + "'>" + json.list[i].user1
-						+ "</a></td></tr>";
-					}
-									
+				
+				if(json.list.length!=0){
+					for(var i in json.list){					
+						if(json.list[i].user1 == userid){
+							values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
+							+ json.list[i].userName
+							+ "</td><td><a href='/hifive/mpage?listno=" + json.list[i].list_no 
+							+ "&uid=" + userid  + "'>" + json.list[i].user2
+							+ "</a></td></tr>";
+						} else{
+							values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
+							+ json.list[i].userName
+							+ "</td><td><a href='/hifive/mpage?listno=" + json.list[i].list_no 
+							+ "&uid=" + userid  + "'>" + json.list[i].user1
+							+ "</a></td></tr>";
+						}
+					}				
+				} else{
+					values += "<tr><td colspan='3'>대화 목록이 없습니다.</td></tr>";
 				}			
 								
 				$("#mlist").html($("#mlist").html()+values);
@@ -228,9 +236,9 @@
                   
                      <thead>
                         <tr>
-                           <th scope="col">프로필</th>
-                           <th scope="col">이름</th>
-                           <th scope="col">수락/거절</th>
+                           <th scope="col" width="30%">프로필</th>
+                           <th scope="col" width="40%">이름</th>
+                           <th scope="col" width="30%">수락/거절</th>
                            
                         </tr>
                      </thead>
@@ -249,9 +257,9 @@
                   
                      <thead>
                         <tr>
-                           <th scope="col">프로필</th>
-                           <th scope="col">이름</th>
-                           <th scope="col">취소</th>
+                           <th scope="col" width="30%">프로필</th>
+                           <th scope="col" width="40%">이름</th>
+                           <th scope="col" width="30%">취소</th>
                            
                         </tr>
                      </thead>
@@ -270,9 +278,9 @@
                   
                      <thead>
                         <tr>
-                           <th scope="col">프로필</th>
-                           <th scope="col">이름</th>
-                           <th scope="col">대화내역</th>
+                           <th scope="col" width="30%">프로필</th>
+                           <th scope="col" width="40%">이름</th>
+                           <th scope="col" width="30%">대화내역</th>
                            
                         </tr>
                      </thead>

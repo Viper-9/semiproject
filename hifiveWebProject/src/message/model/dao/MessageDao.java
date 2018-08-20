@@ -19,7 +19,7 @@ public class MessageDao {
 		ResultSet rset = null;
 		
 		String query = "insert into message "
-				+ "values ((select max(message_no)+1 from message), sysdate, ?, ?, ?)";
+				+ "values (m_seq.nextval, sysdate, ?, ?, ?)";
 		
 		try{
 			pstmt = con.prepareStatement(query);

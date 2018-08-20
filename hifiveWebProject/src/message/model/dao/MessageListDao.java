@@ -64,9 +64,7 @@ public class MessageListDao {
 				mList.setUser2(rset.getString(3));
 				
 				list.add(mList);
-			}
-			if(list.size() == 0)
-				throw new MessageException("없어!!!");			
+			}			
 		} catch(Exception e){
 			e.printStackTrace();
 		} finally{
