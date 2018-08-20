@@ -11,7 +11,6 @@ public class Request implements java.io.Serializable {
 	private Date request_date;
 	private String role;
 	private String process;
-	private Date p_date;
 	
 	public Request() {}
 	
@@ -23,18 +22,6 @@ public class Request implements java.io.Serializable {
 		this.request_date = request_date;
 		this.role = role;
 		this.process = process;
-	}
-	
-	public Request(int request_no, String user_id, String r_user_id, Date request_date, String role, String process,
-			Date p_date) {
-		super();
-		this.request_no = request_no;
-		this.user_id = user_id;
-		this.r_user_id = r_user_id;
-		this.request_date = request_date;
-		this.role = role;
-		this.process = process;
-		this.p_date = p_date;
 	}
 
 	public int getRequest_no() {
@@ -85,14 +72,6 @@ public class Request implements java.io.Serializable {
 		this.process = process;
 	}
 
-	public Date getP_date() {
-		return p_date;
-	}
-
-	public void setP_date(Date p_date) {
-		this.p_date = p_date;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -100,8 +79,7 @@ public class Request implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "Request [request_no=" + request_no + ", user_id=" + user_id + ", r_user_id=" + r_user_id
-				+ ", request_date=" + request_date + ", role=" + role + ", process=" + process + ", p_date=" + p_date
-				+ "]";
+				+ ", request_date=" + request_date + ", role=" + role + ", process=" + process + "]";
 	}
 	
 }

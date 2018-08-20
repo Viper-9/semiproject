@@ -35,7 +35,6 @@ public class RequestDao {
 				r.setRequest_date(rset.getDate("request_date"));
 				r.setRole(rset.getString("role"));
 				r.setProcess(rset.getString("process"));
-				r.setP_date(rset.getDate("p_date"));
 
 				list.add(r);
 			}
@@ -70,7 +69,6 @@ public class RequestDao {
 				r.setRequest_date(rset.getDate("request_date"));
 				r.setRole(rset.getString("role"));
 				r.setProcess(rset.getString("process"));
-				r.setP_date(rset.getDate("p_date"));
 
 				list.add(r);
 			}
@@ -105,7 +103,6 @@ public class RequestDao {
 				r.setRequest_date(rset.getDate("request_date"));
 				r.setRole(rset.getString("role"));
 				r.setProcess(rset.getString("process"));
-				r.setP_date(rset.getDate("p_date"));
 
 				list.add(r);
 			}
@@ -140,7 +137,6 @@ public class RequestDao {
 				r.setRequest_date(rset.getDate("request_date"));
 				r.setRole(rset.getString("role"));
 				r.setProcess(rset.getString("process"));
-				r.setP_date(rset.getDate("p_date"));
 
 				list.add(r);
 			}
@@ -175,7 +171,6 @@ public class RequestDao {
 				r.setRequest_date(rset.getDate("request_date"));
 				r.setRole(rset.getString("role"));
 				r.setProcess(rset.getString("process"));
-				r.setP_date(rset.getDate("p_date"));
 
 				list.add(r);
 			}
@@ -210,7 +205,6 @@ public class RequestDao {
 				r.setRequest_date(rset.getDate("request_date"));
 				r.setRole(rset.getString("role"));
 				r.setProcess(rset.getString("process"));
-				r.setP_date(rset.getDate("p_date"));
 
 				list.add(r);
 			}
@@ -250,7 +244,7 @@ public class RequestDao {
 		int result = 0;
 	    PreparedStatement pstmt = null;
 	      
-	    String query = "update request set process='N', p_date=sysdate where request_no = ?";
+	    String query = "update request set process='N' where request_no = ?";
 	    
 	    try{
 	       pstmt = con.prepareStatement(query);
@@ -268,12 +262,12 @@ public class RequestDao {
 	    return result;		   
 	}
 	
-	// 내가 받은 요청 거절
+	// 내가 받은 요청 수락
 	public int acceptRequest(Connection con, int request_no) throws RequestException {
 		int result = 0;
 	    PreparedStatement pstmt = null;
 
-	    String query = "update request set process='M', p_date=sysdate where request_no = ?";
+	    String query = "update request set process='M' where request_no = ?";
 
 	    try{
 	    	pstmt = con.prepareStatement(query);	

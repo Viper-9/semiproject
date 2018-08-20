@@ -70,9 +70,6 @@ public class MessageRequestDao {
 				list.add(mr);		
 			}
 			
-			if(list.size() == 0)
-				throw new MessageException("데이터가 하나도 없습니다.");
-			
 		} catch(Exception e){
 			e.printStackTrace();
 		} finally{
@@ -104,10 +101,7 @@ public class MessageRequestDao {
 				
 				list.add(mr);		
 			}
-			
-			if(list.size() == 0)
-				throw new MessageException("데이터가 하나도 없습니다.");
-			
+		
 		} catch(Exception e){
 			e.printStackTrace();
 		} finally{

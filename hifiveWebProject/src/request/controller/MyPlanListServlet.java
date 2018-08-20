@@ -62,12 +62,13 @@ public class MyPlanListServlet extends HttpServlet {
     	// 내가 서퍼일때, 호스트 정보 받아서 출력
 	    JSONObject job2 = new JSONObject();
 	    if(m_surfer != null) {
-		    Host host = new HostService().selectHost(m_surfer.getUser1());			    
+		    Host host = new HostService().selectHost(m_surfer.getUser1());
+		    SurferPartner surfer = new SurferPartnerService().selectSurfer(m_surfer.getUser2()); 
 	    	job2.put("user_id", host.getUser_id());
-	    	job2.put("start_date", host.getStart_date().toString());
-	    	job2.put("end_date", host.getEnd_date().toString());
 	    	job2.put("image", new UserService().getProfileImage(host.getUser_id()));
 	    	job2.put("user_name", new UserService().getUserName(host.getUser_id()));
+	    	job2.put("start_date", surfer.getStart_date().toString());
+	    	job2.put("end_date", surfer.getEnd_date().toString());
 	    }
     	
     	JSONObject job3 = new JSONObject();
