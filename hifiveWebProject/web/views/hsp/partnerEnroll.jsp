@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String user_id = (String)session.getAttribute("userId");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,33 +21,31 @@
 
 </head>
 <div>
-   <form>
-      <div class="input-group mb-3">
-         <div class="input-group-prepend">
-            <span class="input-group-text">목적지</span>
-         </div>
-         <input type="text" class="form-control" id="destinationP">
-      </div>
-      <br>
-      <div class="input-group mb-3">
-         <div class="input-group-prepend">
-            <span class="input-group-text">여행기간</span>
-         </div>
-         <input type="date" class="form-control" id="startdateP"> &nbsp; ~ &nbsp; 
-         <input type="date" class="form-control" id="enddateP">
-      </div>
-      <br>
-      <div class="input-group mb-3" >
-         <div class="input-group-prepend">
-            <span class="input-group-text">인원</span>
-         </div>
-         <input type="number" placeholder="0" max="10" class="form-control col-sm-3" id="numberP">
-      </div>
-      <br>
-      <button type="submit" class="btn btn-primary" id="partnerenrollbtn">등록하기</button>
-   </form>
+	<form action="/hifive/partnerenroll?userid=<%= user_id %>" method="post">
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">목적지</span>
+			</div>
+			<input type="text" class="form-control" id="destinationP" name="destination">
+		</div>
+		<br>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">여행기간</span>
+			</div>
+			<input type="date" class="form-control" id="startdateP" name="startdate"> &nbsp; ~ &nbsp; 
+			<input type="date" class="form-control" id="enddateP" name="enddate">
+		</div>
+		<br>
+		<div class="input-group mb-3" >
+			<div class="input-group-prepend">
+				<span class="input-group-text">인원</span>
+			</div>
+			<input type="number" placeholder="0" max="10" class="form-control col-sm-3" id="numberP" name="num">
+		</div>
+		<br>
+		<button type="submit" class="btn btn-primary" id="surferenrollbtn">등록하기</button>
+	</form>
 </div>
-</body>
-</html>
 </body>
 </html>

@@ -53,8 +53,7 @@ public class InfoServlet extends HttpServlet {
 			job.put("hobby", user.getHobby());
 			job.put("phone", user.getPhone());
 			job.put("content", user.getContent());
-			job.put("profileimg", user.getProfile_image());
-			System.out.println(userId+":"+job.toJSONString());
+			job.put("profileimg", user.getProfile_image());			
 			
 			response.setContentType("application/json; charset=utf-8");
 			PrintWriter out = response.getWriter();

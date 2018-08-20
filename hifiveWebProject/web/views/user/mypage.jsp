@@ -2,7 +2,7 @@
 <%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>
 <%   			
 	   String[] hchecked = new String[12];   			   
-  	   String[] ochecked = new String[4]; 	    		 
+  	   String[] ochecked = new String[4];
 %>
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,7 @@
    <title>mypage</title>
    <link rel="stylesheet" href="/hifive/resources/css/modal.css">
    <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
-   <script src="/hifive/resources/js/jquery-3.3.1.min.js" ></script>
+   <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
    <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
@@ -179,8 +179,8 @@
         				  switch(checks[s]){        			  
 		       			  case "smoking":
 		       				  $("#smoking").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-		   			      case "kid":
-		   			    	  $("#kid").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+		   			      case "kids":
+		   			    	  $("#kids").attr("class", "btn btn-outline-secondary btn-sm active"); break;
 		   			      case "pet":
 		   			    	  $("#pet").attr("class", "btn btn-outline-secondary btn-sm active"); break;
 		   				  case "drinking":
@@ -399,7 +399,7 @@
                         <% } %>
                         </select>                     
                   </div>
-                  </form>
+        
                   <br>
                   <div id="request" name="request" align="center">
                      <table align="center" border="0">
@@ -491,9 +491,21 @@
                        <table style="text-align:center" cellspacing="0" cellpadding="2">
                            <tr>
 	                           <td>
+	                           
 	                              <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm" >
-	                                 <input type="checkbox" name="hobby" value="game" id="game" > 게임
+
+	                              <script>
+	                              		if($(".btn btn-outline-secondary btn-sm active").selected){
+	                              			
+	                              		}
+	                              		$("#updateinfo").click(function(){
+	                              			var hobbyselect = $(".btn btn-outline-secondary btn-sm active").attr("id");
+		                              		console.log(hobbyselect);
+	                              		})
+	                              </script>
+	                                 <label class="btn btn-outline-secondary btn-sm" id="game">
+	                                 <input type="checkbox" name="hobby" value="game"> 게임
+
 	                                 </label>
 	                              </div>
 	                           </td>
@@ -601,7 +613,7 @@
                		<textarea class="form-control" id="introduction" name="introduction" rows="5" cols="90" placeholder="자기소개를 작성해주세요"></textarea>               	
                   <br>
                   <center>
-                  <button class="btn btn-primary-sm" style="width:100px;" onclick="userUpdate();">수정</button>&nbsp;&nbsp;&nbsp;
+                  <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정" id="updateinfo">&nbsp;&nbsp;&nbsp;
                	 <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
                	</center>
                </div>
@@ -624,9 +636,9 @@
                          <td>
                            <select class="custom-select" id="pgender" name="gender" style="width:150px;">
 	                           <option id="genderselect" value="">선택</option>  
-	                           <option value="female" id="female">여성</option>
-	                           <option value="male" id="male">남성</option>
-	                           <option value="both" id="both">상관없음</option>
+	                           <option value="F" id="female">여성</option>
+	                           <option value="M" id="male">남성</option>
+	                           <option value="B" id="both">상관없음</option>
                            </select>
                         </td> 
                      </tr>
@@ -644,8 +656,8 @@
 	                           </td>
 	                           <td>
 	                           <div class="btn-group-toggle" data-toggle="buttons">
-	                                 <label class="btn btn-outline-secondary btn-sm" id="kid"> 
-	                                 <input type="checkbox" name="hostcheck" value="kid"> 아이동반
+	                                 <label class="btn btn-outline-secondary btn-sm" id="kids"> 
+	                                 <input type="checkbox" name="hostcheck" value="kids"> 아이동반
 	                                 </label>
 	                           </div>	                           
 	                           </td>
@@ -794,10 +806,9 @@
             <br>
             <br>
             <br>
-         </div>                       
-      </div>      
-      <%@ include file="../../footer.jsp"%>
-   </div>
-      
+      		</div>      
+      		</div>
+      </div>                             
+      <%@ include file="../../footer.jsp"%>      
 </body>
 </html>

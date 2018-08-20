@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String Id = (String)session.getAttribute("userId");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,24 +19,22 @@
 </head>
 <body>
 	<div>
-		<form action="/hifive/hostenroll" method="post">
-			<div class="form-row">
-				<div class="col input-group mb-3" >
+		<form action="/hifive/hostenroll?userid=<%=Id %>" method="post">		
+				<div class="input-group mb-3" >
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="pnums">인원</span>
 					</div>
-					<input type="number" placeholder="0" max="10" class="form-control col-sm-6" id="pnumber" name="pnumber">
-
+					<input type="number" placeholder="0" max="10" class="form-control" id="pnumber" name="num">
 				</div>
 				<div class="col input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="preferG">성별</span>
 					</div>
-					<select class="custom-select" id="hostprefergender" name="preferredgender">
+					<select class="custom-select" id="hostprefergender" name="gender">
 						<option selected>선택</option>
-						<option value="male">남성</option>
-						<option value="female">여성</option>
-						<option value="both">상관없음</option>
+						<option value="M">남성</option>
+						<option value="F">여성</option>
+						<option value="B">상관없음</option>
 					</select>
 				</div>
 			</div>
@@ -54,12 +55,12 @@
 	                </div> &nbsp;
 	                <div class="btn-group-toggle" data-toggle="buttons">
 	                    <label class="btn btn-outline-secondary"> 
-	                    <input type="checkbox" name="possible" id="possible" value="smoke">흡연
+	                    <input type="checkbox" name="possible" id="possible" value="smoking">흡연
 	                    </label>
 	                </div> &nbsp;
 	                 <div class="btn-group-toggle" data-toggle="buttons">
 	                    <label class="btn btn-outline-secondary"> 
-	                    <input type="checkbox" name="possible" id="possible" value="drink">음주
+	                    <input type="checkbox" name="possible" id="possible" value="drinking">음주
 	                    </label>
 	                </div>
 	               </div>

@@ -1,11 +1,17 @@
 package hsp.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import hsp.exception.SurferPartnerException;
+import hsp.model.service.SurferPartnerService;
+import hsp.model.vo.SurferPartner;
 
 /**
  * Servlet implementation class PartnerEnrollServlet
@@ -26,8 +32,32 @@ public class PartnerEnrollServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("utf-8");		
+		
+		SurferPartner sp = new SurferPartner();
+		sp.setCity(request.getParameter("destination"));
+		sp.setStart_date(java.sql.Date.valueOf(request.getParameter("startdate")));
+		sp.setEnd_date(java.sql.Date.valueOf(request.getParameter("enddate")));
+		sp.setUser_num(Integer.parseInt(request.getParameter("num")));
+		sp.setUser_id(request.getParameter("userid"));		
+		
+		RequestDispatcher view = null;
+		
+		try {
+			int result = new SurferPartnerService().insertPartner(sp);
+			
+			if(result > 0){
+				response.sendRedirect("/hifive/main.jsp");
+			}else{
+	    		view = request.getRequestDispatcher("");
+		        request.setAttribute("message", "수정 실패");
+		        view.forward(request, response);
+			}			
+		} catch (SurferPartnerException e) {
+    		view = request.getRequestDispatcher("");
+	        request.setAttribute("message", "수정 실패");
+	        view.forward(request, response);
+		}		
 	}
 
 	/**

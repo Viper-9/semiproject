@@ -58,4 +58,35 @@ public class SurferPartnerService {
 		return result;
 	}
 
+
+	public int insertSurfer(SurferPartner sp) throws SurferPartnerException{
+		Connection con = getConnection();
+		int result = new SurferPartnerDao().insertSurfer(con, sp);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+
+	public int insertPartner(SurferPartner sp) throws SurferPartnerException{
+		Connection con = getConnection();
+		int result = new SurferPartnerDao().insertPartner(con, sp);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+
+	public SurferPartner searchPartner(SurferPartner sp) throws SurferPartnerException{
+		Connection con = getConnection();
+		SurferPartner p = new SurferPartnerDao().searchPartner(con, sp);
+		close(con);
+		return sp;
+	}
+
+
 }
