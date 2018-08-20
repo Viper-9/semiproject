@@ -40,7 +40,8 @@ public class NoticeDetailServlet extends HttpServlet {
 		NoticeService nservice = new NoticeService();
 		RequestDispatcher view = null;
 
-		try {								
+		try {	
+			nservice.addReadCount(noticeno);
 			Notice noticeN = nservice.selectNotice(noticeno);
 
 			if(noticeN != null){

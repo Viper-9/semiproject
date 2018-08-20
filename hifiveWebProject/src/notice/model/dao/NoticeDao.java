@@ -222,14 +222,19 @@ public class NoticeDao {
 	public int insertNotice(Connection con, Notice Notice) throws NoticeException {
 		int result = 0;
 		PreparedStatement pstmt = null; 
+	
+	
 
-		String query = "insert into notice_board values (?, default, default, ?, ?)";
+	   String	query = "insert into notice_board values (NOTICE_NO_SEQ.nextval, "
+			           + "sysdate, ?, ?, ?)";
+	
 
+		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, Notice.getNotice_no());
-			pstmt.setString(2, Notice.getTitle());
 			pstmt.setString(3, Notice.getContent());
+			pstmt.setString(2, Notice.getTitle());
+			pstmt.setInt(1, Notice.getViews());
 
 			result = pstmt.executeUpdate();
 
@@ -250,7 +255,7 @@ public class NoticeDao {
 		PreparedStatement pstmt = null;
 
 		String query = "update notice_board set "
-				+ "title = ?, content = ? "
+				+ "title = ?, contents = ?, notice_date=sysdate "
 				+ "where notice_no = ?";
 
 		try {
@@ -295,4 +300,33 @@ public class NoticeDao {
 		}		
 		return result;		
 	}
+	
+	// 조회수 처리
+	   public int addReadCount(Connection con, 
+	         int boardNum) throws NoticeException {
+	      int result = 0;
+	      PreparedStatement pstmt = null;
+	      
+	      String query = "update notice_board "
+	            + "set views = views + 1 "
+	            + "where notice_no = ?";
+	      
+	      try {
+	         pstmt = con.prepareStatement(query);
+	         pstmt.setInt(1, boardNum);
+	         
+	         result = pstmt.executeUpdate();
+	         
+	         if(result <= 0)
+	            throw new NoticeException(
+	                  boardNum + "번 게시글 조회수 증가 처리 실패!");
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         throw new NoticeException(e.getMessage());
+	      }finally{
+	         close(pstmt);
+	      }
+	      
+	      return result;
+	   }
 }

@@ -73,6 +73,7 @@ function showBoardWriteForm(){
 }
 </script>
 
+
 </head>
 <body>
    <div class="container">
@@ -123,19 +124,26 @@ function showBoardWriteForm(){
             	<form action="/hifive/noticesearch" method="get">
                <div class="form-row align-items-center">            
                   <div class="col-auto my-1">                     
-                     <select class="custom-select mr-sm-2" name="nsearchfilter">
+                     <select class="custom-select mr-sm-2" style="width:100px;" name="nsearchfilter">
                         <option selected >제목</option>
                         <option>내용</option>
                      </select>
                   </div>
                   <div class="col-auto my-1">
-                     <input type="text" style="width:550px" class="form-control col-auto my-1" id="nsearchContent" name="nsearchContent">
+                     <input type="text" style="width:460px;"   class="form-control col-auto my-1" id="nsearchContent" name="nsearchContent">
                   </div>
                   <div class="col-auto my-1">
                      <input type="submit" class="btn btn-primary" value="검색">
                   </div>
+                  </form>
+                  
+                    <%if (userId != null) {%>
+				 <div class="col-auto my-1">
+					 <a class="btn btn-primary" href="/hifive/views/support/notice/noticeWrite.jsp">글쓰기</a>
+				 </div>
+			<% } %>
                </div>
-               </form>
+               
 			
 			<!-- 페이지 넘어가는 부분 -->
 			<% if(result == 0) { %>

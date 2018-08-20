@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
+<%@ page import="notice.model.vo.Notice" %>
+<%
+   Notice n = (Notice)request.getAttribute("noticedetail");
+%>   
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>공지사항 글쓰기</title>
+<title>신고게시판 글수정</title>
 
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
@@ -84,13 +89,13 @@
 </script>
 </head>
 <body>
-<div class="container">
+   <div class="container">
       <%@ include file="../../../header.jsp"%>
       <hr>
       <div id="main">
          <div id="menu">
-            <%@ include file="../../../information.jsp"%>
-
+            <%@ include file="../../../information.jsp" %>
+ 
          </div>
          <div id="content1">
             <%@ include file="../../../supportmenu.jsp"%>
@@ -99,19 +104,18 @@
          <div id="content2">
 
             <br>
-              <div class="card border-0" style="width: 600px;" id="noticetable1">
-              <form action="/hifive/noticewrite" method="get"
-               >
+              <div class="card border-0" style="width: 600px;" id="reporttable1">
+             
             <table
                class="table table-borderless table-sm border"
-               id=noticetable>
+               id=reporttable>
                <thead>
                </thead>
                <tbody>
-               
+               <form action="/hifive/noticeupdate" method="get">
                 <tr class="p-3 mb-2 bg-light text-dark">
                      <th style="width:70px">제목</th>
-                     <td colspan="2" class="text-left"><input type="text" class="form-control" style="width:400px" name="ntitle" ></td>
+                     <td colspan="2" class="text-left"><input type="text" class="form-control" style="width:400px" name="ntitle" value="<%= n.getTitle() %>" ></td>
                   </tr>
                   <tr >
                      <th>작성자</th>
@@ -122,20 +126,21 @@
                   <tr>
                      <th >내용</th>
                      <td class="text-left"> 
-                        <textarea name="ncontent" class="form-control" cols="70" rows="7"></textarea>
+                        <textarea name="ncontent" class="form-control" cols="70" rows="7"><%=n.getContent() %></textarea>
                      </td> 
                      <td></td>
                   </tr>
                
                   <tr>
-
+                  <input type="hidden" name="noticeno" value="<%= n.getNotice_no() %>">
                      <td colspan="3">
-                        <button type="submit" class="btn btn-primary btn-sm">등록</button>
-                        <button type="submit" class="btn btn-primary btn-sm" onclick="location.href='/hifive/noticelist'">취소</button></td>
+                        <button type="submit" class="btn btn-primary btn-sm">수정</button>
+                        <button type="reset" class="btn btn-primary btn-sm" onclick="location.href='/hifive/noticelist'">취소</button></td>
                   </tr>
+                  </form>
                </tbody>
             </table>
-            </form>
+            
 
          </div>
       </div>
@@ -146,6 +151,5 @@
       <%@ include file="../../../footer.jsp"%>
    
 </div>
-
 </body>
-</html>
+</html> 

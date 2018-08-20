@@ -45,10 +45,10 @@ header {
 }
 
 .profileimg {
-	width: 60px;
-	height: 60px;
-	border-radius: 30px 30px 30px 30px;
+	width: 45px;
+	height: 45px;
 }
+ 
 </style>
 <script src="/hifive/resources/js/jquery-3.3.1.min.js" ></script>
 <script type="text/javascript">
@@ -96,12 +96,12 @@ header {
 
 							<th><a href="/hifive/profileinfo?userid=<%= userId %>"> <img
 									src="/hifive/resources/image/sample4.jpeg" alt="얼굴사진"
-									class="profileimg" title="프로필로 이동">
+									class="profileimg rounded-circle"" title="프로필로 이동">
 							</a>&nbsp;</th>
 
 							<th>
 								<div class="dropdown" id="support">
-									<a class="btn btn-secondary dropdown-toggle" href="#"
+									<a class="btn dropdown-toggle p-3 mb-2 bg-white text-dark font-weight-bold" href="#"
 										role="button" id="dropdownMenuLink" data-toggle="dropdown"
 										aria-haspopup="true" aria-expanded="false"> ... </a>
 
