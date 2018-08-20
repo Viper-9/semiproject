@@ -389,7 +389,7 @@ public class UserDao {
 		}
 		return profileImage;
 	}
-
+	//비밀번호 찾기 
 	public String searchPw(Connection con, String userId, String userEmail) {
 		String userpw = null;
 		PreparedStatement pstmt = null;
@@ -417,7 +417,7 @@ public class UserDao {
 		}
 		return userpw;
 	}
-
+	//비밀번호 변경
 	public String updatePass(Connection con, User user) {
 		String userpw = null;
 		PreparedStatement pstmt = null;

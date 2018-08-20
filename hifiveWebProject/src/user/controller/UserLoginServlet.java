@@ -50,6 +50,7 @@ public class UserLoginServlet extends HttpServlet {
 				session.setAttribute("userId", userId);
 				session.setAttribute("loginuser", user);
 				
+				
 				returnValue = "1";
 				out.flush();
 				

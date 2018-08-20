@@ -13,6 +13,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>메인화면</title>
 
+
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
 <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>

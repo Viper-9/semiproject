@@ -317,6 +317,14 @@
           
        }); //document.ready
 
+       function changePW(){
+       	var url= "/hifive/views/user/changePW.jsp";    //팝업창 페이지 URL
+      		var winWidth = 700;
+      	    var winHeight = 600;
+      	    var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
+      		window.open(url,"",popupOption);
+          }
+       
     </script>     
 
 </head>
@@ -400,7 +408,8 @@
                            		onclick="location.href='/hifive/favoritelist?userid=<%=userId%>'"></th>
                         </tr>
                         <tr>
-                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"></th>
+                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"
+                           		onclick= "changePW()"></th>
                         </tr>
                      </table>
                      <br>
