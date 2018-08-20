@@ -86,7 +86,7 @@
          <div id="menu">
             <div class="card" style="width: 250px;">
                <font size="3"><b>Profile</b></font> <img class="card-img-top"
-                  src="/hifive/resources/image/profile.png" alt="Card image cap"
+                  src="/hifive/resources/profileUpfiles/<%= user.getProfile_image() %>" alt="Card image cap"
                   height="220px">
                <div class="card-body">
                   <p class="card-text">
@@ -105,7 +105,11 @@
                      <%= user.getAddress() %>
                      <% } %> 
                      </font>
-                     
+                     <form action="/hifive/pimage" method="get" enctype="multipart/form-data">
+                     <input type="file" name="profileimage">
+                     <input type="text" name="userid" value="<%= user.getUser_Id() %>">
+                     <input type="submit" value="프사업로드">
+                     </form>
                   </div>
                   <br> 
                   <center>
@@ -211,7 +215,7 @@
                     		   String[] hobbies = user.getHobby().split(","); %>
                     		   <% for(String s : hobbies) { %>
                     		   		<input type="button" class="btn btn-outline-dark" name="hobby"
-                    		   		value="<%= s %>">                    		   		>
+                    		   		value="<%= s %>">                    		   		
                     		   <% } %>
 		               	   <% } %>
               
@@ -256,7 +260,7 @@
                <div class="card-body">
                   <p class="card-text">
                   <% if(profileH == null) { %>
-                  		호스트를 등록하지 않았습니다.
+                  		등록된 호스트 정보가 없습니다.
                   <%} else { %>
                   <ul>
                   <table cellpadding="10px">
@@ -281,7 +285,7 @@
                     		   String[] possible = profileH.getCheck1().split(","); %>
                     		   <% for(String s : possible) { %>
                     		   <td>
-	                               <input class="btn btn-outline-secondary btn-sm" id="smoking" type="checkbox" name="hostcheck" value="<%= s %>"><%= s %>
+	                               <input class="btn btn-outline-secondary btn-sm" id="smoking" type="button" name="hostcheck" value="<%= s %>">
 	                           </td>
                     		   <% } %>
 		               	   <% } %>
@@ -310,8 +314,8 @@
                <h6 class="card-header" id="card_info">Surfer</h6>
                <div class="card-body">
                   <p class="card-text">
-                  <% if(profileS== null) { %>
-                  		서퍼를 등록하지 않았습니다.
+                  <% if(profileS == null) { %>
+                  		등록된 서퍼 일정이 없습니다.
                   <%} else { %>
                    <ul>
                   <table>
@@ -348,7 +352,7 @@
                <div class="card-body">
                   <p class="card-text">
                   <% if(profileP == null) { %>
-                  		파트너를 등록하지 않았습니다.
+                  		등록된 파트너 일정이 없습니다.
                   <%} else { %> 
                   <ul>
                   <table>

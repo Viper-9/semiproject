@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ page import="report.model.vo.Report" %>
+<%
+	Report r = (Report)request.getAttribute("reportdetail");
+%>   
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>신고게시판 글쓰기</title>
+<title>신고게시판 글수정</title>
 
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
@@ -107,10 +112,10 @@
                <thead>
                </thead>
                <tbody>
-               <form action="/hifive/reportwrite" method="get">
+               <form action="/hifive/reportupdate" method="get">
                 <tr class="p-3 mb-2 bg-light text-dark">
                      <th style="width:70px">제목</th>
-                     <td colspan="2" class="text-left"><input type="text" class="form-control" style="width:400px" name="rtitle" ></td>
+                     <td colspan="2" class="text-left"><input type="text" class="form-control" style="width:400px" name="rtitle" value="<%= r.getTitle() %>" ></td>
                   </tr>
                   <tr >
                      <th>작성자</th>
@@ -121,15 +126,15 @@
                   <tr>
                      <th >내용</th>
                      <td class="text-left"> 
-                        <textarea name="rcontent" class="form-control" cols="70" rows="7"></textarea>
+                        <textarea name="rcontent" class="form-control" cols="70" rows="7"><%=r.getContent() %></textarea>
                      </td> 
                      <td></td>
                   </tr>
                
                   <tr>
-
+						<input type="hidden" name="reportno" value="<%= r.getReport_no() %>">
                      <td colspan="3">
-                        <button type="submit" class="btn btn-primary btn-sm">등록</button>
+                        <button type="submit" class="btn btn-primary btn-sm">수정</button>
                         <button type="reset" class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist'">취소</button></td>
                   </tr>
                   </form>

@@ -45,7 +45,7 @@ public class ProfileInfoServlet extends HttpServlet {
 			Host host = new HostService().selectHost(userId);
 			SurferPartner surfer = new SurferPartnerService().selectSurfer(userId);
 			SurferPartner partner = new SurferPartnerService().selectPartner(userId);
-			
+			 
 			if(user != null){
 				view = request.getRequestDispatcher("views/user/profile.jsp"); // info 페이지
 				request.setAttribute("profileuser", user);

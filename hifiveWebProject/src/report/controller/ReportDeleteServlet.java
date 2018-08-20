@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import notice.exception.NoticeException;
 import notice.model.service.NoticeService;
 import notice.model.vo.Notice;
+import report.exception.ReportException;
+import report.model.service.ReportService;
 
 /**
  * Servlet implementation class ReportDeleteServlet
@@ -32,7 +34,28 @@ public class ReportDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=utf-8");
 		
+		int reportno = Integer.parseInt(request.getParameter("reportno"));
+		RequestDispatcher view = null;
+		try{
+			if(new ReportService().deleteReport(reportno) > 0){
+				response.sendRedirect("/hifive/reportlist");
+			
+			}else{
+				view = request.getRequestDispatcher("views/support/report/reportError.jsp");
+				request.setAttribute("message", reportno + "번 신고글 삭제 실패");
+				view.forward(request, response);
+			}
+
+		} catch (ReportException e){
+
+			view = request.getRequestDispatcher("views/support/report/reportError.jsp");
+			request.setAttribute("message", e.getMessage());
+			view.forward(request, response);
+
+
+		}
 	}
 
 	/**

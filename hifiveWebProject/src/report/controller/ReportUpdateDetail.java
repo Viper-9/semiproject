@@ -9,26 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
 import report.exception.ReportException;
 import report.model.service.ReportService;
 import report.model.vo.Report;
 
 /**
- * Servlet implementation class ReportWriteServlet
+ * Servlet implementation class ReportUpdateDetail
  */
-@WebServlet("/reportwrite")
-public class ReportWriteServlet extends HttpServlet {
+@WebServlet("/rupdatedetail")
+public class ReportUpdateDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportWriteServlet() {
+    public ReportUpdateDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,34 +32,37 @@ public class ReportWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html; charset=utf-8");
-		RequestDispatcher view =null;
-	
-		Report report = new Report();
-		report.setTitle(request.getParameter("rtitle"));
-		report.setUser_id(request.getParameter("rwriter"));
+response.setContentType("text/html; charset=utf-8");
 		
-		// 엔터값 처리
-		String content = request.getParameter("rcontent");
-		content = content.replace("\r\n", "<br>");
-		report.setContent(content);		
+		int reportno = Integer.parseInt(request.getParameter("reportno"));
+		
+		ReportService rservice = new ReportService();
+		RequestDispatcher view = null;
 
-		try{
-			if(new ReportService().insertReport(report) > 0){
-				response.sendRedirect("/hifive/reportlist");
-			}else{
-				view = request.getRequestDispatcher("views/support/report/reportError.jsp");
-				request.setAttribute("message", "신고글 등록 실패");
+		try {								
+			Report reportR = rservice.selectReport(reportno);
+			
+			// 엔터값 처리
+			String content = reportR.getContent();
+			content = content.replace("<br>", "\r\n");
+			reportR.setContent(content);
+			
+			if(reportR != null){
+				view = request.getRequestDispatcher(
+						"views/support/report/reportUpdate.jsp");
+				request.setAttribute("reportdetail", reportR);
+				
 				view.forward(request, response);
-			}
-
-		} catch (ReportException e){
-
-			view = request.getRequestDispatcher("views/support/report/reportError.jsp");
-			request.setAttribute("message", e.getMessage());
-			view.forward(request, response);
-
-
+				
+			}else{
+				view = request.getRequestDispatcher(
+						"views/support/report/reportDetail.jsp");
+				request.setAttribute("message", "게시글이 없습니다.");
+				view.forward(request, response);
+			}		
+		
+		} catch (ReportException e) {
+			System.out.println("실패");
 		}
 	}
 
