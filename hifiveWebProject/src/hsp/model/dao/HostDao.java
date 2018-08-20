@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import static common.JDBCTemplate.*;
 import hsp.exception.HostException;
+import hsp.exception.SurferPartnerException;
 import hsp.model.vo.Host;
+import user.exception.UserException;
 
 public class HostDao {
 
@@ -32,9 +34,7 @@ public class HostDao {
 				host.setCheck1(rset.getString("check1"));
 				host.setCheck2(rset.getString("check2"));
 				host.setContent(rset.getString("content"));
-				host.setProcess(rset.getString("process"));
-				host.setStart_date(rset.getDate("start_date"));
-				host.setEnd_date(rset.getDate("end_date"));				
+				host.setProcess(rset.getString("process"));	
 				host.setImage1(rset.getString("image1"));
 				host.setImage2(rset.getString("image2"));
 				host.setImage3(rset.getString("image3"));	
@@ -77,6 +77,35 @@ public class HostDao {
 		}
 		return result;
 	}
+
+	public int insertHost(Connection con, Host host) throws HostException{
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "insert into host values(?,?,?,?,?,?,'P',default, default, default)";
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, host.getUser_id());
+			pstmt.setInt(2, host.getUser_num());
+			pstmt.setString(3, host.getP_gender());
+			pstmt.setString(4, host.getCheck1());
+			pstmt.setString(5, host.getCheck2());
+			pstmt.setString(6, host.getContent());
+			
+			result = pstmt.executeUpdate();
+			
+			if(result < 0){
+				throw new  UserException("호스트 등록 실패");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new HostException(e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}	
 	
 
 }

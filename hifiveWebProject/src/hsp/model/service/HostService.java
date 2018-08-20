@@ -6,6 +6,7 @@ import java.sql.Connection;
 
 import hsp.exception.HostException;
 import hsp.model.dao.HostDao;
+import hsp.model.dao.SurferPartnerDao;
 import hsp.model.vo.Host;
 
 public class HostService {
@@ -21,6 +22,17 @@ public class HostService {
 	public int updateHost(Host host) throws HostException{
 		Connection con = getConnection();
 		int result = new HostDao().updateHost(con, host);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+
+	public int insertHost(Host host) throws HostException{
+		Connection con = getConnection();
+		int result = new HostDao().insertHost(con, host);
 		if(result > 0)
 			commit(con);
 		else

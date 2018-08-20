@@ -12,8 +12,6 @@ public class Host implements java.io.Serializable {
 	private String check2;
 	private String content;
 	private String process;
-	private Date start_date;
-	private Date end_date;
 	private String image1;
 	private String image2;
 	private String image3;	
@@ -21,7 +19,7 @@ public class Host implements java.io.Serializable {
 	public Host() {}
 	
 	public Host(String user_id, int user_num, String p_gender, String check1, String check2, String content,
-			String process, Date start_date, Date end_date, String image1, String image2, String image3) {
+			String process, String image1, String image2, String image3) {
 		super();
 		this.user_id = user_id;
 		this.user_num = user_num;
@@ -30,8 +28,6 @@ public class Host implements java.io.Serializable {
 		this.check2 = check2;
 		this.content = content;
 		this.process = process;
-		this.start_date = start_date;
-		this.end_date = end_date;
 		this.image1 = image1;
 		this.image2 = image2;
 		this.image3 = image3;		
@@ -93,22 +89,6 @@ public class Host implements java.io.Serializable {
 		this.process = process;
 	}
 
-	public Date getStart_date() {
-		return start_date;
-	}
-
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
-	}
-
-	public Date getEnd_date() {
-		return end_date;
-	}
-
-	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
-	}
-
 	public String getImage1() {
 		return image1;
 	}
@@ -136,8 +116,8 @@ public class Host implements java.io.Serializable {
 	@Override
 	public String toString(){
 		return this.user_id + ", " + this.user_num + ", " + this.p_gender + ", " + this.check1
-				 + ", " + this.check2 + ", " + this.content + ", " + this.p_gender + ", " + this.start_date 
-				 + ", " + this.p_gender + ", " + this.image1 + ", " + this.image2 + ", " + this.image3;
+				 + ", " + this.check2 + ", " + this.content + ", " + this.process + ", "
+				 + this.image1 + ", " + this.image2 + ", " + this.image3;
 	}
 
 }

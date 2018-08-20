@@ -1,11 +1,17 @@
 package hsp.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import hsp.exception.HostException;
+import hsp.model.service.HostService;
+import hsp.model.vo.Host;
 
 /**
  * Servlet implementation class HostEnrollServlet
@@ -26,10 +32,35 @@ public class HostEnrollServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("utf-8");
+		
+		Host host = new Host();
+		host.setUser_id(request.getParameter("userid"));
+		host.setUser_num(Integer.parseInt(request.getParameter("num")));
+		host.setP_gender(request.getParameter("gender"));
+		host.setCheck1(String.join(",", request.getParameterValues("possible")));
+		host.setCheck2(request.getParameter("sleeping"));
+		host.setContent(request.getParameter("hostetc"));
+		
+		RequestDispatcher view = null;
+		
+		try {
+			int result = new HostService().insertHost(host);
+			
+			if(result > 0){
+				response.sendRedirect("/hifive/main.jsp");
+			}else{
+	    		view = request.getRequestDispatcher("");
+		        request.setAttribute("message", "수정 실패");
+		        view.forward(request, response);
+			}			
+		} catch (HostException e) {
+    		view = request.getRequestDispatcher("");
+	        request.setAttribute("message", "수정 실패");
+	        view.forward(request, response);
+		}		
 	}
-
+		
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

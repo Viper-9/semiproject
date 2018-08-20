@@ -1,6 +1,6 @@
 package hsp.model.dao;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -131,6 +131,96 @@ public class SurferPartnerDao {
 		}
 		
 		return result;
+	}
+
+	public int insertSurfer(Connection con, SurferPartner sp) throws SurferPartnerException{
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "insert into surfer_partner values(?,?,?,?,?,'S',default)";
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, sp.getUser_id());
+			pstmt.setDate(2, sp.getStart_date());
+			pstmt.setDate(3, sp.getEnd_date());
+			pstmt.setInt(4, sp.getUser_num());
+			pstmt.setString(5, sp.getCity());
+			
+			result = pstmt.executeUpdate();
+			
+			if(result < 0){
+				throw new  UserException("서퍼 등록 실패");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SurferPartnerException(e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertPartner(Connection con, SurferPartner sp) throws SurferPartnerException{
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "insert into surfer_partner values(?,?,?,?,?,'P',default)";
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, sp.getUser_id());
+			pstmt.setDate(2, sp.getStart_date());
+			pstmt.setDate(3, sp.getEnd_date());
+			pstmt.setInt(4, sp.getUser_num());
+			pstmt.setString(5, sp.getCity());
+			
+			result = pstmt.executeUpdate();
+			
+			if(result < 0){
+				throw new  UserException("파트너 등록 실패");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SurferPartnerException(e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public SurferPartner searchPartner(Connection con, SurferPartner sp) throws SurferPartnerException{
+		SurferPartner p = null;		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from surfer_partner sp, users u where sp.user_id = u.user_id and city like '%?%' and user_num=? and start_date='?' and end_date='?' and role='P'";
+		
+		try {			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, sp.getCity());
+			pstmt.setInt(2, sp.getUser_num());
+			pstmt.setDate(3, sp.getStart_date());
+			pstmt.setDate(4, sp.getEnd_date());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				p = new SurferPartner();					
+				p.setStart_date(rset.getDate("start_date"));
+				p.setEnd_date(rset.getDate("end_date"));
+				p.setCity(rset.getString("city"));
+				p.setProcess(rset.getString("process"));
+				p.setUser_num(rset.getInt("user_num"));
+				
+			}
+		} catch (Exception e) {
+					
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
 	}
 
 }

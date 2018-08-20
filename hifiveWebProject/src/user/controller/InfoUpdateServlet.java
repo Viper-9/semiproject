@@ -59,6 +59,7 @@ public class InfoUpdateServlet extends HttpServlet {
 		user.setJob(request.getParameter("job"));		
 		user.setPhone(request.getParameter("phone"));
 		user.setHobby(String.join(",", request.getParameterValues("hobby")));
+		System.out.println("hobby :"+String.join(",", request.getParameterValues("hobby")));
 		user.setContent(request.getParameter("introduction"));		
 		user.setProfile_image(mrequest.getFilesystemName("profileimg"));
 		
