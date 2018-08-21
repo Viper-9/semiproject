@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
+<%
+	ArrayList<Object[]> list = (ArrayList<Object[]>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,6 +52,31 @@ text-align: left;
 </style>
 </head>
 <body>
+	<script type="text/javascript">
+		function findPartner(){
+			var destination = $("destinationP").val();
+			var num = $("numberP").val();
+			var startdate = $("startdateP").val();
+			var enddate = $("enddateP").val();
+			console.log(destination+", "+num+", "+startdate+", "+enddate);
+			
+			$.ajax({
+				url : "/hifive/partnersearch",
+				type : "post",
+				data : {destination:destination, num:num, startdate:startdate, enddate:enddate},
+				dataType : "json",
+				success : function(data){
+					console.log(data);
+					if(data == null){
+						
+					}else{
+						
+					}
+				} //success
+			})
+		} //findPartner
+		
+	</script>
 	<div class="container">
 		<%@ include file="../../header.jsp"%>
 		<hr>
@@ -91,7 +120,7 @@ text-align: left;
 									<div class="input-group-prepend">
 										&nbsp;&nbsp;&nbsp; <span class="btn btn-outline-secondary"
 											id="searchpnums">인원</span> <input type="number"
-											placeholder="0" max="10" class="form-control" id="pnumber">
+											placeholder="0" min="1" max="10" class="form-control" id="pnumber">
 									</div>
 
 								</div>
@@ -176,7 +205,7 @@ text-align: left;
 						</tr>
 					</table>
 					<div style="margin-left: 20px;">
-						<button type="submit" class="btn btn-primary" id="hostbtn">검색하기</button>
+						<button type="submit" class="btn btn-primary" id="hostbtn" onclick="findHost();">검색하기</button>
 					</div>
 				</form>
 				</div>
@@ -199,7 +228,7 @@ text-align: left;
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<span class="btn btn-outline-secondary">인원</span>
 									</div>
-									<input type="number" placeholder="0" max="10"
+									<input type="number" placeholder="0" min="1" max="10"
 										class="form-control" id="numberS">
 								</div>
 							</td>
@@ -215,7 +244,7 @@ text-align: left;
 						id="enddateS">
 				</div>
 				<br>
-				<button type="submit" class="btn btn-primary" id="surferbtn">검색하기</button>
+				<button type="submit" class="btn btn-primary" id="surferbtn" onclick="findSurfer();">검색하기</button>
 				</form>
 				</div>
 				<div class="tab-pane fade" id="searchP" role="tabpanel"
@@ -237,7 +266,7 @@ text-align: left;
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<span class="btn btn-outline-secondary">인원</span>
 									</div>
-									<input type="number" placeholder="0" max="10" class="form-control" id="numberP" name="num">
+									<input type="number" placeholder="0" min="1" max="10" class="form-control" id="numberP" name="num">
 								</div>
 							</td>
 						</tr>
@@ -252,7 +281,7 @@ text-align: left;
 						<input type="date" class="form-control" id="enddateP" name="enddate">
 					</div>
 					<br>
-					<button type="submit" class="btn btn-primary" id="partnerbtn">검색하기</button>
+					<button type="submit" class="btn btn-primary" id="partnerbtn" onclick="findPartner();">검색하기</button>
 				</form>
 				</div>
 			</div>
@@ -266,15 +295,14 @@ text-align: left;
 		              	<img class="card-img-top" src="/hifive/resources/image/sample11.jpg" alt="Card image cap">
 			             <div class="card-body">
 			             <!-- 사용자 이름누르면 사용자 프로필로 -->
-			                <a href="#"><h4 class="card-title"><b>사용자 이름</b></h4></a>
+			                <a href="#"><h4 class="card-title" id=""><b></b></h4></a>
 			                <p class="card-text">        
 			                <h6>사용자 주소</h6>
 			                <h6><b>사용자 국적</b></h6>				               
 			              </div>
-       		 			</div>        		 		
-						
+       		 			</div> 	
 					</div>
-				</div>
+				</div>				
 			</div>
 		</div>
 	</div>

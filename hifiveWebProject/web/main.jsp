@@ -413,20 +413,16 @@
 				</div>
 				<br>
 			</div>
-
 			<div id="content2">
-				<a class="btn btn-primary" href="#" data-toggle="modal"
-					data-target="#hostenroll" role="button">호스트 등록</a> <a
-					class="btn btn-primary" href="#" role="button">호스트 찾기</a>
-				&nbsp;&nbsp; &nbsp;&nbsp; <a class="btn btn-primary" href="#"
-					data-toggle="modal" data-target="#surferenroll" role="button">&nbsp;서퍼
-					등록&nbsp;</a> <a class="btn btn-primary" href="#" role="button">&nbsp;서퍼
-					찾기&nbsp;</a> &nbsp;&nbsp; &nbsp;&nbsp; <a class="btn btn-primary"
-					href="#" data-toggle="modal" data-target="#partnerenroll"
-					role="button">파트너 등록</a> <a class="btn btn-primary" href="#"
-					role="button">파트너 찾기</a> <br> <br>
+				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#hostenroll" role="button">호스트 등록</a>
+				<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button">호스트 찾기</a>			
+				&nbsp;&nbsp; &nbsp;&nbsp;
+				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#surferenroll" role="button">&nbsp;서퍼등록&nbsp;</a>
+				<a class="btn btn-primary" href="#" role="button">&nbsp;서퍼 찾기&nbsp;</a>
+				&nbsp;&nbsp; &nbsp;&nbsp;
+				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#partnerenroll" role="button">파트너 등록</a>
+				<a class="btn btn-primary" href="#" role="button">파트너 찾기</a><br><br>
 			</div>
-
 			<div id="content3">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item"><a class="nav-link active" id="all-tab"

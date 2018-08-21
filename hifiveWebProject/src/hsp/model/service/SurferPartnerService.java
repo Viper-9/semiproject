@@ -6,6 +6,7 @@ import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import hsp.exception.SurferPartnerException;
 import hsp.model.dao.SurferPartnerDao;
@@ -81,11 +82,11 @@ public class SurferPartnerService {
 		return result;
 	}
 
-	public SurferPartner searchPartner(SurferPartner sp) throws SurferPartnerException{
+	public ArrayList<Object[]> searchPartner(SurferPartner sp) throws SurferPartnerException{
 		Connection con = getConnection();
-		SurferPartner p = new SurferPartnerDao().searchPartner(con, sp);
+		ArrayList<Object[]> list = new SurferPartnerDao().searchPartner(con, sp);
 		close(con);
-		return sp;
+		return list;
 	}
 
 
