@@ -186,7 +186,7 @@
                      </li>
                      <li>
                         <div class="form-group row">
-                       <label class="col-sm-2 col-form-label">Birth</label>
+                        <label class="col-sm-2 col-form-label">Birth</label>
                            <div class="col-sm-10">
                            <input type="text" style="background-color: #ffffff; text-align:center;" readonly class="form-control col-sm-3" name="birth" value="<%= user.getBirth() %>">
                            </div>

@@ -18,8 +18,10 @@
 </script>
 </head>
 <body>
-	<div>
-		<form action="/hifive/hostenroll?userid=<%=Id %>" method="post">		
+	
+<div>
+<form action="/hifive/hostenroll?userid=<%=Id %>" method="post">	
+	<div>	
 				<div class="input-group mb-3" >
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="pnums">인원</span>
@@ -85,5 +87,6 @@
 					<button type="submit" class="btn btn-primary" id="hostenrollbtn">등록하기</button>
 		</form>
 	</div>
+	 
 </body>
 </html>

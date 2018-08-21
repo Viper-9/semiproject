@@ -65,24 +65,7 @@ public class HostEnrollServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
-		String userId = (String) request.getSession().getAttribute("userId");
-		int user_num = Integer.parseInt(request.getParameter("pnumber"));
-		
-		String gender = "";
-		if(request.getParameter("preferredgender").equals("male"))
-			gender = "M";
-		else if(request.getParameter("preferredgender").equals("female"))
-			gender = "F";
-		else
-			gender = "A";
-		
-		String check1 = String.join(",", request.getParameterValues("possible"));
-		String check2 = request.getParameter("sleeping");
-		String content = request.getParameter("hostetc");
-		
-		// ~~~~수정중~~~~
+		doGet(request, response);
 		
 
 		
