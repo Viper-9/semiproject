@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "user.model.vo.User" %> 
 <% 
-    
+     
    User user = (User)session.getAttribute("loginuser");
    
 %>
