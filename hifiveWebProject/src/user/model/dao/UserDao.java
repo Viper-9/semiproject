@@ -17,7 +17,7 @@ public class UserDao {
 
 	public UserDao() {}
 	
-	// 로그인
+	// 로그인 
 	public String loginCheck(Connection con, String userId, String userPw) throws UserException {
 		String userName = null;
 		PreparedStatement pstmt = null;
@@ -200,7 +200,7 @@ public class UserDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "update users set address=?, job=?, phone=?, hobby=?, content=?, profile_img=? where user_id = ?";
+		String query = "update users set address=?, job=?, phone=?, hobby=?, content=?, profile_image=? where user_id = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
