@@ -1,28 +1,29 @@
 package favorite.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import favorite.exception.FavoriteException;
+import org.json.simple.JSONObject;
+
 import favorite.model.service.FavoriteService;
 
 /**
- * Servlet implementation class FavoriteDeleteServlet
+ * Servlet implementation class ProfileFavoriteServlet
  */
-@WebServlet("/favoritedelete")
-public class FavoriteDeleteServlet extends HttpServlet {
+@WebServlet("/profilefavorite")
+public class ProfileFavoriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FavoriteDeleteServlet() {
+    public ProfileFavoriteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +32,23 @@ public class FavoriteDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String f_UserId = request.getParameter("f_userid"); // 상대
-		String userId = (String) request.getSession().getAttribute("userId"); // 내아이디
+		String p_userId = request.getParameter("userid"); // 프로필 아이디
+		String userId = (String)request.getSession().getAttribute("userId");// 세션에 있는 내 아이디
+
+		JSONObject json = new JSONObject();
 		
-		try{
-			if(new FavoriteService().deleteFavorite(userId, f_UserId) > 0){
-				response.sendRedirect("views/favorite/favorite.jsp");
-			} else{
-				RequestDispatcher view = request.getRequestDispatcher("views/favorite/favoriteError.jsp");
-				request.setAttribute("message", "favorite 취소 실패");
-				view.forward(request, response);	
-			}
-		} catch(FavoriteException e){
-			RequestDispatcher view = request.getRequestDispatcher("views/favorite/favoriteError.jsp");
-			request.setAttribute("message", e.getMessage());
-			view.forward(request, response);	
+		if(p_userId.equals(userId)){ // 내 프로필 창 들어갔을때 
+			json.put("result", 0);
+		} else if (new FavoriteService().selectFavorite(userId, p_userId) > 0){ // 상대방이 이미 favorite 등록 되어 있을때
+			json.put("result", 1); 
+		} else { // 등록 안되어 있을 때
+			json.put("result", 2);
 		}
+		
+		response.setContentType("application/json; charset=utf-8");
+	    PrintWriter out = response.getWriter();
+	    out.print(json.toJSONString());
+	    out.flush();
 	}
 
 	/**

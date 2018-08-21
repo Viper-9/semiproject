@@ -31,11 +31,11 @@ public class FavoriteInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userid");
-		String f_User_Id = "user02";
-		
+		String userId = (String)request.getSession().getAttribute("userId"); // 내 아이디
+		String f_UserId = request.getParameter("f_userid"); // 상대방 아이디
+	
 		try{
-			if(new FavoriteService().insertFavorite(userId, f_User_Id) > 0){
+			if(new FavoriteService().insertFavorite(userId, f_UserId) > 0){
 				response.sendRedirect("/hifive/favoritelist?userid="+userId);
 			} else{
 				RequestDispatcher view = request.getRequestDispatcher("views/favorite/favoriteError.jsp");

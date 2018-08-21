@@ -49,7 +49,7 @@
 		$.ajax({	
 	  	  url : "/hifive/reviewlist",
 	    		type : "get",
-				data : {userid : userid},
+				data : {uid : userid},
 				dataType : "json",			
 				success : function(data){
 					//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
@@ -76,6 +76,33 @@
 					console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
 				} // error
 			});
+		
+		// 선호 버튼
+		$.ajax({
+			url : "/hifive/profilefavorite",
+			type : "get",
+			data : {userid : userid},
+			dataType : "json",			
+			success : function(data){
+				
+				value ="";
+				if(data.result == 0){ // 내 아이디
+					//value = "<input type='button' class='btn btn-warning' value='선호' style='width: 200px;' disabled>";
+				} else if(data.result == 1){ // 상대방이 이미 favorite 등록되어있음
+					value += "<input type='button' class='btn btn-warning' value='선호하는 유저 취소' style='width: 200px;' " 
+					+ "onclick='location.href=\"/hifive/favoritedelete?f_userid=" + userid + "\"'>";
+				} else {
+					value += "<input type='button' class='btn btn-warning' value='선호하는 유저로 등록' style='width: 200px;' " 
+					+ "onclick='location.href=\"/hifive/favoriteinsert?f_userid=" + userid + "\"'>";
+				}
+				
+				$("#favorite").html($("#favorite").html()+value);
+			
+			}, // success
+			error : function(jqXHR, textstatus, errorThrown){
+				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+			} // error
+		});
 	});
 </script>
 <script type="text/javascript">
@@ -207,8 +234,7 @@
                   </div>
                   <br> <br>
                   <div id="favorite" name="favorite" align="center">
-                     <input type="button" class="btn btn-warning" value="선호"
-                        style="width: 200px;">
+                     
                   </div>
                   </p>
                </div>
