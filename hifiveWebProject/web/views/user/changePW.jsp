@@ -128,6 +128,7 @@ function check() {
 					      height:'50px'
 
 				    }); */
+				    
 				    $("#errorMS").css("color", "red").text('이전 비밀번호가 일치하지 않습니다.')
 			 		$("#errorMS").css("display", "block");  
 				    $("#nowpw").css("background-color", "#FFCECE");
