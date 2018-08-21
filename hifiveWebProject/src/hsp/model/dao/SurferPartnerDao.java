@@ -1,10 +1,13 @@
 package hsp.model.dao;
 
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+
 import hsp.exception.SurferPartnerException;
 import hsp.model.vo.SurferPartner;
 import user.exception.UserException;
@@ -195,15 +198,17 @@ public class SurferPartnerDao {
 		return result;
 	}
 
-	public SurferPartner searchPartner(Connection con, SurferPartner sp) throws SurferPartnerException{
-		SurferPartner p = null;		
+
+	public ArrayList<Object[]> searchPartner(Connection con, SurferPartner sp) throws SurferPartnerException{
+		ArrayList<Object[]> list = new ArrayList<Object[]>();		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from surfer_partner sp, users u where sp.user_id = u.user_id and city like '%?%' and user_num=? and start_date='?' and end_date='?' and role='P'";
+		String query = "select * from surfer_partner sp, users u where sp.user_id = u.user_id and city like ? and user_num=? and start_date=? or end_date=? and role='P'";
 		
-		try {			
-			pstmt = con.prepareStatement(query);
+		try {
+			pstmt = con.prepareStatement(query);			
+			
 			pstmt.setString(1, sp.getCity());
 			pstmt.setInt(2, sp.getUser_num());
 			pstmt.setDate(3, sp.getStart_date());
@@ -211,22 +216,22 @@ public class SurferPartnerDao {
 			
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()){
-				p = new SurferPartner();					
-				p.setStart_date(rset.getDate("start_date"));
-				p.setEnd_date(rset.getDate("end_date"));
-				p.setCity(rset.getString("city"));
-				p.setProcess(rset.getString("process"));
-				p.setUser_num(rset.getInt("user_num"));
-				
+			while(rset.next()){				
+				Object[] obj = new Object[3];
+				obj[0] = rset.getString("user_name");
+				obj[1] = rset.getString("address");
+				obj[2] = rset.getString("nationality");				
+				list.add(obj);						
 			}
+			if(list.size() == 0)
+				throw new SurferPartnerException("정보 없음");
 		} catch (Exception e) {
-					
+			e.printStackTrace();
+			throw new SurferPartnerException(e.getMessage());
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		return p;
+		return list;
 	}
-
 }

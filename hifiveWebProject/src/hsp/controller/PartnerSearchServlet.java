@@ -1,6 +1,8 @@
 package hsp.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hsp.exception.SurferPartnerException;
 import hsp.model.service.SurferPartnerService;
 import hsp.model.vo.SurferPartner;
 
@@ -38,16 +41,17 @@ public class PartnerSearchServlet extends HttpServlet {
 		sp.setUser_num(Integer.parseInt(request.getParameter("num")));
 		sp.setStart_date(java.sql.Date.valueOf(request.getParameter("startdate")));
 		sp.setEnd_date(java.sql.Date.valueOf(request.getParameter("enddate")));
+		System.out.println("검색 : "+sp.toString());
 		
 		RequestDispatcher view = null;
-		
+		ArrayList<Object[]> list;
 		try {
-			sp = new SurferPartnerService().searchPartner(sp);
-			System.out.println("파트너 검색 : "+sp.toString());
+			list = new SurferPartnerService().searchPartner(sp);			
+			System.out.println("파트너 검색 결과 : "+Arrays.toString(list.toArray()));
 			
 			if(sp != null){
-				view = request.getRequestDispatcher("views/hsp/searchPage/jsp");
-				request.setAttribute("sp", sp);
+				view = request.getRequestDispatcher("/hifive/views/hsp/searchPage.jsp");
+				request.setAttribute("list", list);
 				view.forward(request, response);
 			}else{
 				view = request.getRequestDispatcher("");
@@ -58,7 +62,7 @@ public class PartnerSearchServlet extends HttpServlet {
 			view = request.getRequestDispatcher("");
 			request.setAttribute("message", e.getMessage());
 			view.forward(request, response);
-		}
+		}		
 		
 	}
 
