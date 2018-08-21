@@ -17,7 +17,7 @@ public class UserDao {
 
 	public UserDao() {}
 	
-	// 로그인
+	// 로그인 
 	public String loginCheck(Connection con, String userId, String userPw) throws UserException {
 		String userName = null;
 		PreparedStatement pstmt = null;

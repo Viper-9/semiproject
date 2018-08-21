@@ -28,7 +28,7 @@ import user.model.vo.User;
 @WebServlet("/pimage")
 public class ProfileImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+        
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -56,7 +56,7 @@ public class ProfileImageServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		// enctype 속성이 "multipart/form-data"로 전송 체크
 		if (!ServletFileUpload.isMultipartContent(request)) {
-			
+			 
 		}
 		// 파일이 업로드되어 저장될 폴더 지정
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/profileUpfiles");

@@ -284,4 +284,30 @@ public class RequestDao {
 	    }
 	    return result;			   
 	}
+	
+	// 요청 등록
+	public int insertRequest(Connection con, String loginid, String loginroll, String profileid) {
+		int result = 0;
+	    PreparedStatement pstmt = null;
+
+	    String query = "insert into request values "
+	    		+ "(REQNO_SEQ.nextval, ?, ?, sysdate, ?, default)";
+
+	    try{
+	    	pstmt = con.prepareStatement(query);	
+	    	pstmt.setString(1, loginid);   
+	    	pstmt.setString(2, profileid);
+	    	pstmt.setString(3, loginroll);  
+
+	    	result = pstmt.executeUpdate();
+
+	    	if(result <= 0)
+	    		throw new RequestException("요청 취소 실패");
+	    } catch(Exception e){
+		       
+	    } finally{
+	    	close(pstmt);
+	    }
+	    return result;	
+	}
 }

@@ -40,7 +40,7 @@ header {
 
 .messagelist {
 	width: 45px;
-	height: 40px;
+	height: 40px; 
 }
 
 .profileimg {

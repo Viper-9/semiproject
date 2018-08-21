@@ -2,6 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>    
 <%
+	String loginuserid = (String)session.getAttribute("userId");
 	User user = (User)request.getAttribute("profileuser");
     Host profileH = (Host)request.getAttribute("profileH");	
     SurferPartner profileS = (SurferPartner)request.getAttribute("profileS");
@@ -77,12 +78,52 @@
 			});
 	});
 </script>
+<script type="text/javascript">
+	var loginid = "<%= loginuserid %>";
+	var profileid = "<%= user.getUser_Id() %>";
+
+	function hrequest() {
+		if(loginid == profileid) {
+			console.log("아이디가 같음");
+		} else {
+			$.ajax({	
+			  	  url : "/hifive/request",
+			    		type : "get",
+						data : {loginid : loginid, profileid : profileid, profileroll : "h"},
+						dataType : "json",			
+						success : function(data){
+							//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
+							var jsonStr = JSON.stringify(data);
+										
+							//문자열을 json 객체로 바꿈
+							var json = JSON.parse(jsonStr);
+						
+							var values = "";
+							
+						}, // success
+						error : function(jqXHR, textstatus, errorThrown){
+							console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+						} // error
+					});
+		}
+	}
+	
+	function srequest() {
+
+	}
+	
+	function prequest() {
+
+	}
+</script>
 </head>
+
 <body>
+<input type="hidden" value="<%= loginuserid %>" id="loginuserid">
    <div class="container">
       <%@ include file="../../header.jsp"%>
       <hr>
-      <div  id="main">
+      <div id="main">
          <div id="menu">
             <div class="card" style="width: 250px;">
                <font size="3"><b>Profile</b></font> 
@@ -114,14 +155,13 @@
                      <form action="/hifive/pimage" method="post" enctype="multipart/form-data">
                      <input type="file" id="pimg" name="pimg">
                      <input type="hidden" id="imguserid" name="imguserid" value="<%= user.getUser_Id() %>">
-                     
                      <input type="submit" id="imgbtn" value="프사업로드">
                      </form>
                   </div>
                   <br> 
                   <center>
                      <% if(user.getNationality() == null) { %>
-                     	
+                     
                      <% } else { %>
                      <h4><b><%= user.getNationality() %></b></h4>
                      <% } %> 
@@ -133,7 +173,7 @@
                            <th>
                           <% if(profileH != null) { %>
                           <input type="button" class="btn btn-primary"
-                              value="Host에게 요청하기" id="requestH" style="width: 200px;">
+                              value="Host에게 요청하기" id="requestH" style="width: 200px;" onclick="hrequest()" >
                            <%} else { %> 
                             <input type="button" class="btn btn-primary"
                               value="Host에게 요청하기" disabled id="requestH" style="width: 200px;">
@@ -145,7 +185,7 @@
                            <th>
                            <% if(profileS != null) { %>
                            <input type="button" class="btn btn-primary"
-                              value="Surfer에게 요청하기" id="requestS" style="width: 200px;">
+                              value="Surfer에게 요청하기" id="requestS" style="width: 200px;" onclick="srequest()">
                               <%} else { %> 
                               <input type="button" class="btn btn-primary"
                               value="Surfer에게 요청하기" disabled id="requestS" style="width: 200px;">
@@ -156,7 +196,7 @@
                            <th>
                            <% if(profileP != null) { %>
                            <input type="button" class="btn btn-primary"
-                              value="Partner에게 요청하기" id="requestP" style="width: 200px;">
+                              value="Partner에게 요청하기" id="requestP" style="width: 200px;" onclick="prequest()">
                                <%} else { %> 
                                <input type="button" class="btn btn-primary"
                               value="Surfer에게 요청하기" disabled id="requestS" style="width: 200px;">
@@ -325,7 +365,6 @@
                   		등록된 서퍼 일정이 없습니다.
                   <%} else { %>
                    <ul>
-                  <table>
                      <table cellpadding="10px">
                      <tr>
                         <td width="150px"><li>목적지</li></td>
@@ -362,7 +401,6 @@
                   		등록된 파트너 일정이 없습니다.
                   <%} else { %> 
                   <ul>
-                  <table>
                      <table cellpadding="10px">
                      <tr>
                         <td width="150px"><li>목적지</li></td>
@@ -389,7 +427,7 @@
                   <% } %>
                   </p>
                </div>
-            </div>
+               </div>
             <br>
             <div id="photo" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Photos</h6>
@@ -411,7 +449,7 @@
                </div>
             </div>
          </div>
-      </div>
+       </div>
       <br>
       <hr>
       <%@ include file="../../footer.jsp"%>
