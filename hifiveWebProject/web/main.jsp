@@ -344,14 +344,31 @@
 	               }                  
 	               $("#p2").html($("#p2").html()+values6);               
 	            }
-	                 
-	            
 
 	         }, // success
 	         error : function(jqXHR, textstatus, errorThrown){
 	            console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
 	         } // error
 		});
+	      
+	      // 호스트, 서퍼, 파트너 등록창 (이미 등록되어 있으면 비활성화)
+	      $.ajax({
+	    	  url : "/hifive/mainhsp",
+	    	  type : "get",
+	    	  data : { userid : userid },
+	    	  dataType : "json",
+	    	  success : function(data){	    		  
+	    		  if(data.host==1)
+	    			  $('#hostenroll').removeAttr('data-target');
+	    		  if(data.surfer==1)
+	    			  $('#hostenroll').removeAttr('data-target');
+	    		  if(data.partner==1)
+	    			  $('#hostenroll').removeAttr('data-target');
+	    	  }, // success 
+	    	  error : function(jqXHR, textstatus, errorThrown){
+		            console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+		      } // error  
+	      });
 	});
 
 </script>
@@ -416,8 +433,8 @@
 
 			<div id="content2">
 				<a class="btn btn-primary" href="#" data-toggle="modal"
-					data-target="#hostenroll" role="button">호스트 등록</a> <a
-					class="btn btn-primary" href="#" role="button">호스트 찾기</a>
+					data-target="#hostenroll" role="button" id="hostenroll">호스트 등록</a> 
+					<a class="btn btn-primary" href="#" role="button">호스트 찾기</a>
 				&nbsp;&nbsp; &nbsp;&nbsp; <a class="btn btn-primary" href="#"
 					data-toggle="modal" data-target="#surferenroll" role="button">&nbsp;서퍼
 					등록&nbsp;</a> <a class="btn btn-primary" href="#" role="button">&nbsp;서퍼

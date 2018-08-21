@@ -287,7 +287,7 @@
           $.ajax({	
         	  url : "/hifive/reviewlist",
           		type : "get",
-    			data : {userid : $("#userid").val()},
+    			data : {uid : $("#userid").val()},
     			dataType : "json",			
     			success : function(data){
     				//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
@@ -405,7 +405,7 @@
                      <table align="center" border="0">
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER"
-                           		onclick="location.href='/hifive/favoritelist?userid=<%=userId%>'"></th>
+                           		onclick="location.href='/hifive/views/favorite/favorite.jsp'"></th>
                         </tr>
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"

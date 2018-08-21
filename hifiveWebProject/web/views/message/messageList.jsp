@@ -65,71 +65,6 @@
 <script type="text/javascript">
 	$(function(){
 		var userid = $("#uid").val();
-		
-		// 나에게 온 대화신청 목록
-		$.ajax({	
-			url : "/hifive/mrlist",
-			type : "get",
-			data : { uid : userid },
-			dataType : "json",			
-			success : function(data){
-				//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
-				var jsonStr = JSON.stringify(data);
-							
-				//문자열을 json 객체로 바꿈
-				var json = JSON.parse(jsonStr);
-
-				var values = "";
-			
-				if(json.list.length!=0){
-					for(var i in json.list){
-						values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
-						+ json.list[i].userName + "</td><td><a href='/hifive/mraccept?sender=" 
-						+ json.list[i].sender + "&uid=" + userid + "'>" + "수락</a> / "
-						+ "<a href='/hifive/mrreject?sender=" + json.list[i].sender + "&uid=" + userid  +"'>" +  "거절</a></td></tr>";
-					}
-				} else{
-					values += "<tr><td colspan='3'>나에게 온 대화 신청이 없습니다.</td></tr>";
-				}
-				$("#mrlist").html($("#mrlist").html()+values);	
-				
-			}, // success
-			error : function(jqXHR, textstatus, errorThrown){
-				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
-			} // error
-		});
-	
-		// 내가 한 대화신청 목록
-		$.ajax({	
-			url : "/hifive/mrlist_m",
-			type : "get",
-			data : { uid : userid },
-			dataType : "json",			
-			success : function(data){
-				//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
-				var jsonStr = JSON.stringify(data);
-							
-				//문자열을 json 객체로 바꿈
-				var json = JSON.parse(jsonStr);
-				
-				var values = "";
-				
-				if(json.list.length!=0){
-					for(var i in json.list){
-						values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
-						+  json.list[i].userName + "</td><td><a href='/hifive/mrequestc?sender="+ userid + "&userid=" + json.list[i].user_id 
-						+ "'>"+ "취소" +"</a></td></tr>";
-					}													
-				} else{
-					values += "<tr><td colspan='3'>내가 한 대화 신청이 없습니다.</td></tr>";
-				}
-				$("#mrlist_m").html($("#mrlist_m").html()+values);
-			}, // success
-			error : function(jqXHR, textstatus, errorThrown){
-				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
-			} // error
-		});
-		
 	
 		// 나의 대화 목록
 		$.ajax({			
@@ -148,18 +83,27 @@
 				if(json.list.length!=0){
 					for(var i in json.list){					
 						if(json.list[i].user1 == userid){
-							values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
+							/* values += "<tr><td><a href='/hifive/profileinfo?userid="
+							+ json.list[i].user2 +"'><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
 							+ json.list[i].userName
 							+ "</td><td><a href='/hifive/mpage?listno=" + json.list[i].list_no 
-							+ "&uid=" + userid  + "'>" + json.list[i].user2
+							+ "&uid=" + userid  + "'>" + "보기"
+							+ "</a></td></tr>";  */
+							values += "<tr><td><a href='/hifive/profileinfo?userid="
+							+ json.list[i].user2 +"'><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
+							+ json.list[i].userName
+							+ "</td><td><a href='/hifive/views/message/messagePage.jsp?listno=" + json.list[i].list_no 
+							+ "&uid="+ json.list[i].user2 + "' onclick=\"window.open(this.href,'','width=420, height=685'); return false;\">" + "보기"
 							+ "</a></td></tr>";
 						} else{
-							values += "<tr><td><a href=''><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
+							values += "<tr><td><a href='/hifive/profileinfo?userid="
+							+ json.list[i].user1 + "'><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a></td><td>" 
 							+ json.list[i].userName
 							+ "</td><td><a href='/hifive/mpage?listno=" + json.list[i].list_no 
-							+ "&uid=" + userid  + "'>" + json.list[i].user1
+							+ "&uid=" + userid  + "'>" + "보기"
 							+ "</a></td></tr>";
 						}
+
 					}				
 				} else{
 					values += "<tr><td colspan='3'>대화 목록이 없습니다.</td></tr>";
@@ -172,9 +116,9 @@
 			error : function(jqXHR, textstatus, errorThrown){
 				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
 			} // error
-		}); 
-	
+		}); 	
 	});	
+
 </script>
 
 </head>
@@ -228,49 +172,7 @@
             <br><br>
             
             <input type="hidden" id="uid" value="<%= userId %>">
-            <div class="card border-light mb-3" style="max-width: outo">
-                 <div class="card-header">나에게 온 대화신청 목록</div>
-                 <div class="card-body">
-                   
-                   <table class="table table-sm" id="youList">
-                  
-                     <thead>
-                        <tr>
-                           <th scope="col" width="30%">프로필</th>
-                           <th scope="col" width="40%">이름</th>
-                           <th scope="col" width="30%">수락/거절</th>
-                           
-                        </tr>
-                     </thead>
-                     <tbody id="mrlist">
-                        <%-- 나에게 온 대화신청 목록 출력 --%>
-                     </tbody>
-                  </table>
-                 </div>
-            </div>
             
-            <br><br>
-            <div class="card border-light mb-3" style="max-width: outo">
-                 <div class="card-header">내가 신청한 대화 목록</div>
-                 <div class="card-body">
-                   <table class="table table-sm" id="myList">
-                  
-                     <thead>
-                        <tr>
-                           <th scope="col" width="30%">프로필</th>
-                           <th scope="col" width="40%">이름</th>
-                           <th scope="col" width="30%">취소</th>
-                           
-                        </tr>
-                     </thead>
-                     <tbody id="mrlist_m">
-                        <%-- 내가 신청한 대화 목록 출력 --%>
-                     </tbody>
-                  </table>
-                 </div>
-            </div>
-            
-            <br><br>
             <div class="card border-light mb-3" style="max-width: outo">
                  <div class="card-header">나의 대화 목록</div>
                  <div class="card-body">
@@ -281,7 +183,7 @@
                            <th scope="col" width="30%">프로필</th>
                            <th scope="col" width="40%">이름</th>
                            <th scope="col" width="30%">대화내역</th>
-                           
+						
                         </tr>
                      </thead>
                      <tbody id="mlist">

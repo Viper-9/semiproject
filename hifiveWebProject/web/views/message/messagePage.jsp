@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" errorPage="./messageError.jsp" %>
 <%@ page import="message.model.vo.Message, java.util.ArrayList" %>
-<%
-	ArrayList<Message> msgList = (ArrayList<Message>)request.getAttribute("mList");
-	String userId = (String)request.getAttribute("user_id");
-	int listNo = (Integer)request.getAttribute("list_no");
+<%	
+	String userId = (String) request.getParameter("uid");
+	int listNo = Integer.parseInt(request.getParameter("listno"));
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>대화창</title>
-
 <style type="text/css">
 	#msgpage {
 		width : 400px;
@@ -50,32 +48,61 @@
 	-moz-border-radius: 7px;
 	}
 </style>
+<script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
 
+	$(function(){
+		var userid = '<%= userId %>';
+		var listNo = <%= listNo %>;
+	
+		$.ajax({
+			url : "/hifive/mpage",
+			type : "get",
+			data : { uid : userid , listno : listNo },
+			dataType : "json",			
+			success : function(data){
+				//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
+				var jsonStr = JSON.stringify(data);							
+				//문자열을 json 객체로 바꿈
+				var json = JSON.parse(jsonStr);
+				
+				var values = "";
+
+				if(json.list.length!=0){
+					
+					for(var i in json.list){						
+						if(json.list[i].sender == userid)
+							values += "<div class='you'>" + json.list[i].content + "</div><br>";
+						else
+							values += "<div class='me'>" + json.list[i].content + "</div><br>";
+					}
+				} else{
+					values += "<tr><td colspan='3'>대화 목록이 없습니다.</td></tr>";
+				}
+				$("#message").html($("#message").html()+values);			
+				
+			}, // success
+			error : function(jqXHR, textstatus, errorThrown){
+				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+			} // error
+		});
+	});
+
+	
+</script>
 </head>
 <body>
 
+
 <div id="msgpage">
-
-	<% for(int i=0; i<msgList.size(); i++) { %>
-		<% if( msgList.get(i).getSender().equals(userId) ){%>
-		<div class="me"><%= msgList.get(i).getContent() %></div><br>
-		<% } else {%>
-		<div class="you"><%= msgList.get(i).getContent() %></div><br>
-		<% } %>
-	<% } %>
-
+	<div id="message">
+	</div>
 </div><br>
 
 <form action="/hifive/msend?listno=<%= listNo %>&userid=<%=userId%>" method="post">
-	<input type="text" name="content" size="48">
+	<input type="text" name="content" size="42">
 	<input type="submit" value="보내기"​>
 </form> 
-
-<a href="JavaScript:window.location.reload()">페이지 새로고침</a> &nbsp;&nbsp; 
-<a href="views/message/messageList.jsp">이전 페이지로</a> &nbsp;&nbsp; <<-- 팝업으로 하면 없앰
-
-<br><h2>디자인수정해야됨..</h2>
-
 
 </body>
 </html>
