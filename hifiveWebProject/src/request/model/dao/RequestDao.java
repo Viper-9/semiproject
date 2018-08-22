@@ -286,7 +286,7 @@ public class RequestDao {
 	}
 	
 	// 요청 등록
-	public int insertRequest(Connection con, String loginid, String loginroll, String profileid) {
+	public int insertRequest(Connection con, String loginid, String loginrole, String profileid) throws RequestException {
 		int result = 0;
 	    PreparedStatement pstmt = null;
 
@@ -297,7 +297,7 @@ public class RequestDao {
 	    	pstmt = con.prepareStatement(query);	
 	    	pstmt.setString(1, loginid);   
 	    	pstmt.setString(2, profileid);
-	    	pstmt.setString(3, loginroll);  
+	    	pstmt.setString(3, loginrole);  
 
 	    	result = pstmt.executeUpdate();
 
@@ -309,5 +309,41 @@ public class RequestDao {
 	    	close(pstmt);
 	    }
 	    return result;	
+	}
+	
+	// 내가 신청한 사람인지 확인
+	public Request checkRequest(Connection con, String loginid, String loginrole, String profileid) throws RequestException {
+		Request r = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+
+	    String query = "select * from request "
+	    		+ "where user_id = ? and r_user_id = ? and role = ? and process='P'";
+
+	    try{
+	    	pstmt = con.prepareStatement(query);
+	    	pstmt.setString(1, loginid);   
+	    	pstmt.setString(2, profileid);
+	    	pstmt.setString(3, loginrole);  
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				r = new Request();
+				r.setRequest_no(rset.getInt("request_no"));
+				r.setUser_id(rset.getString("user_id"));
+				r.setR_user_id(rset.getString("r_user_id"));
+				r.setRequest_date(rset.getDate("request_date"));
+				r.setRole(rset.getString("role"));
+				r.setProcess(rset.getString("process"));
+			}
+	    } catch(Exception e){
+		       
+	    } finally{
+	    	close(rset);
+	    	close(pstmt);
+	    }
+	    return r;
 	}
 }

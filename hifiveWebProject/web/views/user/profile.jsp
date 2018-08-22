@@ -111,36 +111,80 @@
 
 	function hrequest() {
 		if(loginid == profileid) {
-			console.log("아이디가 같음");
+			alert("자신에게는 신청할 수 없습니다.");
 		} else {
 			$.ajax({	
-			  	  url : "/hifive/request",
-			    		type : "get",
-						data : {loginid : loginid, profileid : profileid, profileroll : "h"},
-						dataType : "json",			
-						success : function(data){
-							//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
-							var jsonStr = JSON.stringify(data);
-										
-							//문자열을 json 객체로 바꿈
-							var json = JSON.parse(jsonStr);
-						
-							var values = "";
-							
-						}, // success
-						error : function(jqXHR, textstatus, errorThrown){
-							console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
-						} // error
-					});
+			  	url : "/hifive/request",
+			    type : "get",
+			    dataType : "json",
+				data : {loginid : loginid, profileid : profileid, profilerole : "H"},		
+				success : function(data){
+					
+					console.log("data");
+					if(data.result == '1' ) {
+						alert("호스트에게 요청을 완료하였습니다.");	
+					}
+					else if(data.result == '2'){
+						alert("서퍼를 등록하지 않아 요청할 수 없습니다.");
+					} 
+					else if(data.result == '0') {
+						alert("이미 요청한 사용자입니다.");
+					}        
+				}
+			});
 		}
 	}
 	
 	function srequest() {
-
+		if(loginid == profileid) {
+			alert("자신에게는 신청할 수 없습니다.");
+		} else {
+			$.ajax({	
+			  	url : "/hifive/request",
+			    type : "get",
+			    dataType : "json",
+				data : {loginid : loginid, profileid : profileid, profilerole : "S"},		
+				success : function(data){
+					
+					console.log("data");
+					if(data.result == '1' ) {
+						alert("서퍼에게 요청을 완료하였습니다.");	
+					}
+					else if(data.result == '2'){
+						alert("호스트를 등록하지 않아 요청할 수 없습니다.");
+					} 
+					else if(data.result == '0') {
+						alert("이미 요청한 사용자입니다.");
+					}         
+				}
+			});
+		}
 	}
 	
 	function prequest() {
-
+		if(loginid == profileid) {
+			alert("자신에게는 신청할 수 없습니다.");
+		} else {
+			$.ajax({	
+			  	url : "/hifive/request",
+			    type : "get",
+			    dataType : "json",
+				data : {loginid : loginid, profileid : profileid, profilerole : "P"},		
+				success : function(data){
+					
+					console.log("data");
+					if(data.result == '1' ) {
+						alert("파트너에게 요청을 완료하였습니다.");	
+					}
+					else if(data.result == '2') {
+						alert("파트너를 등록하지 않아 요청할 수 없습니다.");
+					}
+					else if(data.result == '0') {
+						alert("이미 요청한 목록에 있습니다.");
+					}
+				}
+			});
+		}
 	}
 </script>
 </head>
@@ -200,7 +244,7 @@
                            <th>
                           <% if(profileH != null) { %>
                           <input type="button" class="btn btn-primary"
-                              value="Host에게 요청하기" id="requestH" style="width: 200px;" onclick="hrequest()" >
+                              value="Host에게 요청하기" id="requestH" style="width: 200px;" onclick="hrequest();">
                            <%} else { %> 
                             <input type="button" class="btn btn-primary"
                               value="Host에게 요청하기" disabled id="requestH" style="width: 200px;">
@@ -212,7 +256,7 @@
                            <th>
                            <% if(profileS != null) { %>
                            <input type="button" class="btn btn-primary"
-                              value="Surfer에게 요청하기" id="requestS" style="width: 200px;" onclick="srequest()">
+                              value="Surfer에게 요청하기" id="requestS" style="width: 200px;" onclick="srequest();">
                               <%} else { %> 
                               <input type="button" class="btn btn-primary"
                               value="Surfer에게 요청하기" disabled id="requestS" style="width: 200px;">
@@ -223,10 +267,10 @@
                            <th>
                            <% if(profileP != null) { %>
                            <input type="button" class="btn btn-primary"
-                              value="Partner에게 요청하기" id="requestP" style="width: 200px;" onclick="prequest()">
+                              value="Partner에게 요청하기" id="requestP" style="width: 200px;" onclick="prequest();">
                                <%} else { %> 
                                <input type="button" class="btn btn-primary"
-                              value="Surfer에게 요청하기" disabled id="requestS" style="width: 200px;">
+                              value="Partner에게 요청하기" disabled id="requestS" style="width: 200px;">
                                <% } %> 
                               </th>
                         </tr>
@@ -248,7 +292,7 @@
                        <div class="form-group row">
                        <label class="col-sm-2 col-form-label">Gender</label>
                            <div class="col-sm-10">
-                           <input type="text" style="background-color: #ffffff; text-align:center;" readonly class="form-control col-sm-3" name="gender" 
+                           <input type="text" style="background-color: #ffffff; text-align:center;" disabled class="form-control col-sm-3" name="gender" 
                            		<% if(user.getGender().equals("F")){ %>
                            			value="여성"
                            		<% }else{ %>
@@ -261,7 +305,7 @@
                         <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Birth</label>
                            <div class="col-sm-10">
-                           <input type="text" style="background-color: #ffffff; text-align:center;" readonly class="form-control col-sm-3" name="birth" value="<%= user.getBirth() %>">
+                           <input type="text" style="background-color: #ffffff; text-align:center;" disabled class="form-control col-sm-3" name="birth" value="<%= user.getBirth() %>">
                            </div>
                         </div>   
                      </li>                             
@@ -269,7 +313,7 @@
                         <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Job</label>
                            <div class="col-sm-10">
-                           <input type="text" style="background-color: #ffffff; text-align:center;" readonly class="form-control col-sm-3" name="job"          
+                           <input type="text" style="background-color: #ffffff; text-align:center;" disabled class="form-control col-sm-3" name="job"          
                            <% if(user.getJob() == null){ %>
                            			value=""
                            <% }else{ %>
@@ -287,7 +331,7 @@
                     	   <% } else { 
                     		   String[] hobbies = user.getHobby().split(","); %>
                     		   <% for(String s : hobbies) { %>
-                    		   		<input type="button" class="btn btn-outline-dark" name="hobby"
+                    		   		<input type="button" disabled class="btn btn-outline-dark" name="hobby"
                     		   		value="<%= s %>">                    		   		
                     		   <% } %>
 		               	   <% } %>
@@ -339,12 +383,12 @@
                   <table cellpadding="10px">
                      <tr>
                         <td width="150px"><li>최대 가능 인원</li></td>
-                        <td width="500px"><input type="text" class="form-control col-sm-3" readonly style="background-color: #ffffff; text-align:center;" value="<%= profileH.getUser_num() %>"></td>
+                        <td width="500px"><input type="text" class="form-control col-sm-3" disabled style="background-color: #ffffff; text-align:center;" value="<%= profileH.getUser_num() %>"></td>
                      </tr>
                      <tr>
                         <td><li>선호하는 성별</li></td>
                          <td>
-                           <input type="text" class="form-control col-sm-3" name="gender" readonly style="background-color: #ffffff; text-align:center;" value="<%= profileH.getP_gender() %>">
+                           <input type="text" class="form-control col-sm-3" name="gender" disabled style="background-color: #ffffff; text-align:center;" value="<%= profileH.getP_gender() %>">
                         </td> 
                      </tr>
                      <tr>
@@ -369,12 +413,12 @@
                      <tr>
                         <td><li>수면 장소 </li></td>
                         <td>
-                           <input type="text" class="form-control col-sm-3" readonly name="sleeping" style="background-color: #ffffff; text-align:center;" value="<%= profileH.getCheck2() %>">                               
+                           <input type="text" class="form-control col-sm-3" disabled name="sleeping" style="background-color: #ffffff; text-align:center;" value="<%= profileH.getCheck2() %>">                               
                         </td>
                      </tr>               
                      <tr>
                         <td><li>추가 정보</li></td>
-                        <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" readonly style="background-color: #ffffff;"><%= profileH.getContent() %>"</textarea></td>   
+                        <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" disabled style="background-color: #ffffff;"><%= profileH.getContent() %>"</textarea></td>   
                      </tr>
                   </table> 
                   </ul>
@@ -394,7 +438,7 @@
                      <table cellpadding="10px">
                      <tr>
                         <td width="150px"><li>목적지</li></td>
-                        <td width="500px"><input type="text" value="<%= profileS.getCity() %>" class="form-control col-sm-7" name="city" id="s-destination" readonly style="background-color: #ffffff;S">
+                        <td width="500px"><input type="text" value="<%= profileS.getCity() %>" class="form-control col-sm-7" name="city" id="s-destination" disabled style="background-color: #ffffff;S">
                      </tr>                     
                      <tr>
                         
@@ -402,15 +446,15 @@
                         <td>
                         <div class="form-row">  
                            &nbsp;
-                           <input type="text" value="<%= profileS.getStart_date() %>" class="form-control col-sm-3" id="s-startdate" readonly style="background-color: #ffffff; text-align:center;" name="s-startdate">&nbsp;&nbsp; ~ &nbsp;&nbsp;
-                           <input type="text" value="<%= profileS.getEnd_date() %>" class="form-control col-sm-3" id="s-enddate" readonly style="background-color: #ffffff; text-align:center;" name="s-enddate">
+                           <input type="text" value="<%= profileS.getStart_date() %>" class="form-control col-sm-3" id="s-startdate" disabled style="background-color: #ffffff; text-align:center;" name="s-startdate">&nbsp;&nbsp; ~ &nbsp;&nbsp;
+                           <input type="text" value="<%= profileS.getEnd_date() %>" class="form-control col-sm-3" id="s-enddate" disabled style="background-color: #ffffff; text-align:center;" name="s-enddate">
                         </div>
                         </td>
                        
                      </tr>
                      <tr>
                         <td><li>인원</li></td>
-                        <td><input type="text" id="s-num" value="<%= profileS.getUser_num() %>" class="form-control col-sm-3" name="s-num" readonly style="background-color: #ffffff; text-align:center;"></td>
+                        <td><input type="text" id="s-num" value="<%= profileS.getUser_num() %>" class="form-control col-sm-3" name="s-num" disabled style="background-color: #ffffff; text-align:center;"></td>
                      </tr>
                   </table>
                   </ul> 
@@ -430,7 +474,7 @@
                      <table cellpadding="10px">
                      <tr>
                         <td width="150px"><li>목적지</li></td>
-                        <td width="500px"><input type="text" value="<%= profileP.getCity() %>" class="form-control col-sm-7" name="city" id="p-destination" readonly style="background-color: #ffffff;"></textarea>
+                        <td width="500px"><input type="text" value="<%= profileP.getCity() %>" class="form-control col-sm-7" name="city" id="p-destination" disabled style="background-color: #ffffff;"></textarea>
                      </tr>                     
                      <tr>
                         
@@ -438,15 +482,15 @@
                         <td>
                         <div class="form-row">  
                            &nbsp;
-                           <input type="text" class="form-control col-sm-3" value="<%= profileP.getStart_date() %>" id="p-startdate" readonly style="background-color: #ffffff; text-align:center;" name="p-startdate">&nbsp;&nbsp; ~ &nbsp;&nbsp;
-                           <input type="text" class="form-control col-sm-3" value="<%= profileP.getEnd_date() %>" id="p-enddate" readonly style="background-color: #ffffff; text-align:center;" name="p-enddate">
+                           <input type="text" class="form-control col-sm-3" value="<%= profileP.getStart_date() %>" id="p-startdate" disabled style="background-color: #ffffff; text-align:center;" name="p-startdate">&nbsp;&nbsp; ~ &nbsp;&nbsp;
+                           <input type="text" class="form-control col-sm-3" value="<%= profileP.getEnd_date() %>" id="p-enddate" disabled style="background-color: #ffffff; text-align:center;" name="p-enddate">
                         </div>
                         </td>
                        
                      </tr>
                      <tr>
                         <td><li>인원</li></td>
-                        <td><input type="text" id="p-num" value="<%= profileP.getUser_num() %>" class="form-control col-sm-3" name="p-num" readonly style="background-color: #ffffff; text-align:center;"></td>
+                        <td><input type="text" id="p-num" value="<%= profileP.getUser_num() %>" class="form-control col-sm-3" name="p-num" disabled style="background-color: #ffffff; text-align:center;"></td>
                      </tr>
                   </table>
                   </ul> 
@@ -552,8 +596,6 @@
          </div>
       </div>
    </div>
-
-
    <script>
       var map = new naver.maps.Map('map');
       var myaddress = '<%= user.getAddress() %>'; // 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!) 여기에 사용자 주소
