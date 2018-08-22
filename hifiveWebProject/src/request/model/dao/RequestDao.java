@@ -13,13 +13,13 @@ public class RequestDao {
 	public RequestDao() {
 	}
 
-	// 내가 호스트에게 요청한 리스트
+	// 내(서퍼)가 호스트에게 요청한 리스트 (4)
 	public ArrayList<Request> myHostList1(Connection con, String userId) {
 		ArrayList<Request> list = new ArrayList<Request>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "select * from request where user_id=? and role='H' and process='P'";
+		String query = "select * from request where user_id=? and role='S' and process='P'";
 
 		try {
 			pstmt = con.prepareStatement(query);
@@ -47,7 +47,7 @@ public class RequestDao {
 		return list;
 	}
 
-	// 나에게 호스트 요청한 유저(서퍼)리스트
+	// 나(호스트)에게 요청한 유저(서퍼)리스트 (1)
 	public ArrayList<Request> myHostList2(Connection con, String userId) {
 		ArrayList<Request> list = new ArrayList<Request>();
 		PreparedStatement pstmt = null;
@@ -81,13 +81,13 @@ public class RequestDao {
 		return list;
 	}
 
-	// 내가 서퍼에게 요청한 리스트
+	// 내(호스트)가 서퍼에게 요청한 리스트 (2)
 	public ArrayList<Request> mySurferList1(Connection con, String userId) {
 		ArrayList<Request> list = new ArrayList<Request>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "select * from request where user_id=? and role='S'and process='P'";
+		String query = "select * from request where user_id=? and role='H'and process='P'";
 
 		try {
 			pstmt = con.prepareStatement(query);
@@ -115,7 +115,7 @@ public class RequestDao {
 		return list;
 	}
 
-	// 나에게 서퍼 요청한 유저(호스트)리스트
+	// 나(서퍼)에게 요청한 유저(호스트)리스트 (3)
 	public ArrayList<Request> mySurferList2(Connection con, String userId) {
 		ArrayList<Request> list = new ArrayList<Request>();
 		PreparedStatement pstmt = null;
@@ -183,7 +183,7 @@ public class RequestDao {
 		return list;
 	}
 
-	// 나에게 파트너 요청한 유저 리스트
+	// 상대방이 나에게 파트너 요청
 	public ArrayList<Request> myPartnerList2(Connection con, String userId) {
 		ArrayList<Request> list = new ArrayList<Request>();
 		PreparedStatement pstmt = null;
