@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
+import hsp.model.service.HostService;
 import hsp.model.service.SurferPartnerService;
+import message.model.service.MessageListService;
 import request.exception.RequestException;
 import request.model.service.RequestService;
 
@@ -21,14 +23,14 @@ import request.model.service.RequestService;
 @WebServlet("/request")
 public class RequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RequestServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public RequestServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,35 +38,69 @@ public class RequestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String loginid = request.getParameter("loginid");		
 		String profileid = request.getParameter("profileid");	
-		String profileroll = request.getParameter("profileroll");	
-		
+		String profilerole = request.getParameter("profilerole");	
+
 		JSONObject job = new JSONObject();
-		String loginroll = "";
-		
+		String loginrole = "";
+
 		try {
-			if(profileroll.toUpperCase().equals("H")) {
+			if(profilerole.toUpperCase().equals("H")) {
 				if(new SurferPartnerService().selectSurfer(loginid) != null) {
-					loginroll = "S";
-					if(new RequestService().insertRequest(loginid, loginroll, profileid) > 0) {
-						job.put("message", "성공");
+					loginrole = "S";
+					if(new RequestService().checkRequest(loginid, loginrole, profileid) != null) {
+						job.put("result", "0");
+					} else {
+						if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {
+							if(new MessageListService().insertMessageRequest(profileid, loginid) > 0) 
+								job.put("result", "1");
+						}
 					}
 				} else {
-					job.put("message", "서퍼를 등록하지 않았습니다.");
+					job.put("result", "2");
 				}
+
+			} else if(profilerole.toUpperCase().equals("S")) {
+				if(new HostService().selectHost(loginid) != null) {
+					loginrole = "H";
+					if(new RequestService().checkRequest(loginid, loginrole, profileid) != null) {
+						job.put("result", "0");
+					} else {
+						if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {
+							if(new MessageListService().insertMessageRequest(profileid, loginid) > 0) 
+								job.put("result", "1");
+						}
+					}
+				} else {
+					job.put("result", "2");
+				}				
+			} else if(profilerole.toUpperCase().equals("P")) {
+				if(new SurferPartnerService().selectPartner(loginid) != null) {
+					loginrole = "P";
+					if(new RequestService().checkRequest(loginid, loginrole, profileid) != null) {
+						job.put("result", "0");
+					} else {
+						if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {
+							if(new MessageListService().insertMessageRequest(profileid, loginid) > 0) 
+								job.put("result", "1");
+						}
+					}
+				} else {
+					job.put("result", "2");
+				}				
 			}
-			
+
+			response.setContentType("application/json; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.append(job.toJSONString());
+			out.flush();
+			out.close();	
 		} catch (RequestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("요청 오류");
 		}
-		
-		
-		response.setContentType("application/json; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		
-		out.append(job.toJSONString());
-		out.flush();
-		out.close();
+
+
+
+
 	}
 
 	/**
