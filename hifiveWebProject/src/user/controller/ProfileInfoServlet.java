@@ -39,34 +39,28 @@ public class ProfileInfoServlet extends HttpServlet {
 		String userId = request.getParameter("userid");
 		
 		RequestDispatcher view = null;
-		try {
-			User user = new UserService().selectUser(userId);
-			
-			Host host = new HostService().selectHost(userId);
-			SurferPartner surfer = new SurferPartnerService().selectSurfer(userId);
-			SurferPartner partner = new SurferPartnerService().selectPartner(userId);
-			 
-			if(user != null){
-				view = request.getRequestDispatcher("views/user/profile.jsp"); // info 페이지
-				request.setAttribute("profileuser", user);
-				if(host != null) {
-					request.setAttribute("profileH", host);
-				}
-				if(surfer != null) {
-					request.setAttribute("profileS", surfer);
-				}
-				if(partner != null) {
-					request.setAttribute("profileP", partner);
-				}
-				view.forward(request, response);
-			} else {
-				view = request.getRequestDispatcher(""); // 에러페이지
-				request.setAttribute("message", userId + "에 대한 조회 실패");
-				view.forward(request, response);
+		User user = new UserService().selectUser(userId);
+		
+		Host host = new HostService().selectHost(userId);
+		SurferPartner surfer = new SurferPartnerService().selectSurfer(userId);
+		SurferPartner partner = new SurferPartnerService().selectPartner(userId);
+		 
+		if(user != null){
+			view = request.getRequestDispatcher("views/user/profile.jsp"); // info 페이지
+			request.setAttribute("profileuser", user);
+			if(host != null) {
+				request.setAttribute("profileH", host);
 			}
-		} catch(UserException e){
-			view = request.getRequestDispatcher(""); //에러페이지
-			request.setAttribute("message", e.getMessage());
+			if(surfer != null) {
+				request.setAttribute("profileS", surfer);
+			}
+			if(partner != null) {
+				request.setAttribute("profileP", partner);
+			}
+			view.forward(request, response);
+		} else {
+			view = request.getRequestDispatcher(""); // 에러페이지
+			request.setAttribute("message", userId + "에 대한 조회 실패");
 			view.forward(request, response);
 		}
 	}
