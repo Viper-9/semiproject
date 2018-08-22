@@ -47,6 +47,7 @@
 	//아이디 ajax 찾는구문
 	function searchid(){
 		
+		
 		var receiveremail = $('#searchuseremail').val();
 		
 		if($('#searchuseremail').val() == ''){
