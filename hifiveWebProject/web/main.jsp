@@ -237,26 +237,27 @@
 	               	$("#h1").html($("#h1").html()+values1);               
 	            }
 	            
-	            var values2 = "";                        
-	            if(json.list_h1.length == 0){
-	            	values2 += "신청 내역이 없습니다.";
-	               $("#h2").html($("#h2").html()+values2);   
+	            var values4 = "";    
+	            if(json.list_s1.length == 0){
+	            	values4 = "신청 내역이 없습니다.";
+	               $("#h2").html($("#h2").html()+values4);
 	            } else{               
-	               for(var i in json.list_h1){
-	            	   if(json.list_h1[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
-	            		   values2 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_h1[i].r_user_id 
-            			   +"'><img src='" + json.list_h1[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;           			   
-	            	   } else{ // 프로필 사진 없으면
-	            		   values2 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_h1[i].r_user_id 
-            			   +"'><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
-	            	   }
-	            	   values2 += "</td><td>" + json.list_h1[i].user_name
-	            	   + "</td><td>" + json.list_h1[i].start_date + " ~ " + json.list_h1[i].end_date
-	            	   +"</td><td><a href='/hifive/requestdelete?request_no=" + json.list_h1[i].request_no + "'>취소</a>"
-	            	   +"</td></tr><br>";
-	               }                  
-	               $("#h2").html($("#h2").html()+values2);               
+	            	for(var i in json.list_s1){
+		              if(json.list_s1[i].image != null) { 
+		            	  values4 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_s1[i].r_user_id 
+        			   +"'><img src='" + json.list_s1[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+		              } else{ // 프로필 사진 없으면
+		            	  values4 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_s1[i].r_user_id 
+        			   +"'><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+		              }
+		              values4 += "</td><td>" + json.list_s1[i].user_name
+		              + "</td><td>" + json.list_s1[i].start_date + " ~ " + json.list_s1[i].end_date
+		              +"</td><td><a href='/hifive/requestdelete?request_no=" + json.list_s1[i].request_no + "'>취소</a>"
+		              +"</td></tr><br>";
+		            }                                 
+	               $("#h2").html($("#h2").html()+values4);               
 	            }
+	            
 	            
 	            var values3 = "";
 	            if(json.list_s2.length == 0){
@@ -281,27 +282,28 @@
 	               $("#s1").html($("#s1").html()+values3);               
 	            }
 	            
-	            var values4 = "";    
-	            if(json.list_s1.length == 0){
-	            	values4 = "신청 내역이 없습니다.";
-	               $("#s2").html($("#s2").html()+values4);
-	            } else{               
-	            	for(var i in json.list_s1){
-		              if(json.list_s1[i].image != null) { 
-		            	  values4 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_s1[i].r_user_id 
-        			   +"'><img src='" + json.list_s1[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
-		              } else{ // 프로필 사진 없으면
-		            	  values4 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_s1[i].r_user_id 
-        			   +"'><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
-		              }
-		              values4 += "</td><td>" + json.list_s1[i].user_name
-		              + "</td><td>" + json.list_s1[i].start_date + " ~ " + json.list_s1[i].end_date
-		              +"</td><td><a href='/hifive/requestdelete?request_no=" + json.list_s1[i].request_no + "'>취소</a>"
-		              +"</td></tr><br>";
-		            }                                 
-	               $("#s2").html($("#s2").html()+values4);               
-	            }
 	            
+	            var values2 = "";                        
+	            if(json.list_h1.length == 0){
+	            	values2 += "신청 내역이 없습니다.";
+	               $("#s2").html($("#s2").html()+values2);   
+	            } else{               
+	               for(var i in json.list_h1){
+	            	   if(json.list_h1[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
+	            		   values2 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_h1[i].r_user_id 
+            			   +"'><img src='" + json.list_h1[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;           			   
+	            	   } else{ // 프로필 사진 없으면
+	            		   values2 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_h1[i].r_user_id 
+            			   +"'><img src='/hifive/resources/image/sample10.jpg' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
+	            	   }
+	            	   values2 += "</td><td>" + json.list_h1[i].user_name
+	            	   + "</td><td>" + json.list_h1[i].start_date + " ~ " + json.list_h1[i].end_date
+	            	   +"</td><td><a href='/hifive/requestdelete?request_no=" + json.list_h1[i].request_no + "'>취소</a>"
+	            	   +"</td></tr><br>";
+	               }                  
+	               $("#s2").html($("#s2").html()+values2);               
+	            } 
+	           
 	            var values5 = "";
 	            if(json.list_p2.length == 0){
 	            	values5 += "신청 내역이 없습니다.";
@@ -343,7 +345,7 @@
 	            	   +"</td></tr><br>";
 	               }                  
 	               $("#p2").html($("#p2").html()+values6);               
-	            }
+	            } 
 
 	         }, // success
 	         error : function(jqXHR, textstatus, errorThrown){
@@ -357,13 +359,14 @@
 	    	  type : "get",
 	    	  data : { userid : userid },
 	    	  dataType : "json",
-	    	  success : function(data){	    		  
+	    	  success : function(data){	 
+
 	    		  if(data.host==1)
-	    			  $('#hostenroll').removeAttr('data-target');
+	    			  $('#host_enroll').removeAttr('data-target');
 	    		  if(data.surfer==1)
-	    			  $('#hostenroll').removeAttr('data-target');
+	    			  $('#surfer_enroll').removeAttr('data-target');
 	    		  if(data.partner==1)
-	    			  $('#hostenroll').removeAttr('data-target');
+	    			  $('#partner_enroll').removeAttr('data-target');
 	    	  }, // success 
 	    	  error : function(jqXHR, textstatus, errorThrown){
 		            console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
@@ -432,14 +435,14 @@
 			</div>
 			<div id="content2">
 
-				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#hostenroll" role="button">호스트 등록</a>
+				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#hostenroll" role="button" id="host_enroll">호스트 등록</a>
 				<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button">호스트 찾기</a>			
 				&nbsp;&nbsp; &nbsp;&nbsp;
-				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#surferenroll" role="button">&nbsp;서퍼등록&nbsp;</a>
-				<a class="btn btn-primary" href="#" role="button">&nbsp;서퍼 찾기&nbsp;</a>
+				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#surferenroll" role="button" id="surfer_enroll">&nbsp;서퍼등록&nbsp;</a>
+				<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button">&nbsp;서퍼 찾기&nbsp;</a>
 				&nbsp;&nbsp; &nbsp;&nbsp;
-				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#partnerenroll" role="button">파트너 등록</a>
-				<a class="btn btn-primary" href="#" role="button">파트너 찾기</a><br><br>
+				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#partnerenroll" role="button" id="partner_enroll">파트너 등록</a>
+				<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button">파트너 찾기</a><br><br>
 
 			</div>
 			<div id="content3">
