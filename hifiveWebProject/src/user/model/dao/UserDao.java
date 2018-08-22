@@ -150,7 +150,7 @@ public class UserDao {
 	}
 	
 	// 회원 한 명 선택
-	public User selectUser(Connection con, String userId) throws UserException{
+	public User selectUser(Connection con, String userId){
 		User user = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
