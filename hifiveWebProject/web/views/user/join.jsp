@@ -77,7 +77,6 @@
 	
 	function checkPwd() {
 		
-		
 		 //변경 비밀번호 강도 체크 (강도에 따라 다른 툴팁내용제공)
 		 if(!getPassword.test($("#userpwd1").val())){
 			 $("#userpwd1")
