@@ -12,6 +12,7 @@ import hsp.exception.SurferPartnerException;
 import hsp.model.dao.SurferPartnerDao;
 import hsp.model.vo.SurferPartner;
 import user.model.dao.UserDao;
+import user.model.vo.User;
 
 public class SurferPartnerService {
 	
@@ -82,9 +83,9 @@ public class SurferPartnerService {
 		return result;
 	}
 
-	public ArrayList<Object[]> searchPartner(SurferPartner sp) throws SurferPartnerException{
+	public ArrayList<User> searchPartner(SurferPartner sp){
 		Connection con = getConnection();
-		ArrayList<Object[]> list = new SurferPartnerDao().searchPartner(con, sp);
+		ArrayList<User> list = new SurferPartnerDao().searchPartner(con, sp);
 		close(con);
 		return list;
 	}

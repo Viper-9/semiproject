@@ -95,5 +95,20 @@ public class RequestService {
   		   rollback(con);
   	   close(con);
   	   return result;
-  	}
+   }
+   
+   // 요청 등록
+   public int insertRequest(String loginid, String loginroll, String profileid) throws RequestException {
+	   Connection con = getConnection();
+	   int result = new RequestDao().insertRequest(con, loginid, loginroll, profileid);
+	   if(result > 0)
+		   commit(con);
+	   else
+		   rollback(con);
+	   close(con);
+	   return result;
+   }
+
+
+
 }

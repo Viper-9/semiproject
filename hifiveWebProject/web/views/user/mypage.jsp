@@ -251,6 +251,7 @@
           });//surfing ajax
           
           $.ajax({
+
              url : "/hifive/partnering",
              type : "post",
              data : {userid : $("#userid").val()},
@@ -282,42 +283,44 @@
                    $("#p-num").val(data.num);
                 }
 
-             }
+
+        	  }
           });
-            
+        	 
            
-          $.ajax({   
-             url : "/hifive/reviewlist",
-                type : "get",
-             data : {userid : $("#userid").val()},
-             dataType : "json",         
-             success : function(data){
-                //배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
-                var jsonStr = JSON.stringify(data);
-                         
-                //문자열을 json 객체로 바꿈
-                var json = JSON.parse(jsonStr);
-             
-                var values = "";
-                if(json.list.length == 0){
-                   values += "등록된 리뷰가 없습니다.";
-                   $("#review").html($("#review").html()+values);   
-                } else{               
-                   for(var i in json.list){
-                      values += "아이디 : " + json.list[i].user_id 
-                      +"<br>날짜 : " + json.list[i].review_date
-                      +"<br>내용 : " + json.list[i].content +"<br><br>";
-                   }                              
-                   $("#review").html($("#review").html()+values);
-                   
-                }
-             }, // success
-             error : function(jqXHR, textstatus, errorThrown){
-                console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
-             } // error
-          });
+          $.ajax({	
+        	  url : "/hifive/reviewlist",
+          		type : "get",
+    			data : {uid : $("#userid").val()},
+    			dataType : "json",			
+    			success : function(data){
+    				//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
+    				var jsonStr = JSON.stringify(data);
+    							
+    				//문자열을 json 객체로 바꿈
+    				var json = JSON.parse(jsonStr);
+    			
+    				var values = "";
+    				if(json.list.length == 0){
+    					values += "등록된 리뷰가 없습니다.";
+    					$("#review").html($("#review").html()+values);	
+    				} else{					
+    					for(var i in json.list){
+    						values += "아이디 : " + json.list[i].user_id 
+    						+"<br>날짜 : " + json.list[i].review_date
+    						+"<br>내용 : " + json.list[i].content +"<br><br>";
+    					}										
+    					$("#review").html($("#review").html()+values);
+    					
+    				}
+    			}, // success
+    			error : function(jqXHR, textstatus, errorThrown){
+    				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+    			} // error
+    		});
           
        }); //document.ready
+            
 
        function changePW(){
           var url= "/hifive/views/user/changePW.jsp";    //팝업창 페이지 URL
@@ -325,11 +328,10 @@
              var winHeight = 600;
              var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
             window.open(url,"",popupOption);
-          }
-       
-    </script>  
-       
 
+          }
+
+    </script>     
 </head>
 
 
@@ -411,11 +413,17 @@
                      <table>
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER"
-                                 onclick="location.href='/hifive/favoritelist?userid=<%=userId%>'"></th>
+
+                           		onclick="location.href='/hifive/views/favorite/favorite.jsp'"></th>
+
                         </tr>
                         <tr>
-                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"
-                                 onclick= "changePW()"></th>
+
+                           <th><a href="./changePW.jsp" class="btn btn-primary" style="width:200px;">비밀번호 변경</a></th>
+
+                           <!-- <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"
+                                 onclick= "changePW()"></th> -->
+
                         </tr>
                      </table>
                      <br>

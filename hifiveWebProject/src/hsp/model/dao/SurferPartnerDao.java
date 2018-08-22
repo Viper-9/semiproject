@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import hsp.exception.SurferPartnerException;
 import hsp.model.vo.SurferPartner;
 import user.exception.UserException;
+import user.model.vo.User;
 
 public class SurferPartnerDao {
 
@@ -199,35 +200,37 @@ public class SurferPartnerDao {
 	}
 
 
-	public ArrayList<Object[]> searchPartner(Connection con, SurferPartner sp) throws SurferPartnerException{
-		ArrayList<Object[]> list = new ArrayList<Object[]>();		
+	public ArrayList<User> searchPartner(Connection con, SurferPartner sp){
+		ArrayList<User> list = new ArrayList<User>();		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from surfer_partner sp, users u where sp.user_id = u.user_id and city like ? and user_num=? and start_date=? or end_date=? and role='P'";
+		String query = "select * from surfer_partner sp, users u where sp.user_id = u.user_id and city like ? and user_num=? and start_date >= ? and end_date <= ? and role='P'";
 		
 		try {
 			pstmt = con.prepareStatement(query);			
 			
-			pstmt.setString(1, sp.getCity());
+			pstmt.setString(1, "%"+sp.getCity()+"%");
 			pstmt.setInt(2, sp.getUser_num());
 			pstmt.setDate(3, sp.getStart_date());
-			pstmt.setDate(4, sp.getEnd_date());
-			
+			pstmt.setDate(4, sp.getEnd_date());			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()){				
-				Object[] obj = new Object[3];
-				obj[0] = rset.getString("user_name");
-				obj[1] = rset.getString("address");
-				obj[2] = rset.getString("nationality");				
-				list.add(obj);						
+				User user = new User();
+				user.setUser_Id(rset.getString("user_id"));
+				user.setUser_Name(rset.getString("user_name"));
+				user.setAddress(rset.getString("address"));
+				user.setNationality(rset.getString("nationality"));
+				user.setProfile_image(rset.getString("profile_image"));
+				list.add(user);
+			}	
+			for(User u : list){
+				System.out.println(u);
 			}
-			if(list.size() == 0)
-				throw new SurferPartnerException("정보 없음");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new SurferPartnerException(e.getMessage());
+			
+		} catch (Exception e){
+			e.printStackTrace();			
 		} finally {
 			close(rset);
 			close(pstmt);

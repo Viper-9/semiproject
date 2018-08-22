@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import favorite.exception.FavoriteException;
 import favorite.model.vo.Favorite;
+import user.model.vo.User;
 
 public class FavoriteDao {
 
@@ -86,5 +87,52 @@ public class FavoriteDao {
 		return result;
 	}
 
+	public int selectFavorite(Connection con, String userId, String f_User_Id) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "select * from favorite where user_id=? and f_user_id = ?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, f_User_Id);
+			
+			result = pstmt.executeUpdate();
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public User selectFavoriteUser(Connection con, String userId) {
+		User user = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select user_name, address, nationality from users where user_id = ?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				user = new User();
+				user.setUser_Name(rset.getString(1));
+				user.setAddress(rset.getString(2));
+				user.setNationality(rset.getString(3));
+			}
+		} catch(Exception e){
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}		
+		return user;
+	}
 
 }

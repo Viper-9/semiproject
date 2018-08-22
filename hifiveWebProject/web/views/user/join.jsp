@@ -184,7 +184,6 @@
         if(!getPassword.test($("#userpwd1").val())) {
         	alert("영문,숫자,특수문자를 포함한 비밀번호 8~16자를 입력하세요");
         	$("#userpwd1").val("");
-        	$("#userpwd2").val("");
         	$("#userpwd1").focus();
         	$("#userpwd2").css("background-color", "#FFFFFF");
 			  //오류나면 인증번호 색,밸류값  + 버튼 비활성화

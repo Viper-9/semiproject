@@ -93,5 +93,6 @@
 					<button type="submit" class="btn btn-primary" id="hostenrollbtn">등록하기</button>
 		</form>
 	</div>
+	 
 </body>
 </html>

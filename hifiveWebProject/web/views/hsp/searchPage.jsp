@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%
-	ArrayList<Object[]> list = (ArrayList<Object[]>)request.getAttribute("list");
+	ArrayList<User> list = (ArrayList<User>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -54,26 +54,56 @@ text-align: left;
 <body>
 	<script type="text/javascript">
 		function findPartner(){
-			var destination = $("destinationP").val();
-			var num = $("numberP").val();
-			var startdate = $("startdateP").val();
-			var enddate = $("enddateP").val();
-			console.log(destination+", "+num+", "+startdate+", "+enddate);
-			
-			$.ajax({
-				url : "/hifive/partnersearch",
-				type : "post",
-				data : {destination:destination, num:num, startdate:startdate, enddate:enddate},
-				dataType : "json",
-				success : function(data){
-					console.log(data);
-					if(data == null){
-						
-					}else{
-						
-					}
-				} //success
-			})
+	       var destination = $("#destinationP").val();
+	       var num = $("#numberP").val();
+	       var startdate = $("#startdateP").val();
+	       var enddate = $("#enddateP").val();       
+	       
+	       $.ajax({
+	          url : "/hifive/partnersearch",
+	          type : "post",
+	          data : {destination : destination, num : num, startdate : startdate, enddate : enddate},
+	          dataType : "json",
+	          success : function(data){
+	             var jsonStr = JSON.stringify(data);
+	             var json = JSON.parse(jsonStr);
+	             
+	             var values = "";
+	             
+	             if(json.list.length == 0){
+	                values += "자료 없음";
+	             } else{
+	                values += "<table cellpadding='15'><tr>";
+	                for(var i in json.list){
+	                 var address="입력안함";
+	                   var nationality = "입력안함";
+	                   if(json.list[i].address != null)
+	                      address = json.list[i].address;
+	                   if(json.list[i].nationality != null)
+	                      nationality = json.list[i].nationality;
+	                   if(json.list[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
+	                      values += "<td><div class='card' style='width: 200px;'>" 
+	                      + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
+	                   } else{ // 프로필 사진 없으면
+	                      values += "<td><div class='card' style='width: 200px;'>" 
+	                           + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
+	                  }                   
+	                   values += "<div class='card-body'>" 
+	                       + "<a href='/hifive/profileinfo?userid=" + json.list[i].id 
+	                     + "'><h4 class='card-title'><center><b>" + json.list[i].name + "</b></center></h4></a>"
+	                     + "<p class='card-text'> <h6>" + address + "</h6> <b>" + nationality + "</b><br>" 
+	                     + " </p> </div> </div></td>";
+	                   
+	                 if((i+1)%3==0)
+	                    values += "</tr><tr>";
+	                 if((i+1)==json.list.length)
+	                    values += "</tr></table>";	                  
+	                }
+	                $("#searchResult").html($("#searchResult").html()+values); 
+	             }            
+	             
+	          } //success
+	       }); 
 		} //findPartner
 		
 	</script>
@@ -249,7 +279,6 @@ text-align: left;
 				</div>
 				<div class="tab-pane fade" id="searchP" role="tabpanel"
 					style="margin-left: 20px;" aria-labelledby="searchPTab">
-				<form action="/hifive/partnersearch" method="post">
 					<table border="0" width="710">
 						<tr>
 							<td>
@@ -281,28 +310,12 @@ text-align: left;
 						<input type="date" class="form-control" id="enddateP" name="enddate">
 					</div>
 					<br>
-					<button type="submit" class="btn btn-primary" id="partnerbtn" onclick="findPartner();">검색하기</button>
-				</form>
+					<input type="button" class="btn btn-primary" id="partnerbtn" value="검색하기" onclick="findPartner();">
 				</div>
 			</div>
 			</div>
 			<br><br>
-			<div id="searchResult">
-				<div class="card" style="width: auto;">
-					<div class="card-body">
-						<h5 class="card-title">Results</h5> 
-						<p class="card-text"><div class="card" style="width: 200px;">
-		              	<img class="card-img-top" src="/hifive/resources/image/sample11.jpg" alt="Card image cap">
-			             <div class="card-body">
-			             <!-- 사용자 이름누르면 사용자 프로필로 -->
-			                <a href="#"><h4 class="card-title" id=""><b></b></h4></a>
-			                <p class="card-text">        
-			                <h6>사용자 주소</h6>
-			                <h6><b>사용자 국적</b></h6>				               
-			              </div>
-       		 			</div> 	
-					</div>
-				</div>				
+			<div id="searchResult">				
 			</div>
 		</div>
 	</div>
