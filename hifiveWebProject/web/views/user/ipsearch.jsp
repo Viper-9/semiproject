@@ -27,15 +27,21 @@
 	</style>
 	<script type="text/javascript" src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript">
+	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/); //이메일 유효성 검사 영문(대소문자),숫자 + @ + 영문(대소문자),숫자 + . + 영문(대소문자,숫자)
 	
 	//틀린 이후 배경색 하얀색 초기화
 	function changeembg(){
 		$("#searchuseremail").css("background-color", "#FFFFFF");
+		$("#searchuseremail").tooltip("dispose");
 	}
 	
 	function changepwbg(){
 		$("#usereid").css("background-color", "#FFFFFF");
+		$("#usereid").tooltip("dispose");
+	}
+	function changepwbg1(){
 		$("#useremail").css("background-color", "#FFFFFF");
+		$("#useremail").tooltip("dispose");
 	}
 	
 	//아이디 ajax 찾는구문
@@ -44,9 +50,20 @@
 		var receiveremail = $('#searchuseremail').val();
 		
 		if($('#searchuseremail').val() == ''){
-			alert("이메일을 입력하세요");
+			$("#searchuseremail")
+				.attr('data-original-title', '아이디를 입력해주세요')
+				.attr('data-placement', 'right').tooltip('show')
 			$("#searchuseremail").focus();
 			$("#searchuseremail").css("background-color", "#FFCECE");
+			
+		} else if (!getMail.test($("#searchuseremail").val())) {
+			$("#searchuseremail")
+    			.attr('data-original-title', '이메일을 형식에 맞게 입력해주세요')
+    			.attr('data-placement', 'right').tooltip('show')				
+			$("#searchuseremail").val("");
+			$("#searchuseremail").focus();
+			$("#searchuseremail").css("background-color", "#FFCECE");
+	    	return false; 
 		} else {
 			$.ajax({
 				url : "/hifive/searchid",
@@ -54,15 +71,16 @@
 				data : { searchuseremail : receiveremail},
 				success : function(data) {
 					if(data =='0'){
-						alert("해당 이메일은 존재하지 않습니다.");
+						$("#supportMS1").css("color", "red").text("이메일이 올바르지 않습니다");
+			 			$("#supportMS1").css("display", "block"); 
+			 			$("#searchuseremail").val("");
 						$("#searchuseremail").focus();
 						$("#searchuseremail").css("background-color", "#FFCECE");
 					}else if(data == '1'){
 						alert("입력하신 이메일로 ID를 발송하였습니다")
 						location.href = "/hifive/index.jsp";
 					}else {
-						alert("관리자에게 문의하십시요");
-						$("#searchuseremail").css("background-color", "#FFCECE");
+						alert("관리자에게 문의하십시요");					
 					}									
 				}
 			});	
@@ -70,19 +88,40 @@
 	}
 	
 	function searchpw(){
+		
+		 
 		 var spwid = $('#usereid').val();
 		 var spwemail = $('#useremail').val();
 		 
 		 if($('#usereid').val() == ''){
-				alert("아이디를 입력하세요");
+				 $("#usereid")
+ 					.attr('data-original-title', '아이디를 입력해주세요')
+ 					.attr('data-placement', 'right').tooltip('show')
+			 	/* $("#supportMS").css("color", "red").text("아이디 혹은 이메일을 입력해주세요");
+		 		$("#supportMS").css("display", "block");  */
 				$("#usereid").focus();
 				$("#usereid").css("background-color", "#FFCECE");
-		
-		}else if($('#useremail').val() == ''){
-				alert("이메일을 입력하세요");
+				return false;
+		 }else if($('#useremail').val() == ''){
+			 	$("#useremail")
+	    			.attr('data-original-title', '이메일을 입력해주세요')
+	    			.attr('data-placement', 'right').tooltip('show')
+				/* $("#supportMS").css("color", "red").text("아이디 혹은 이메일을 입력해주세요");
+	 			$("#supportMS").css("display", "block");  */
 				$("#useremail").focus();
 				$("#useremail").css("background-color", "#FFCECE");
-		}else {
+				return false;
+	     }else if(!getMail.test($("#useremail").val())) {
+				$("#useremail")
+		    		.attr('data-original-title', '이메일을 형식에 맞게 입력해주세요')
+		    		.attr('data-placement', 'right').tooltip('show')				
+				$("#useremail").val("");
+				$("#useremail").focus();
+				$("#useremail").css("background-color", "#FFCECE");
+			    return false; 
+			
+					
+		 }else {
 			//아이디 이메일 확인해서 해당 이메일로 임시 비밀번호 보내는 ajax 구문
 			$.ajax({
 				url : "/hifive/searchpwd",
@@ -90,10 +129,15 @@
 				data : { spwid : spwid, spwemail : spwemail },
 				success : function(data){
 					if(data == '0'){
-						alert("아이디 혹은 이메일이 올바르지 않습니다");
+						$("#supportMS").css("color", "red").text("아이디 혹은 이메일이 올바르지 않습니다");
+			 			$("#supportMS").css("display", "block"); 
+			 			$("#usereid").val("");
+			 			$("#useremail").val("");
+			 			$("#usereid").focus();
 						
 					}else if(data == '1'){
 						alert("해당 이메일로 임시비밀번호를 발송하였습니다");
+						location.href = "/hifive/index.jsp";
 						
 					}else{
 						alert("관리자에게 문의하십시요");
@@ -125,7 +169,11 @@
   			</li>
   		</ul>
 		<div class="tab-content" id="pills-tabContent">
-  			<div class="tab-pane fade show active" id="pills-id" role="tabpanel" aria-labelledby="pills-id-tab">아이디를 잊어버리셨나요? <br> 가입할 때 입력한 이메일로 아이디를  <br>보내드립니다. 				
+  			<div class="tab-pane fade show active" id="pills-id" role="tabpanel" aria-labelledby="pills-id-tab">아이디를 잊어버리셨나요? <br> 가입할 때 입력한 이메일로 아이디를 보내드립니다. 				
+  				<div class="form-group row" id = "supportMS1" style = "display:none; text-indent:15px;">
+  						&nbsp;<label class="col-form-label"></label>
+             	<div class="col-sm-10"></div>
+              		</div>
   				<div>
   					<br>
   					
@@ -145,7 +193,11 @@
 				</div>  			 			
   			</div>
   			
-  			<div class="tab-pane fade" id="pills-password" role="tabpanel" aria-labelledby="pills-password-tab">비밀번호를 잊어버리셨나요? <br> 가입할 때 입력한 이메일로 비밀번호를  <br>보내드립니다.
+  			<div class="tab-pane fade" id="pills-password" role="tabpanel" aria-labelledby="pills-password-tab">비밀번호를 잊어버리셨나요? <br> 가입할 때 입력한 이메일로 비밀번호를  보내드립니다. <br>&nbsp;
+  				<div class="form-group row" id = "supportMS" style = "display:none; text-indent:15px;">
+  						&nbsp;<label class="col-form-label"></label>
+             	<div class="col-sm-10"></div>
+              	</div>
   				<div>
   					<br>
   					<!-- 아이디 & 이메일 치는란 -->
@@ -157,7 +209,7 @@
   						</div>
   						<div class="form-group">
     						<label for="">Email</label>
-    						<input type="email" class="form-control" id="useremail"  oninput = "changepwbg()" placeholder="Email">
+    						<input type="email" class="form-control" id="useremail"  oninput = "changepwbg1()" placeholder="Email">
   						</div>
   						<br>
   						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
