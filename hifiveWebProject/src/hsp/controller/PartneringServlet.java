@@ -37,11 +37,17 @@ public class PartneringServlet extends HttpServlet {
 	
 		SurferPartner sp = new SurferPartnerService().selectPartner(userId);
 		
-		JSONObject job = new JSONObject();			
-		job.put("destination", sp.getCity());
-		job.put("startdate", sp.getStart_date().toString());
-		job.put("enddate", sp.getEnd_date().toString());
-		job.put("num", sp.getUser_num());		
+		JSONObject job = new JSONObject();	
+		if(sp != null) {
+			job.put("result", "0");
+			job.put("destination", sp.getCity());
+			job.put("startdate", sp.getStart_date().toString());
+			job.put("enddate", sp.getEnd_date().toString());
+			job.put("num", sp.getUser_num());
+		}
+		else {
+			job.put("result", "1");
+		}
 		
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();

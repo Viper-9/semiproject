@@ -67,6 +67,18 @@ public class UserService {
 		return result;
 	}
 	
+	// 프사 업데이트
+	public int updateProfileImg(User user) throws UserException {
+		Connection con = getConnection();
+		int result = new UserDao().updateProfileImg(con, user);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+	
 	public String searchId(String userEmail) throws UserException {
 		Connection con = getConnection();
 		String userId = new UserDao().searchId(con, userEmail);
@@ -139,5 +151,6 @@ public class UserService {
 		return profileImage;
 
 	}
+	
 
 }

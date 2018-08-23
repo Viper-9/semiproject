@@ -189,8 +189,8 @@ public class MessageListDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "insert into message_list values "
-				+ "(mr_seq.nextval, ?, ?)";
+		String query = "insert into MESSAGE_LIST values "
+				+ "(ML_SEQ.nextval, ?, ?)";
 		
 		try{
 			pstmt = con.prepareStatement(query);
@@ -200,7 +200,7 @@ public class MessageListDao {
 			result = pstmt.executeUpdate();
 			
 			if(result <= 0)
-				throw new MessageException("에러");
+				System.out.println("메세지 insert 실패");
 			
 		} catch(Exception e){
 			
