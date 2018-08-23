@@ -35,35 +35,29 @@ public class InfoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		String userId = request.getParameter("userid");					
+		String userId = request.getParameter("userid");	
+		User user = new UserService().selectUser(userId);			
+	
+		JSONObject job = new JSONObject();
+		job.put("id", user.getUser_Id());
+		job.put("name", user.getUser_Name());
+		job.put("address", user.getAddress());
+		job.put("gender", user.getGender());
+		job.put("email", user.getEmail());
+		job.put("birth", user.getBirth().toString());
+		job.put("nationality", user.getNationality());
+		job.put("job", user.getJob());
+		job.put("hobby", user.getHobby());
+		job.put("phone", user.getPhone());
+		job.put("content", user.getContent());
+		job.put("profileimg", user.getProfile_image());			
 		
-		try {
-
-			User user = new UserService().selectUser(userId);			
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
 		
-			JSONObject job = new JSONObject();
-			job.put("id", user.getUser_Id());
-			job.put("name", user.getUser_Name());
-			job.put("address", user.getAddress());
-			job.put("gender", user.getGender());
-			job.put("email", user.getEmail());
-			job.put("birth", user.getBirth().toString());
-			job.put("nationality", user.getNationality());
-			job.put("job", user.getJob());
-			job.put("hobby", user.getHobby());
-			job.put("phone", user.getPhone());
-			job.put("content", user.getContent());
-			job.put("profileimg", user.getProfile_image());			
-			
-			response.setContentType("application/json; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			
-			out.append(job.toJSONString());
-			out.flush();
-			out.close();
-		} catch (UserException e) {			
-			e.printStackTrace();
-		}			
+		out.append(job.toJSONString());
+		out.flush();
+		out.close();	
 
 	}
 

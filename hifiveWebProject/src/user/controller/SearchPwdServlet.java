@@ -83,7 +83,7 @@ public class SearchPwdServlet extends HttpServlet {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			
-			if(userId != null && userEmail != null){
+			if(userId != null && userEmail != null && userPw != null){
 				//편지 보낸 시간
 				msg.setSentDate(new Date());
 				InternetAddress from = new InternetAddress("trevelsfriend@gmail.com");

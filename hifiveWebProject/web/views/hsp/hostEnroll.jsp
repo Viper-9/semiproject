@@ -18,18 +18,22 @@
 </script>
 </head>
 <body>
-	
-<div>
-<form action="/hifive/hostenroll?userid=<%=Id %>" method="post">	
-	<div>	
+	<div>
+		<form action="/hifive/hostenroll?userid=<%=Id %>" method="post">
+			<table border="0">			
+			<tr ><td>
 				<div class="input-group mb-3" >
 					<div class="input-group-prepend">
+						&nbsp;&nbsp;&nbsp;
 						<span class="input-group-text" id="pnums">인원</span>
 					</div>
 					<input type="number" placeholder="0" max="10" class="form-control" id="pnumber" name="num">
 				</div>
-				<div class="col input-group mb-3">
+				</td>
+				<td>
+				<div class="input-group mb-3">
 					<div class="input-group-prepend">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<span class="input-group-text" id="preferG">성별</span>
 					</div>
 					<select class="custom-select" id="hostprefergender" name="gender">
@@ -40,7 +44,9 @@
 					</select>
 				</div>
 			</div>
-			
+			</td>
+			</tr>
+			</table>
 			<div class="col input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="pnums">가능 조건</span>
@@ -82,7 +88,7 @@
 	               <div class="input-group-prepend">
 						<span class="input-group-text">기타 사항</span>
 					</div>
-					<textarea class="form-control" name="hostetc" id="hostetc" rows="3" cols="60"></textarea>
+					<textarea class="form-control" name="hostetc" id="hostetc" rows="5" cols="60"></textarea>
                            </div> 
 					<button type="submit" class="btn btn-primary" id="hostenrollbtn">등록하기</button>
 		</form>

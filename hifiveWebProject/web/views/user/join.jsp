@@ -28,27 +28,19 @@
 </style>
 
 <script type="text/javascript" >
-	//사용자가 입력한 인증번호와 만들어진 인증번호 비교
- 	function checkCode() {
-		var v1 = $("#code_check1").val();
-		var v2 = $("#code").val();
-		
-		console.log("code_check1 = " + v1 + ", code = " + v2);
-		if(v1!=v2){
-			$("#code_check1").css("background-color", "#FFCECE");
-			$(".signupbtn").prop("disabled", true);
-			
-			
-		}else{
-			$("#code_check1").css("background-color", "#B0F6AC");
-			$(".signupbtn").prop("disabled", false);
-			
-		}
-	}
+
+	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/); //이메일 유효성 검사 영문(대소문자),숫자 + @ + 영문(대소문자),숫자 + . + 영문(대소문자,숫자)
+	var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/); //아이디 유효성 검사  영문(대소문자)+숫자 (4~ 12자리까지)
+	var getCheckincluN = RegExp(/[0-9]/);	//아이디에 숫자 포함되어있는지 체크
+	var getName = RegExp(/^[가-힣]{2,4}$/);	//이름 유효성 한글(2~4자리까지)
+	var getPhone = RegExp(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/); //전화번호 유효성 숫자(2 or 3자리) - 숫자(3 or 4자리) - 숫자 (4자리)
+	var getPassword = RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/); //패스워드 유효성 영문(대소문자)+숫자+특수문자 포함 8~16자리
 	
 	// 아이디 비밀번호가 맞지 않을 경우 가입버튼 비활성화를 위한 변수설정
 	var idCheck = 0;
 	var pwdCheck = 0;
+	// 이메일 체크를 위한 변수
+	var EmailCheck = 0; 
 
 	function CheckId(){
 		// 아이디 체크하여 가입버튼 비활성화, 중복확인 및 데이터 값에 따른 배경 색 변경 
@@ -78,34 +70,26 @@
 					$(".signupbtn").prop("disabled", true);
                     $("#joinuserid").css("background-color", "#B0F6AC");
                     idCheck = 0;
-				}
-				
-				
-				
+				}				
 			}
 		});
 	}
-	//비밀번호 = 재입력비밀번호를 비교해주고 색상표시
+	
 	function checkPwd() {
-		var inputed = $('#userpwd1').val();
-		var reinputed = $('#userpwd2').val();
-		if(reinputed=="" && (inputed != reinputed || inputed == reinputed)){
-            $(".signupbtn").prop("disabled", true);
-            //$(".signupbtn").css("background-color", "#aaaaaa");
-            $("#userpwd2").css("background-color", "#FFCECE");
-		}
-		else if (inputed == reinputed) {
-            $("#userpwd2").css("background-color", "#B0F6AC");
-            pwdCheck = 1;
-            if(idCheck==1 && pwdCheck == 1) {
-                $(".signupbtn").prop("disabled", false);
-                signupCheck();
-            }
-        } else if (inputed != reinputed) {
-            pwdCheck = 0;
-            $(".signupbtn").prop("disabled", true);
-            $("#userpwd2").css("background-color", "#FFCECE");
-		}
+		
+		 //변경 비밀번호 강도 체크 (강도에 따라 다른 툴팁내용제공)
+		 if(!getPassword.test($("#userpwd1").val())){
+			 $("#userpwd1")
+		   		 .attr('data-original-title', '비밀번호 강도 : 낮음')
+		    	 .attr('data-placement', 'right').tooltip('show')
+		     $("#userpwd1").css("background-color", "#FFFFFF");
+		 }else if(getPassword.test($("#userpwd1").val())){
+			 $("#userpwd1")
+		   		 .attr('data-original-title', '비밀번호 강도 : 높음')
+		   		 .attr('data-placement', 'right').tooltip('show')
+			 $("#userpwd1").css("background-color", "#FFFFFF");
+		 }
+	 	
 	}
 	// 이름 , 이메일, 전화번호, 생년월일 , 성별 입력 안했을때 가입버튼 비활성화
 	 function signupCheck() {
@@ -120,15 +104,17 @@
 	        }
 	    }
 	
+	 function supportMS(){
+			//변경 비밀번호 입력시 도움말 제공
+			$("#supportMS").css("color", "purple").text("a-z, A-Z, 0-9, 기호 포함");
+			$("#supportMS").css("display", "block");  
+		}
+	
 	function sendIt() {
-		var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/); //이메일 유효성 검사 영문(대소문자),숫자 + @ + 영문(대소문자),숫자 + . + 영문(대소문자,숫자)
-		var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/); //아이디 유효성 검사  영문(대소문자)+숫자 (4~ 12자리까지)
-		var getCheckincluN = RegExp(/[0-9]/);	//아이디에 숫자 포함되어있는지 체크
-		var getName = RegExp(/^[가-힣]{2,4}$/);	//이름 유효성 한글(2~4자리까지)
-		var getPhone = RegExp(/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/); //전화번호 유효성 숫자(2 or 3자리) - 숫자(3 or 4자리) - 숫자 (4자리)
-		var getPassword = RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/); //패스워드 유효성 영문(대소문자)+숫자+특수문자 포함 8~16자리
+		
 		var userID = $("#joinuserid").val();
 		var userPASS = $("#userpwd1").val();
+		var reinputed = $('#userpwd2').val();
 		
 
 		//아이디 공백 확인
@@ -170,8 +156,12 @@
 		
 		//비밀번호 공백 확인
 		 if ($("#userpwd1").val() == "") {
-				alert("비밀번호를 재입력하세요");
-				$("#userpwd1").focus();
+				  $("#userpwd1")
+						.attr('data-original-title', '암호를 입력하세요')
+		 				.attr('data-placement', 'right').tooltip('show');
+				  $("#userpwd1").focus();
+				  $("#userpwd1").css("background-color", "#FFCECE");
+				  
 				  //오류나면 인증번호 색,밸류값  + 버튼 비활성화
 				  $("#code_check1").val("");
 				  $("#code_check1").css("background-color", "#FFFFFF");
@@ -182,18 +172,47 @@
 			
 		//비밀번호 유효성 검사
         if(!getPassword.test($("#userpwd1").val())) {
-        	alert("영문,숫자,특수문자를 포함한 비밀번호 8~16자를 입력하세요");
+        	$("#userpwd1")
+  				.attr('data-original-title', '암호를 다시 입력하세요')
+   		 		.attr('data-placement', 'right').tooltip('show');
         	$("#userpwd1").val("");
         	$("#userpwd1").focus();
+        	$("#userpwd1").css("background-color", "#FFCECE");
         	$("#userpwd2").css("background-color", "#FFFFFF");
-			  //오류나면 인증번호 색,밸류값  + 버튼 비활성화
-			  $("#code_check1").val("");
-			  $("#code_check1").css("background-color", "#FFFFFF");
-			  $(".signupbtn").prop("disabled", true);
+		    //오류나면 버튼 비활성화
+		    $("#code_check1").val("");
+			$("#code_check1").css("background-color", "#FFFFFF");
+			$(".signupbtn").prop("disabled", true);
         	
         	return false;
         }   
+        //암호 & 암호확인 같은지 검사
+		 if(userPASS=="" && (userPASS != reinputed || userPASS == reinputed)){
+            $(".signupbtn").prop("disabled", true);
+            //$("#userpwd2").css("background-color", "#FFCECE");
+            $("#userpwd2")
+	   			 .attr('data-original-title', '암호확인을 재입력하세요')
+	    		 .attr('data-placement', 'right').tooltip('show');
+            $("userpwd2").val("");
+            $("userpwd2").focus();
+	    	$("#code_check1").val("");
+			$("#code_check1").css("background-color", "#FFFFFF");
+            return false;
 		
+         }else if (userPASS != reinputed) {
+            pwdCheck = 0;
+            $(".signupbtn").prop("disabled", true);
+            //$("#userpwd2").css("background-color", "#FFCECE");
+            $("#userpwd2")
+	   			 .attr('data-original-title', '암호확인을 재입력하세요')
+	    		 .attr('data-placement', 'right').tooltip('show');
+            $("userpwd2").val("");
+            $("userpwd2").focus();
+	        $("#code_check1").val("");
+			$("#code_check1").css("background-color", "#FFFFFF");
+            return false;
+		 } 
+		 
        /*  // 동일한 문자/숫자 4이상, 연속된 문자
         if(/(\w)\1\1\1/.test(userPASS) || isContinuedValue(userPASS))
         {
@@ -285,7 +304,7 @@
 		
 	
 	}
-	var EmailCheck = 0;
+	/* var EmailCheck = 0; */
 	//이메일 인증번호 누르기전 중복 확인 실시간 키입력으로 확인받음
 	function checkEmail(){
 		var Einputed = $('#receiver').val();
@@ -335,7 +354,26 @@
 					 console.log(data);
 					 $("#receiver").html($("#receiver").text() + data);
 				}							
-			});
+		});
+	}
+	
+
+	//사용자가 입력한 인증번호와 만들어진 인증번호 비교
+ 	function checkCode() {
+		var v1 = $("#code_check1").val();
+		var v2 = $("#code").val();
+		
+		console.log("code_check1 = " + v1 + ", code = " + v2);
+		if(v1!=v2){
+			$("#code_check1").css("background-color", "#FFCECE");
+			$(".signupbtn").prop("disabled", true);
+			
+			
+		}else{
+			$("#code_check1").css("background-color", "#B0F6AC");
+			$(".signupbtn").prop("disabled", false);
+			
+		}
 	}
 
 	//캔슬 눌렀을때 모든 텍스트필드 null 배경색 초기화
@@ -375,13 +413,17 @@
 			<tr>
 				<td>암 호</td>
 				<td><input class="form-control" type="password" placeholder = "Enter Password"
-				 name="userpwd1" id="userpwd1" oninput = "checkPwd()">
+				 name="userpwd1" id="userpwd1" oninput = "checkPwd()" onkeydown = "supportMS()" >
+                  <div class="form-group row" id = "supportMS" style = "display:none; text-indent:15px;">
+                  <label class="col-form-label"></label>
+              <div class="col-sm-10"></div>
+              	</div>
 				</td>
 			</tr>
 			<tr>
 				<td>암호확인</td>
 				<td><input class="form-control" type="password" placeholder = "Repeat Password" 
-				id="userpwd2" oninput = "checkPwd()"></td>
+				id="userpwd2" ></td>
 			</tr>
 			<tr>
 				<td>이 름</td>

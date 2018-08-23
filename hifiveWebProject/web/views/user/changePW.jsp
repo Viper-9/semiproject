@@ -37,34 +37,47 @@
    #errorMS { -webkit-transition: all 1s; }
 </style>
 <script type="text/javascript">
-var getPassword = RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/); //패스워드 유효성 영문(대소문자)+숫자+특수문자 포함 8~16자리
+	var getPassword = RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/); //패스워드 유효성 영문(대소문자)+숫자+특수문자 포함 8~16자리
 
-function changebg1(){
-	$("#nowpw").css("background-color", "#FFFFFF");
-	$("#nowpw").tooltip("dispose");
-}
-function changebg2(){
-	 if(!getPassword.test($("#changepw").val())){
-		 $("#changepw")
-		    .attr('data-original-title', '비밀번호 강도 : 낮음')
-		    .attr('data-placement', 'right').tooltip('show')
-		 $("#changepw").css("background-color", "#FFCECE");
-		 // $("#changepw").css("background-color", "#FFFFFF");
-	     //$("#changepw").tooltip("dispose");
-	 }else if(getPassword.test($("#changepw").val())){
-		 $("#changepw")
-		    .attr('data-original-title', '비밀번호 강도 : 높음')
-		    .attr('data-placement', 'right').tooltip('show')
-		 $("#changepw").css("background-color", "#B0F6AC");
-	 }
-}
-function changebg3(){
-	$("#changepwcheck").css("background-color", "#FFFFFF");
-	$("#changepwcheck").tooltip("dispose");
+
+	function changebg1(){
+		//현재비밀번호 입력시 배경컬러 하얀색 & 만들어진 툴팁제거
+		$("#nowpw").css("background-color", "#FFFFFF");
+		$("#nowpw").tooltip("dispose");
+	}
+
+	function changebg2(){
+		 //변경 비밀번호 강도 체크 (강도에 따라 다른 툴팁내용제공)
+		 if(!getPassword.test($("#changepw").val())){
+			 $("#changepw")
+		   		 .attr('data-original-title', '비밀번호 강도 : 낮음')
+		    	 .attr('data-placement', 'right').tooltip('show')
+			 //$("#changepw").css("background-color", "#FFCECE");
+			 $("#changepw").css("background-color", "#FFFFFF");
+			 //$("#changepw").css("background-color", "#FFFFFF");
+	    	 //$("#changepw").tooltip("dispose");
+		 }else if(getPassword.test($("#changepw").val())){
+			 $("#changepw")
+		   		 .attr('data-original-title', '비밀번호 강도 : 높음')
+		   		 .attr('data-placement', 'right').tooltip('show')
+			 $("#changepw").css("background-color", "#B0F6AC");
+	 	}
+	}
+
+	function changebg3(){
+		//비밀번호 확인 입력시 배경컬러 하얀색 & 만들어진 툴팁제거
+		$("#changepwcheck").css("background-color", "#FFFFFF");
+		$("#changepwcheck").tooltip("dispose");
 	
-}
+	}
 
-function check() {
+	function supportMS(){
+		//변경 비밀번호 입력시 도움말 제공
+		$("#supportMS").css("color", "purple").text("a-z, A-Z, 0-9, 기호 포함");
+		$("#supportMS").css("display", "block");  
+	}
+
+	function check() {
 	
 		
 		var inputnow = $('#nowpw').val();
@@ -101,7 +114,7 @@ function check() {
  			 $("#errorMS").css("color", "red").text('변경 비밀번호를 다시 입력해주세요.')
  			 $("#errorMS").css("display", "block"); 
 			 $("#changepw").val("");
-			 $("#changepw").css("background-color", "#FFCECE");
+			 $("#changepw").css("background-color", "#FFFFFF");
 	         $("#changepw").focus();
 	         
 	         return false;	   
@@ -130,11 +143,13 @@ function check() {
 				    }); */
 				    
 				    $("#errorMS").css("color", "red").text('이전 비밀번호가 일치하지 않습니다.')
-			 		$("#errorMS").css("display", "block");  
+			 		$("#errorMS").css("display", "block"); 
+				    $("#supportMS").css("display", "none"); 
 				    $("#nowpw").css("background-color", "#FFCECE");
 			 		$("#nowpw").val('');
 			 	    $("#changepw").val('');
-			 	   $("#nowpw").css("background-color", "#FFFFFF");
+			 	    $("#changepw").css("background-color", "#FFFFFF");
+			 	    $("#changepw").tooltip("dispose");
 			 		$("#changepwcheck").val('');
 			 		$("#nowpw").focus();
 			 		return false;
@@ -151,8 +166,8 @@ function check() {
 			
 	    });  
    		
-	 }
-}
+	  }
+	}
 	
 		 $(document).ready(function() {
 			$('[data-toggle="tooltip"]').tooltip({
@@ -163,7 +178,7 @@ function check() {
 		});
 			
 	    
-}); 
+	}); 
 	
 	
 	 
@@ -182,12 +197,13 @@ function check() {
          
          </div>
          <div id="content1">
-       	 <h3>Password Reset</h3>
+       	 <h3>비밀번호 변경</h3>
        	 <br>
     	 <form action="/hifive/changepwd" method="post" onsubmit = "return false"  >
+    	 <%-- ajax으로 세션상에 있는 아이디값을 넘기기 위한 히든처리 --%>
          <input type = "hidden" value = "<%=user.getUser_Id()%>" id = "loginid" name = "loginid">
          
-         <div class="form-group row" id = "errorMS" style = "display:none">
+         <div class="form-group row" id = "errorMS" style = "display:none; text-indent:15px;">
               <label class="col-form-label"> <font color = "red"></font></label>
               <div class="col-sm-10">
               </div>
@@ -202,7 +218,11 @@ function check() {
               <label class="col-form-label">변경 비밀번호 </label>
               <div class="col-sm-10">
                   <input class="form-control col-sm-5" type = "password" id="changepw" name="changepw" oninput = "changebg2()"
-                  data-toggle="tooltip" title="az, AZ, 0-9, 기호 포함 8 ~ 16자리 암호 입력" data-placement="right" >
+                  onkeydown = "supportMS()" >
+                  <div class="form-group row" id = "supportMS" style = "display:none; text-indent:15px;">
+                  <label class="col-form-label"></label>
+              <div class="col-sm-10"></div>
+              	</div>
                   <!-- data-delay='{ "show": 500, "hide": 1000 }' -->
               </div>
          </div>

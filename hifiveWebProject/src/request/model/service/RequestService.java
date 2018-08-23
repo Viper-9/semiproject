@@ -98,15 +98,23 @@ public class RequestService {
    }
    
    // 요청 등록
-   public int insertRequest(String loginid, String loginroll, String profileid) throws RequestException {
+   public int insertRequest(String loginid, String loginrole, String profileid) throws RequestException {
 	   Connection con = getConnection();
-	   int result = new RequestDao().insertRequest(con, loginid, loginroll, profileid);
+	   int result = new RequestDao().insertRequest(con, loginid, loginrole, profileid);
 	   if(result > 0)
 		   commit(con);
 	   else
 		   rollback(con);
 	   close(con);
 	   return result;
+   }
+   
+   // 내가 신청한 사람인지 확인
+   public Request checkRequest(String loginid, String loginrole, String profileid) throws RequestException {
+	   Connection con = getConnection();
+	   Request r = new RequestDao().checkRequest(con, loginid, loginrole, profileid);
+	   close(con);
+	   return r;
    }
 
 

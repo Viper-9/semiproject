@@ -45,10 +45,10 @@ public class UserChangePwdServlet extends HttpServlet {
 					user.setUser_Pw(changePW);
 					String userpw = new UserService().updatePass(user);
 					
-					System.out.println("비밀번호 변경성공");
+					System.out.println(userId + "가 비밀번호 변경성공");
 					returnValue = "1";
 			} else {
-					System.out.println("비밀번호 변경실패");
+					System.out.println(userId + "가 비밀번호 변경실패");
 			}
 		} catch (UserException e) {
 				e.printStackTrace();

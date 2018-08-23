@@ -533,7 +533,7 @@
 
 			<div id="content4">
 				<div id="intro0" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">나에게 호스트를 요청한 서퍼 목록</h6>
+					<h6 class="card-header" id="card_info">나에게 호스트를 요청한 목록</h6>
 					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
 							<tbody id='h1'> </tbody>
@@ -542,7 +542,7 @@
 				</div>
 
 				<div id="intro" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">내가 서퍼에게 요청한 호스트 목록</h6>
+					<h6 class="card-header" id="card_info">내가 서퍼에게 요청한 목록</h6>
 					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
 							<tbody id='h2'> </tbody>
@@ -551,7 +551,7 @@
 				</div>
 				<br>
 				<div id="intro0" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">나에게 서퍼 요청한 호스트 목록</h6>
+					<h6 class="card-header" id="card_info">나에게 서퍼를 요청한 목록</h6>
 					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
 							<tbody id='s1'> </tbody>
@@ -560,7 +560,7 @@
 				</div>
 
 				<div id="intro" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">내가 호스트에게 요청한 서퍼 목록</h6>
+					<h6 class="card-header" id="card_info">내가 호스트에게 요청한 목록</h6>
 					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
 							<tbody id='s2'>	</tbody>
@@ -570,7 +570,7 @@
 				<br>
 
 				<div id="intro0" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">나에게 파트너 요청한 유저 목록</h6>
+					<h6 class="card-header" id="card_info">나에게 파트너 요청한 목록</h6>
 					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
 							<tbody id='p1'> </tbody>
@@ -579,7 +579,7 @@
 				</div>
 
 				<div id="intro" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">내가 파트너 요청한 유저 목록</h6>
+					<h6 class="card-header" id="card_info">내가 파트너 요청한 목록</h6>
 					<div class="card-body3" style="height:150px; overflow:scroll;">
 						<table class="table-sm">
 							<tbody id='p2'> </tbody>

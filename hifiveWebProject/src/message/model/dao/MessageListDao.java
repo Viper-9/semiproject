@@ -184,5 +184,30 @@ public class MessageListDao {
 		}
 		return userName;
 	}
+	
+	public int insertMessageRequest(Connection con, String userId, String sender) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "insert into message_list values "
+				+ "(mr_seq.nextval, ?, ?)";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, sender);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result <= 0)
+				throw new MessageException("에러");
+			
+		} catch(Exception e){
+			
+		} finally{
+			close(pstmt);
+		}
+		return result;
+	}
 
 }

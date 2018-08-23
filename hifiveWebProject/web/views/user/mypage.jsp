@@ -35,6 +35,7 @@
    width: 250px;
    margin: 5px 0 0 0;
    float: left;
+   height: 1000px;
 }
 /* 이게 오른쪽 본문 들어가는 부뷴 */
 #content1 {
@@ -42,8 +43,11 @@
    margin: 5px 0 0 0;
    float: left;
    padding: 0 0 0 10px;
-   text-align: center;
+   /* text-align: center; */
 }
+
+#card_info { text-align:center; }
+
 </style>   
 
   <script type="text/javascript">
@@ -64,13 +68,20 @@
                     }
                     $(".card-img-top").attr("src", data.profileimg);
                  })           */                 
-                 var fileTarget = $("input[name=profileimg]");
+                /*  var fileTarget = $("input[name=profileimg]");
                  console.log("읽어온파일명:"+data.profileimg);
                  console.log("입력된 파일명:"+fileTarget);
                  fileTarget.on("change", function(){
                     $(".card-img-top").attr("src", "/hifive/resources/image/"+data.profileimg);
                     console.log("입력된 파일명:"+fileTarget);
-                 })
+                 }) */
+                 // 프사
+                 if(data.profileimg == null) {
+                	  $(".card-img-top").attr("src", "/hifive/resources/profileUpfiles/profile.png");
+                 }
+                 else {
+                	  $(".card-img-top").attr("src", "/hifive/resources/profileUpfiles/"+data.profileimg);
+                 }
                 //이름
                 $("#name").val(data.name);               
                  //주소
@@ -251,7 +262,6 @@
           });//surfing ajax
           
           $.ajax({
-
              url : "/hifive/partnering",
              type : "post",
              data : {userid : $("#userid").val()},
@@ -283,44 +293,42 @@
                    $("#p-num").val(data.num);
                 }
 
-
-        	  }
+             }
           });
-        	 
+            
            
-          $.ajax({	
-        	  url : "/hifive/reviewlist",
-          		type : "get",
-    			data : {uid : $("#userid").val()},
-    			dataType : "json",			
-    			success : function(data){
-    				//배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
-    				var jsonStr = JSON.stringify(data);
-    							
-    				//문자열을 json 객체로 바꿈
-    				var json = JSON.parse(jsonStr);
-    			
-    				var values = "";
-    				if(json.list.length == 0){
-    					values += "등록된 리뷰가 없습니다.";
-    					$("#review").html($("#review").html()+values);	
-    				} else{					
-    					for(var i in json.list){
-    						values += "아이디 : " + json.list[i].user_id 
-    						+"<br>날짜 : " + json.list[i].review_date
-    						+"<br>내용 : " + json.list[i].content +"<br><br>";
-    					}										
-    					$("#review").html($("#review").html()+values);
-    					
-    				}
-    			}, // success
-    			error : function(jqXHR, textstatus, errorThrown){
-    				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
-    			} // error
-    		});
+          $.ajax({   
+             url : "/hifive/reviewlist",
+                type : "get",
+             data : {userid : $("#userid").val()},
+             dataType : "json",         
+             success : function(data){
+                //배열로 된 전송값을 직렬화해서 하나의 문자열로 바꿈
+                var jsonStr = JSON.stringify(data);
+                         
+                //문자열을 json 객체로 바꿈
+                var json = JSON.parse(jsonStr);
+             
+                var values = "";
+                if(json.list.length == 0){
+                   values += "등록된 리뷰가 없습니다.";
+                   $("#review").html($("#review").html()+values);   
+                } else{               
+                   for(var i in json.list){
+                      values += "아이디 : " + json.list[i].user_id 
+                      +"<br>날짜 : " + json.list[i].review_date
+                      +"<br>내용 : " + json.list[i].content +"<br><br>";
+                   }                              
+                   $("#review").html($("#review").html()+values);
+                   
+                }
+             }, // success
+             error : function(jqXHR, textstatus, errorThrown){
+                console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+             } // error
+          });
           
        }); //document.ready
-            
 
        function changePW(){
           var url= "/hifive/views/user/changePW.jsp";    //팝업창 페이지 URL
@@ -328,10 +336,11 @@
              var winHeight = 600;
              var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
             window.open(url,"",popupOption);
-
           }
+       
+    </script>  
+       
 
-    </script>     
 </head>
 
 
@@ -339,6 +348,7 @@
    <div class="container">
       <%@ include file="../../header.jsp"%>
       <hr>
+      
       <form action="/hifive/infoupdate?userid=<%= userId %>" method="post" enctype="multipart/form-data">
       <input type="hidden" id="userid" name="userid" value="">
       <div id="main">
@@ -351,14 +361,17 @@
                   <div id="mpageInfo" name="mpageInfo" align="center">
                     <div class="col-sm-10"> 
                        <input type="text" readonly id="name" class="form-control" name="username" style="width:100px;">                       
-                    </div>
+                    </div> 
                      <br>
-                     <br>            
-<!--                      <div class="custom-file">                                    
-                       <input type="file" class="custom-file-input" name="profileimg" accept="image/*">
-                       <label class="custom-file-label">파일 선택 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    </div>    -->                                   
-                       <input type="file" name="profileimg" accept="image/*">  
+                     <br>    
+                    <%--  <form action="/hifive/pimage" method="post" enctype="multipart/form-data">                              
+                     <input type="file" id="pimg" name="pimg" accept="image/*">
+                     <input type="hidden" id="imguserid" name="imguserid" value="<%= headeruser.getUser_Id() %>">
+                     <br>
+                     <input type="submit" id="imgbtn" value="프사업로드">
+                     </form>   --%>      
+                                    
+                       <!-- <input type="file" name="profileimg" accept="image/*">   -->
                      <br>
                      <br>
                    <textarea class="form-control" name="address" id="sample5_address" rows="3" cols="25" placeholder="주소"></textarea>
@@ -413,17 +426,11 @@
                      <table>
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER"
-
-                           		onclick="location.href='/hifive/views/favorite/favorite.jsp'"></th>
-
+                                 onclick="location.href='/hifive/favoritelist?userid=<%=userId%>'"></th>
                         </tr>
                         <tr>
-
-                           <th><a href="./changePW.jsp" class="btn btn-primary" style="width:200px;">비밀번호 변경</a></th>
-
-                           <!-- <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"
-                                 onclick= "changePW()"></th> -->
-
+                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"
+                                 onclick= "changePW()"></th>
                         </tr>
                      </table>
                      <br>
@@ -440,10 +447,11 @@
                </div>
             </div>
          </div>
+         
+         
+         
          <div id="content1">
-         
-         
-         
+                          
             <div class="card" id="basisinfo" style="width: auto;">
                <div class="card-body">               
                   <table align="right" width="240" cellspacing="0" cellpadding="0">
@@ -459,65 +467,163 @@
                      </tr>
                   </table> 
                   <br>
-                  <ul>
-                  
-                  
-                  <table>
-                     <li>
+                  <br> 
+      
+                 
+                                 
+                  <table class="table">
+                   	<tbody>
+                     <tr>
+                      
                         <div class="form-group row">
-                       <label class="col-sm-2 col-form-label">Gender</label>
+                           <label class="col-sm-2 col-form-label">Gender</label>                       
                            <div class="col-sm-10">
-                           <input type="text" readonly id="gender" class="form-control" style="width:60px;" name="gender">                                 
+                             <input type="text" readonly id="gender" class="form-control" style="width:60px;" name="gender">                                 
                            </div>
-                        </div>   
-                     </li>
-                     <li>
+                        </div>
+                          
+                     </tr>
+                     <tr>
                         <div class="form-group row">
-                       <label class="col-sm-2 col-form-label">Birth</label>
-                           <div class="col-sm-10">
-                           <input type="text" readonly id="birth" class="form-control" style="width:120px;" name="birth" size="300">
-                           </div>
+                            <label class="col-sm-2 col-form-label">Birth</label>
+                            <div class="col-sm-10">
+                              <input type="text" readonly id="birth" class="form-control" style="width:120px;" name="birth" size="300">
+                            </div>
                         </div>   
-                     </li>                             
-                     <li>
+                     </tr>                             
+                     <tr>
                         <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Job</label>
+                           <label class="col-sm-2 col-form-label">Job</label>
                            <div class="col-sm-10">                          
                                  <input type="text" id="job" class="form-control" style="width:200px;" name="job">                           
                            </div>
                         </div>
-                     </li>     
-                     <li>
+                     </tr>     
+                     <tr>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Email</label>
-                             <div class="col-sm-10">
+                            <div class="col-sm-10">
                                <input type="email" readonly id="email" name="email" class="form-control" style="width:300px;" name="email">
-                             </div>
+                            </div>
                        </div>               
-                     </li>                      
-                     <li>
+                     </tr>                      
+                     <tr>
                         <div class="form-group row">
                            <label class="col-sm-2 col-form-label">Phone</label>
                            <div class="col-sm-10">
                               <input type="tel" id="phone" class="form-control" style="width:200px;" name="phone">
                            </div>
                         </div>
-                      </li>                        
-                     <li>
+                      </tr>                        
+                      
+                      <tr>                   
                         <div class="form-group row">
-                           <label class="col-sm-2 col-form-label">dddd</label>
-                        </div>  
-                        
-                                                        
-                     
-                                                                
-                     </li>
-                  </table>                                
-                  </ul>
+                           <label class="col-sm-2 col-form-label">Hobby</label>
+                       
+                        </div>
+                      
+                        <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">게임</label>
+  						  </div>
+                        </td>                       
+                        <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">독서</label>
+ 						  </div>
+                        </td>                        
+                        <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">음악</label>
+  						  </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-check">
+              				<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">캠핑</label>
+  						  </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">등산</label>
+                          </div>
+                        </td>                                                                                                                                                                                         
+                     </tr>
+                     <tr>
+                         <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">운동</label>
+  						  </div>
+                        </td>                       
+                        <td>
+                          <div class="form-group form-check">
+    					  	<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    					  	<label class="form-check-label" for="exampleCheck1">그림</label>
+  						  </div>
+                        </td>                        
+                        <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">쇼핑</label>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">산책</label>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">영화</label>
+  						  </div>
+                        </td>                     
+                     </tr>                     
+                     <tr>
+                         <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">춤</label>
+ 						  </div>
+                         </td>                       
+                        <td>
+                         <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">잠</label>
+  						 </div>
+                        </td>                        
+                        <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">추가1</label>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">추가2</label>
+  						  </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">추가3</label>
+  						  </div>
+                        </td>                    
+                     </tr>                     
+                    </tbody>
+                  </table>                                                 
                </div>
             </div>
             
             <br>
+            
             <div id="mpagemenu">
                <a href="#intro"><input type="button" class="btn btn-outline-info" value="Introduction" style="width: 110px;"></a>&nbsp; 
                <a href="#myhome"><input type="button" class="btn btn-outline-info" value="My Home" style="width: 110px;"></a>&nbsp; 
@@ -526,186 +632,235 @@
                <a href="#photo"><input type="button" class="btn btn-outline-info" value="Photos" style="width: 110px;"></a>&nbsp; 
                <a href="#reference"><input type="button" class="btn btn-outline-info" value="References" style="width: 110px;"></a>
             </div>
+            
             <br>
+            
             <div id="intro" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Introduction</h6>
                <div class="card-body">               
-                     <textarea class="form-control" id="introduction" name="introduction" rows="5" cols="90" placeholder="자기소개를 작성해주세요"></textarea>                  
-                  <br>
-                  
-                   <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정" id="updateinfo">&nbsp;&nbsp;&nbsp;
-                     <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
-                   
+                     <textarea class="form-control" id="introduction" name="introduction" rows="5" cols="90" placeholder="자기소개를 작성해주세요"></textarea>                                      
+                     <br>   
+                      <center>              
+                     <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정" id="updateinfo">&nbsp;&nbsp;
+                     <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="초기화">   
+                     </center>
                </div>
             </div>
-           
-           
-           
+                               
             <br>
             
             <form action="/hifive/hupdate?userid=<%=userId %>" method="post">
-            <div id="myhome" class="card" style="width: auto;">
-               <h6 class="card-header" id="card_info">My Home</h6>
-               <div class="card-body">
-                  <p class="card-text">
-                  <ul>
-                  <table>
-                     <tr>
-                        <td><li>최대 가능 인원 : </li></td>
-                        <td><input type="number" class="form-control" id="h-num" name="num" min="1" step="1" style="width:60px;"></td>
-                     </tr>
-                     <tr>
-                        <td><li>선호하는 성별 : </li></td>
-                         <td>
-                           <select class="custom-select" id="pgender" name="gender" style="width:150px;">
+            	<div id="myhome" class="card" style="width: auto;">
+               		<h6 class="card-header" id="card_info">My Home</h6>
+               		<div class="card-body">
+                  		<p class="card-text">
+                 
+                      <table>
+                        <tr>
+                          <td>최대가능 인원&nbsp;&nbsp;&nbsp;</td>
+                          <td><input type="number" class="form-control" id="h-num" name="num" min="1" step="1" style="width:60px;"></td>
+                        </tr>
+                        
+                        <tr>
+                        </tr>
+                        
+                        <tr>
+                          <td>선호하는 성별&nbsp;&nbsp;&nbsp;</td>
+                          <td>
+                            <select class="custom-select" id="pgender" name="gender" style="width:110px;">
                               <option id="genderselect" value="">선택</option>  
                               <option value="F" id="female">여성</option>
                               <option value="M" id="male">남성</option>
                               <option value="B" id="both">상관없음</option>
-                           </select>
-                        </td> 
-                     </tr>
-                     <tr>
-                       <td><li>기타가능여부 : </li></td>
-                        <td>
-                        <table>
-                           <tr>
-                              <td>
-                                 <div class="btn-group-toggle" data-toggle="buttons">
+                            </select>
+                          </td>
+                        </tr>
+                        
+                        <tr>
+                        </tr>
+                        
+                        <tr>
+                          <td>기타가능 여부&nbsp;&nbsp;&nbsp;</td>
+                          <td>
+                            <table>
+                              <tr>
+                                <td>
+                                 <!-- <div class="btn-group-toggle" data-toggle="buttons">
                                     <label class="btn btn-outline-secondary btn-sm" id="smoking">
                                     <input type="checkbox" name="hostcheck" value="smoking"> 흡연
                                     </label>
-                                 </div>
-                              </td>
-                              <td>
-                              <div class="btn-group-toggle" data-toggle="buttons">
+                                 </div> -->
+                                 
+                                 <div class="form-group form-check">
+    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    								<label class="form-check-label" for="exampleCheck1">흡연&nbsp;&nbsp;&nbsp;</label>
+  						 		 </div>
+                                </td>
+                                <td>
+                                 <!-- <div class="btn-group-toggle" data-toggle="buttons">
                                     <label class="btn btn-outline-secondary btn-sm" id="kids"> 
                                     <input type="checkbox" name="hostcheck" value="kids"> 아이동반
                                     </label>
-                              </div>                              
-                              </td>
-                              <td>
-                                 <div class="btn-group-toggle" data-toggle="buttons">
+                                 </div> -->   
+                                 <div class="form-group form-check">
+    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    								<label class="form-check-label" for="exampleCheck1">아이동반&nbsp;&nbsp;&nbsp;</label>
+  						 		 </div>                           
+                                </td>
+                                <td>
+                                <!--  <div class="btn-group-toggle" data-toggle="buttons">
                                     <label class="btn btn-outline-secondary btn-sm" id="pet">
                                     <input type="checkbox" name="hostcheck" value="pet"> 애완동물
                                     </label>
-                                 </div>
-                              </td>
-                              <td>
-                              <div class="btn-group-toggle" data-toggle="buttons">
+                                 </div> -->
+                                 <div class="form-group form-check">
+    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    								<label class="form-check-label" for="exampleCheck1">애완동물&nbsp;&nbsp;&nbsp;</label>
+  						 		 </div>
+                                </td>
+                                <td>
+                                <!--  <div class="btn-group-toggle" data-toggle="buttons">
                                     <label class="btn btn-outline-secondary btn-sm" id="drinking">
                                     <input type="checkbox" name="hostcheck" value="drinking"> 음주
                                     </label>
-                                 </div>                              
-                              </td>
-                           </tr>
-                           </table>                  
-                        </td>
-                     </tr>            
-                     <tr>
-                        <td><li>수면 장소 : </li></td>
-                        <td>
-                           <select class="custom-select" name="sleeping" style="width:150px;">
+                                 </div> -->  
+                                 <div class="form-group form-check">
+    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    								<label class="form-check-label" for="exampleCheck1">음주&nbsp;&nbsp;&nbsp;</label>
+  						 		 </div>                            
+                                </td>
+                              </tr>
+                            </table>                  
+                          </td>
+                        </tr> 
+                        
+                        <tr>
+                        </tr>
+                                   
+                        <tr>
+                          <td>수면 장소&nbsp;&nbsp;&nbsp;</td>
+                          <td>
+                           <select class="custom-select" name="sleeping" style="width:110px;">
                                 <option value="" id="roomselect">선택</option>
-                               <option value="living" id="living">거실</option>
-                               <option value="single" id="single">단독 방</option>
-                               <option value="sharing" id="sharing">공용 방</option>
-                               <option value="sofa" id="sofa">소파</option>
+                                <option value="living" id="living">거실</option>
+                                <option value="single" id="single">단독 방</option>
+                                <option value="sharing" id="sharing">공용 방</option>
+                                <option value="sofa" id="sofa">소파</option>
                            </select>                                 
-                        </td>
-                     </tr>               
-                     <tr>
-                        <td><li>추가 정보 : </li></td>
+                          </td>
+                        </tr> 
+                        
+                        <tr>
+                        	<td></td>
+                        	<td></td>
+                        </tr>
+                        
+                                      
+                        <tr>
+                          <td>추가 정보&nbsp;&nbsp;&nbsp;</td>
                            <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60"></textarea></td>   
-                     </tr>
-                     <tr>
-                        <td><li> 사진 : </li></td>
-                        <td><img class="rounded-float" src="/hifive/resources/image/profile.png" width="100px" height="70px"></td>
-                     </tr>
-                  </table> 
-                  </ul>
-                  </p>
-                  <br>
+                        </tr>
+                        
+                        <tr>
+                        </tr>
+                        
+                        <tr>
+                          <td>사진&nbsp;&nbsp;&nbsp;</td>
+                          <td><img class="rounded-float" src="/hifive/resources/image/profile.png" width="100px" height="100px"></td>
+                        </tr>
+                     </table> 
+                  
+                
+                  <br>  
+                                  
                   <center>
-                  <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;&nbsp;
-                   <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
+                   <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;
+                   <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="초기화">   
                   </center>
                </div>
-            </div>
-            </form>
-            
-            
-            
-            <br>
-            <form action="/hifive/supdate?userid=<%=userId %>" method="post">
+             </div>
+           </form>                               
+           
+           <br>
+           
+           <form action="/hifive/supdate?userid=<%=userId %>" method="post">
             <div id="surfer" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Surfer</h6>
                <div class="card-body">
                   <p class="card-text">
-                  <ul>
-                  <table>
+                  
+                   <table>
                      <tr>
-                        <td><li>목적지 : </li></td>
-                        <td><textarea class="form-control" name="city" id="s-destination" rows="1" cols="25"></textarea>
+                        <td>목적지&nbsp;&nbsp;&nbsp;</td>
+                        <td><textarea class="form-control" name="city" id="s-destination" rows="1" cols="20" style="width:130px;"></textarea>
                      </tr>                     
-                     <tr>
-                        
-                        <td><li><label>여행기간 : </label></li></td>
+                     <tr>                        
+                        <td>여행기간&nbsp;&nbsp;&nbsp;</td>
                         <td>
-                           <input type="date" id="s-startdate" class="form-control" name="startdate">
+                           <input type="date" id="s-startdate" class="form-control" name="startdate">                         
+                        </td>
+                        <td>
+                        &nbsp;&nbsp;~&nbsp;&nbsp;
+                        </td>
+                        <td>
                            <input type="date" id="s-enddate" class="form-control" name="enddate">
                         </td>
                        
+                       
                      </tr>
                      <tr>
-                        <td><li>인원 : </li></td>
+                        <td>인원&nbsp;&nbsp;&nbsp;</td>
                         <td><input type="number" id="s-num" class="form-control" name="num" min="1" step="1" style="width:60px;"></td>
                      </tr>
                   </table>
-                  </ul>                  
-                  </p>
+                                   
+                 
                   <br>
                   <center>
-                  <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;&nbsp;
-                   <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
+                    <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;
+                    <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="초기화">   
                   </center>
                </div>
-            </div>
-            </form>
-            
+              </div>
+            </form>           
             
             <br>
-            
-            
+                     
             <form action="/hifive/pupdate?userid=<%=userId %>" method="post">
             <div id="partner" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Partner</h6>
                <div class="card-body">
                   <p class="card-text">                  
-                  <ul>
+                 
                   <table>
                      <tr>
-                        <td><li>목적지 : </li></td>
-                        <td><textarea id="p-destination" name="city" class="form-control" rows="1" cols="25"></textarea>
+                        <td>목적지&nbsp;&nbsp;&nbsp;</td>
+                        <td><textarea id="p-destination" name="city" class="form-control" rows="1" cols="20" style="width:130px;"></textarea>
                      </tr>                     
                      <tr>
-                        <td><li>여행기간 : </li></td>
+                        <td>여행기간&nbsp;&nbsp;&nbsp;</td>
                         <td>
                            <input type="date" id="p-startdate" class="form-control" name="startdate">
+                          
+                        </td>
+                        <td>
+                         &nbsp;&nbsp;~&nbsp;&nbsp;
+                        </td>
+                        <td>
                            <input type="date" id="p-enddate" class="form-control" name="enddate">
                         </td>
                      </tr>
                      <tr>
-                        <td><li>인원 : </li></td>
+                        <td>인원&nbsp;&nbsp;&nbsp;</td>
                         <td><input type="number" id="p-num" class="form-control" name="num" min="1" step="1" style="width:60px;"></td>
                      </tr>
                   </table>
-                  </ul>                          
+                                            
                   <br>
                  
                   <center>
-                  <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;&nbsp;
-                   <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="취소">   
+                   <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;
+                   <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="초기화">   
                   </center>
                </div>
             </div>
@@ -717,4 +872,24 @@
             
             <div id="photo" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Photos</h6>
-   
+               <div class="card-body">
+                  <p class="card-text">With supporting text below as a natural
+                     lead-in to additional content.</p>     
+               </div>
+            </div>
+            <br>
+            
+      
+          
+            
+               </div>
+            </div>
+            </form>
+            <br>
+            <hr>
+            <%@ include file="../../footer.jsp"%>  
+            </div>      
+                                       
+            
+</body>
+</html>
