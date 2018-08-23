@@ -89,6 +89,14 @@ public class SurferPartnerService {
 		close(con);
 		return list;
 	}
+	
+	public SurferPartner selectMSurfer(String userId){ // 매칭 된 서퍼 
+
+		Connection con = getConnection();
+		SurferPartner sp = new SurferPartnerDao().selectMSurfer(con, userId);
+		close(con);
+		return sp;
+	}
 
 
 }

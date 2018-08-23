@@ -43,7 +43,8 @@ public class MessageListServlet extends HttpServlet {
 		JSONObject json = new JSONObject();
 		// list는 json 배열에 저장하고, json 배열을 전송용 json 객체에 저장함
 		JSONArray jarr = new JSONArray();
-				
+		JSONArray jarr2 = new JSONArray();
+		
 		for(MessageList list : mList1){
 			JSONObject job = new JSONObject();
 			job.put("list_no", list.getList_no());
@@ -60,12 +61,13 @@ public class MessageListServlet extends HttpServlet {
 			job.put("user2", list.getUser2());
 			job.put("userName", new MessageListService().selectUserName2(list.getUser2(), list.getUser1()));
 		
-			jarr.add(job);
+			jarr2.add(job);
 		}
 
 		// json 배열을 전송용 json 객체에 저장함
-		json.put("list", jarr);
-						
+		json.put("list", jarr); // 내가 user1
+		json.put("list2", jarr2); // 내가 user2
+		
 		// json 내보내기
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();

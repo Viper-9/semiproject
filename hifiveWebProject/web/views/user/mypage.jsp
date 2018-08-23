@@ -426,7 +426,7 @@
                      <table>
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER"
-                                 onclick="location.href='/hifive/favoritelist?userid=<%=userId%>'"></th>
+                                 onclick="location.href='/hifive/views/favorite/favorite.jsp'"></th>
                         </tr>
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"

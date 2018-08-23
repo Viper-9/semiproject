@@ -44,5 +44,13 @@ public class HostService {
 		return result;
 	}
 
+	// 매칭 된 호스트
+	public Host selectMHost(String userId){
+
+		Connection con = getConnection();
+		Host host = new HostDao().selectHost(con, userId);
+		close(con);
+		return host;
+	}
 
 }

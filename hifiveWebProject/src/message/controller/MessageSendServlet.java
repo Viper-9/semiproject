@@ -39,12 +39,11 @@ public class MessageSendServlet extends HttpServlet {
 		msg.setSender(request.getParameter("userid"));
 		msg.setContent(request.getParameter("content"));
 		System.out.println(msg);
-	
+
 		RequestDispatcher view = null;
 		try{
 			if(new MessageService().sendMessage(msg) > 0) {
-				response.sendRedirect("/hifive/mpage?listno="+msg.getList_no()+"&uid="+msg.getSender());
-				
+				response.sendRedirect("/hifive/views/message/messagePage.jsp?listno="+msg.getList_no()+"&uid="+msg.getSender());					
 			} else {
 				view = request.getRequestDispatcher("views/message/messageError.jsp");
 				request.setAttribute("message", "쪽지보내기 실패");

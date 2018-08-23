@@ -38,9 +38,8 @@ public class MessagePageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int list_no = Integer.parseInt(request.getParameter("listno")); // 대화번호받음..
-		String user_id = request.getParameter("uid"); // 내 아이디 받음...
-		
+		int list_no = Integer.parseInt(request.getParameter("listno")); 
+
 		// 전송될 json 객체 선언 : 객체 하나만 내보낼 수 있음
 		JSONObject json = new JSONObject();
 		// list는 json 배열에 저장하고, json 배열을 전송용 json 객체에 저장함
