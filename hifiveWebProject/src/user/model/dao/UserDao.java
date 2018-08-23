@@ -311,7 +311,7 @@ public class UserDao {
 		return result;
 	}
 
-	public int selectCheckEmail(Connection con, String userEmail)throws UserException {
+	public int selectCheckEmail(Connection con, String email)throws UserException {
 		int emailCount = -1;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -321,7 +321,7 @@ public class UserDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, userEmail);
+			pstmt.setString(1, email);
 			
 			rset = pstmt.executeQuery();
 			

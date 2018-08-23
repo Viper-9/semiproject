@@ -82,7 +82,9 @@
 									} else {
 										location.href = "/hifive/main.jsp";	
 									}
-									
+								} else if(data == '2')	{
+									alert("관리자님 어서오세요");
+									location.href = "/hifive/adminmain.jsp";							
 								} else {
 									alert("알수없는 오류입니다. 관리자에게 문의하세요");
 								}							

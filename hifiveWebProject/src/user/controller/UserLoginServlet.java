@@ -42,15 +42,19 @@ public class UserLoginServlet extends HttpServlet {
 			
 			String returnValue = "0";
 			PrintWriter out = response.getWriter();
+			HttpSession session = request.getSession();
 			
-			if(userName != null && user != null){
-				HttpSession session = request.getSession();
-				// session.setMaxInactiveInterval(10*60); // 자동 로그아웃...
+			
+			if(userId.equals("admin") && userPw.equals("admin")){
 				session.setAttribute("userName", userName);
 				session.setAttribute("userId", userId);
 				session.setAttribute("loginuser", user);
-				
-				
+				returnValue = "2";
+				out.flush();
+			}else if(userName != null && user != null){
+				session.setAttribute("userName", userName);
+				session.setAttribute("userId", userId);
+				session.setAttribute("loginuser", user);				
 				returnValue = "1";
 				out.flush();
 				

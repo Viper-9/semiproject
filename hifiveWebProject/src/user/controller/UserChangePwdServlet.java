@@ -50,7 +50,7 @@ public class UserChangePwdServlet extends HttpServlet {
 			} else {
 					System.out.println(userId + "가 비밀번호 변경실패");
 			}
-		} catch (UserException e) {
+		} catch (Exception e) {
 				e.printStackTrace();
 		}
 		

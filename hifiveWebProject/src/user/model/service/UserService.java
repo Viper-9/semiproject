@@ -83,10 +83,10 @@ public class UserService {
 	}
 
 
-	public int selectCheckEmail(String userEmail) throws UserException {
+	public int selectCheckEmail(String email) throws UserException {
 		Connection con = getConnection();
 		int result = 
-				new UserDao().selectCheckEmail(con, userEmail);
+				new UserDao().selectCheckEmail(con, email);
 		close(con);
 		return result;
 	}
