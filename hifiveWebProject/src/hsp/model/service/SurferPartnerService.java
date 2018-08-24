@@ -83,9 +83,9 @@ public class SurferPartnerService {
 		return result;
 	}
 
-	public ArrayList<User> searchPartner(SurferPartner sp){
+	public ArrayList<User> searchSP(SurferPartner sp, char ch){
 		Connection con = getConnection();
-		ArrayList<User> list = new SurferPartnerDao().searchPartner(con, sp);
+		ArrayList<User> list = new SurferPartnerDao().searchSP(con, sp, ch);
 		close(con);
 		return list;
 	}

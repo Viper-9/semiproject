@@ -2,11 +2,13 @@ package hsp.model.service;
 
 import static common.JDBCTemplate.*;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import hsp.exception.HostException;
 import hsp.model.dao.HostDao;
 import hsp.model.dao.SurferPartnerDao;
 import hsp.model.vo.Host;
+import user.model.vo.User;
 
 public class HostService {
 
@@ -64,6 +66,13 @@ public class HostService {
 		Host host = new HostDao().selectHost(con, userId);
 		close(con);
 		return host;
+	}
+
+	public ArrayList<User> searchHost(Host host) {
+		Connection con = getConnection();
+		ArrayList<User> list = new HostDao().searchHost(con, host);
+		close(con);
+		return list;
 	}
 
 

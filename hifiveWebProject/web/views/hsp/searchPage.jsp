@@ -53,60 +53,182 @@ text-align: left;
 </head>
 <body>
 	<script type="text/javascript">
-		function findPartner(){
-	       var destination = $("#destinationP").val();
-	       var num = $("#numberP").val();
-	       var startdate = $("#startdateP").val();
-	       var enddate = $("#enddateP").val();       
-	       
-	       $.ajax({
-	          url : "/hifive/partnersearch",
-	          type : "post",
-	          data : {destination : destination, num : num, startdate : startdate, enddate : enddate},
-	          dataType : "json",
-	          success : function(data){
-	             var jsonStr = JSON.stringify(data);
-	             var json = JSON.parse(jsonStr);
-	             
-	             var values = "";
-	             
-	             if(json.list.length == 0){
-	                values += "자료 없음";
-	             } else{
-	                values += "<table cellpadding='15'><tr>";
-	                for(var i in json.list){
-	                 var address="입력안함";
-	                   var nationality = "입력안함";
-	                   if(json.list[i].address != null)
-	                      address = json.list[i].address;
-	                   if(json.list[i].nationality != null)
-	                      nationality = json.list[i].nationality;
-	                   if(json.list[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
-	                      values += "<td><div class='card' style='width: 200px;'>" 
-	                      + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
-	                   } else{ // 프로필 사진 없으면
-	                      values += "<td><div class='card' style='width: 200px;'>" 
-	                           + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
-	                  }                   
-	                   values += "<div class='card-body'>" 
-	                       + "<a href='/hifive/profileinfo?userid=" + json.list[i].id 
-	                     + "'><h4 class='card-title'><center><b>" + json.list[i].name + "</b></center></h4></a>"
-	                     + "<p class='card-text'> <h6>" + address + "</h6> <b>" + nationality + "</b><br>" 
-	                     + " </p> </div> </div></td>";
-	                   
-	                 if((i+1)%3==0)
-	                    values += "</tr><tr>";
-	                 if((i+1)==json.list.length)
-	                    values += "</tr></table>";	                  
-	                }
-	                $("#searchResult").html($("#searchResult").html()+values); 
-	             }            
-	             
-	          } //success
-	       }); 
-		} //findPartner
-		
-	</script>
+		function findHost(){
+	         $("#searchResult").html("");
+	         
+	         var num = $("#number").val();
+	         var gender = $("#gender option:selected").val();
+	         var check = "";
+	         $("input[name=possible]:checked").each(function(index, item){
+	        	 if(index != 0)
+	        		 check += ",";
+			check += $(this).val();
+	         })
+	         var sleeping = $("#sleeping option:selected").val();
+	         var destination = $("#destination").val();
+	         
+	         console.log(check);
+	         
+	         $.ajax({
+	            url : "/hifive/hostsearch",
+	            type : "post",
+	            data : {num : num, gender : gender, check : check, sleeping : sleeping, destination : destination},
+	            dataType : "json",
+	            success : function(data){
+	               var jsonStr = JSON.stringify(data);
+	               var json = JSON.parse(jsonStr);
+	               
+	               var values = "";
+	               
+	               if(json.list.length == 0){
+	            	   values += "검색된 결과가 없습니다.";
+	               }else{
+	                   values += "<table cellpadding='15'><tr>";
+	                   for(var i in json.list){
+	                    var address="입력안함";
+	                      var nationality = "입력안함";
+	                      if(json.list[i].address != null)
+	                         address = json.list[i].address;
+	                      if(json.list[i].nationality != null)
+	                         nationality = json.list[i].nationality;
+	                      if(json.list[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
+	                         values += "<td><div class='card' style='width: 200px;'>" 
+	                         + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
+	                      } else{ // 프로필 사진 없으면
+	                         values += "<td><div class='card' style='width: 200px;'>" 
+	                              + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
+	                     }                   
+	                      values += "<div class='card-body'>" 
+	                          + "<a href='/hifive/profileinfo?userid=" + json.list[i].id 
+	                        + "'><h4 class='card-title'><center><b>" + json.list[i].name + "</b></center></h4></a>"
+	                        + "<p class='card-text'> <h6>" + address + "</h6> <b>" + nationality + "</b><br>" 
+	                        + " </p> </div> </div></td>";
+	                      
+	                    if((i+1)%3==0)
+	                       values += "</tr><tr>";
+	                    if((i+1)==json.list.length)
+	                       values += "</tr></table>";                     
+	                   }
+	      
+	               }
+	               $("#searchResult").html($("#searchResult").html()+values);
+	            }
+	         })
+      } //findHost
+      
+   
+      function findSurfer(){
+         $("#searchResult").html("");
+         
+         var destination = $("#destinationS").val();
+         var num = $("#numberS").val();
+         var startdate = $("#startdateS").val();
+         var enddate = $("#enddateS").val();
+         
+         $.ajax({
+            url : "/hifive/surfersearch",
+            type : "post",
+            data : {destination : destination, num : num, startdate : startdate, enddate : enddate},
+            dataType : "json",
+            success : function(data){            	
+               var jsonStr = JSON.stringify(data);
+               var json = JSON.parse(jsonStr);
+               
+               var values = "";
+               
+               if(json.list.length == 0){
+                  values += "검색된 결과가 없습니다.";
+               }else{
+                  values += "<table cellpadding='15'><tr>";
+                  for(var i in json.list){
+                   var address="입력안함";
+                     var nationality = "입력안함";
+                     if(json.list[i].address != null)
+                        address = json.list[i].address;
+                     if(json.list[i].nationality != null)
+                        nationality = json.list[i].nationality;
+                     if(json.list[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
+                        values += "<td><div class='card' style='width: 200px;'>" 
+                        + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
+                     } else{ // 프로필 사진 없으면
+                        values += "<td><div class='card' style='width: 200px;'>" 
+                             + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
+                    }                   
+                     values += "<div class='card-body'>" 
+                         + "<a href='/hifive/profileinfo?userid=" + json.list[i].id 
+                       + "'><h4 class='card-title'><center><b>" + json.list[i].name + "</b></center></h4></a>"
+                       + "<p class='card-text'> <h6>" + address + "</h6> <b>" + nationality + "</b><br>" 
+                       + " </p> </div> </div></td>";
+                     
+                   if((i+1)%3==0)
+                      values += "</tr><tr>";
+                   if((i+1)==json.list.length)
+                      values += "</tr></table>";                     
+                  }
+     
+               }                        
+               $("#searchResult").html($("#searchResult").html()+values); 
+            }            
+         })
+      } //findSurfer
+   
+      
+      function findPartner(){         
+         $("#searchResult").html("");
+         
+          var destination = $("#destinationP").val();
+          var num = $("#numberP").val();
+          var startdate = $("#startdateP").val();
+          var enddate = $("#enddateP").val();       
+          
+          $.ajax({
+             url : "/hifive/partnersearch",
+             type : "post",
+             data : {destination : destination, num : num, startdate : startdate, enddate : enddate},
+             dataType : "json",
+             success : function(data){
+                var jsonStr = JSON.stringify(data);
+                var json = JSON.parse(jsonStr);
+                
+                var values = "";
+                
+                if(json.list.length == 0){
+                   values += "검색된 결과가 없습니다.";
+                }else{
+                   values += "<table cellpadding='15'><tr>";
+                   for(var i in json.list){
+                    var address="입력안함";
+                      var nationality = "입력안함";
+                      if(json.list[i].address != null)
+                         address = json.list[i].address;
+                      if(json.list[i].nationality != null)
+                         nationality = json.list[i].nationality;
+                      if(json.list[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
+                         values += "<td><div class='card' style='width: 200px;'>" 
+                         + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
+                      } else{ // 프로필 사진 없으면
+                         values += "<td><div class='card' style='width: 200px;'>" 
+                              + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
+                     }                   
+                      values += "<div class='card-body'>" 
+                          + "<a href='/hifive/profileinfo?userid=" + json.list[i].id 
+                        + "'><h4 class='card-title'><center><b>" + json.list[i].name + "</b></center></h4></a>"
+                        + "<p class='card-text'> <h6>" + address + "</h6> <b>" + nationality + "</b><br>" 
+                        + " </p> </div> </div></td>";
+                      
+                    if((i+1)%3==0)
+                       values += "</tr><tr>";
+                    if((i+1)==json.list.length)
+                       values += "</tr></table>";                     
+                   }
+                  
+                }
+                $("#searchResult").html($("#searchResult").html()+values);                
+             } //success
+          }); 
+      } //findPartner
+      
+   </script>
 	<div class="container">
 		<%@ include file="../../header.jsp"%>
 		<hr>
@@ -141,7 +263,6 @@ text-align: left;
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="searchH"
 					role="tabpanel" aria-labelledby="searchHTab">
-				<form action="">
 					<table border="0" width="710px">
 						<tr>
 							<td>
@@ -150,7 +271,7 @@ text-align: left;
 									<div class="input-group-prepend">
 										&nbsp;&nbsp;&nbsp; <span class="btn btn-outline-secondary"
 											id="searchpnums">인원</span> <input type="number"
-											placeholder="0" min="1" max="10" class="form-control" id="pnumber">
+											placeholder="0" min="1" max="10" class="form-control" id="number">
 									</div>
 
 								</div>
@@ -161,12 +282,12 @@ text-align: left;
 										&nbsp;&nbsp; <span class="btn btn-outline-secondary"
 											id="preferG">성별</span>
 									</div>
-									<select class="custom-select" id="searchhostprefergender"
+									<select class="custom-select" id="gender"
 										name="preferredgender">
 										<option selected>선택</option>
-										<option value="male">남성</option>
-										<option value="female">여성</option>
-										<option value="both">상관없음</option>
+										<option value="M">남성</option>
+										<option value="F">여성</option>
+										<option value="B">상관없음</option>
 									</select>
 								</div>
 								</div>
@@ -178,34 +299,26 @@ text-align: left;
 							<span class="btn btn-outline-secondary" id="searchpnums">가능
 								조건</span>
 						</div>
-						&nbsp;&nbsp;
-						<div class="btn-group-toggle" data-toggle="buttons">
-							<label class="btn btn-outline-dark active"> <input
-								type="checkbox" name="possible" id="searchpossible"
-								value="kids">아이동반
-							</label>
-						</div>
-						&nbsp;&nbsp;
-						<div class="btn-group-toggle" data-toggle="buttons">
-							<label class="btn btn-outline-dark"> <input
-								type="checkbox" name="possible" id="searchpossible"
-								value="pet">애완동물동반
-							</label>
-						</div>
-						&nbsp;&nbsp;
-						<div class="btn-group-toggle" data-toggle="buttons">
-							<label class="btn btn-outline-dark"> <input
-								type="checkbox" name="possible" id="searchpossible"
-								value="smoke">흡연
-							</label>
-						</div>
-						&nbsp;&nbsp;
-						<div class="btn-group-toggle" data-toggle="buttons">
-							<label class="btn btn-outline-dark"> <input
-								type="checkbox" name="possible" id="searchpossible"
-								value="drink">음주
-							</label>
-						</div>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						
+						<div class="form-group form-check">
+    						<input type="checkbox" name="possible" class="form-check-input" id="kids" value="kids">
+    						<label class="form-check-label" >아이 동반</label>
+  					    </div>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<div class="form-group form-check">
+    						<input type="checkbox" name="possible" class="form-check-input" id="pet" value="pet">
+    						<label class="form-check-label" >애완동물 동반</label>
+  					    </div>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						
+						<div class="form-group form-check">
+    						<input type="checkbox" name="possible" class="form-check-input" id="smoking" value="smoking">
+    						<label class="form-check-label" >흡연</label>
+  					    </div>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						
+						<div class="form-group form-check">
+    						<input type="checkbox" name="possible" class="form-check-input" id="drinking" value="drinking">
+    						<label class="form-check-label" >음주</label>
+  					    </div>							
 					</div>
 					<table border="0" width="710">
 						<tr>
@@ -215,7 +328,7 @@ text-align: left;
 										<span class="btn btn-outline-secondary">숙소</span>
 									</div>
 									<select class="custom-select" name="searchsleeping"
-										id="searchsleepling">
+										id="sleeping">
 										<option value="">선택</option>
 										<option value="living">거실</option>
 										<option value="single">단독 방</option>
@@ -229,19 +342,17 @@ text-align: left;
 									<div class="input-group-prepend">
 										<span class="btn btn-outline-secondary">목적지</span>
 									</div>
-									<input type="text" class="form-control" id="hostdestination">
+									<input type="text" class="form-control" id="destination">
 								</div>
 							</td>
 						</tr>
 					</table>
 					<div style="margin-left: 20px;">
-						<button type="submit" class="btn btn-primary" id="hostbtn" onclick="findHost();">검색하기</button>
+						<input type="button" class="btn btn-primary" id="hostbtn" value="검색하기" onclick="findHost();">
 					</div>
-				</form>
 				</div>
 				<div class="tab-pane fade" id="searchS" role="tabpanel"
 					style="margin-left: 20px;" aria-labelledby="searchSTab">
-				<form>
 					<table border="0" width="710">
 						<tr>
 							<td>
@@ -274,8 +385,7 @@ text-align: left;
 						id="enddateS">
 				</div>
 				<br>
-				<button type="submit" class="btn btn-primary" id="surferbtn" onclick="findSurfer();">검색하기</button>
-				</form>
+				<input type="submit" class="btn btn-primary" id="surferbtn" value="검색하기" onclick="findSurfer();">
 				</div>
 				<div class="tab-pane fade" id="searchP" role="tabpanel"
 					style="margin-left: 20px;" aria-labelledby="searchPTab">

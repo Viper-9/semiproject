@@ -51,7 +51,7 @@ public class PartnerSearchServlet extends HttpServlet {
 		sp.setStart_date(startDate);
 		sp.setEnd_date(endDate);
 		
-		ArrayList<User> list = new SurferPartnerService().searchPartner(sp);		
+		ArrayList<User> list = new SurferPartnerService().searchSP(sp, 'p');		
 		
 		JSONObject job1 = new JSONObject();
 		JSONArray jar = new JSONArray();
