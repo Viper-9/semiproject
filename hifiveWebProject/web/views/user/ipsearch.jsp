@@ -72,13 +72,13 @@
 				data : { searchuseremail : receiveremail},
 				success : function(data) {
 					if(data =='0'){
-						$("#supportMS1").css("color", "red").text("이메일이 올바르지 않습니다");
-			 			$("#supportMS1").css("display", "block"); 
+						$("#supportMs").css("color", "red").text("이메일이 올바르지 않습니다");
+			 			$("#supportMs").css("display", "block"); 
 			 			$("#searchuseremail").val("");
 						$("#searchuseremail").focus();
 						$("#searchuseremail").css("background-color", "#FFCECE");
 					}else if(data == '1'){
-						alert("입력하신 이메일로 ID를 발송하였습니다")
+						alert("입력하신 이메일로  발송하였습니다")
 						location.href = "/hifive/index.jsp";
 					}else {
 						alert("관리자에게 문의하십시요");					
@@ -129,12 +129,14 @@
 				type : "post",
 				data : { spwid : spwid, spwemail : spwemail },
 				success : function(data){
-					if(data == '0'){
-						$("#supportMS").css("color", "red").text("아이디 혹은 이메일이 올바르지 않습니다");
-			 			$("#supportMS").css("display", "block"); 
+					console.log("data 값 확인 = " + data)
+					if(data == '0'){					
+						$("#supportDs").css("color", "red").text("아이디 혹은 이메일이 올바르지 않습니다");
+			 			$("#supportDs").css("display", "block"); 
 			 			$("#usereid").val("");
 			 			$("#useremail").val("");
 			 			$("#usereid").focus();
+			 			return false;
 						
 					}else if(data == '1'){
 						alert("해당 이메일로 임시비밀번호를 발송하였습니다");
@@ -142,6 +144,7 @@
 						
 					}else{
 						alert("관리자에게 문의하십시요");
+						return false;
 					}
 				}				
 			});			
@@ -171,15 +174,14 @@
   		</ul>
 		<div class="tab-content" id="pills-tabContent">
   			<div class="tab-pane fade show active" id="pills-id" role="tabpanel" aria-labelledby="pills-id-tab">아이디를 잊어버리셨나요? <br> 가입할 때 입력한 이메일로 아이디를 보내드립니다. 				
-  				<div class="form-group row" id = "supportMS1" style = "display:none; text-indent:15px;">
-  						&nbsp;<label class="col-form-label"></label>
-             	<div class="col-sm-10"></div>
-              		</div>
   				<div>
-  					<br>
-  					
+  					<br>				
   					<!-- 이메일 쓰는란 -->
 					<form action="/hifive/searchid" method="post" onsubmit = "return false;">
+					<div class="form-group row" id = "supportMs" style = "display:none; text-indent:15px;">
+              <label class="col-form-label"> <font color = "red"></font></label>
+              <div class="col-sm-10"></div>
+         		</div>
 						<div class="form-group">
     						<label for="">Email</label>
     						<input type="email" class="form-control" id="searchuseremail" oninput = "changeembg()"
@@ -194,15 +196,15 @@
 				</div>  			 			
   			</div>
   			
-  			<div class="tab-pane fade" id="pills-password" role="tabpanel" aria-labelledby="pills-password-tab">비밀번호를 잊어버리셨나요? <br> 가입할 때 입력한 이메일로 비밀번호를  보내드립니다. <br>&nbsp;
-  				<div class="form-group row" id = "supportMS" style = "display:none; text-indent:15px;">
-  						&nbsp;<label class="col-form-label"></label>
-             	<div class="col-sm-10"></div>
-              	</div>
+  			<div class="tab-pane fade" id="pills-password" role="tabpanel" aria-labelledby="pills-password-tab">비밀번호를 잊어버리셨나요? <br> 가입할 때 입력한 이메일로 비밀번호를  보내드립니다. 		
   				<div>
   					<br>
   					<!-- 아이디 & 이메일 치는란 -->
 					<form action="/hifive/searchpwd" method="post" onsubmit = "return false;">
+					 <div class="form-group row" id = "supportDs" style = "display:none; text-indent:15px;">
+              <label class="col-form-label"> <font color = "red"></font></label>
+              <div class="col-sm-10"></div>
+         		</div>
 						<div class="form-group">
     						<label for="">ID</label>
     						<input type="text" class="form-control" id="usereid" oninput = "changepwbg()" placeholder="ID">

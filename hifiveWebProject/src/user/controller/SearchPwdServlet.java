@@ -52,12 +52,13 @@ public class SearchPwdServlet extends HttpServlet {
 		 Session session = Session.getDefaultInstance(props, auth);
 		 MimeMessage msg = new MimeMessage(session);
 		 PrintWriter out = response.getWriter();
+		 
 		 //이메일 수신자
 		 String userEmail = request.getParameter("spwemail");
 		 String userId = request.getParameter("spwid");
 		 String returnValue = "0";
-		 
-		 System.out.println("사용자가 입력한 이메일 및 아이디 = " + userEmail + ", " + userId);
+		 System.out.println("비밀번호 찾기 기능 작동");
+		 System.out.println("사용자가 입력한 이메일  = " + userEmail + ", 사용자가 입력한 아이디" + userId);
 		 
 		 
 		 try {			 
@@ -71,8 +72,8 @@ public class SearchPwdServlet extends HttpServlet {
 			
 			if(userId != null && userEmail != null && userPw != null){
 				
-				for (int i = 0; i < 12; i++) 
-					pw += (char) ((Math.random() * 26) + 97);
+				for (int i = 0; i < 15; i++) 
+					pw += (char) ((Math.random() * 30) + 100);
 				
 			User user = new User();
 			user.setUser_Id(userId);
@@ -87,20 +88,14 @@ public class SearchPwdServlet extends HttpServlet {
 				
 				//이메일 발신자
 				msg.setFrom(from);
-				
-				
-				
-			
+							
 				//사용자가 입력한 이멜 주소 받아오기
 				InternetAddress to = new InternetAddress(userEmail);
-				msg.setRecipient(Message.RecipientType.TO, to);
-								
+				msg.setRecipient(Message.RecipientType.TO, to);								
 				
 				//이메일 제목
 				msg.setSubject("Travel's couch 고객센터 입니다. ","UTF-8");
-				
-				
-				
+							
 				//이메일 내용
 				msg.setText("문의하신" + userId + "의 임시비밀번호는 =" + pw + "입니다", "UTF-8");
 				
@@ -108,25 +103,23 @@ public class SearchPwdServlet extends HttpServlet {
 				msg.setHeader("content-Type", "text/html");
 				javax.mail.Transport.send(msg);
 				System.out.println("이메일 보내기를 성공");
-				
-				
+								
 				response.setContentType("text/html; charset=utf-8");
 				returnValue = "1";
 				out.append(returnValue);
-				out.flush();
-				out.close();
+				out.flush();				
 				
 			} else {
-				System.out.println("null값 인지 부분실행");
+				
 				response.setContentType("text/html; charset=utf-8");
 				returnValue = "0";
 				out.append(returnValue);
 				out.flush();
-				out.close();
-			}
+				System.out.println("null값 인지 부분실행");		
+				
+			}			
 			
-			
-			
+			out.close();
 			
 		} catch (AddressException e) {
 			e.printStackTrace();
