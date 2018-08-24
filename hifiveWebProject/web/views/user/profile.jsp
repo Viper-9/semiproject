@@ -419,7 +419,13 @@
                      </tr>               
                      <tr>
                         <td><li>추가 정보</li></td>
-                        <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" disabled style="background-color: #ffffff;"><%= profileH.getContent() %>"</textarea></td>   
+                        <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" disabled style="text-align:left; background-color: #ffffff;">
+                        <% if(profileH.getContent() == null) { %>
+                        	추가 정보를 입력하지 않았습니다.
+                        <% } else { %>
+                       		<%= profileH.getContent() %>
+                       	<% } %>	
+                       	</textarea></td>   
                      </tr>
                   </table> 
                   </ul>
@@ -503,13 +509,20 @@
             <div id="photo" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Photos</h6>
                <div class="card-body">
-                  <img src="/hifive/resources/image/home.JPG" class="rounded" data-toggle="modal"
-                     data-target="#photoDetail" style="width: 225px;">
-                  <img src="/hifive/resources/image/home2.png" class="rounded" data-toggle="modal"
-                     data-target="#photoDetail" style="width: 225px;">
-                  <img src="/hifive/resources/image/home3.jpg" class="rounded" data-toggle="modal"
-                     data-target="#photoDetail" style="width: 225px;">
-                  
+               <% if(profileH != null) { %>
+	               <% if(profileH.getImage1() == null && profileH.getImage2() == null && profileH.getImage3() == null) { %>
+	              	 사진을 등록하지 않았습니다.
+	               <% } else { %>
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage1() %>" class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage2() %>"  class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage3() %>"  class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	               <% } %>              
+               <% } else { %>
+              	 등록된 호스트 정보가 없습니다.
+               <% } %>
                </div>
             </div>
             <br>
@@ -551,7 +564,9 @@
          </div>
       </div>
    </div>
-
+   
+   <% if(profileH != null) { %>
+   <% if(profileH.getImage1() != null || profileH.getImage2() != null || profileH.getImage3() != null) { %>
    <div class="modal fade bd-example-modal-lg align-middle" id="photoDetail"
       tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -570,18 +585,24 @@
                <div id="carouselExampleControls" class="carousel slide"
                   data-ride="carousel">
                   <div class="carousel-inner">
-                     <div class="carousel-item active">
+                     <% if(!profileH.getImage1().equals("sample.jpg") && profileH.getImage1() != null) { %>
+                     <div class="carousel-item active">                     
                         <img class="d-block w-100"
-                           src="/hifive/resources/image/home.JPG" alt="First slide">
+                           src="/hifive/resources/photoUpload/<%= profileH.getImage1() %>" alt="First slide">
                      </div>
+                     <% } %>
+                     <% if(!profileH.getImage2().equals("sample.jpg") || profileH.getImage2() != null) { %>
                      <div class="carousel-item">
                         <img class="d-block w-100"
-                           src="/hifive/resources/image/home2.png" alt="Second slide">
+                           src="/hifive/resources/photoUpload/<%= profileH.getImage2() %>" alt="Second slide">
                      </div>
+                     <% } %>
+                     <% if(!profileH.getImage3().equals("sample.jpg") && profileH.getImage3() != null) { %>
                      <div class="carousel-item">
                         <img class="d-block w-100"
-                           src="/hifive/resources/image/home3.jpg" alt="Third slide">
+                           src="/hifive/resources/photoUpload/<%= profileH.getImage3() %>" alt="Third slide">
                      </div>
+                     <% } %>
                   </div>
                   <a class="carousel-control-prev" href="#carouselExampleControls"
                      role="button" data-slide="prev"> <span
@@ -597,6 +618,8 @@
          </div>
       </div>
    </div>
+   <% } %>
+   <% } %>
    <script>
       var map = new naver.maps.Map('map');
       var myaddress = '<%= user.getAddress() %>'; // 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!) 여기에 사용자 주소

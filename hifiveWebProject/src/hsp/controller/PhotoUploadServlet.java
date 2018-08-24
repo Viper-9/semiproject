@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -19,8 +18,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import hsp.model.service.HostService;
-import user.model.service.UserService;
-import user.model.vo.User;
+import hsp.model.vo.Host;
 
 /**
  * Servlet implementation class PhotoUploadServlet
@@ -64,9 +62,9 @@ request.setCharacterEncoding("utf-8");
 		// request 를 MultipartRequest 로 변환함
 		MultipartRequest mrequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
 				new DefaultFileRenamePolicy());
-
 		
 		String userid = mrequest.getParameter("photouserid");
+		
 		// 저장폴더에 기록된 원래 파일명 조회
 		String originalFileName1 = mrequest.getFilesystemName("photo1");
 		String originalFileName2 = mrequest.getFilesystemName("photo2");
@@ -74,23 +72,14 @@ request.setCharacterEncoding("utf-8");
 		String renameFileName1 = "";
 		String renameFileName2 = "";
 		String renameFileName3 = "";
-		System.out.println("서블릿" + userid+ originalFileName1);
 		
-		if (originalFileName1 != null && originalFileName2 != null && originalFileName3 != null) {
+		if (originalFileName1 != null) {
 			renameFileName1 = userid + "photo1." 
 					+ originalFileName1.substring(originalFileName1.lastIndexOf(".") + 1);
-			renameFileName2 = userid + "photo2." 
-					+ originalFileName2.substring(originalFileName2.lastIndexOf(".") + 1);
-			renameFileName3 = userid + "photo3." 
-					+ originalFileName3.substring(originalFileName3.lastIndexOf(".") + 1);
 
 			// 파일명 바꾸려면 File 객체의 renameTo() 사용함
 			File originFile1 = new File(savePath + "\\" + originalFileName1);
 			File renameFile1 = new File(savePath + "\\" + renameFileName1);
-			File originFile2 = new File(savePath + "\\" + originalFileName2);
-			File renameFile2 = new File(savePath + "\\" + renameFileName2);
-			File originFile3 = new File(savePath + "\\" + originalFileName3);
-			File renameFile3 = new File(savePath + "\\" + renameFileName3);
 
 			// 파일 이름바꾸기 실행 >> 실패할 경우 직접 바꾸기함
 			// 새 파일만들고 원래 파일 내용 읽어서 복사하고
@@ -111,7 +100,23 @@ request.setCharacterEncoding("utf-8");
 				
 				// 원본 파일 삭제함
 				originFile1.delete();
-			} else if (!originFile2.renameTo(renameFile2)) {
+			}
+		} else {
+			renameFileName1 = "sample.jpg";
+		}
+		
+		if (originalFileName2 != null) {
+			renameFileName2 = userid + "photo2." 
+					+ originalFileName2.substring(originalFileName2.lastIndexOf(".") + 1);
+
+			// 파일명 바꾸려면 File 객체의 renameTo() 사용함
+			File originFile2 = new File(savePath + "\\" + originalFileName2);
+			File renameFile2 = new File(savePath + "\\" + renameFileName2);
+
+			// 파일 이름바꾸기 실행 >> 실패할 경우 직접 바꾸기함
+			// 새 파일만들고 원래 파일 내용 읽어서 복사하고
+			// 복사가 끝나면 원래 파일 삭제함
+			if (!originFile2.renameTo(renameFile2)) {
 				int read = -1;
 				byte[] buf = new byte[1024];
 
@@ -127,7 +132,23 @@ request.setCharacterEncoding("utf-8");
 				
 				// 원본 파일 삭제함
 				originFile2.delete();
-			} else if (!originFile3.renameTo(renameFile3)) {
+			}
+		} else {
+			renameFileName2 = "sample.jpg";
+		}
+
+		if (originalFileName3 != null) {			
+			renameFileName3 = userid + "photo3." 
+					+ originalFileName3.substring(originalFileName3.lastIndexOf(".") + 1);
+
+			// 파일명 바꾸려면 File 객체의 renameTo() 사용함
+			File originFile3 = new File(savePath + "\\" + originalFileName3);
+			File renameFile3 = new File(savePath + "\\" + renameFileName3);
+
+			// 파일 이름바꾸기 실행 >> 실패할 경우 직접 바꾸기함
+			// 새 파일만들고 원래 파일 내용 읽어서 복사하고
+			// 복사가 끝나면 원래 파일 삭제함
+			if (!originFile3.renameTo(renameFile3)) {
 				int read = -1;
 				byte[] buf = new byte[1024];
 
@@ -144,14 +165,24 @@ request.setCharacterEncoding("utf-8");
 				// 원본 파일 삭제함
 				originFile3.delete();
 			}
+		} else {
+			renameFileName3 = "sample.jpg";
+		}
 
-			
+		Host host = new HostService().selectHost(userid);
+		
+		if(host.getImage1() != null && !host.getImage1().equals("sample.jpg")) {
+			renameFileName1 = host.getImage1();
+		}
+		if(host.getImage2() != null && !host.getImage2().equals("sample.jpg")) {
+			renameFileName2 = host.getImage2();
+		}
+		if(host.getImage3() != null && !host.getImage3().equals("sample.jpg")) {
+			renameFileName3 = host.getImage3();
 		}
 		
-	
-		
 		try {	
-			if(new HostService().selectHost(userid) != null) {
+			if(host != null) {
 				if(new HostService().updatePhoto(renameFileName1, renameFileName2, renameFileName3, userid) > 0) {
 					response.sendRedirect("/hifive/views/user/mypage.jsp");
 				}
