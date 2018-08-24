@@ -69,13 +69,13 @@ public class UserDao {
 				user.setBirth(rset.getDate("birth"));
 				user.setGender(rset.getString("gender"));
 				user.setJoin_Date(rset.getDate("join_date"));
-				user.setSafety_check(rset.getString("safety"));
+				user.setSafety_check(rset.getString("safety_check"));
 				user.setNationality(rset.getString("nationality"));
 				user.setAddress(rset.getString("address"));
 				user.setHobby(rset.getString("hobby"));
 				user.setJob(rset.getString("job"));
 				user.setLanguage(rset.getString("language"));
-				user.setContent(rset.getString("contents"));
+				user.setContent(rset.getString("content"));
 				user.setRestriction(rset.getString("restriction"));
 				user.setProfile_image(rset.getString("profile_image"));
 
