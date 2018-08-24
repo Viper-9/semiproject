@@ -4,11 +4,13 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import hsp.exception.HostException;
 import hsp.exception.SurferPartnerException;
 import hsp.model.vo.Host;
 import user.exception.UserException;
+import user.model.vo.User;
 
 public class HostDao {
 
@@ -183,6 +185,41 @@ public class HostDao {
 			close(pstmt);
 		}
 		return host;
+	}
+
+	public ArrayList<User> searchHost(Connection con, Host host) {
+		ArrayList<User> list = new ArrayList<User>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select * from host h, users u where h.user_id = u.user_id and user_num=? and p_gender=? and check1=? and check2=? and city like ?";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, host.getUser_num());
+			pstmt.setString(2, host.getP_gender());
+			pstmt.setString(3, host.getCheck1());
+			pstmt.setString(4, host.getCheck2());
+			pstmt.setString(5, "%"+host.getCity()+"%");
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				User user = new User();
+				user.setUser_Id(rset.getString("user_id"));
+				user.setUser_Name(rset.getString("user_name"));
+				user.setAddress(rset.getString("address"));
+				user.setNationality(rset.getString("nationality"));
+				user.setProfile_image(rset.getString("profile_image"));
+				list.add(user);
+			}	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }

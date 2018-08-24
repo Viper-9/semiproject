@@ -2,7 +2,7 @@
 <%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>
 <%            
       String[] hchecked = new String[12];               
-        String[] ochecked = new String[4];
+      String[] ochecked = new String[4];
 %>
 <!DOCTYPE html>
 <html>
@@ -158,7 +158,7 @@ table {
                      case "dance": 
                         $("#dance").attr("checked", "checked"); break;      
                      case "movie": 
-                         $("#movie").attr("checked", "checked"); break;      
+                        $("#movie").attr("checked", "checked"); break;      
 
                      }
                   }  
@@ -205,14 +205,14 @@ table {
 	                   var checks = data.check1.split(",");
 	                   for(var s in checks){
 	                      switch(checks[s]){                   
-	                        case "smoking":
-	                           $("#smoking").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-	                        case "kids":
-	                           $("#kids").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-	                        case "pet":
-	                           $("#pet").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-	                       case "drinking":
-	                          $("#drinking").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+	                      case "kids":
+	                           $("#kids").attr("checked", "checked"); break;
+	                      case "pet":
+	                           $("#pet").attr("checked", "checked"); break;
+	                      case "smoking":
+	                           $("#smoking").attr("checked", "checked"); break;
+	                      case "drinking":
+	                          $("#drinking").attr("checked", "checked"); break;
 	                      }
 	                   }
 	                }
@@ -419,9 +419,10 @@ table {
                         <form action="/hifive/userdelete?userid=<%=userId %>" method="post">
                         <table>
                            <tr>
-                               <th>                           
-                                    <input type="submit" class="btn btn-danger" style="width:200px;" value="회원 탈퇴">                                    
-                             </th>
+                               <th>                              	                  
+                              	<input type="submit" class="btn btn-danger" style="width:200px;" id="deleteUser" value="회원 탈퇴">
+            			    
+            			     </th>
                            </tr>
                         </table>
                       </form>                         
@@ -450,9 +451,7 @@ table {
                   </table> 
                   <br>
                   <br> 
-      
-                 
-                                 
+             
                   <table class="table">
                    	<tbody>
                      <tr>
@@ -706,8 +705,7 @@ table {
                         </tr>
                         
                         <tr>
-                        </tr>
-                        
+                        </tr>                        
                         <tr>
                           <td>선호하는 성별&nbsp;&nbsp;&nbsp;</td>
                           <td>
@@ -728,48 +726,27 @@ table {
                           <td>
                             <table>
                               <tr>
-                                <td>
-                                 <!-- <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-secondary btn-sm" id="smoking">
-                                    <input type="checkbox" name="hostcheck" value="smoking"> 흡연
-                                    </label>
-                                 </div> -->
-                                 
+                              	<td>                                
                                  <div class="form-group form-check">
-    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
-    								<label class="form-check-label" for="exampleCheck1">흡연&nbsp;&nbsp;&nbsp;</label>
-  						 		 </div>
-                                </td>
-                                <td>
-                                 <!-- <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-secondary btn-sm" id="kids"> 
-                                    <input type="checkbox" name="hostcheck" value="kids"> 아이동반
-                                    </label>
-                                 </div> -->   
-                                 <div class="form-group form-check">
-    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    								<input type="checkbox" class="form-check-input" id="kids" name="hostcheck" value="kids">
     								<label class="form-check-label" for="exampleCheck1">아이동반&nbsp;&nbsp;&nbsp;</label>
   						 		 </div>                           
                                 </td>
-                                <td>
-                                <!--  <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-secondary btn-sm" id="pet">
-                                    <input type="checkbox" name="hostcheck" value="pet"> 애완동물
-                                    </label>
-                                 </div> -->
+                                <td>                               
                                  <div class="form-group form-check">
-    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    								<input type="checkbox" class="form-check-input" id="pet" name="hostcheck" value="pet">
     								<label class="form-check-label" for="exampleCheck1">애완동물&nbsp;&nbsp;&nbsp;</label>
   						 		 </div>
                                 </td>
-                                <td>
-                                <!--  <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-secondary btn-sm" id="drinking">
-                                    <input type="checkbox" name="hostcheck" value="drinking"> 음주
-                                    </label>
-                                 </div> -->  
+                                <td>                         
                                  <div class="form-group form-check">
-    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    								<input type="checkbox" class="form-check-input" id="smoking" name="hostcheck" value="smoking">
+    								<label class="form-check-label" for="exampleCheck1">흡연&nbsp;&nbsp;&nbsp;</label>
+  						 		 </div>
+                                </td>
+                                <td>                                
+                                 <div class="form-group form-check">
+    								<input type="checkbox" class="form-check-input" id="drinking" name="hostcheck" value="drinking">
     								<label class="form-check-label" for="exampleCheck1">음주&nbsp;&nbsp;&nbsp;</label>
   						 		 </div>                            
                                 </td>
