@@ -39,6 +39,7 @@
   
 </style>
 <script type="text/javascript">
+
 $(function(){      
     
     $.ajax({
@@ -71,7 +72,7 @@ $(function(){
          
        }
     }); // userajax
-    
+});
     
 	
 	var getPassword = RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/); //패스워드 유효성 영문(대소문자)+숫자+특수문자 포함 8~16자리
