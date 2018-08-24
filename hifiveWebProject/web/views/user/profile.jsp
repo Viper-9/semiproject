@@ -40,6 +40,18 @@
    #content1{width:740px;margin:5px 0 0 0;float:left;padding:0 0 0 10px;}
    
    #card_info { text-align:center; }
+   
+   #s_review {
+	   	width:300px;		
+		padding: 10px;
+		border-radius: 7px;
+		-webkit-border-radius: 7px;
+		-moz-border-radius: 7px;
+		box-shadow: 0 1px 9px rgba(51,51,51,.8);
+		-webkit-box-shadow: 0 1px 9px rgba(51,51,51,.8);
+		-moz-box-shadow: 0 1px 9px rgba(51,51,51,.8);
+		background: #eae8e8;
+	}
 </style>
 
 <script type="text/javascript">
@@ -64,9 +76,9 @@
 						$("#review").html($("#review").html()+values);	
 					} else{					
 						for(var i in json.list){
-							values += "아이디 : " + json.list[i].user_id 
+							values += "<section id='s_review'>아이디 : " + json.list[i].user_id 
 							+"<br>날짜 : " + json.list[i].review_date
-							+"<br>내용 : " + json.list[i].content +"<br><br>";
+							+"<br>내용 : " + json.list[i].content +"</section><br><br>";
 						}										
 						$("#review").html($("#review").html()+values);
 						
@@ -503,7 +515,7 @@
             <br>
             <div id="reference" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">References</h6>
-               <div class="card-body" id="review">
+               <div class="card-body" id="review" align='center'>
                   
                </div>
             </div>

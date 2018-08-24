@@ -49,7 +49,7 @@ public class RequestListServlet extends HttpServlet {
       ArrayList<Request> h_list_1 = new RequestService().myHostList1(userId);      
       ArrayList<Request> p_list_1 = new RequestService().myPartnerList1(userId);
       ArrayList<Request> p_list_2 = new RequestService().myPartnerList2(userId);
-     
+    
       // 전송될 json 객체 선언 : 객체 하나만 내보낼 수 있음
       JSONObject json = new JSONObject();
       // list는 json 배열에 저장하고, json 배열을 전송용 json 객체에 저장함
@@ -78,8 +78,8 @@ public class RequestListServlet extends HttpServlet {
       // 내(호스트)가 서퍼에게 요청한 리스트
       for(Request r : s_list_1){
           JSONObject job = new JSONObject();
-          Host host = new HostService().selectHost(r.getR_user_id());
-          SurferPartner surfer = new SurferPartnerService().selectSurfer(r.getUser_id());
+          Host host = new HostService().selectHost(r.getUser_id()); // 내 아이디         
+          SurferPartner surfer = new SurferPartnerService().selectSurfer(r.getR_user_id()); // 상대방 아이디
           job.put("request_no", r.getRequest_no());
           job.put("r_user_id", r.getR_user_id()); // 상대방 아이디
           job.put("request_date", r.getRequest_date().toString()); // 요청 날짜

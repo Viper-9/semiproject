@@ -42,7 +42,7 @@ public class MyPlanListServlet extends HttpServlet {
 		String userid = request.getParameter("userid");
 	
 		Matching m_host = new MatchingService().hostMatching(userid);
-		Matching m_surfer = new MatchingService().surferMatching(userid);		
+		Matching m_surfer = new MatchingService().surferMatching(userid);
 		Matching m_partner = new MatchingService().partnerMatching(userid);
 
 		// 전송될 json 객체 선언 : 객체 하나만 내보낼 수 있음
@@ -51,7 +51,7 @@ public class MyPlanListServlet extends HttpServlet {
 	    // 내가 호스트일때, 서퍼 정보 받아서 출력
 	    JSONObject job1 = new JSONObject();
 	    if(m_host != null) {
-		    SurferPartner surfer = new SurferPartnerService().selectSurfer(m_host.getUser2());
+		    SurferPartner surfer = new SurferPartnerService().selectMSurfer(m_host.getUser2());
 		    job1.put("user_id", surfer.getUser_id());
 	    	job1.put("start_date", surfer.getStart_date().toString());
 	    	job1.put("end_date", surfer.getEnd_date().toString());
@@ -63,7 +63,7 @@ public class MyPlanListServlet extends HttpServlet {
 	    JSONObject job2 = new JSONObject();
 	    if(m_surfer != null) {
 		    Host host = new HostService().selectHost(m_surfer.getUser1());
-		    SurferPartner surfer = new SurferPartnerService().selectSurfer(m_surfer.getUser2()); 
+		    SurferPartner surfer = new SurferPartnerService().selectMSurfer(m_surfer.getUser2()); 
 	    	job2.put("user_id", host.getUser_id());
 	    	job2.put("image", new UserService().getProfileImage(host.getUser_id()));
 	    	job2.put("user_name", new UserService().getUserName(host.getUser_id()));

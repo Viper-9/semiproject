@@ -69,12 +69,12 @@
 				var values = "";
 
 				if(json.list.length!=0){
-					
+					console.log(json.list);
 					for(var i in json.list){						
 						if(json.list[i].sender == userid)
-							values += "<div class='you'>" + json.list[i].content + "</div><br>";
-						else
 							values += "<div class='me'>" + json.list[i].content + "</div><br>";
+						else
+							values += "<div class='you'>" + json.list[i].content + "</div><br>";
 					}
 				} else{
 					values += "<tr><td colspan='3'>대화 목록이 없습니다.</td></tr>";
@@ -92,7 +92,6 @@
 </script>
 </head>
 <body>
-
 
 <div id="msgpage">
 	<div id="message">

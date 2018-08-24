@@ -44,6 +44,7 @@ public class HostService {
 		return result;
 	}
 
+
 	public int updatePhoto(String renameFileName1, String renameFileName2, String renameFileName3, String userid) throws HostException {
 		Connection con = getConnection();
 		int result = new HostDao().updatePhoto(con, renameFileName1, renameFileName2, renameFileName3, userid);
@@ -53,6 +54,16 @@ public class HostService {
 			rollback(con);
 		close(con);
 		return result;
+	}
+
+
+	// 매칭 된 호스트
+	public Host selectMHost(String userId){
+
+		Connection con = getConnection();
+		Host host = new HostDao().selectHost(con, userId);
+		close(con);
+		return host;
 	}
 
 
