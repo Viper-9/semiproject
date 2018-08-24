@@ -26,7 +26,7 @@
    }
 
    /* 이게  우리가 이제 만들어야할 공간 */
-   #main{width:1000px;overflow:hidden;}
+   #main{width:1000px;overflow:hidden;} 
    /* 이게 왼쪽 창 float:left 가  다음 창을 붙여준다 */
    #menu{width:250px;margin:5px 0 0 0;float:left;}
    /* 이게 오른족 꾸미는거  */
@@ -35,8 +35,45 @@
    #card_info { text-align:center; }
    
    #errorMS { -webkit-transition: all 1s; }
+   
+  
 </style>
 <script type="text/javascript">
+$(function(){      
+    
+    $.ajax({
+       url : "/hifive/info",
+       type : "post",
+       data : {userid : $("#userid").val()},            
+       dataType : "json",
+       success : function(data){     
+         
+           // 프사
+           if(data.profileimg == null) {
+          	  $("#profileimage").attr("src", "/hifive/resources/profileUpfiles/profile.png");
+           }
+           else {
+          	  $("#profileimage").attr("src", "/hifive/resources/profileUpfiles/"+data.profileimg);
+           }
+          //이름
+          $("#name").val(data.name);               
+           //주소
+           if(data.address == null){
+              $("#sample5_address").val(''); 
+           }else{
+               $("#sample5_address").val(data.address); 
+           }
+          
+               
+               
+
+         
+         
+       }
+    }); // userajax
+    
+    
+	
 	var getPassword = RegExp(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/); //패스워드 유효성 영문(대소문자)+숫자+특수문자 포함 8~16자리
 
 
@@ -190,19 +227,65 @@
   <div class="container">
       <%@ include file="../../header.jsp"%>
       <hr>
+      <input type="hidden" id="userid" name="userid" value="">
       <div  id="main">
-         <div id="menu">
-            
-             여기에 마이페이지 왼쪽부분 들어갈거임
-         
+          <div id="menu">
+            <div class="card" style="width: 250px;">            
+               <font size="3" ><b>Mypage</b></font>               
+               <img class="card-img-top rounded-circle" id="profileimage" src="" alt="Card image cap" height="220px">
+               <div class="card-body">
+                  <p class="card-text">                  
+                  <div id="mpageInfo" name="mpageInfo" align="center">
+                    <div class="col-sm-10"> 
+                       <input type="text" readonly id="name" class="form-control" name="username" style="width:100px;">                       
+                    </div> 
+                     <br>
+                     <br>    
+                     <form action="/hifive/pimage" method="post" enctype="multipart/form-data">                              
+                     <input type="file" id="pimg" name="pimg" accept="image/*">
+                     <input type="hidden" id="imguserid" name="imguserid" value="<%= headeruser.getUser_Id() %>">
+                     <br>
+                     <input type="submit" id="imgbtn" value="프사업로드">
+                     </form>        
+                     <br>
+                     <br>
+                               
+                  </div>
+        
+                  <br>
+                  <div id="request" name="request" align="center">
+                     <table>
+                        <tr>
+                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER"
+                                 onclick="location.href='/hifive/views/favorite/favorite.jsp'"></th>
+                        </tr>
+                        <tr>
+                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"
+                             
+                                 onclick="location.href='/hifive/views/user/changePW.jsp'"></th>
+                        </tr>
+                     </table>
+                     <br>
+                        <form action="/hifive/userdelete?userid=<%=userId %>" method="post">
+                        <table>
+                           <tr>
+                               <th>                           
+                                    <input type="submit" class="btn btn-danger" style="width:200px;" value="회원 탈퇴">                                    
+                             </th>
+                           </tr>
+                        </table>
+                      </form>                         
+                  </div>                  
+               </div>
+            </div>
          </div>
-         <div id="content1">
-       	 <h3>비밀번호 변경</h3>
-       	 <br>
-    	 <form action="/hifive/changepwd" method="post" onsubmit = "return false"  >
-    	 <%-- ajax으로 세션상에 있는 아이디값을 넘기기 위한 히든처리 --%>
-         <input type = "hidden" value = "<%=user.getUser_Id()%>" id = "loginid" name = "loginid">
          
+         <div id="content1">
+       	 <center><h3>비밀번호 변경</h3></center>
+       	 <br>
+    	 <form action="/hifive/changepwd" method="post" onsubmit = "return false">
+    	 <%-- ajax으로 세션상에 있는 아이디값을 넘기기 위한 히든처리 --%>
+         <input type = "hidden" value = "<%=user.getUser_Id()%>" id = "loginid" name = "loginid">        
          <div class="form-group row" id = "errorMS" style = "display:none; text-indent:15px;">
               <label class="col-form-label"> <font color = "red"></font></label>
               <div class="col-sm-10">

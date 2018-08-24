@@ -200,7 +200,7 @@ public class UserDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 
-		String query = "update users set address=?, NATIONALITY=?, job=?, hobby=?, content=? where user_id = ?";
+		String query = "update users set address=?, NATIONALITY=?, job=?, hobby=?, content=?, phone=? where user_id = ?";
 
 		try {
 			pstmt = con.prepareStatement(query);
@@ -209,7 +209,8 @@ public class UserDao {
 			pstmt.setString(3, user.getJob());
 			pstmt.setString(4, user.getHobby());
 			pstmt.setString(5, user.getContent());
-			pstmt.setString(6, user.getUser_Id());
+			pstmt.setString(6, user.getPhone());
+			pstmt.setString(7, user.getUser_Id());
 
 			result = pstmt.executeUpdate();
 
