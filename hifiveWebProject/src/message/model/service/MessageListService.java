@@ -48,8 +48,6 @@ public class MessageListService {
 		return list_no;
 	}
 
-
-
 	public String selectUserName(String user1, String user2) {
 		Connection con = getConnection();
 		String userName = new MessageListDao().selectUserName(con, user1, user2);
@@ -72,6 +70,14 @@ public class MessageListService {
 			commit(con);
 		else
 			rollback(con);
+		close(con);
+		return result;
+	}
+	
+	// 대화 목록 있는지 확인
+	public int checkMList(String user1, String user2) {
+		Connection con = getConnection();
+		int result = new MessageListDao().checkMList(con, user1, user2);
 		close(con);
 		return result;
 	}

@@ -255,7 +255,7 @@ public class RequestDao {
 	       if(result <= 0)
 	    	   throw new RequestException("요청 취소 실패");
 	    } catch(Exception e){
-	        
+	        e.printStackTrace();
 	    } finally{
 	        close(pstmt);
 	    }
@@ -345,5 +345,31 @@ public class RequestDao {
 	    	close(pstmt);
 	    }
 	    return r;
+	}
+	
+	// 요청 종류
+	public String checkRole(Connection con, int request_no) {
+		String role = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+	    String query = "select role from request where request_no = ?";
+
+	    try{
+	    	pstmt = con.prepareStatement(query);
+	    	pstmt.setInt(1, request_no); 
+
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+				role = rset.getString(1);
+			
+	    } catch(Exception e){
+		       
+	    } finally{
+	    	close(rset);
+	    	close(pstmt);
+	    }
+		return role;
 	}
 }
