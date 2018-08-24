@@ -83,8 +83,8 @@
 
 	<div class="container">
 		<header>
-			<img src="/hifive/resources/image/sample3.jpeg"
-				class="rounded mx-auto d-block" alt="로고">
+			<a href="/hifive/adminmain.jsp"><img src="/hifive/resources/image/sample3.jpeg"
+				class="rounded mx-auto d-block" alt="로고" title="관리자 메인 페이지로 이동"></a>
 
 			<div class="box1">
 				<table>
@@ -103,7 +103,7 @@
 										aria-haspopup="true" aria-expanded="false"> ... </a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<a class="dropdown-item" href="/hifive/ulist">회원 관리</a>
-										<a class="dropdown-item" href="">공지사항 관리</a>
+										<a class="dropdown-item" href="/hifive/adminnoticelist">공지사항 관리</a>
 										<a class="dropdown-item" href="">신고게시판 관리</a>
 										<a class="dropdown-item" href="">로그아웃</a>
 									</div>
