@@ -88,6 +88,7 @@
 								} else {
 									alert("알수없는 오류입니다. 관리자에게 문의하세요");
 								}							
+
 						}, error : function(jqXHR, textstatus, errorThrown){
 			                console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
 						}

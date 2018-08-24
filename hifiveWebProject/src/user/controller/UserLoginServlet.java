@@ -43,8 +43,7 @@ public class UserLoginServlet extends HttpServlet {
 			String returnValue = "0";
 			PrintWriter out = response.getWriter();
 			HttpSession session = request.getSession();
-			
-			
+					
 			if(userId.equals("admin") && userPw.equals("admin")){
 				session.setAttribute("userName", userName);
 				session.setAttribute("userId", userId);
@@ -62,10 +61,7 @@ public class UserLoginServlet extends HttpServlet {
 				returnValue = "0";
 				out.flush();
 			}
-				
-				
-			
-			
+					
 			response.setContentType("text/html; charset=utf-8");
 			
 			out.append(returnValue);	

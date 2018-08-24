@@ -52,8 +52,23 @@
 	text-align: center;
 }
      
-
+   .box1{
+      width: 300px;
+      position: relative;
+      left: 85%;       
+   }
+   header{
+          margin: 5px;
+          padding: 10px;
+           width: 1000px;
+           
+       }
        
+   #adminlogo{
+     width: 28px;
+     height: 28px;
+   }
+      
 </style>
 
 </head>
@@ -67,8 +82,7 @@
 	<script src="/hifive/resources/js/bootstrap.min.js"></script>
 
 	<div class="container">
-	<%@ include file="./adminheader.jsp" %>
-	<!-- 	<header>
+		<header>
 			<img src="/hifive/resources/image/sample3.jpeg"
 				class="rounded mx-auto d-block" alt="로고">
 
@@ -99,22 +113,10 @@
 					</tbody>	
 				</table>		
 			</div>
-		</header> -->
-		<hr>
-		<br>
-		<div id="main">
-			<div id="menu">
-				<%@ include file="./adminsupportmenu.jsp"%>
-			</div>
-			<div id="content1">
-				<%-- <%@ include file="user/userListView.jsp" %> --%>
-			</div>
-		</div>
+		</header>
+	
 		
-		
-		<br>
-		<hr>
-		<%@ include file="../../footer.jsp"%>
+				
 	</div>
 
 
