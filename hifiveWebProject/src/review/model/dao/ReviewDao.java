@@ -45,18 +45,17 @@ public class ReviewDao {
 		return list;
 	}
 	
-	public int insertReview(Connection con, Review review, String user_id, String r_user_id) {
+	public int insertReview(Connection con, Review review) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "insert into review values(?, ?, ?, default, ?)";
+		String query = "insert into review values(REVIEW_SEQ.NEXTVAL, ?, ?, default, ?)";
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, review.getReview_no()); // 번호 입력하는 시퀀스 사용해야됨 (나중에수정)
-			pstmt.setString(2, review.getUser_id());
-			pstmt.setString(3, review.getR_user_id());
-			pstmt.setString(4, review.getContent());
+			pstmt.setString(1, review.getUser_id());
+			pstmt.setString(2, review.getR_user_id());
+			pstmt.setString(3, review.getContent());
 			
 			result = pstmt.executeUpdate();
 			

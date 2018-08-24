@@ -40,24 +40,15 @@
    #content1{width:740px;margin:5px 0 0 0;float:left;padding:0 0 0 10px;}
    
    #card_info { text-align:center; }
-   
-   #s_review {
-	   	width:300px;		
-		padding: 10px;
-		border-radius: 7px;
-		-webkit-border-radius: 7px;
-		-moz-border-radius: 7px;
-		box-shadow: 0 1px 9px rgba(51,51,51,.8);
-		-webkit-box-shadow: 0 1px 9px rgba(51,51,51,.8);
-		-moz-box-shadow: 0 1px 9px rgba(51,51,51,.8);
-		background: #eae8e8;
-	}
+
 </style>
 
 <script type="text/javascript">
 	$(function(){
 		var userid = '<%= user.getUser_Id() %>';
+		var loginuserid = '<%= loginuserid %>';
 		
+		// 리뷰 
 		$.ajax({	
 	  	  url : "/hifive/reviewlist",
 	    		type : "get",
@@ -76,9 +67,15 @@
 						$("#review").html($("#review").html()+values);	
 					} else{					
 						for(var i in json.list){
-							values += "<section id='s_review'>아이디 : " + json.list[i].user_id 
+							values += "<section>아이디 : " + json.list[i].user_id 
 							+"<br>날짜 : " + json.list[i].review_date
-							+"<br>내용 : " + json.list[i].content +"</section><br><br>";
+							+"<br>내용 : " + json.list[i].content +"</section>";						
+							
+							if(json.list[i].user_id == loginuserid)
+								values += "<a href='/hifive/reviewdelete?reviewno=" + json.list[i].review_no 
+										+ "&uid=" + userid + "'>삭제</a><br><br>";
+							else
+								values += "<br><br>";
 						}										
 						$("#review").html($("#review").html()+values);
 						
@@ -115,6 +112,18 @@
 				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
 			} // error
 		});
+		
+		// 리뷰 창 (다른 사람 프로필에서만 쓸 수 있음)
+		if(userid!=loginuserid){
+			var value = "<h6 class='card-header' id='card_info'>리뷰 작성하기</h6> " 
+					+ "<div class='card-body' id='write_review' align='center'> "
+					+ "<form action='/hifive/reviewwrite?' method='post'> "
+					+ "<input type='hidden' name='uid' value=" + userid + "> "
+					+ "<textarea name='review' cols='80' rows='5'></textarea><br> "
+					+ "<input type='submit' value='작성'></form></div>";
+   			$("#review_write").html($("#review_write").html()+value);
+		}	
+		
 	});
 </script>
 <script type="text/javascript">
@@ -517,6 +526,9 @@
                <h6 class="card-header" id="card_info">References</h6>
                <div class="card-body" id="review" align='center'>
                   
+               </div>
+               <div id="review_write">
+	               
                </div>
             </div>
          </div>
