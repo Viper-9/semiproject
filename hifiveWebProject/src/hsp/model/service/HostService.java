@@ -33,9 +33,20 @@ public class HostService {
 	}
 
 
-	public int insertHost(Host host) throws HostException{
+	public int insertHost(Host host) throws HostException {
 		Connection con = getConnection();
 		int result = new HostDao().insertHost(con, host);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+
+	public int updatePhoto(String renameFileName1, String renameFileName2, String renameFileName3, String userid) throws HostException {
+		Connection con = getConnection();
+		int result = new HostDao().updatePhoto(con, renameFileName1, renameFileName2, renameFileName3, userid);
 		if(result > 0)
 			commit(con);
 		else

@@ -42,12 +42,17 @@ public class HostingServlet extends HttpServlet {
 		Host host = new HostService().selectHost(userId);
 		
 		JSONObject job = new JSONObject();
-	
-		job.put("num", host.getUser_num());
-		job.put("gender", host.getP_gender());			
-		job.put("check1", host.getCheck1());
-		job.put("check2", host.getCheck2());
-		job.put("content", host.getContent());
+		if(host != null) {
+			job.put("result", "0");
+			job.put("num", host.getUser_num());
+			job.put("gender", host.getP_gender());			
+			job.put("check1", host.getCheck1());
+			job.put("check2", host.getCheck2());
+			job.put("content", host.getContent());
+		}
+		else {
+			job.put("result", "1");
+		}
 		
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();

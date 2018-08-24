@@ -119,8 +119,6 @@
 			    dataType : "json",
 				data : {loginid : loginid, profileid : profileid, profilerole : "H"},		
 				success : function(data){
-					
-					console.log("data");
 					if(data.result == '1' ) {
 						alert("호스트에게 요청을 완료하였습니다.");	
 					}
@@ -145,8 +143,6 @@
 			    dataType : "json",
 				data : {loginid : loginid, profileid : profileid, profilerole : "S"},		
 				success : function(data){
-					
-					console.log("data");
 					if(data.result == '1' ) {
 						alert("서퍼에게 요청을 완료하였습니다.");	
 					}
@@ -171,8 +167,6 @@
 			    dataType : "json",
 				data : {loginid : loginid, profileid : profileid, profilerole : "P"},		
 				success : function(data){
-					
-					console.log("data");
 					if(data.result == '1' ) {
 						alert("파트너에게 요청을 완료하였습니다.");	
 					}
@@ -199,10 +193,10 @@
             <div class="card" style="width: 250px;">
                <font size="3"><b>Profile</b></font> 
                   <% if(user.getProfile_image() == null) { %>
-                  <img class="card-img-top"
+                  <img class="card-img-top rounded-circle"
                   src="/hifive/resources/profileUpfiles/profile.png" alt="Card image cap" height="220px">
                   <% } else { %>
-                   <img class="card-img-top"
+                   <img class="card-img-top rounded-circle"
                   src="/hifive/resources/profileUpfiles/<%= user.getProfile_image() %>" alt="Card image cap" height="220px">
                   <% } %>
                   
@@ -223,11 +217,6 @@
                      <%= user.getAddress() %>
                      <% } %> 
                      </font>
-                     <form action="/hifive/pimage" method="post" enctype="multipart/form-data">
-                     <input type="file" id="pimg" name="pimg">
-                     <input type="hidden" id="imguserid" name="imguserid" value="<%= user.getUser_Id() %>">
-                     <input type="submit" id="imgbtn" value="프사업로드">
-                     </form>
                   </div>
                   <br> 
                   <center>

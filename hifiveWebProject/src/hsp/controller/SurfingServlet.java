@@ -20,33 +20,38 @@ import hsp.model.vo.SurferPartner;
 @WebServlet("/surfing")
 public class SurfingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SurfingServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SurfingServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userid");		
-		
 
-		SurferPartner sp = new SurferPartnerService().selectSurfer(userId);
-		
+
+		SurferPartner surfer = new SurferPartnerService().selectSurfer(userId);
+
 		JSONObject job = new JSONObject();
-		job.put("destination", sp.getCity());
-		job.put("startdate", sp.getStart_date().toString());
-		job.put("enddate", sp.getEnd_date().toString());
-		job.put("num", sp.getUser_num());			
-		
+		if(surfer != null) {
+			job.put("result", "0");
+			job.put("destination", surfer.getCity());
+			job.put("startdate", surfer.getStart_date().toString());
+			job.put("enddate", surfer.getEnd_date().toString());
+			job.put("num", surfer.getUser_num());			
+		}
+		else {
+			job.put("result", "1");
+		}
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		
+
 		out.append(job.toJSONString());
 		out.flush();
 		out.close();			

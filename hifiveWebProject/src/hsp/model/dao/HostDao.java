@@ -21,7 +21,7 @@ public class HostDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "select * from host where user_id = ?";		
+		String query = "select * from host where user_id = ? and process='P'";		
 
 		
 		try{
@@ -61,7 +61,7 @@ public class HostDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "update host set user_num=?, p_gender=?, check1=?, check2=?, content=? where user_id=?";
+		String query = "update host set user_num=?, p_gender=?, check1=?, check2=?, content=? where user_id=? and process='P'";
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -105,6 +105,34 @@ public class HostDao {
 			
 			if(result < 0){
 				throw new  UserException("호스트 등록 실패");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new HostException(e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updatePhoto(Connection con, String renameFileName1, String renameFileName2, String renameFileName3,
+			String userid) throws HostException {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update host set image1=?, image2=?, image3=? where user_id=? and process='P'";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, renameFileName1);
+			pstmt.setString(2, renameFileName2);
+			pstmt.setString(3, renameFileName3);
+			pstmt.setString(4, userid);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result < 0){
+				throw new HostException("호스트 사진 업데이트 실패");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
