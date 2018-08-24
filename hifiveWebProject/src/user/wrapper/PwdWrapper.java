@@ -12,6 +12,7 @@ public class PwdWrapper extends HttpServletRequestWrapper{
 		super(request);		
 	}
 	
+	
 	@Override
 	public String getParameter(String name){
 		String value = null;
