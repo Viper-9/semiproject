@@ -87,19 +87,18 @@ function showBoardWriteForm(){
 </head>
 <body>
  <div class="container">
-      <%@ include file="../../../header.jsp"%>
+      <%@ include file="../../../adminheader.jsp"%>
       <hr>
+      <br>
       <div id="main">
          <div id="menu">
-            <%@ include file="../../../information.jsp"%>
+            <%@ include file="../../../adminsupportmenu.jsp"%>
 
          </div>
+
          <div id="content1">
-            <%@ include file="../../../supportmenu.jsp"%>
-         </div>
-
-         <div id="content2">
-
+			<h5 align="center"><b>공지사항 관리</b></h5>
+			
             <br>
               <div class="card border-0" style="width: 600px;" id="reporttable1">
             <table
@@ -140,9 +139,15 @@ function showBoardWriteForm(){
                   </tr> 
                   <tr>
 
-                     <td colspan="4"><button type="submit"
-                           class="btn btn-primary btn-sm" onclick="location.href='/hifive/noticelist'">목록</button>
-                 
+                     <td colspan="4">
+                           <button type="submit" class="btn btn-primary btn-sm" onclick="location.href='/hifive/adminnoticelist'">목록</button>
+                       
+                           <a class="btn btn-primary btn-sm" href="/hifive/nupdatedetail?noticeno=<%= n.getNotice_no() %>">수정</a>
+                     	   
+                           <a class="btn btn-primary btn-sm" href="/hifive/noticedelete?noticeno=<%= n.getNotice_no() %>">삭제</a>
+                     
+                          
+                     
                                                                          
                      </td>
                            

@@ -90,19 +90,16 @@
 </head>
 <body>
    <div class="container">
-      <%@ include file="../../../header.jsp"%>
+      <%@ include file="../../../adminheader.jsp" %>
       <hr>
+	  <br>
       <div id="main">
          <div id="menu">
-            <%@ include file="../../../information.jsp" %>
+            <%@ include file="../../../adminsupportmenu.jsp"%>
  
          </div>
          <div id="content1">
-            <%@ include file="../../../supportmenu.jsp"%>
-         </div>
-
-         <div id="content2">
-
+			<h5 align="center"><b>공지사항 관리</b></h5>
             <br>
               <div class="card border-0" style="width: 600px;" id="reporttable1">
              
@@ -135,7 +132,7 @@
                   <input type="hidden" name="noticeno" value="<%= n.getNotice_no() %>">
                      <td colspan="3">
                         <button type="submit" class="btn btn-primary btn-sm">수정</button>
-                        <button type="reset" class="btn btn-primary btn-sm" onclick="location.href='/hifive/noticelist'">취소</button></td>
+                        <button type="reset" class="btn btn-primary btn-sm" onclick="location.href='/hifive/adminnoticelist'">취소</button></td>
                   </tr>
                   </form>
                </tbody>

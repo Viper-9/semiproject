@@ -44,7 +44,7 @@ public class UserLoginServlet extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			HttpSession session = request.getSession();
 					
-			if(userId.equals("admin") && userPw.equals("admin")){
+			if(userId.equals("admin")){
 				session.setAttribute("userName", userName);
 				session.setAttribute("userId", userId);
 				session.setAttribute("loginuser", user);

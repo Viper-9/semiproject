@@ -44,7 +44,7 @@ public class NoticeUpdateServlet extends HttpServlet {
 	      notice.setNotice_no(Integer.parseInt(request.getParameter("noticeno")));
 	      try{
 	         if(new NoticeService().updateNotice(notice) > 0){
-	            response.sendRedirect("/hifive/noticelist");
+	            response.sendRedirect("/hifive/adminnoticelist");
 	         }else{
 	            view = request.getRequestDispatcher("views/support/notice/noticeError.jsp");
 	            request.setAttribute("message", "신고글 수정 실패");

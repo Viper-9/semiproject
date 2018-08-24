@@ -38,7 +38,7 @@ public class NoticeDeleteServlet extends HttpServlet {
 		try{
 			System.out.println("서블릿 : " + noticeno);
 			if(new NoticeService().deleteNotice(noticeno) > 0){
-				response.sendRedirect("/hifive/noticelist");
+				response.sendRedirect("/hifive/adminnoticelist");
 
 			}else{
 				view = request.getRequestDispatcher("views/support/notice/noticeError.jsp");
