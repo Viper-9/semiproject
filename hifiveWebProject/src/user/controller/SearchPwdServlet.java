@@ -51,12 +51,14 @@ public class SearchPwdServlet extends HttpServlet {
 		 
 		 Session session = Session.getDefaultInstance(props, auth);
 		 MimeMessage msg = new MimeMessage(session);
-		 
+		 PrintWriter out = response.getWriter();
 		 //이메일 수신자
 		 String userEmail = request.getParameter("spwemail");
 		 String userId = request.getParameter("spwid");
+		 String returnValue = "0";
 		 
 		 System.out.println("사용자가 입력한 이메일 및 아이디 = " + userEmail + ", " + userId);
+		 
 		 
 		 try {			 
 			
@@ -64,26 +66,21 @@ public class SearchPwdServlet extends HttpServlet {
 			String userPw = new UserService().searchPw(userId, userEmail); 
 			System.out.println("가져온 비밀번호 값 = " + userPw);
 			
-			//가져온 비밀번호를 임시 비밀번호 변경
+			//가져온 비밀번호를 임시 비밀번호로 변경
 			String pw = "";
-			if(userPw != null){
-			for (int i = 0; i < 12; i++) {
-				pw += (char) ((Math.random() * 26) + 97);
-				}
+			
+			if(userId != null && userEmail != null && userPw != null){
+				
+				for (int i = 0; i < 12; i++) 
+					pw += (char) ((Math.random() * 26) + 97);
+				
 			User user = new User();
 			user.setUser_Id(userId);
 			user.setUser_Pw(pw);
 			
 			pw = new UserService().updatePass(user);
 			System.out.println(pw + "임시비밀번호 db변경성공");
-			}
 			
-			String returnValue = "0";
-			
-			response.setContentType("text/html; charset=utf-8");
-			PrintWriter out = response.getWriter();
-			
-			if(userId != null && userEmail != null && userPw != null){
 				//편지 보낸 시간
 				msg.setSentDate(new Date());
 				InternetAddress from = new InternetAddress("trevelsfriend@gmail.com");
@@ -93,6 +90,7 @@ public class SearchPwdServlet extends HttpServlet {
 				
 				
 				
+			
 				//사용자가 입력한 이멜 주소 받아오기
 				InternetAddress to = new InternetAddress(userEmail);
 				msg.setRecipient(Message.RecipientType.TO, to);
@@ -112,17 +110,22 @@ public class SearchPwdServlet extends HttpServlet {
 				System.out.println("이메일 보내기를 성공");
 				
 				
-				
+				response.setContentType("text/html; charset=utf-8");
 				returnValue = "1";
 				out.append(returnValue);
 				out.flush();
+				out.close();
 				
 			} else {
+				System.out.println("null값 인지 부분실행");
+				response.setContentType("text/html; charset=utf-8");
+				returnValue = "0";
 				out.append(returnValue);
 				out.flush();
+				out.close();
 			}
 			
-			out.close();
+			
 			
 			
 		} catch (AddressException e) {
