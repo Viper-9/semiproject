@@ -30,33 +30,26 @@
 
 <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
 <script
-   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
-   src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="/hifive/resources/js/bootstrap.min.js"></script>
 
 <style type="text/css">
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
-
-/* 여기 이새끼가 전체 우리 컨테이너 역할 */
-
+   
+   /* 여기 이새끼가 전체 우리 컨테이너 역할 */
    .container{
    margin: 0 auto;
    padding: 10px;
    }
 
-/* 이게  우리가 이제 만들어야할 공간 */
-#main { 
-   width: 1000px;
-   overflow: hidden;
-}
-/* 이게 왼쪽 메뉴부분!! float:left 가  다음 창을 붙여준다 */
-#menu {
-   width: 250px;
-   margin: 5px 0 0 0;
-   float: left;
-}
-/* 이게 오른쪽 본문 들어가는 부뷴 */
-#content1 {
+   /* 이게  우리가 이제 만들어야할 공간 */
+   #main{width:1000px;overflow:hidden;}
+   /* 이게 왼쪽 메뉴부분!! float:left 가  다음 창을 붙여준다 */
+   #menu{width:250px;margin:5px 0 0 0;float:left;}
+   /* 이게 오른쪽 본문 들어가는 부뷴 */
+   #content1 {
    width: 740px;
    margin: 5px 0 0 0;
    float: left;
@@ -70,10 +63,8 @@
    padding: 0 0 0 10px;
    text-align: center;
 }
-
-.card-body{
-	text-align: center;
-}
+   
+   .card-body{text-align: center;
 
 .searchdiv {
 	text-align: center;
@@ -81,28 +72,25 @@
 </style>
 
 <script type="text/javascript">
-function showBoardWriteForm(){
-	location.href = "/hifive/views/support/report/reportWrite.jsp";
-}
 </script>
 </head>
 <body>
    <div class="container">
-      <%@ include file="../../../header.jsp"%>
+      <%@ include file="../../../adminheader.jsp"%>
       <hr>
       <div id="main">
          <div id="menu">
       
-        <%@ include file="../../../information.jsp"%>
+        <%@ include file="../../../adminsupportmenu.jsp"%>
                
          </div>
-         <div id="content1">
-            <%@ include file="../../../supportmenu.jsp"%>
-		 </div>
+         
   	     	
 			
 			
-        	 <div id="content2">
+        	 <div id="content1">
+        	 <h5 align="center"><b>신고게시판 관리</b></h5>
+	
         	 <br>
         	 <!-- 작성글이 있거나 검색결과 있을때 -->
         	 <% if(message.equals("1")) { %>  
@@ -123,13 +111,8 @@ function showBoardWriteForm(){
                   <tr>
                      <td align="center"><%= r.getReport_no() %></td>
                      <td>
-                     <%-- 로그인한 사용자만 상세보기할 수 있도록 처리 --%>
-                     <% if(userId != null) { %>
-                     	<a href="/hifive/reportdetail?rnum=<%= r.getReport_no() %>&page=<%= currentPage %>"><%= r.getTitle() %></a>
-                     <% }else { %>
-					 <%= r.getTitle() %>
-					 <% } %>
-					 </td>
+                     <a href="/hifive/reportdetail?rnum=<%= r.getReport_no() %>&page=<%= currentPage %>&userid=admin"><%= r.getTitle() %></a>
+                     </td>
                      <td align="center"><a href="/hifive/profileinfo?userid=<%= r.getUser_id() %>"><%= r.getUser_id() %></a></td>
                      <td align="center">
                      <% if(r.getComplete().toUpperCase().equals("Y")) { %>
@@ -153,24 +136,21 @@ function showBoardWriteForm(){
 			
                <div class="form-row" id="searchdiv">            
                   <div class="col-auto my-1">     
-                  <form action="/hifive/reportsearch" method="get">                
+                  <form action="/hifive/reportsearch" method="get">  
+                  <input type="hidden" name="userid" value="admin">              
                      <select class="custom-select mr-sm-2" name="rsearchfilter">
                         <option selected >제목</option>
                         <option>아이디</option>
                      </select>
                   </div>
                   <div class="col-auto my-1">
-                     <input type="text" style="width:460px;" class="form-control" id="RsearchContent" name="RsearchContent">
+                     <input type="text" style="width:550px;" class="form-control" id="RsearchContent" name="RsearchContent">
                   </div>
                   <div class="col-auto my-1">
                      <input type="submit" class="btn btn-primary" value="검색">
                   </div>
                   </form>
-                  <%if (userId != null) {%>
-				  <div class="col-auto my-1">
-					 <button class="btn btn-primary" onclick="showBoardWriteForm();">글쓰기</button>
-				  </div>
-			<% } %>
+                  
 				  
                </div>
                
@@ -181,11 +161,11 @@ function showBoardWriteForm(){
                <ul class="pagination justify-content-center">
                   <li class="page-item">
                   <% if((currentPage - 10) <= startPage && (currentPage - 10) >= 1){ %>
-                  <a class="page-link" href="/hifive/reportlist?page=<%= startPage - 10 %>"
+                  <a class="page-link" href="/hifive/reportlist?page=<%= startPage - 10 %>&userid=admin"
                      aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span></a>
                	  <% }else { %> 
-               	  <a class="page-link" href="/hifive/reportlist?page=<%= startPage %>"
+               	  <a class="page-link" href="/hifive/reportlist?page=<%= startPage %>&userid=admin"
                      aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span> 
                   <span	class="sr-only">Previous</span> </a>
@@ -194,21 +174,21 @@ function showBoardWriteForm(){
 				  
 				  <% for(int p = startPage; p <= endPage; p++){ 
 					 if(p == currentPage){ %>
-					 <li class="page-item"><a class="page-link" href="/hifive/reportlist?page=<%= p %>"><b><%= p %></b></a></li>
+					 <li class="page-item"><a class="page-link" href="/hifive/reportlist?page=<%= p %>&userid=admin"><b><%= p %></b></a></li>
 					 <%      }else{ %>
-                  <li class="page-item"><a class="page-link" href="/hifive/reportlist?page=<%= p %>"><%= p %></a></li>
+                  <li class="page-item"><a class="page-link" href="/hifive/reportlist?page=<%= p %>&userid=admin"><%= p %></a></li>
                   <% }} %>
                   
                   <li class="page-item">
                   <% if((currentPage + 10) >= endPage && 
 					(currentPage + 10) <= maxPage){ %>  
-                  <a class="page-link" href="/hifive/reportlist?page=<%= endPage + 10 %>"
+                  <a class="page-link" href="/hifive/reportlist?page=<%= endPage + 10 %>&userid=admin"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
                   </a>
                   
                   <% }else{ %>
-				  <a class="page-link" href="/hifive/reportlist?page=<%= maxPage %>"
+				  <a class="page-link" href="/hifive/reportlist?page=<%= maxPage %>&userid=admin"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
 				  <% } %>
@@ -219,7 +199,7 @@ function showBoardWriteForm(){
             <!-- 검색하면 페이지 넘어가는거 처리 X -->
             <% } else { %>
             <br>
-            <a class="btn btn-primary btn-sm" href="/hifive/reportlist">목록보기</a>
+            <a class="btn btn-primary btn-sm" href="/hifive/reportlist?userid=admin">목록보기</a>
             
             <% } %>
             

@@ -13,9 +13,10 @@
 
 <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
 <script
-   src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
-   src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="/hifive/resources/js/bootstrap.min.js"></script>
 
 <style type="text/css">
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
@@ -95,7 +96,7 @@
          </div>
 
          <div id="content1">
-
+			<h5 align="center"><b>공지사항 작성</b></h5>
             <br>
               <div class="card border-0" style="width: 600px;" id="noticetable1">
               <form action="/hifive/noticewrite" method="get"

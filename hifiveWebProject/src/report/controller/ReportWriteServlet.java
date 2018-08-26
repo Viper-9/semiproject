@@ -53,10 +53,10 @@ public class ReportWriteServlet extends HttpServlet {
 			if(new ReportService().insertReport(report) > 0){
 				response.sendRedirect("/hifive/reportlist");
 			}else{
-				view = request.getRequestDispatcher("views/support/report/reportError.jsp");
-				request.setAttribute("message", "신고글 등록 실패");
+				view = request.getRequestDispatcher("views/support/report/reportWrite.jsp");
+				request.setAttribute("result", "1");
 				view.forward(request, response);
-			}
+			} 
 
 		} catch (ReportException e){
 

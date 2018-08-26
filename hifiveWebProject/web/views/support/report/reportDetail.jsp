@@ -142,12 +142,9 @@ function showBoardWriteForm(){
 
                      <td colspan="4">
                      <button type="button" class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist'">목록</button>
-                          <% if(r.getUser_id().equals(userId)) { %>
-                           <a class="btn btn-primary btn-sm" href="/hifive/rupdatedetail?reportno=<%= r.getReport_no() %>">수정</a>
-                     	  <% } %>
-					
-                          <% if(r.getUser_id().equals(userId)) { %>     
-                           <a class="btn btn-primary btn-sm" href="/hifive/reportdelete?reportno=<%= r.getReport_no() %>">삭제</a>       
+                          <% if(r.getUser_id().equals(userId) && r.getComplete().equals("N")) { %>
+                           <a class="btn btn-primary btn-sm" id="modify" href="/hifive/rupdatedetail?reportno=<%= r.getReport_no() %>">수정</a>
+						   <a class="btn btn-primary btn-sm" id="delete" href="/hifive/reportdelete?reportno=<%= r.getReport_no() %>">삭제</a>       
                           <% } %> 
                      </td>
                            

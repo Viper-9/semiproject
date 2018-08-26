@@ -74,7 +74,6 @@ public class UserDao {
 				user.setAddress(rset.getString("address"));
 				user.setHobby(rset.getString("hobby"));
 				user.setJob(rset.getString("job"));
-				user.setLanguage(rset.getString("language"));
 				user.setContent(rset.getString("content"));
 				user.setRestriction(rset.getString("restriction"));
 				user.setProfile_image(rset.getString("profile_image"));
@@ -99,7 +98,7 @@ public class UserDao {
 		PreparedStatement pstmt = null;
 
 		String query = "insert into users values "
-				+ "(?, ?, ?, ?, ?, ?, ?, sysdate, default, '', '', '', '', '', '', default, '')";
+				+ "(?, ?, ?, ?, ?, ?, ?, sysdate, default, '', '', '', '', '', default, '')";
 
 		try {
 			pstmt = con.prepareStatement(query);
@@ -178,7 +177,6 @@ public class UserDao {
 				user.setAddress(rset.getString("address"));
 				user.setHobby(rset.getString("hobby"));
 				user.setJob(rset.getString("job"));
-				user.setLanguage(rset.getString("language"));
 				user.setContent(rset.getString("content"));	
 				user.setRestriction(rset.getString("restriction"));
 				user.setProfile_image(rset.getString("profile_image"));

@@ -40,7 +40,8 @@ public class HostDao {
 				host.setCheck1(rset.getString("check1"));
 				host.setCheck2(rset.getString("check2"));
 				host.setContent(rset.getString("content"));
-				host.setProcess(rset.getString("process"));	
+				host.setProcess(rset.getString("process"));
+				host.setCheck1(rset.getString("city"));
 				host.setImage1(rset.getString("image1"));
 				host.setImage2(rset.getString("image2"));
 				host.setImage3(rset.getString("image3"));	
@@ -92,16 +93,17 @@ public class HostDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "insert into host values(?,?,?,?,?,?,'P',default, default, default)";
+		String query = "insert into host values(?,?,?,?,?,?,?,'P',default, default, default)";
 
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, host.getUser_id());
 			pstmt.setInt(2, host.getUser_num());
-			pstmt.setString(3, host.getP_gender());
-			pstmt.setString(4, host.getCheck1());
-			pstmt.setString(5, host.getCheck2());
-			pstmt.setString(6, host.getContent());
+			pstmt.setString(3, "seoul");
+			pstmt.setString(4, host.getP_gender());
+			pstmt.setString(5, host.getCheck1());
+			pstmt.setString(6, host.getCheck2());
+			pstmt.setString(7, host.getContent());
 			
 			result = pstmt.executeUpdate();
 			
@@ -172,7 +174,8 @@ public class HostDao {
 				host.setProcess(rset.getString("process"));	
 				host.setImage1(rset.getString("image1"));
 				host.setImage2(rset.getString("image2"));
-				host.setImage3(rset.getString("image3"));	
+				host.setImage3(rset.getString("image3"));
+				host.setCity(rset.getString("city"));
 
 
 			}
