@@ -200,7 +200,7 @@ public class UserDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 
-		String query = "update users set address=?, NATIONALITY=?, job=?, hobby=?, content=? where user_id = ?";
+		String query = "update users set address=?, NATIONALITY=?, job=?, hobby=?, content=?, phone=? where user_id = ?";
 
 		try {
 			pstmt = con.prepareStatement(query);
@@ -209,7 +209,8 @@ public class UserDao {
 			pstmt.setString(3, user.getJob());
 			pstmt.setString(4, user.getHobby());
 			pstmt.setString(5, user.getContent());
-			pstmt.setString(6, user.getUser_Id());
+			pstmt.setString(6, user.getPhone());
+			pstmt.setString(7, user.getUser_Id());
 
 			result = pstmt.executeUpdate();
 
@@ -471,6 +472,31 @@ public class UserDao {
 		}
 
 		return userpw;
+	}
+
+	public int updateLogin(Connection con, String userid, String val) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update users set RESTRICTION = ? where user_id = ?";
+		
+		try {
+			System.out.println(val + userid);
+			pstmt = con.prepareStatement(query);			
+			pstmt.setString(1, val);
+			pstmt.setString(2, userid);
+						
+			result = pstmt.executeUpdate();
+
+			if(result <= 0)
+				throw new UserException("로그인 허용/비허용 처리 실패");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

@@ -49,6 +49,9 @@ public class HostingServlet extends HttpServlet {
 			job.put("check1", host.getCheck1());
 			job.put("check2", host.getCheck2());
 			job.put("content", host.getContent());
+			job.put("photo1", host.getImage1());
+			job.put("photo2", host.getImage2());
+			job.put("photo3", host.getImage3());
 		}
 		else {
 			job.put("result", "1");

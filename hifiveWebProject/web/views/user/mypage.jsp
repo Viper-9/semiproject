@@ -2,7 +2,7 @@
 <%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>
 <%            
       String[] hchecked = new String[12];               
-        String[] ochecked = new String[4];
+      String[] ochecked = new String[4];
 %>
 <!DOCTYPE html>
 <html>
@@ -49,7 +49,7 @@
 #card_info { text-align:center; }
 
 table {
-	font-size:14px;
+	/* font-size:14px; */
 }
 
 </style>   
@@ -98,7 +98,7 @@ table {
                  if(data.nationality == null){
                     $("#nationality").val('');
                  }else{
-                    $("#nationality").prop("selected", true);
+                    $("#nationality").val(data.nationality);                    
                  }
                  //성별
                 if(data.gender == "F"){
@@ -158,7 +158,7 @@ table {
                      case "dance": 
                         $("#dance").attr("checked", "checked"); break;      
                      case "movie": 
-                         $("#movie").attr("checked", "checked"); break;      
+                        $("#movie").attr("checked", "checked"); break;      
 
                      }
                   }  
@@ -205,14 +205,14 @@ table {
 	                   var checks = data.check1.split(",");
 	                   for(var s in checks){
 	                      switch(checks[s]){                   
-	                        case "smoking":
-	                           $("#smoking").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-	                        case "kids":
-	                           $("#kids").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-	                        case "pet":
-	                           $("#pet").attr("class", "btn btn-outline-secondary btn-sm active"); break;
-	                       case "drinking":
-	                          $("#drinking").attr("class", "btn btn-outline-secondary btn-sm active"); break;
+	                      case "kids":
+	                           $("#kids").attr("checked", "checked"); break;
+	                      case "pet":
+	                           $("#pet").attr("checked", "checked"); break;
+	                      case "smoking":
+	                           $("#smoking").attr("checked", "checked"); break;
+	                      case "drinking":
+	                          $("#drinking").attr("checked", "checked"); break;
 	                      }
 	                   }
 	                }
@@ -230,10 +230,28 @@ table {
 	                }
 	                //추가 정보
 	                if(data.content == null){
-	                   $("#hostcontent").val('');
+	                   $("#hostcontent").val('추가 정보를 입력하지 않았습니다.');
 	                }else{
 	                   $("#hostcontent").val(data.content);
+	                   console.log(data.content);
 	                }
+	                
+	                // 사진
+	                if(data.photo1 != null) {
+	                	var output1 = document.getElementById('output1');
+					    output1.src = "/hifive/resources/photoUpload/" + data.photo1;
+					    var output2 = document.getElementById('output2');
+					    output2.src = "/hifive/resources/photoUpload/" + data.photo2;
+					    var output3 = document.getElementById('output3');
+					    output3.src = "/hifive/resources/photoUpload/" + data.photo3;
+	               } else {
+	            	   var output1 = document.getElementById('output1');
+					    output1.src = "/hifive/resources/photoUpload/sample.jpg";
+					    var output2 = document.getElementById('output2');
+					    output2.src = "/hifive/resources/photoUpload/sample.jpg";
+					    var output3 = document.getElementById('output3');
+					    output3.src = "/hifive/resources/photoUpload/sample.jpg";
+	               }
             	}
 
              },
@@ -412,16 +430,18 @@ table {
                         </tr>
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"
-                                 onclick= "changePW()"></th>
+                             
+                                 onclick="location.href='/hifive/views/user/changePW.jsp'"></th>
                         </tr>
                      </table>
                      <br>
                         <form action="/hifive/userdelete?userid=<%=userId %>" method="post">
                         <table>
                            <tr>
-                               <th>                           
-                                    <input type="submit" class="btn btn-danger" style="width:200px;" value="회원 탈퇴">                                    
-                             </th>
+                               <th>                              	                  
+                              	<input type="submit" class="btn btn-danger" style="width:200px;" id="deleteUser" value="회원 탈퇴">
+            			    
+            			     </th>
                            </tr>
                         </table>
                       </form>                         
@@ -450,9 +470,7 @@ table {
                   </table> 
                   <br>
                   <br> 
-      
-                 
-                                 
+             
                   <table class="table">
                    	<tbody>
                      <tr>
@@ -544,7 +562,7 @@ table {
                        <div class="form-group row">
                            <label class="col-sm-2 col-form-label">Nationality</label>
                            <div class="col-sm-10">
-                             <select class="custom-select form-control-sm" name="countries" style="width:200px;">
+                             <select class="custom-select form-control-sm" id="nationality" name="countries" style="width:200px;">
 		                        <option id="nationality">국적 선택</option>              
 		                        <%
 		                            java.util.Locale locale = null;                
@@ -706,8 +724,7 @@ table {
                         </tr>
                         
                         <tr>
-                        </tr>
-                        
+                        </tr>                        
                         <tr>
                           <td>선호하는 성별&nbsp;&nbsp;&nbsp;</td>
                           <td>
@@ -728,48 +745,27 @@ table {
                           <td>
                             <table>
                               <tr>
-                                <td>
-                                 <!-- <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-secondary btn-sm" id="smoking">
-                                    <input type="checkbox" name="hostcheck" value="smoking"> 흡연
-                                    </label>
-                                 </div> -->
-                                 
+                              	<td>                                
                                  <div class="form-group form-check">
-    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
-    								<label class="form-check-label" for="exampleCheck1">흡연&nbsp;&nbsp;&nbsp;</label>
-  						 		 </div>
-                                </td>
-                                <td>
-                                 <!-- <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-secondary btn-sm" id="kids"> 
-                                    <input type="checkbox" name="hostcheck" value="kids"> 아이동반
-                                    </label>
-                                 </div> -->   
-                                 <div class="form-group form-check">
-    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    								<input type="checkbox" class="form-check-input" id="kids" name="hostcheck" value="kids">
     								<label class="form-check-label" for="exampleCheck1">아이동반&nbsp;&nbsp;&nbsp;</label>
   						 		 </div>                           
                                 </td>
-                                <td>
-                                <!--  <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-secondary btn-sm" id="pet">
-                                    <input type="checkbox" name="hostcheck" value="pet"> 애완동물
-                                    </label>
-                                 </div> -->
+                                <td>                               
                                  <div class="form-group form-check">
-    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    								<input type="checkbox" class="form-check-input" id="pet" name="hostcheck" value="pet">
     								<label class="form-check-label" for="exampleCheck1">애완동물&nbsp;&nbsp;&nbsp;</label>
   						 		 </div>
                                 </td>
-                                <td>
-                                <!--  <div class="btn-group-toggle" data-toggle="buttons">
-                                    <label class="btn btn-outline-secondary btn-sm" id="drinking">
-                                    <input type="checkbox" name="hostcheck" value="drinking"> 음주
-                                    </label>
-                                 </div> -->  
+                                <td>                         
                                  <div class="form-group form-check">
-    								<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    								<input type="checkbox" class="form-check-input" id="smoking" name="hostcheck" value="smoking">
+    								<label class="form-check-label" for="exampleCheck1">흡연&nbsp;&nbsp;&nbsp;</label>
+  						 		 </div>
+                                </td>
+                                <td>                                
+                                 <div class="form-group form-check">
+    								<input type="checkbox" class="form-check-input" id="drinking" name="hostcheck" value="drinking">
     								<label class="form-check-label" for="exampleCheck1">음주&nbsp;&nbsp;&nbsp;</label>
   						 		 </div>                            
                                 </td>
@@ -923,16 +919,15 @@ table {
                		  <tr>
                		  <td>
                		  <div class="card" style="width: 225px;">
-					  <img id="output1" width="225px" height="240px" >
+					  <img id="output1" width="225px" src="" height="240px" >
 					  <div class="card-body">
-					  <p class="card-text"><input type="file" id="photo1" name="photo1" accept="image/*" onchange="loadFile1(event)"></p>
-				  
+					  <p class="card-text"><input type="file" id="photo1" name="photo1" accept="image/*" onchange="loadFile1(event)"></p>				  
 					  </div>					 
 					  </div>
 				      </td>
 				      <td>
 					  <div class="card" style="width: 225px;">
-					  <img id="output2" width="225px" height="240px">
+					  <img id="output2" width="225px" src="" height="240px">
 					  <div class="card-body">
 					    <p class="card-text"><input type="file" id="photo2" name="photo2" accept="image/*" onchange="loadFile2(event)"></p>
 					  </div>					  
@@ -940,7 +935,7 @@ table {
 					  </td>
 					  <td>
 					  <div class="card" style="width: 225px;">
-					  <img id="output3" width="225px" height="240px">
+					  <img id="output3" width="225px" src="" height="240px">
 					  <div class="card-body">
 					    <p class="card-text"><input type="file" id="photo3" name="photo3" accept="image/*" onchange="loadFile3(event)"></p>
 					  </div>

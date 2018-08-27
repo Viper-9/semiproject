@@ -16,6 +16,9 @@
 	}
 	
 	int result = ((Integer)request.getAttribute("result")).intValue();
+	
+	String auserId = (String)session.getAttribute("userId");
+	System.out.println(auserId);
 %> 
 <!DOCTYPE html>
 <html>
@@ -77,17 +80,15 @@ function showBoardWriteForm(){
 </head>
 <body>
    <div class="container">
-      <%@ include file="../../../header.jsp"%>
-      <hr>
+      <%@ include file="../../../adminheader.jsp" %>
+		<hr>
+		<br>
       <div id="main">
-         <div id="menu">
-         
-          <%@ include file="../../../information.jsp"%>
+         <div id="menu">         
+          <%@ include file="../../../adminsupportmenu.jsp"%>
          </div>
-         <div id="content1">
-          <%@ include file="../../../supportmenu.jsp"%>
-          </div>
-			 <div id="content2">
+			 <div id="content1">
+			 	<h5 align="center"><b>공지사항 관리</b></h5>
 			 <br>
 			 <!-- 작성글이 있거나 검색결과 있을때 -->
         	 <% if(message.equals("1")) { %> 
@@ -105,14 +106,16 @@ function showBoardWriteForm(){
                   <tr>
                      <td align="center"><%= n.getNotice_no() %></td>
                      <td>              
-                     	<a href="/hifive/noticedetail?rnum=<%= n.getNotice_no() %>&page=<%= currentPage %>"><%= n.getTitle() %></a>
+                     	<a href="/hifive/adminnoticedetail?rnum=<%= n.getNotice_no() %>&page=<%= currentPage %>"><%= n.getTitle() %></a>
 					 </td>
                      <td align="center"><%= n.getNotice_date() %></td>                                
                      <td align="center"><%= n.getViews() %></td>
                   </tr>
                 <% } %>
+    
                </tbody>
             </table>
+            <br>
             
             <!-- 작성글이 없거나 검색 결과 없을때 -->
             <% } else { %> 
@@ -121,79 +124,71 @@ function showBoardWriteForm(){
             	<br><br>
             <% } %>
             	
-            	<form action="/hifive/noticesearch" method="get">
-               <div class="form-row align-items-center">            
-                  <div class="col-auto my-1">                     
-                     <select class="custom-select mr-sm-2" style="width:100px;" name="nsearchfilter">
-                        <option selected >제목</option>
-                        <option>내용</option>
-                     </select>
-                  </div>
-                  <div class="col-auto my-1">
-                     <input type="text" style="width:460px;"   class="form-control col-auto my-1" id="nsearchContent" name="nsearchContent">
-                  </div>
-                  <div class="col-auto my-1">
-                     <input type="submit" class="btn btn-primary" value="검색">
-                  </div>
-                  </form>
+         
                   
-               </div>
-               
+         
+
+			
+				 <a class="btn btn-primary" href="/hifive/views/support/notice/noticeWrite.jsp" style="width:100px;">글쓰기</a>
+				<br>
+				<br>
+    
 			
 			<!-- 페이지 넘어가는 부분 -->
 			<% if(result == 0) { %>
             <nav aria-label="Page navigation example">
                <ul class="pagination justify-content-center">
-                  <li class="page-item">
+               <li class="page-item">
                   <% if((currentPage - 10) < startPage && (currentPage - 10) > 1){ %>
-                  <a class="page-link" href="/hifive/noticelist?page=<%= startPage - 10 %>"
+                  <a class="page-link" href="/hifive/adminnoticelist?page=<%= startPage - 10 %>"
                      aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span></a>
                	  <% }else { %> 
-               	  <a class="page-link" href="/hifive/noticelist?page=<%= startPage - 10 %>"
+               	  <a class="page-link" href="/hifive/adminnoticelist?page=<%= startPage - 10 %>"
                      aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span> 
                   <span	class="sr-only">Previous</span> </a>
 				  <% } %>
-				  </li>
+				  </li> 
 				  
 				  <% for(int p = startPage; p <= endPage; p++){ 
 					 if(p == currentPage){ %>
-					 <li class="page-item"><a class="page-link" href="/hifive/noticelist?page=<%= p %>"><b><%= p %></b></a></li>
+					 <li class="page-item"><a class="page-link" href="/hifive/adminnoticelist?page=<%= p %>"><b><%= p %></b></a></li>
 					 <%      }else{ %>
-                  <li class="page-item"><a class="page-link" href="/hifive/noticelist?page=<%= p %>"><%= p %></a></li>
+                  <li class="page-item"><a class="page-link" href="/hifive/adminnoticelist?page=<%= p %>"><%= p %></a></li>
                   <% }} %>
                   
-                  <li class="page-item">
+                 <li class="page-item">
                   <% if((currentPage + 10) > endPage && 
 					(currentPage + 10) < maxPage){ %>  
-                  <a class="page-link" href="/hifive/noticelist?page=<%= endPage + 10 %>"
+                  <a class="page-link" href="/hifive/adminnoticelist?page=<%= endPage + 10 %>"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
                   </a>
                   
                   <% }else{ %>
-				  <a class="page-link" href="/hifive/noticelist?page=<%= endPage + 10 %>"
+				  <a class="page-link" href="/hifive/adminnoticelist?page=<%= endPage + 10 %>"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
 				  <% } %>
 				  </a>
-                  </li>
+                  </li> 
                </ul>
             </nav>
             <!-- 검색하면 페이지 넘어가는거 처리 X -->
             <% } else { %>
             <br>
-            <a class="btn btn-primary btn-sm" href="/hifive/noticelist">목록보기</a>
+            <a class="btn btn-primary btn-sm" href="/hifive/adminnoticelist">목록보기</a>
             
             <% } %>
-            
+            </div>
             
          </div>                                         
-      </div>
+     
       <br>
       <hr>
       <%@ include file="../../../footer.jsp"%>
+   
    </div>
 
 </body>

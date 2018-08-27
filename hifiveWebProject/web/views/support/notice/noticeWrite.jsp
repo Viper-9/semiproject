@@ -85,18 +85,16 @@
 </head>
 <body>
 <div class="container">
-      <%@ include file="../../../header.jsp"%>
-      <hr>
+     	<%@ include file="../../../adminheader.jsp" %>
+		<hr>
+		<br>
       <div id="main">
          <div id="menu">
-            <%@ include file="../../../information.jsp"%>
+          <%@ include file="../../../adminsupportmenu.jsp"%>
 
          </div>
+
          <div id="content1">
-            <%@ include file="../../../supportmenu.jsp"%>
-         </div>
-
-         <div id="content2">
 
             <br>
               <div class="card border-0" style="width: 600px;" id="noticetable1">
@@ -131,7 +129,7 @@
 
                      <td colspan="3">
                         <button type="submit" class="btn btn-primary btn-sm">등록</button>
-                        <button type="submit" class="btn btn-primary btn-sm" onclick="location.href='/hifive/noticelist'">취소</button></td>
+                        <button type="reset" class="btn btn-primary btn-sm" onclick="location.href='/hifive/adminnoticelist'">취소</button></td>
                   </tr>
                </tbody>
             </table>

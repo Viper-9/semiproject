@@ -114,11 +114,10 @@
 	height: 200px;
 }
 </style>
-
 <script type="text/javascript">
 
 	$(function(){
-	     var userid = '<%= userid %>';
+	     var userid = '<%= userid %>';	     
 	      
 	      // 나의 여행 계획
 	     $.ajax({
@@ -434,16 +433,30 @@
 				<br>
 			</div>
 			<div id="content2">
-
-				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#hostenroll" role="button" id="host_enroll">호스트 등록</a>
-				<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button">호스트 찾기</a>			
-				&nbsp;&nbsp; &nbsp;&nbsp;
-				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#surferenroll" role="button" id="surfer_enroll">&nbsp;서퍼등록&nbsp;</a>
-				<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button">&nbsp;서퍼 찾기&nbsp;</a>
-				&nbsp;&nbsp; &nbsp;&nbsp;
-				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#partnerenroll" role="button" id="partner_enroll">파트너 등록</a>
-				<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button">파트너 찾기</a><br><br>
-
+				<% if(headeruser.getSafety_check().equals("N")){ %>
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#" role="button" id="host_enroll" disabled>호스트 등록</a>
+					<a class="btn btn-primary" href="#" role="button" id="host_find">호스트 찾기</a>			
+					&nbsp;&nbsp; &nbsp;&nbsp;
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#" role="button" id="surfer_enroll" disabled>&nbsp;서퍼등록&nbsp;</a>
+					<a class="btn btn-primary" href="#" role="button" id="surfer_find">&nbsp;서퍼 찾기&nbsp;</a>
+					&nbsp;&nbsp; &nbsp;&nbsp;
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#" role="button" id="partner_enroll" disabled>파트너 등록</a>
+					<a class="btn btn-primary" href="#" role="button" id="partner_find">파트너 찾기</a><br><br>
+					<script>
+						$("#host_enroll, #host_find, #surfer_enroll, #surfer_find, #partner_enroll, #partner_find").click(function(){
+							alert('안전유의사항을 체크해주세요');
+						})
+					</script>
+				<% }else{ %>
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#hostenroll" role="button" id="host_enroll">호스트 등록</a>
+					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="host_find">호스트 찾기</a>			
+					&nbsp;&nbsp; &nbsp;&nbsp;
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#surferenroll" role="button" id="surfer_enroll">&nbsp;서퍼등록&nbsp;</a>
+					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="surfer_find">&nbsp;서퍼 찾기&nbsp;</a>
+					&nbsp;&nbsp; &nbsp;&nbsp;
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#partnerenroll" role="button" id="partner_enroll">파트너 등록</a>
+					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="partner_find">파트너 찾기</a><br><br>
+				<% } %>
 			</div>
 			<div id="content3">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">

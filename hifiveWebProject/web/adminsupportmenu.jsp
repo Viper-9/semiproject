@@ -17,9 +17,12 @@
 </head>
 <body>
 	<div class="list-group"> 
-  		<a href="/hifive/ulist" class="list-group-item list-group-item-action list-group-item-light">회원 관리</a>
-  		<a href="#" class="list-group-item list-group-item-action list-group-item-light">공지사항 관리</a>
-  		<a href="#" class="list-group-item list-group-item-action list-group-item-light">신고게시판 관리</a>
+		<br>
+		<br>
+
+  		<a href="/hifive/ulist" class="list-group-item list-group-item-action list-group-item-light">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원 관리</a>
+  		<a href="/hifive/adminnoticelist" class="list-group-item list-group-item-action list-group-item-light">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;공지사항 관리</a>
+  		<a href="#" class="list-group-item list-group-item-action list-group-item-light">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;신고게시판 관리</a>
 	</div>
 </body>
 </html>
