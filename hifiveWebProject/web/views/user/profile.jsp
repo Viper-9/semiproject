@@ -416,10 +416,14 @@
                         <td>
                            <input type="text" class="form-control col-sm-3" disabled name="sleeping" style="background-color: #ffffff; text-align:center;" value="<%= profileH.getCheck2() %>">                               
                         </td>
-                     </tr>               
+                     </tr>     
+                     <tr>
+                     	<td><li>주소</li></td>
+                     	<td><textarea class="form-control" id="hostcity" name="city" rows="2" cols="60" disabled style="background-color: #ffffff;"><%= profileH.getCity() %></textarea></td>
+                     </tr>          
                      <tr>
                         <td><li>추가 정보</li></td>
-                        <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" disabled style="background-color: #ffffff;"><%= profileH.getContent() %>"</textarea></td>   
+                        <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" disabled style="background-color: #ffffff;"><%= profileH.getContent() %></textarea></td>   
                      </tr>
                   </table> 
                   </ul>
@@ -545,7 +549,7 @@
             <% if(user.getAddress() != null) { %>
                <div id="map" style="width: 470px; height: 400px;"></div>
             <% } else { %>
-                       주소를 입력하지 않았습니다.
+                       주소를 입력해주세요.
             <% } %>
             </div>
          </div>

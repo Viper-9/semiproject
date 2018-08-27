@@ -394,8 +394,8 @@ table {
                <div class="card-body">
                   <p class="card-text">                  
                   <div id="mpageInfo" name="mpageInfo" align="center">
-                    <div class="col-sm-10"> 
-                       <input type="text" readonly id="name" class="form-control" name="username" style="width:100px;">                       
+                    <div class="col-sm-10">                  
+                       <input type="text" readonly id="name" class="form-control" name="username" style="width:100px; background-color:#ffffff;">                       
                     </div> 
                      <br>
                      <br>    
