@@ -16,6 +16,7 @@
 <script type="text/javascript">
 
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTTwSwWRjYjvlNUBWhim80hHywgq7S94E&sensor=false&libraries=places&language=ko"></script> 
 </head>
 <body>
 	<div>
@@ -83,8 +84,23 @@
                               <option value="sharing">공용 방</option>
                               <option value="sofa">소파</option>
                            </select> 
-                           </div> 
-                            <div class="col input-group mb-3">
+                     </div>
+                     <div class="col input-group mb-3">
+	               <div class="input-group-prepend">
+						<span class="input-group-text">주소</span>
+					</div>
+					<input type="text" class="form-control" id="hostcity" name="hostcity"> &nbsp;
+                     <input type="button" class="btn btn-outline-dark text-dark" value="입력"><br>
+						 <script>
+						    var input = $("#hostcity").val();
+						    var autocomplete = new google.maps.places.Autocomplete(input,{types: ['(regions)']});
+						    google.maps.event.addListener(autocomplete, 'place_changed', function(){
+						          var place = autocomplete.getPlace();
+						          console.log(place.formatted_address); //확인
+						    });
+						</script>                     
+                     </div>  
+                   <div class="col input-group mb-3">
 	               <div class="input-group-prepend">
 						<span class="input-group-text">기타 사항</span>
 					</div>

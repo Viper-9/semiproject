@@ -40,6 +40,7 @@ public class HostEnrollServlet extends HttpServlet {
 		host.setP_gender(request.getParameter("gender"));
 		host.setCheck1(String.join(",", request.getParameterValues("possible")));
 		host.setCheck2(request.getParameter("sleeping"));
+		host.setCity(request.getParameter("hostcity"));
 		host.setContent(request.getParameter("hostetc"));
 		
 		RequestDispatcher view = null;

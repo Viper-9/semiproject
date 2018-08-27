@@ -46,7 +46,7 @@ public class SurferUpdate extends HttpServlet {
 		
 		try {
 			if(new SurferPartnerService().updateSurfer(sp) > 0){
-				response.sendRedirect("/hifive/index.jsp");
+				response.sendRedirect("/hifive/main.jsp");
 	    	}else{
 	    		view = request.getRequestDispatcher("");
 		        request.setAttribute("message", "수정 실패");
