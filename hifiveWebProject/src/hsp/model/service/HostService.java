@@ -74,6 +74,18 @@ public class HostService {
 		close(con);
 		return list;
 	}
+	
+	// process 수정
+	public int updateProcess (String user_id) {
+		Connection con = getConnection();
+		int result = new HostDao().updateProcess(con, user_id);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
 
 
 }
