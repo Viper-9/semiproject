@@ -30,7 +30,10 @@
    /* 이게 왼쪽 창 float:left 가  다음 창을 붙여준다 */
    #menu{width:250px;margin:5px 0 0 0;float:left;}
    /* 이게 오른족 꾸미는거  */
-   #content1{width:740px;margin:5px 0 0 0;float:left;padding:0 0 0 10px;}
+   #content1{width:720px;margin:5px 0 0 20px;float:left;padding:0 0 0 10px;}
+   
+   
+   #card_info { text-align:center; }
    
    #card_info { text-align:center; }
    

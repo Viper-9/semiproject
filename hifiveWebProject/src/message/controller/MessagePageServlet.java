@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,9 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import message.exception.MessageException;
 import message.model.service.MessageService;
 import message.model.vo.Message;
+import user.model.service.UserService;
+import user.model.vo.User;
 
 /**
  * Servlet implementation class MessagePageServlet
@@ -39,15 +39,19 @@ public class MessagePageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int list_no = Integer.parseInt(request.getParameter("listno")); 
-
+		String rid = request.getParameter("rid");
+		
 		// 전송될 json 객체 선언 : 객체 하나만 내보낼 수 있음
 		JSONObject json = new JSONObject();
 		// list는 json 배열에 저장하고, json 배열을 전송용 json 객체에 저장함
 		JSONArray jarr = new JSONArray();
 		
 		ArrayList<Message> myMessage = new MessageService().selectMyMessage(list_no);
-		
-		for(Message m : myMessage){
+		User ruser = new UserService().selectUser(rid);
+
+		json.put("rusername", ruser.getUser_Name());
+		json.put("ruserimg", ruser.getProfile_image());
+		for(Message m : myMessage){			
 			JSONObject job = new JSONObject();
 			job.put("sender", m.getSender());
 			job.put("content", m.getContent());
