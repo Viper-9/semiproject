@@ -90,10 +90,20 @@ public class SurferPartnerService {
 		return list;
 	}
 	
-	public SurferPartner selectMSurfer(String userId){ // 매칭 된 서퍼 
+	// 매칭 된 서퍼 
+	public SurferPartner selectMSurfer(String userId){ 
 
 		Connection con = getConnection();
 		SurferPartner sp = new SurferPartnerDao().selectMSurfer(con, userId);
+		close(con);
+		return sp;
+	}
+	
+	// 매칭 된 파트너
+	public SurferPartner selectMPartner(String userId) {
+
+		Connection con = getConnection();
+		SurferPartner sp = new SurferPartnerDao().selectMPartner(con, userId);
 		close(con);
 		return sp;
 	}

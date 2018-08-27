@@ -63,7 +63,7 @@ public class HostService {
 	public Host selectMHost(String userId){
 
 		Connection con = getConnection();
-		Host host = new HostDao().selectHost(con, userId);
+		Host host = new HostDao().selectMHost(con, userId);
 		close(con);
 		return host;
 	}

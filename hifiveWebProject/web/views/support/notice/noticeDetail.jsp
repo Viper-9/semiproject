@@ -117,7 +117,7 @@ function showBoardWriteForm(){
                <tbody>
                   <tr >
                      <td class="text-left">&nbsp;&nbsp;<img
-                        src="/hifive/resources/image/sample11.jpg" alt="..."
+                        src="/hifive/resources/image/adminsample.jpg" alt="..."
                         class="rounded-circle" id="circle2"> &nbsp;&nbsp;
                         관리자
                      </td>
@@ -142,14 +142,7 @@ function showBoardWriteForm(){
 
                      <td colspan="4"><button type="submit"
                            class="btn btn-primary btn-sm" onclick="location.href='/hifive/noticelist'">목록</button>
-                         
-                           <a class="btn btn-primary btn-sm" href="/hifive/nupdatedetail?noticeno=<%= n.getNotice_no() %>">수정</button>
-                     	  
-                                             
-                           <a class="btn btn-primary btn-sm" href="/hifive/noticedelete?noticeno=<%= n.getNotice_no() %>">삭제</button>
-                     
-                          
-                     
+                 
                                                                          
                      </td>
                            

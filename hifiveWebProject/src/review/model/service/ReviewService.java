@@ -5,6 +5,7 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import review.exception.ReviewException;
 import review.model.dao.ReviewDao;
 import review.model.vo.Review;
 
@@ -21,36 +22,39 @@ public class ReviewService {
 	}
 	
 	// 리뷰 등록
-	/*public int insertReview(Review review, String user_id, String r_user_id) throws ReviewException {
+	public int insertReview(Review review) throws ReviewException {
 		Connection con = getConnection();
-		int result = new ReviewDao().insertReview(con, review, user_id, r_user_id);
+		int result = new ReviewDao().insertReview(con, review);
 		if(result > 0)
 			commit(con);
 		else
 			rollback(con);
+		close(con);
 		return result;
 	}
 	
 	// 리뷰 수정
-	public int updateReview(Review review) throws ReviewException {
+	/*public int updateReview(Review review) throws ReviewException {
 		Connection con = getConnection();
 		int result = new ReviewDao().updateReview(con, review);
 		if(result > 0)
 			commit(con);
 		else
 			rollback(con);
+		close(con);
 		return result;
-	}
+	}*/
 			
 	// 리뷰 삭제
-	public int updateReview(int review_no) throws ReviewException {
+	public int deleteReview(int review_no) throws ReviewException {
 		Connection con = getConnection();
 		int result = new ReviewDao().deleteReview(con, review_no);
 		if(result > 0)
 			commit(con);
 		else
 			rollback(con);
+		close(con);
 		return result;
-	}*/
+	}
 				
 }

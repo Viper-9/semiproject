@@ -41,7 +41,8 @@ public class HostDao {
 				host.setCheck1(rset.getString("check1"));
 				host.setCheck2(rset.getString("check2"));
 				host.setContent(rset.getString("content"));
-				host.setProcess(rset.getString("process"));	
+				host.setProcess(rset.getString("process"));
+				host.setCity(rset.getString("city"));
 				host.setImage1(rset.getString("image1"));
 				host.setImage2(rset.getString("image2"));
 				host.setImage3(rset.getString("image3"));	
@@ -175,7 +176,8 @@ public class HostDao {
 				host.setProcess(rset.getString("process"));	
 				host.setImage1(rset.getString("image1"));
 				host.setImage2(rset.getString("image2"));
-				host.setImage3(rset.getString("image3"));	
+				host.setImage3(rset.getString("image3"));
+				host.setCity(rset.getString("city"));
 
 
 			}

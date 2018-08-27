@@ -1,4 +1,4 @@
-package report.controller;
+package notice.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,20 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import report.model.service.ReportService;
-import report.model.vo.Report;
+import notice.exception.NoticeException;
+import notice.model.service.NoticeService;
+import notice.model.vo.Notice;
+
 
 /**
- * Servlet implementation class ReportSearchServlet
+ * Servlet implementation class NoticeListServlet
  */
-@WebServlet("/reportsearch")
-public class ReportSearchServlet extends HttpServlet {
+@WebServlet("/adminnoticelist")
+public class adminNoticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportSearchServlet() {
+    public adminNoticeListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +34,9 @@ public class ReportSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
-		String admin = "";
-		if(request.getParameter("userid") != null) {
-			admin = request.getParameter("userid");
-		}
-		
-		String rfilter = request.getParameter("rsearchfilter");
-		String rcontent = request.getParameter("RsearchContent");
-		
+		// 게시글 페이지별 조회 처리용 컨트롤러
+		//내보내는 값에 한글이 포함되어 있을 경우
+		response.setContentType("text/html; charset=utf-8");
 		//페이지 값 처리용 변수
 		int currentPage = 1;
 		//한 페이지당 출력할 목록 갯수
@@ -52,15 +47,16 @@ public class ReportSearchServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		ReportService rservice = new ReportService();
+		NoticeService nservice = new NoticeService();
 		RequestDispatcher view = null;
-
-		try {
+		
+		try {					
 			//전체 목록 갯수 조회함
-			int listCount = rservice.getListCount();
+			int listCount = nservice.getListCount();
 			
-			ArrayList<Report> list = new ArrayList<Report>();
-			
+			//해당 페이지에 보이게할 목록 조회
+			ArrayList<Notice> noticeList = nservice.selectAllNotice(currentPage, limit);
+
 			//총 페이지수 계산 
 			//목록이 최소 1개일 때 1 페이지로 처리하기
 			//위해서 0.9를 더하기 함
@@ -75,44 +71,25 @@ public class ReportSearchServlet extends HttpServlet {
 			int endPage = startPage + limit - 1;
 			if(maxPage < endPage)
 				endPage = maxPage;
-			
-			if(rfilter.equals("제목")) {
-				list = rservice.selectTitle(rcontent);
-				request.setAttribute("reportList", list);				
-				request.setAttribute("result", 1);
-				
-				if(list.size() == 0) {
-					request.setAttribute("message", 
-							"해당 제목을 가진 게시물이 존재하지 않습니다.");	
-				}
-			} else {
-				list = rservice.selectId(rcontent);
-				request.setAttribute("reportList", list);				
-				request.setAttribute("result", 1);			
-
-				if(list.size() == 0) {
-					request.setAttribute("message", 
-							"해당 아이디가 작성한 글이 존재하지 않습니다.");
-				}
-			}
-			
-			if(admin.equals("admin")) {
+			if(noticeList.size() > 0){
+				view = request.getRequestDispatcher("views/support/notice/adminnoticeList.jsp");
+				request.setAttribute("noticeList", noticeList);	        	
+			}else{
 				view = request.getRequestDispatcher(
-						"views/support/report/adminReportList.jsp");
-			} else {
-				view = request.getRequestDispatcher(
-						"views/support/report/reportList.jsp");
-			}
-			
+						"views/support/notice/adminnoticeList.jsp");
+				request.setAttribute("message", "게시글이 없습니다.");
+			}		
 			request.setAttribute("currentPage", currentPage);
 			request.setAttribute("maxPage", maxPage);
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("listCount", listCount);
+			request.setAttribute("result", 0);
 			
-			view.forward(request, response);
-		} catch (Exception e) {
-			// TODO: handle exception
+        	view.forward(request, response);
+		
+		} catch (NoticeException e) {
+			System.out.println("실패");
 		}
 	}
 

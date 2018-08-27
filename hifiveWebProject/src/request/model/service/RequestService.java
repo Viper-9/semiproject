@@ -116,6 +116,14 @@ public class RequestService {
 	   close(con);
 	   return r;
    }
+   
+   // 요청 종류
+   public String checkRole(int request_no){
+	   Connection con = getConnection();
+	   String role = new RequestDao().checkRole(con, request_no);
+	   close(con);
+	   return role;
+   }
 
 
 

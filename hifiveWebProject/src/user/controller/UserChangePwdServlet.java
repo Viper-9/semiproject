@@ -36,6 +36,7 @@ public class UserChangePwdServlet extends HttpServlet {
 		String changePW = request.getParameter("changepw");
 		String userId = request.getParameter("userid");
 		String returnValue = "0";
+		PrintWriter out = response.getWriter();
 		
 		
 		try {
@@ -43,22 +44,23 @@ public class UserChangePwdServlet extends HttpServlet {
 				if(nowPW.equals(user.getUser_Pw()) && userId.equals(user.getUser_Id())){
 					user.setUser_Id(userId);
 					user.setUser_Pw(changePW);
-					String userpw = new UserService().updatePass(user);
 					
-					System.out.println(userId + "가 비밀번호 변경성공");
+					String userpw = new UserService().updatePass(user);	
+					
 					returnValue = "1";
+					response.setContentType("text/html; charset=utf-8");
+					out.append(returnValue);
+					out.flush();
 			} else {
-					System.out.println(userId + "가 비밀번호 변경실패");
+				returnValue = "0";
+				response.setContentType("text/html; charset=utf-8");
+				out.append(returnValue);
+				out.flush();
 			}
 		} catch (Exception e) {
 				e.printStackTrace();
 		}
-		
-		
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		out.append(returnValue);
-		out.flush();
+	
 		out.close();
 		 
 	}

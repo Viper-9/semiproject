@@ -210,4 +210,28 @@ public class MessageListDao {
 		return result;
 	}
 
+	public int checkMList(Connection con, String user1, String user2) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "select * from message_list "
+				+ "where (user1=? and user2=?) or (user1=? and user2=?)";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user1);
+			pstmt.setString(2, user2);
+			pstmt.setString(3, user2);
+			pstmt.setString(4, user1);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(Exception e){
+			
+		} finally{
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

@@ -22,6 +22,7 @@ public class UserLoginServlet extends HttpServlet {
  
     public UserLoginServlet() {
         super();
+        
     }
 
 	/**
@@ -39,24 +40,26 @@ public class UserLoginServlet extends HttpServlet {
 			
 			User user = new UserService().selectUser(userId);		
 			String userName = new UserService().loginCheck(userId, userPw);
-			
 			String returnValue = "0";
+			String blockcheck = user.getRestriction();			
 			PrintWriter out = response.getWriter();
 			HttpSession session = request.getSession();
 					
-			if(userId.equals("admin") && userPw.equals("admin")){
+			if(userId.equals("admin")){
 				session.setAttribute("userName", userName);
 				session.setAttribute("userId", userId);
 				session.setAttribute("loginuser", user);
 				returnValue = "2";
 				out.flush();
-			}else if(userName != null && user != null){
+			}else if(userName != null && user != null && blockcheck.equals("N")){
 				session.setAttribute("userName", userName);
 				session.setAttribute("userId", userId);
 				session.setAttribute("loginuser", user);				
 				returnValue = "1";
 				out.flush();
-				
+			} else if(userName != null && user != null && blockcheck.equals("Y")){
+				returnValue = "3";
+				out.flush();
 			} else {
 				returnValue = "0";
 				out.flush();

@@ -49,7 +49,7 @@
 #card_info { text-align:center; }
 
 table {
-	font-size:14px;
+	/* font-size:14px; */
 }
 
 </style>   
@@ -98,7 +98,7 @@ table {
                  if(data.nationality == null){
                     $("#nationality").val('');
                  }else{
-                    $("#nationality").prop("selected", true);
+                    $("#nationality").val(data.nationality);                    
                  }
                  //성별
                 if(data.gender == "F"){
@@ -237,10 +237,28 @@ table {
 	                
 	                //추가 정보
 	                if(data.content == null){
-	                   $("#hostcontent").val('');
+	                   $("#hostcontent").val('추가 정보를 입력하지 않았습니다.');
 	                }else{
 	                   $("#hostcontent").val(data.content);
+	                   console.log(data.content);
 	                }
+	                
+	                // 사진
+	                if(data.photo1 != null) {
+	                	var output1 = document.getElementById('output1');
+					    output1.src = "/hifive/resources/photoUpload/" + data.photo1;
+					    var output2 = document.getElementById('output2');
+					    output2.src = "/hifive/resources/photoUpload/" + data.photo2;
+					    var output3 = document.getElementById('output3');
+					    output3.src = "/hifive/resources/photoUpload/" + data.photo3;
+	               } else {
+	            	   var output1 = document.getElementById('output1');
+					    output1.src = "/hifive/resources/photoUpload/sample.jpg";
+					    var output2 = document.getElementById('output2');
+					    output2.src = "/hifive/resources/photoUpload/sample.jpg";
+					    var output3 = document.getElementById('output3');
+					    output3.src = "/hifive/resources/photoUpload/sample.jpg";
+	               }
             	}
 
              },
@@ -390,7 +408,7 @@ table {
          <div id="menu">
             <div class="card" style="width: 250px;">            
                <font size="3" ><b>Mypage</b></font>               
-               <img class="card-img-top rounded-circle" id="profileimage" src="" alt="Card image cap" height="220px">
+               <img class="card-img-top rounded-circle" id="profileimage" src="" alt="Card image cap" height="250px">
                <div class="card-body">
                   <p class="card-text">                  
                   <div id="mpageInfo" name="mpageInfo" align="center">
@@ -419,7 +437,8 @@ table {
                         </tr>
                         <tr>
                            <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"
-                                 onclick= "changePW()"></th>
+                             
+                                 onclick="location.href='/hifive/views/user/changePW.jsp'"></th>
                         </tr>
                      </table>
                      <br>
@@ -550,7 +569,7 @@ table {
                        <div class="form-group row">
                            <label class="col-sm-2 col-form-label">Nationality</label>
                            <div class="col-sm-10">
-                             <select class="custom-select form-control-sm" name="countries" style="width:200px;">
+                             <select class="custom-select form-control-sm" id="nationality" name="countries" style="width:200px;">
 		                        <option id="nationality">국적 선택</option>              
 		                        <%
 		                            java.util.Locale locale = null;                
@@ -906,16 +925,15 @@ table {
                		  <tr>
                		  <td>
                		  <div class="card" style="width: 225px;">
-					  <img id="output1" width="225px" height="240px" >
+					  <img id="output1" width="225px" src="" height="240px" >
 					  <div class="card-body">
-					  <p class="card-text"><input type="file" id="photo1" name="photo1" accept="image/*" onchange="loadFile1(event)"></p>
-				  
+					  <p class="card-text"><input type="file" id="photo1" name="photo1" accept="image/*" onchange="loadFile1(event)"></p>				  
 					  </div>					 
 					  </div>
 				      </td>
 				      <td>
 					  <div class="card" style="width: 225px;">
-					  <img id="output2" width="225px" height="240px">
+					  <img id="output2" width="225px" src="" height="240px">
 					  <div class="card-body">
 					    <p class="card-text"><input type="file" id="photo2" name="photo2" accept="image/*" onchange="loadFile2(event)"></p>
 					  </div>					  
@@ -923,7 +941,7 @@ table {
 					  </td>
 					  <td>
 					  <div class="card" style="width: 225px;">
-					  <img id="output3" width="225px" height="240px">
+					  <img id="output3" width="225px" src="" height="240px">
 					  <div class="card-body">
 					    <p class="card-text"><input type="file" id="photo3" name="photo3" accept="image/*" onchange="loadFile3(event)"></p>
 					  </div>

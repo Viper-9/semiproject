@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%@ page import="user.model.vo.User, java.util.*"%>
-<%
-	String adminid = (String) session.getAttribute("adminId");
-%> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +8,6 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>메인화면</title>
-
-
-<link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
-
-<script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<!-- <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
 
 <style type="text/css">
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
@@ -74,17 +61,10 @@
 </head>
 
 <body>
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	<script src="/hifive/resources/js/bootstrap.min.js"></script>
-
-	<div class="container">
+<div class="container">
 		<header>
-			<img src="/hifive/resources/image/sample3.jpeg"
-				class="rounded mx-auto d-block" alt="로고">
+			<a href="/hifive/adminmain.jsp"><img src="/hifive/resources/image/sample3.jpeg"
+				class="rounded mx-auto d-block" alt="로고" title="관리자 메인 페이지로 이동"></a>
 
 			<div class="box1">
 				<table>
@@ -103,9 +83,9 @@
 										aria-haspopup="true" aria-expanded="false"> ... </a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<a class="dropdown-item" href="/hifive/ulist">회원 관리</a>
-										<a class="dropdown-item" href="">공지사항 관리</a>
-										<a class="dropdown-item" href="">신고게시판 관리</a>
-										<a class="dropdown-item" href="">로그아웃</a>
+										<a class="dropdown-item" href="/hifive/adminnoticelist">공지사항 관리</a>
+										<a class="dropdown-item" href="/hifive/reportlist?userid=admin">신고게시판 관리</a>
+										<a class="dropdown-item" href="/hifive/logout">로그아웃</a>
 									</div>
 							 </div>
 						</th>

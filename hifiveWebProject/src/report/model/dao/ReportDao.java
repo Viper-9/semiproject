@@ -260,14 +260,15 @@ public class ReportDao {
 		PreparedStatement pstmt = null;
 
 		String query = "update report_board set "
-				+ "title = ?, contents = ?, report_date=sysdate "
+				+ "title = ?, contents = ?, report_date=sysdate, COMPLETE = ? "
 				+ "where report_no = ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, report.getTitle());
 			pstmt.setString(2, report.getContent());
-			pstmt.setInt(3, report.getReport_no());
+			pstmt.setString(3, report.getComplete());
+			pstmt.setInt(4, report.getReport_no());
 			
 			result = pstmt.executeUpdate();
 			

@@ -113,11 +113,12 @@
 	height: 200px;
 }
 </style>
+
 <script type="text/javascript">
 
 	$(function(){
-	     var userid = '<%= userid %>';	     
-	      
+	     var userid = '<%= userid %>';
+
 	      // 나의 여행 계획
 	     $.ajax({
 	    	  url : "/hifive/myplan",
@@ -134,7 +135,7 @@
 		        
 		        var m_host = "";   		        
 		        if(Object.keys(json.surfer) == 0){
-		        	m_host += "<tr><td colspan='4'>신청 내역이 없습니다.</td></tr>";
+		        	m_host += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
 	               $("#m_host").html($("#m_host").html()+m_host);   
 	            } else{	            	
 	            	m_host += "<tr><td style='font-weight:bold;'>Host</td><td>";
@@ -153,7 +154,7 @@
 
 		        var m_surfer = "";   		        
 		        if(Object.keys(json.host) == 0){
-		        	m_surfer += "<tr><td colspan='4'>신청 내역이 없습니다.</td></tr>";
+		        	m_surfer += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
 	               $("#m_surfer").html($("#m_surfer").html()+m_surfer);   
 	            } else{
 	            	m_surfer += "<tr><td style='font-weight:bold;'>Surfer</td><td>";
@@ -172,7 +173,7 @@
 	        
 		        var m_partner = "";   		        
 		        if(Object.keys(json.partner) == 0){
-		        	m_partner += "<tr><td colspan='4'>신청 내역이 없습니다.</td></tr>";
+		        	m_partner += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
 	               $("#m_partner").html($("#m_partner").html()+m_partner);   
 	            } else{
 	            	m_partner += "<tr><td style='font-weight:bold;'>Partner</td><td>";
@@ -190,7 +191,7 @@
 	            }
 		        
 		        if(valueAll==""){
-		        	valueAll += "<tr><td colspan='4'>신청 내역이 없습니다.</td></tr>";
+		        	valueAll += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
 		        	$("#m_all").html($("#m_all").html()+valueAll);
 		        } else{
 		        	$("#m_all").html($("#m_all").html()+valueAll); // 모든 여행 정보
@@ -215,7 +216,11 @@
 	            
 	            var values1 = "";
 	            if(json.list_h2.length == 0){
-	            	values1 += "신청 내역이 없습니다.";
+	            	if(json.m_host==1){
+	            		values1 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values1 += "신청 내역이 없습니다.";
+	            	}
 	               $("#h1").html($("#h1").html()+values1);   
 	            } else{
 	            	for(var i in json.list_h2){
@@ -237,7 +242,11 @@
 	            
 	            var values4 = "";    
 	            if(json.list_s1.length == 0){
-	            	values4 = "신청 내역이 없습니다.";
+	            	if(json.m_host==1){
+	            		values4 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values4 += "신청 내역이 없습니다.";
+	            	}
 	               $("#h2").html($("#h2").html()+values4);
 	            } else{               
 	            	for(var i in json.list_s1){
@@ -259,8 +268,11 @@
 	            
 	            var values3 = "";
 	            if(json.list_s2.length == 0){
-	            	values3 += "신청 내역이 없습니다.";
-
+	            	if(json.m_surfer==1){
+	            		values3 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values3 += "신청 내역이 없습니다.";
+	            	}
 	               $("#s1").html($("#s1").html()+values3);   
 	            } else{               
 	            	for(var i in json.list_s2){
@@ -278,12 +290,15 @@
 		          	   + "</td></tr><br>";
 		            }                              
 	               $("#s1").html($("#s1").html()+values3);               
-	            }
-	            
+	            }	            
 	            
 	            var values2 = "";                        
 	            if(json.list_h1.length == 0){
-	            	values2 += "신청 내역이 없습니다.";
+	            	if(json.m_surfer==1){
+	            		values2 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values2 += "신청 내역이 없습니다.";
+	            	}
 	               $("#s2").html($("#s2").html()+values2);   
 	            } else{               
 	               for(var i in json.list_h1){
@@ -304,7 +319,11 @@
 	           
 	            var values5 = "";
 	            if(json.list_p2.length == 0){
-	            	values5 += "신청 내역이 없습니다.";
+	            	if(json.m_partner==1){
+	            		values5 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values5 += "신청 내역이 없습니다.";
+	            	}
 	               $("#p1").html($("#p1").html()+values5);   
 	            } else{               
 	            	for(var i in json.list_p2){
@@ -326,7 +345,11 @@
 	            
 	            var values6 = "";                        
 	            if(json.list_p1.length == 0){
-	            	values6 += "신청 내역이 없습니다.";
+	            	if(json.m_partner==1){
+	            		values6 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values6 += "신청 내역이 없습니다.";
+	            	}
 	               $("#p2").html($("#p2").html()+values6);   
 	            } else{               
 	               for(var i in json.list_p1){
@@ -444,6 +467,7 @@
 				<br>
 			</div>
 			<div id="content2">
+
 				<% if(headeruser.getSafety_check().equals("N")){ %>
 					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#" role="button" id="host_enroll" disabled>호스트 등록</a>
 					<a class="btn btn-primary" href="#" role="button" id="host_find">호스트 찾기</a>			
@@ -468,6 +492,7 @@
 					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#partnerenroll" role="button" id="partner_enroll">파트너 등록</a>
 					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="partner_find">파트너 찾기</a><br><br>
 				<% } %>				
+
 			</div>
 			<div id="content3">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">

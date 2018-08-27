@@ -35,7 +35,6 @@ public class NoticeDetailServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		
 		int noticeno = Integer.parseInt(request.getParameter("rnum"));
-		System.out.println(noticeno);
 		
 		NoticeService nservice = new NoticeService();
 		RequestDispatcher view = null;

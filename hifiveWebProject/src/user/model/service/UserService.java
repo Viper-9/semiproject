@@ -4,7 +4,6 @@ import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-
 import user.exception.UserException;
 import user.model.dao.UserDao;
 import user.model.vo.User;
@@ -123,7 +122,7 @@ public class UserService {
 		return userPw;
 	}
 
-	public String updatePass(User user) {
+	public String updatePass(User user) throws UserException {
 		Connection con = getConnection();
 		String userPw = new UserDao().updatePass(con, user);
 		if(userPw != null)
@@ -151,6 +150,18 @@ public class UserService {
 		return profileImage;
 
 	}
-	
+
+	public int updateLogin(String userid, String val) {
+		Connection con = getConnection();
+		int result = 
+				new UserDao().updateLogin(con, userid, val);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+
 
 }

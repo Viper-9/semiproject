@@ -59,6 +59,7 @@ public class UserDao {
          stmt = con.createStatement();
          rset = stmt.executeQuery(query);
 
+
          while(rset.next()){
             User user = new User();
             user.setUser_Id(rset.getString("user_id"));
@@ -150,6 +151,7 @@ public class UserDao {
       return result;
    }
 
+
 // 회원 한 명 선택
    public User selectUser(Connection con, String userId){
       User user = null;
@@ -195,11 +197,14 @@ public class UserDao {
       return user;
    }
 
+
+		String query = "update users set address=?, NATIONALITY=?, job=?, hobby=?, content=?, phone=? where user_id = ?";
+
    // 회원 정보 수정
    public int updateUser(Connection con, User user) throws UserException {
       int result = 0;
       PreparedStatement pstmt = null;
-
+      
       String query = "update users set address=?, NATIONALITY=?, job=?, hobby=?, content=?, phone=? where user_id = ?";
 
       try {
@@ -445,18 +450,23 @@ public class UserDao {
       }
       return userpw;
    }
-   //비밀번호 변경
-   public String updatePass(Connection con, User user) {
-      String userpw = null;
-      PreparedStatement pstmt = null;
 
 
-      String query = "update users set user_pw = ? where user_id = ?";
+
+
+	//비밀번호 변경
+	public String updatePass(Connection con, User user) throws UserException {
+		String userpw = null;
+		PreparedStatement pstmt = null;
+		
+		String query = "update users set user_pw = ? where user_id = ?";
 
       try {
-         pstmt = con.prepareStatement(query);
-         pstmt.setString(1, user.getUser_Pw());
-         pstmt.setString(2, user.getUser_Id());
+    	  
+    	  pstmt = con.prepareStatement(query);
+    	  pstmt.setString(1, user.getUser_Pw());
+    	  pstmt.setString(2, user.getUser_Id());
+
 
          int result = pstmt.executeUpdate();
 
@@ -467,7 +477,7 @@ public class UserDao {
       } catch (Exception e) {
          e.printStackTrace();
 
-      } finally {
+      } finally {   	 
          close(pstmt);
       }
 

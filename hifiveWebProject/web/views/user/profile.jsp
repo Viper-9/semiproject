@@ -40,24 +40,15 @@
    #content1{width:740px;margin:5px 0 0 0;float:left;padding:0 0 0 10px;}
    
    #card_info { text-align:center; }
-   
-   #s_review {
-	   	width:300px;		
-		padding: 10px;
-		border-radius: 7px;
-		-webkit-border-radius: 7px;
-		-moz-border-radius: 7px;
-		box-shadow: 0 1px 9px rgba(51,51,51,.8);
-		-webkit-box-shadow: 0 1px 9px rgba(51,51,51,.8);
-		-moz-box-shadow: 0 1px 9px rgba(51,51,51,.8);
-		background: #eae8e8;
-	}
+
 </style>
 
 <script type="text/javascript">
 	$(function(){
 		var userid = '<%= user.getUser_Id() %>';
+		var loginuserid = '<%= loginuserid %>';
 		
+		// 리뷰 
 		$.ajax({	
 	  	  url : "/hifive/reviewlist",
 	    		type : "get",
@@ -76,9 +67,16 @@
 						$("#review").html($("#review").html()+values);	
 					} else{					
 						for(var i in json.list){
-							values += "<section id='s_review'>아이디 : " + json.list[i].user_id 
-							+"<br>날짜 : " + json.list[i].review_date
-							+"<br>내용 : " + json.list[i].content +"</section><br><br>";
+							values += "<div class='card'> <div class='card-body'>"
+							+"<a href='/hifive/profileinfo?userid="+json.list[i].user_id+"'><font style='font-size:13pt'><b>" + json.list[i].user_id + "</a>"
+							+"</b></font> <font style='font-size:10pt'> 님이 작성한 후기입니다. <br></font>"
+							+"<font style='font-size:8pt'>(" + json.list[i].review_date + ")</font><br>"
+							+"<font style='font-size:14pt'>" + json.list[i].content +"</font></div></div>";						
+							if(json.list[i].user_id == loginuserid)
+								values += "<a href='/hifive/reviewdelete?reviewno=" + json.list[i].review_no 
+										+ "&uid=" + userid + "'>삭제</a><br><br>";
+							else
+								values += "<br><br>";
 						}										
 						$("#review").html($("#review").html()+values);
 						
@@ -115,6 +113,18 @@
 				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
 			} // error
 		});
+		
+		// 리뷰 창 (다른 사람 프로필에서만 쓸 수 있음)
+		if(userid!=loginuserid){
+			var value = "<h6 class='card-header' id='card_info'>리뷰 작성하기</h6> " 
+					+ "<div class='card-body' id='write_review' align='center'> "
+					+ "<form action='/hifive/reviewwrite?' method='post'> "
+					+ "<input type='hidden' name='uid' value=" + userid + "> "
+					+ "<textarea name='review' cols='80' rows='5'></textarea><br> "
+					+ "<input type='submit' value='작성'></form></div>";
+   			$("#review_write").html($("#review_write").html()+value);
+		}	
+		
 	});
 </script>
 <script type="text/javascript">
@@ -206,10 +216,10 @@
                <font size="3"><b>Profile</b></font> 
                   <% if(user.getProfile_image() == null) { %>
                   <img class="card-img-top rounded-circle"
-                  src="/hifive/resources/profileUpfiles/profile.png" alt="Card image cap" height="220px">
+                  src="/hifive/resources/profileUpfiles/profile.png" alt="Card image cap" height="250px">
                   <% } else { %>
                    <img class="card-img-top rounded-circle"
-                  src="/hifive/resources/profileUpfiles/<%= user.getProfile_image() %>" alt="Card image cap" height="220px">
+                  src="/hifive/resources/profileUpfiles/<%= user.getProfile_image() %>" alt="Card image cap" height="250px">
                   <% } %>
                   
                <div class="card-body">
@@ -217,7 +227,7 @@
                   <div id="userInfo" name="userInfo" align="center">
                      <font size="4"><b><%= user.getUser_Name() %></b></font> <br>
                      
-                     <button class="mapopen" style="border: 0; background: white;"
+                     <a title="지도 보기" class="mapopen" style="border: 0; background: white;"
                         data-toggle="modal" data-target="#openMap">
                         <img src="/hifive/resources/image/map.png" width="27"
                            height="27">
@@ -229,6 +239,7 @@
                      <%= user.getAddress() %>
                      <% } %> 
                      </font>
+                     </a>
                   </div>
                   <br> 
                   <center>
@@ -389,7 +400,15 @@
                      <tr>
                         <td><li>선호하는 성별</li></td>
                          <td>
-                           <input type="text" class="form-control col-sm-3" name="gender" disabled style="background-color: #ffffff; text-align:center;" value="<%= profileH.getP_gender() %>">
+                         
+                           <input type="text" class="form-control col-sm-3" name="gender" disabled style="background-color: #ffffff; text-align:center;" 
+                           <% if(profileH.getP_gender().equals("B")) { %>
+                           value="상관 없음"
+                           <% } else if(profileH.getP_gender().equals("F")) { %>
+                           value="여성"
+                           <% } else { %>
+                           value="남성"
+                           <% } %> >
                         </td> 
                      </tr>
                      <tr>
@@ -423,7 +442,13 @@
                      </tr>          
                      <tr>
                         <td><li>추가 정보</li></td>
-                        <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" disabled style="background-color: #ffffff;"><%= profileH.getContent() %></textarea></td>   
+                        <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" disabled style="text-align:left; background-color: #ffffff;">
+                        <% if(profileH.getContent() == null) { %>
+                        	추가 정보를 입력하지 않았습니다.
+                        <% } else { %>
+                       		<%= profileH.getContent() %>
+                       	<% } %>	
+                       	</textarea></td>   
                      </tr>
                   </table> 
                   </ul>
@@ -507,13 +532,26 @@
             <div id="photo" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Photos</h6>
                <div class="card-body">
-                  <img src="/hifive/resources/image/home.JPG" class="rounded" data-toggle="modal"
-                     data-target="#photoDetail" style="width: 225px;">
-                  <img src="/hifive/resources/image/home2.png" class="rounded" data-toggle="modal"
-                     data-target="#photoDetail" style="width: 225px;">
-                  <img src="/hifive/resources/image/home3.jpg" class="rounded" data-toggle="modal"
-                     data-target="#photoDetail" style="width: 225px;">
-                  
+               <% if(profileH != null) { %>
+	               <% if(profileH.getImage1() == null && profileH.getImage2() == null && profileH.getImage3() == null) { %>
+	              	 사진을 등록하지 않았습니다.
+	               <% } else {%>
+	               <%if(!profileH.getImage1().equals("sample.jpg") && profileH.getImage1() != null) { %>
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage1() %>" class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	               <% } %>
+	               <% if(!profileH.getImage2().equals("sample.jpg") && profileH.getImage2() != null) { %> 
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage2() %>"  class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	               <% } %>
+	               <% if(!profileH.getImage3().equals("sample.jpg") && profileH.getImage3() != null) { %> 
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage3() %>"  class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	               <% } %> 
+	               <% } %>             
+               <% } else { %>
+              	 등록된 호스트 정보가 없습니다.
+               <% } %>
                </div>
             </div>
             <br>
@@ -521,6 +559,9 @@
                <h6 class="card-header" id="card_info">References</h6>
                <div class="card-body" id="review" align='center'>
                   
+               </div>
+               <div id="review_write">
+	               
                </div>
             </div>
          </div>
@@ -555,7 +596,9 @@
          </div>
       </div>
    </div>
-
+   
+   <% if(profileH != null) { %>
+   <% if(profileH.getImage1() != null || profileH.getImage2() != null || profileH.getImage3() != null) { %>
    <div class="modal fade bd-example-modal-lg align-middle" id="photoDetail"
       tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -574,18 +617,24 @@
                <div id="carouselExampleControls" class="carousel slide"
                   data-ride="carousel">
                   <div class="carousel-inner">
-                     <div class="carousel-item active">
-                        <img class="d-block w-100"
-                           src="/hifive/resources/image/home.JPG" alt="First slide">
+                     <% if(!profileH.getImage1().equals("sample.jpg") && profileH.getImage1() != null) { %>
+                     <div id="mphoto1" class="carousel-item active">                     
+                        <img class="d-block w-100 "
+                           src="/hifive/resources/photoUpload/<%= profileH.getImage1() %>">
                      </div>
-                     <div class="carousel-item">
+                     <% } %>
+                     <% if(!profileH.getImage2().equals("sample.jpg") || profileH.getImage2() != null) { %>
+                     <div id="mphoto2"  class="carousel-item">
                         <img class="d-block w-100"
-                           src="/hifive/resources/image/home2.png" alt="Second slide">
+                           src="/hifive/resources/photoUpload/<%= profileH.getImage2() %>">
                      </div>
-                     <div class="carousel-item">
+                     <% } %>
+                     <% if(!profileH.getImage3().equals("sample.jpg") && profileH.getImage3() != null) { %>
+                     <div id="mphoto3" class="carousel-item">
                         <img class="d-block w-100"
-                           src="/hifive/resources/image/home3.jpg" alt="Third slide">
+                           src="/hifive/resources/photoUpload/<%= profileH.getImage3() %>">
                      </div>
+                     <% } %>
                   </div>
                   <a class="carousel-control-prev" href="#carouselExampleControls"
                      role="button" data-slide="prev"> <span
@@ -601,8 +650,15 @@
          </div>
       </div>
    </div>
+   <% } %>
+   <% } %>
+   
    <script>
-      var map = new naver.maps.Map('map');
+      var map = new naver.maps.Map('map', {
+    	  minZoom : 9,
+    	  zoom : 10,
+    	  maxZoom : 11
+      });
       var myaddress = '<%= user.getAddress() %>'; // 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!) 여기에 사용자 주소
       naver.maps.Service.geocode({
          address : myaddress
@@ -617,11 +673,24 @@
          var myaddr = new naver.maps.Point(result.items[0].point.x,
                result.items[0].point.y);
          map.setCenter(myaddr); // 검색된 좌표로 지도 이동
+         
+         var markerOptions = {
+        	position : myaddr,
+        	map : map,
+        	icon : {
+        		url : '/hifive/resources/image/marker.png',
+        		size : new naver.maps.Size(350, 350),
+        		origin : new naver.maps.Point(0, 0),
+        		anchor : new naver.maps.Point(175, 175)
+        	}
+         }
+         var marker = new naver.maps.Marker(markerOptions);
+         
          // 마커 표시
-         var marker = new naver.maps.Marker({
+         /* var marker = new naver.maps.Marker({
             position : myaddr,
             map : map
-         });
+         }); */
          // 마커 클릭 이벤트 처리
          naver.maps.Event.addListener(marker, "click", function(e) {
             if (infowindow.getMap()) {

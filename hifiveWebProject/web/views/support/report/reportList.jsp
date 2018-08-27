@@ -180,12 +180,12 @@ function showBoardWriteForm(){
             <nav aria-label="Page navigation example">
                <ul class="pagination justify-content-center">
                   <li class="page-item">
-                  <% if((currentPage - 10) < startPage && (currentPage - 10) > 1){ %>
+                  <% if((currentPage - 10) <= startPage && (currentPage - 10) >= 1){ %>
                   <a class="page-link" href="/hifive/reportlist?page=<%= startPage - 10 %>"
                      aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span></a>
                	  <% }else { %> 
-               	  <a class="page-link" href="#"
+               	  <a class="page-link" href="/hifive/reportlist?page=<%= startPage %>"
                      aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span> 
                   <span	class="sr-only">Previous</span> </a>
@@ -200,15 +200,15 @@ function showBoardWriteForm(){
                   <% }} %>
                   
                   <li class="page-item">
-                  <% if((currentPage + 10) > endPage && 
-					(currentPage + 10) < maxPage){ %>  
+                  <% if((currentPage + 10) >= endPage && 
+					(currentPage + 10) <= maxPage){ %>  
                   <a class="page-link" href="/hifive/reportlist?page=<%= endPage + 10 %>"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
                   </a>
                   
                   <% }else{ %>
-				  <a class="page-link" href="/hifive/reportlist?page=<%= endPage + 10 %>"
+				  <a class="page-link" href="#"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
 				  <% } %>

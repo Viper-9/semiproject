@@ -80,26 +80,20 @@
 </style>
 
 <script type="text/javascript">
-function showBoardWriteForm(){
-	location.href = "/hifive/views/support/report/reportWrite.jsp";
-}
+
 </script>
 </head>
 <body>
    <div class="container">
-      <%@ include file="../../../header.jsp"%>
+      <%@ include file="../../../adminheader.jsp"%>
       <hr>
       <div id="main">
          <div id="menu">
-            <%@ include file="../../../information.jsp"%>
+            <%@ include file="../../../adminsupportmenu.jsp"%>
 
          </div>
          <div id="content1">
-            <%@ include file="../../../supportmenu.jsp"%>
-         </div>
-
-         <div id="content2">
-
+			<h5 align="center"><b>신고게시판 관리</b></h5>
             <br>
               <div class="card border-0" style="width: 600px;" id="reporttable1">
             <table
@@ -141,11 +135,17 @@ function showBoardWriteForm(){
                   <tr>
 
                      <td colspan="4">
-                     <button type="button" class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist'">목록</button>
-                          <% if(r.getUser_id().equals(userId) && r.getComplete().equals("N")) { %>
-                           <a class="btn btn-primary btn-sm" id="modify" href="/hifive/rupdatedetail?reportno=<%= r.getReport_no() %>">수정</a>
-						   <a class="btn btn-primary btn-sm" id="delete" href="/hifive/reportdelete?reportno=<%= r.getReport_no() %>">삭제</a>       
-                          <% } %> 
+                     <button type="button" class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist?userid=admin'">목록</button>
+                  
+                     <% if(r.getComplete().equals("N")) { %>                   
+                     <form action="/hifive/reportupdate?userid=admin" method="post">
+                     <input type="hidden" name="reportno" value="<%= r.getReport_no() %>">
+                     <input type="hidden" name="rtitle" value="<%= r.getTitle() %>">
+                     <input type="hidden" name="rcontent" value="<%= r.getContent() %>">  
+                     <br>                   
+                     <input type="submit" class="btn btn-primary btn-sm" value="처리 완료">                    	  
+                     <% } %>
+                     </form>
                      </td>
                            
                   </tr> 

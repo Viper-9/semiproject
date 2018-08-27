@@ -17,6 +17,9 @@
 <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="/hifive/resources/js/bootstrap.min.js"></script>
 	
 <style type="text/css">
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
@@ -66,47 +69,64 @@
    }
       
 </style>	
+<script type="text/javascript">
+	function stop(action) {
+		var tdArr = new Array();
+		var checkbox = $("input[name=loginconfirm]:checked");
+		
+		// 체크된 체크박스 값을 가져온다
+		checkbox.each(function(i) {
+
+			// checkbox.parent() : checkbox의 부모는 <td>이다.
+			// checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
+			var tr = checkbox.parent().parent().eq(i);
+			var td = tr.children();
+				
+			// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+			var userid = td.eq(0).text();
+				
+			// 가져온 값을 배열에 담는다.
+			tdArr.push(userid);
+		
+			console.log(tdArr);
+		});
+		
+		var allData = { "userid" : tdArr, "action" : action };
+		
+		if(tdArr.length > 0) {
+			$.ajaxSettings.traditional = true;
+			$.ajax({
+				url :"/hifive/loginStop",
+				type : 'post',
+				data : allData,
+		        success : function(data){
+		        	if(data.result == '1'){
+		        		alert("로그인 제한 성공");
+		        		location.href = "/hifive/ulist";
+		        	} else if(data.result == '2') {
+		        		alert("로그인 제한 실패");
+		        	} else if(data.result == '3') {
+		        		alert("로그인 제한 풀기 성공");
+	        			location.href = "/hifive/ulist";
+		        	} else {
+		        		alert("로그인 제한 풀기 실패");
+		        	}
+		        }, error : function(jqXHR, textstatus, errorThrown){
+		            console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
+				}		
+			});
+		}
+	}
+</script>
 </head>
 <body>
-<script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	<script src="/hifive/resources/js/bootstrap.min.js"></script>
+
+	
 
 <div class="container">
-		<header>
-			<img src="/hifive/resources/image/sample3.jpeg"
-				class="rounded mx-auto d-block" alt="로고">
-
-			<div class="box1">
-				<table>
-					<tbody>
-					 <tr>					 	
-					 	<th>
-					 	 	<img src="/hifive/resources/image/adminsample.jpg" id="adminlogo" alt="로고">
-					 	</th>
-					 	<th>
-					 	 <h6 class="font-weight-bold">관리자 페이지</h6>
-					 	</th>					 	
-					 	<th>
-							<div class="dropdown" id="adminsupport">
-									<a class="btn dropdown-toggle p-3 mb-2 bg-white text-dark font-weight-bold" href="#"
-										role="button" id="dropdownMenuLink" data-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false"> ... </a>
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="/hifive/ulist">회원 관리</a>
-										<a class="dropdown-item" href="">공지사항 관리</a>
-										<a class="dropdown-item" href="">신고게시판 관리</a>
-										<a class="dropdown-item" href="">로그아웃</a>
-									</div>
-							 </div>
-						</th>
-					 </tr>
-					</tbody>	
-				</table>		
-			</div>
-		</header>
+		<%@ include file="../../adminheader.jsp" %>
 		<hr>
+		<br>
 		<div id="main">
 			<div id="menu">
 				<%@ include file="../../adminsupportmenu.jsp"%>
@@ -127,9 +147,7 @@
 	<th class="text-secondary">Gender</th>
 	<th class="text-secondary">Join_Date</th>
 	<th class="text-secondary">Safety</th>
-	<th class="text-secondary">Login(Y/N)</th>
-
-	
+	<th class="text-secondary">Login</th>	
 </tr>
 </thead>
 
@@ -144,24 +162,29 @@
 	<td><small><%= u.getGender() %></small></td>
 	<td><small><%= u.getJoin_Date() %></small></td>
 	<td><small><%= u.getSafety_check() %></small></td>
-	<td><input type="checkbox" name="check"></td>
+	<td>
+	<% if(u.getRestriction().equals("N")) { %>
+	O
+	<% } else { %>
+	X
+	<% } %>
+	<input type="checkbox" name="loginconfirm">
+	</td>
+	
 </tr>
 <% } %>
 <tr><th colspan="9">
 	<br>
-	<button class="btn btn-primary btn-sm" id="loginStop">확인</button>
-	&nbsp;
-	<button class="btn btn-primary btn-sm" id="loginStop">초기화</button>
-	
+	<button class="btn btn-primary btn-sm" id="loginStop" onclick="stop('stop')">로그인 제한</button>
+	<button class="btn btn-primary btn-sm" id="loginRe" onclick="stop('start')">로그인 허용</button>
     </th> 
 </tr>
 </table>
-
 			</div>
 		</div>
 		
 		
-		<br>
+		<br> 
 		<hr>
 		<%@ include file="../../footer.jsp"%>
 	</div>	

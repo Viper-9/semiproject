@@ -36,7 +36,7 @@ public class FavoriteInsertServlet extends HttpServlet {
 	
 		try{
 			if(new FavoriteService().insertFavorite(userId, f_UserId) > 0){
-				response.sendRedirect("/hifive/favoritelist?userid="+userId);
+				response.sendRedirect("views/favorite/favorite.jsp");
 			} else{
 				RequestDispatcher view = request.getRequestDispatcher("views/favorite/favoriteError.jsp");
 				request.setAttribute("message", "favorite 등록 실패");

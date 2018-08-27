@@ -68,38 +68,6 @@
 
 	<div class="container">
 	<%@ include file="./adminheader.jsp" %>
-	<!-- 	<header>
-			<img src="/hifive/resources/image/sample3.jpeg"
-				class="rounded mx-auto d-block" alt="로고">
-
-			<div class="box1">
-				<table>
-					<tbody>
-					 <tr>					 	
-					 	<th>
-					 	 	<img src="/hifive/resources/image/adminsample.jpg" id="adminlogo" alt="로고">
-					 	</th>
-					 	<th>
-					 	 <h6 class="font-weight-bold">관리자 페이지</h6>
-					 	</th>					 	
-					 	<th>
-							<div class="dropdown" id="adminsupport">
-									<a class="btn dropdown-toggle p-3 mb-2 bg-white text-dark font-weight-bold" href="#"
-										role="button" id="dropdownMenuLink" data-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false"> ... </a>
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="/hifive/ulist">회원 관리</a>
-										<a class="dropdown-item" href="">공지사항 관리</a>
-										<a class="dropdown-item" href="">신고게시판 관리</a>
-										<a class="dropdown-item" href="">로그아웃</a>
-									</div>
-							 </div>
-						</th>
-					 </tr>
-					</tbody>	
-				</table>		
-			</div>
-		</header> -->
 		<hr>
 		<br>
 		<div id="main">
@@ -107,7 +75,11 @@
 				<%@ include file="./adminsupportmenu.jsp"%>
 			</div>
 			<div id="content1">
-				<%-- <%@ include file="user/userListView.jsp" %> --%>
+				<br>
+				<br>
+				<br>
+				
+				<h5 align="center"><b>관리자님 안녕하세요^^!</b></h5>
 			</div>
 		</div>
 		
