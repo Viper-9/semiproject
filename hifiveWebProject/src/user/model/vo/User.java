@@ -18,7 +18,6 @@ public class User implements java.io.Serializable {
 	private String address;
 	private String hobby;
 	private String job;
-	private String language;
 	private String content;
 	private String restriction;
 	private String profile_image;
@@ -42,7 +41,7 @@ public class User implements java.io.Serializable {
 
 	public User(String user_Id, String user_Pw, String user_Name, String email, String phone, Date birth, String gender,
 			Date join_Date, String safety_check, String nationality, String address, String hobby, String job,
-			String language, String content, String restriction, String profile_image) {
+			String content, String restriction, String profile_image) {
 		super();
 		this.user_Id = user_Id;
 		this.user_Pw = user_Pw;
@@ -57,7 +56,6 @@ public class User implements java.io.Serializable {
 		this.address = address;
 		this.hobby = hobby;
 		this.job = job;
-		this.language = language;
 		this.content = content;
 		this.restriction = restriction;
 		this.profile_image = profile_image;
@@ -167,14 +165,6 @@ public class User implements java.io.Serializable {
 		this.job = job;
 	}
 
-	public String getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-
 	public String getContent() {
 		return content;
 	}
@@ -209,7 +199,7 @@ public class User implements java.io.Serializable {
 				+ "," + this.email + "," + this.phone + "," + this.birth 
 				+ "," + this.gender + "," + this.join_Date + "," + this.safety_check
 				+ "," + this.nationality + "," + this.address + "," + this.hobby + "," 
-				+ this.job + "," + this.language + "," + this.content + ", " + this.restriction 
+				+ this.job + "," +  this.content + ", " + this.restriction 
 				+ ", " + this.profile_image;
 	}	
 }	

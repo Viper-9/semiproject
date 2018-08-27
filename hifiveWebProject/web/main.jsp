@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="user.model.vo.User, java.util.*"%>
+<%@ page import="user.model.vo.User, hsp.model.vo.Host, java.util.*"%>
 <%
-	String userid = (String) session.getAttribute("userId");
+	String userid = (String) session.getAttribute("userId");		
 %>
 <!DOCTYPE html>
 <html>
@@ -21,7 +21,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
 <style type="text/css">
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
 
@@ -119,7 +118,7 @@
 
 	$(function(){
 	     var userid = '<%= userid %>';
-	      
+
 	      // 나의 여행 계획
 	     $.ajax({
 	    	  url : "/hifive/myplan",
@@ -136,7 +135,7 @@
 		        
 		        var m_host = "";   		        
 		        if(Object.keys(json.surfer) == 0){
-		        	m_host += "<tr><td colspan='4'>신청 내역이 없습니다.</td></tr>";
+		        	m_host += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
 	               $("#m_host").html($("#m_host").html()+m_host);   
 	            } else{	            	
 	            	m_host += "<tr><td style='font-weight:bold;'>Host</td><td>";
@@ -155,7 +154,7 @@
 
 		        var m_surfer = "";   		        
 		        if(Object.keys(json.host) == 0){
-		        	m_surfer += "<tr><td colspan='4'>신청 내역이 없습니다.</td></tr>";
+		        	m_surfer += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
 	               $("#m_surfer").html($("#m_surfer").html()+m_surfer);   
 	            } else{
 	            	m_surfer += "<tr><td style='font-weight:bold;'>Surfer</td><td>";
@@ -174,7 +173,7 @@
 	        
 		        var m_partner = "";   		        
 		        if(Object.keys(json.partner) == 0){
-		        	m_partner += "<tr><td colspan='4'>신청 내역이 없습니다.</td></tr>";
+		        	m_partner += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
 	               $("#m_partner").html($("#m_partner").html()+m_partner);   
 	            } else{
 	            	m_partner += "<tr><td style='font-weight:bold;'>Partner</td><td>";
@@ -192,7 +191,7 @@
 	            }
 		        
 		        if(valueAll==""){
-		        	valueAll += "<tr><td colspan='4'>신청 내역이 없습니다.</td></tr>";
+		        	valueAll += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
 		        	$("#m_all").html($("#m_all").html()+valueAll);
 		        } else{
 		        	$("#m_all").html($("#m_all").html()+valueAll); // 모든 여행 정보
@@ -217,7 +216,11 @@
 	            
 	            var values1 = "";
 	            if(json.list_h2.length == 0){
-	            	values1 += "신청 내역이 없습니다.";
+	            	if(json.m_host==1){
+	            		values1 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values1 += "신청 내역이 없습니다.";
+	            	}
 	               $("#h1").html($("#h1").html()+values1);   
 	            } else{
 	            	for(var i in json.list_h2){
@@ -239,7 +242,11 @@
 	            
 	            var values4 = "";    
 	            if(json.list_s1.length == 0){
-	            	values4 = "신청 내역이 없습니다.";
+	            	if(json.m_host==1){
+	            		values4 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values4 += "신청 내역이 없습니다.";
+	            	}
 	               $("#h2").html($("#h2").html()+values4);
 	            } else{               
 	            	for(var i in json.list_s1){
@@ -261,8 +268,11 @@
 	            
 	            var values3 = "";
 	            if(json.list_s2.length == 0){
-	            	values3 += "신청 내역이 없습니다.";
-
+	            	if(json.m_surfer==1){
+	            		values3 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values3 += "신청 내역이 없습니다.";
+	            	}
 	               $("#s1").html($("#s1").html()+values3);   
 	            } else{               
 	            	for(var i in json.list_s2){
@@ -280,12 +290,15 @@
 		          	   + "</td></tr><br>";
 		            }                              
 	               $("#s1").html($("#s1").html()+values3);               
-	            }
-	            
+	            }	            
 	            
 	            var values2 = "";                        
 	            if(json.list_h1.length == 0){
-	            	values2 += "신청 내역이 없습니다.";
+	            	if(json.m_surfer==1){
+	            		values2 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values2 += "신청 내역이 없습니다.";
+	            	}
 	               $("#s2").html($("#s2").html()+values2);   
 	            } else{               
 	               for(var i in json.list_h1){
@@ -306,7 +319,11 @@
 	           
 	            var values5 = "";
 	            if(json.list_p2.length == 0){
-	            	values5 += "신청 내역이 없습니다.";
+	            	if(json.m_partner==1){
+	            		values5 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values5 += "신청 내역이 없습니다.";
+	            	}
 	               $("#p1").html($("#p1").html()+values5);   
 	            } else{               
 	            	for(var i in json.list_p2){
@@ -328,7 +345,11 @@
 	            
 	            var values6 = "";                        
 	            if(json.list_p1.length == 0){
-	            	values6 += "신청 내역이 없습니다.";
+	            	if(json.m_partner==1){
+	            		values6 += "이미 매칭이 되었습니다";
+	            	} else{
+	            		values6 += "신청 내역이 없습니다.";
+	            	}
 	               $("#p2").html($("#p2").html()+values6);   
 	            } else{               
 	               for(var i in json.list_p1){
@@ -361,12 +382,24 @@
 	    	  dataType : "json",
 	    	  success : function(data){	 
 
-	    		  if(data.host==1)
+	    		  if(data.host==1){
 	    			  $('#host_enroll').removeAttr('data-target');
-	    		  if(data.surfer==1)
+	    		      $("#host_enroll").click(function(){
+	    		    	  alert("이미 호스트 입력을 하셨습니다. \n마이페이지에서 수정해주세요!");
+	    		      });
+	    	  		}
+	    		  if(data.surfer==1){
 	    			  $('#surfer_enroll').removeAttr('data-target');
-	    		  if(data.partner==1)
+	    		  	  $("#surfer_enroll").click(function(){
+	    		  		alert("이미 서퍼 입력을 하셨습니다. \n마이페이지에서 수정해주세요!");
+	    		  	  })
+	    		  }
+	    		  if(data.partner==1){
 	    			  $('#partner_enroll').removeAttr('data-target');
+	    		  	  $("#partner_enroll").click(function(){
+	    		  		alert("이미 파스터 입력을 하셨습니다. \n마이페이지에서 수정해주세요!");
+	    		  	  })
+	    		  }
 	    	  }, // success 
 	    	  error : function(jqXHR, textstatus, errorThrown){
 		            console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
@@ -435,14 +468,30 @@
 			</div>
 			<div id="content2">
 
-				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#hostenroll" role="button" id="host_enroll">호스트 등록</a>
-				<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button">호스트 찾기</a>			
-				&nbsp;&nbsp; &nbsp;&nbsp;
-				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#surferenroll" role="button" id="surfer_enroll">&nbsp;서퍼등록&nbsp;</a>
-				<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button">&nbsp;서퍼 찾기&nbsp;</a>
-				&nbsp;&nbsp; &nbsp;&nbsp;
-				<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#partnerenroll" role="button" id="partner_enroll">파트너 등록</a>
-				<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button">파트너 찾기</a><br><br>
+				<% if(headeruser.getSafety_check().equals("N")){ %>
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#" role="button" id="host_enroll" disabled>호스트 등록</a>
+					<a class="btn btn-primary" href="#" role="button" id="host_find">호스트 찾기</a>			
+					&nbsp;&nbsp; &nbsp;&nbsp;
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#" role="button" id="surfer_enroll" disabled>&nbsp;서퍼등록&nbsp;</a>
+					<a class="btn btn-primary" href="#" role="button" id="surfer_find">&nbsp;서퍼 찾기&nbsp;</a>
+					&nbsp;&nbsp; &nbsp;&nbsp;
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#" role="button" id="partner_enroll" disabled>파트너 등록</a>
+					<a class="btn btn-primary" href="#" role="button" id="partner_find">파트너 찾기</a><br><br>
+					<script>
+						$("#host_enroll, #host_find, #surfer_enroll, #surfer_find, #partner_enroll, #partner_find").click(function(){
+							alert('안전유의사항을 체크해주세요');
+						})
+					</script>
+				<% }else{ %>
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#hostenroll" role="button" id="host_enroll">호스트 등록</a>
+					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="host_find">호스트 찾기</a>			
+					&nbsp;&nbsp; &nbsp;&nbsp;
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#surferenroll" role="button" id="surfer_enroll">&nbsp;서퍼등록&nbsp;</a>
+					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="surfer_find">&nbsp;서퍼 찾기&nbsp;</a>
+					&nbsp;&nbsp; &nbsp;&nbsp;
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#partnerenroll" role="button" id="partner_enroll">파트너 등록</a>
+					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="partner_find">파트너 찾기</a><br><br>
+				<% } %>				
 
 			</div>
 			<div id="content3">

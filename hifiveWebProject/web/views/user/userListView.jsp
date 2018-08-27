@@ -17,7 +17,9 @@
 <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
+<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="/hifive/resources/js/bootstrap.min.js"></script>
 	
 <style type="text/css">
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
@@ -68,46 +70,58 @@
       
 </style>	
 <script type="text/javascript">
-	$("#loginStop").click(function(){ 
-		console.log("개빡친다 미친");
-		var rowData = new Array();
-			var tdArr = new Array();
-			var checkbox = $("input[name=loginconfirm]:checked");
-			
-			// 체크된 체크박스 값을 가져온다
-			checkbox.each(function(i) {
-	
-				// checkbox.parent() : checkbox의 부모는 <td>이다.
-				// checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
-				var tr = checkbox.parent().parent().eq(i);
-				var td = tr.children();
+	function stop(action) {
+		var tdArr = new Array();
+		var checkbox = $("input[name=loginconfirm]:checked");
+		
+		// 체크된 체크박스 값을 가져온다
+		checkbox.each(function(i) {
+
+			// checkbox.parent() : checkbox의 부모는 <td>이다.
+			// checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
+			var tr = checkbox.parent().parent().eq(i);
+			var td = tr.children();
 				
-				// 체크된 row의 모든 값을 배열에 담는다.
-				rowData.push(tr.text());
+			// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+			var userid = td.eq(0).text();
 				
-				// td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
-				var no = td.eq(1).text()+", "
-				var userid = td.eq(2).text()+", ";
-				
-				// 가져온 값을 배열에 담는다.
-				tdArr.push(no);
-				tdArr.push(userid);
-				tdArr.push(name);
-				tdArr.push(email);
-				
-				console.log("no : " + no);
-				console.log("userid : " + userid);
-	
+			// 가져온 값을 배열에 담는다.
+			tdArr.push(userid);
+		
+			console.log(tdArr);
+		});
+		
+		var allData = { "userid" : tdArr, "action" : action };
+		
+		if(tdArr.length > 0) {
+			$.ajaxSettings.traditional = true;
+			$.ajax({
+				url :"/hifive/loginStop",
+				type : 'post',
+				data : allData,
+		        success : function(data){
+		        	if(data.result == '1'){
+		        		alert("로그인 제한 성공");
+		        		location.href = "/hifive/ulist";
+		        	} else if(data.result == '2') {
+		        		alert("로그인 제한 실패");
+		        	} else if(data.result == '3') {
+		        		alert("로그인 제한 풀기 성공");
+	        			location.href = "/hifive/ulist";
+		        	} else {
+		        		alert("로그인 제한 풀기 실패");
+		        	}
+		        }, error : function(jqXHR, textstatus, errorThrown){
+		            console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
+				}		
 			});
-			
-	});
+		}
+	}
 </script>
 </head>
 <body>
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	<script src="/hifive/resources/js/bootstrap.min.js"></script>
+	
 
 <div class="container">
 		<%@ include file="../../adminheader.jsp" %>
@@ -133,9 +147,7 @@
 	<th class="text-secondary">Gender</th>
 	<th class="text-secondary">Join_Date</th>
 	<th class="text-secondary">Safety</th>
-	<th class="text-secondary">Login</th>
-
-	
+	<th class="text-secondary">Login</th>	
 </tr>
 </thead>
 
@@ -163,14 +175,11 @@
 <% } %>
 <tr><th colspan="9">
 	<br>
-	<button class="btn btn-primary btn-sm" id="loginStop">확인</button>
-	&nbsp;
-	<!-- <button class="btn btn-primary btn-sm" id="loginStop">로그인 제한</button> -->
-	<button class="btn btn-primary btn-sm" id="loginRe">로그인 허용</button>
+	<button class="btn btn-primary btn-sm" id="loginStop" onclick="stop('stop')">로그인 제한</button>
+	<button class="btn btn-primary btn-sm" id="loginRe" onclick="stop('start')">로그인 허용</button>
     </th> 
 </tr>
 </table>
-<button class="btn btn-primary btn-sm" id="loginStop">로그인 제한</button>
 			</div>
 		</div>
 		

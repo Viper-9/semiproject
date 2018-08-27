@@ -37,17 +37,25 @@ public class HostingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String userId = request.getParameter("userid");		
-
 	
 		Host host = new HostService().selectHost(userId);
 		
 		JSONObject job = new JSONObject();
-	
-		job.put("num", host.getUser_num());
-		job.put("gender", host.getP_gender());			
-		job.put("check1", host.getCheck1());
-		job.put("check2", host.getCheck2());
-		job.put("content", host.getContent());
+		if(host != null) {
+			job.put("result", "0");
+			job.put("num", host.getUser_num());
+			job.put("gender", host.getP_gender());			
+			job.put("check1", host.getCheck1());
+			job.put("check2", host.getCheck2());
+			job.put("city", host.getCity());
+			job.put("content", host.getContent());
+			job.put("photo1", host.getImage1());
+			job.put("photo2", host.getImage2());
+			job.put("photo3", host.getImage3());
+		}
+		else {
+			job.put("result", "1");
+		}
 		
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();

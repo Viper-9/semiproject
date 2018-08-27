@@ -17,7 +17,9 @@ import hsp.model.service.HostService;
 import hsp.model.service.SurferPartnerService;
 import hsp.model.vo.Host;
 import hsp.model.vo.SurferPartner;
+import request.model.service.MatchingService;
 import request.model.service.RequestService;
+import request.model.vo.Matching;
 import request.model.vo.Request;
 import user.model.service.UserService;
 
@@ -49,7 +51,11 @@ public class RequestListServlet extends HttpServlet {
       ArrayList<Request> h_list_1 = new RequestService().myHostList1(userId);      
       ArrayList<Request> p_list_1 = new RequestService().myPartnerList1(userId);
       ArrayList<Request> p_list_2 = new RequestService().myPartnerList2(userId);
-     
+      
+      Matching m_host = new MatchingService().hostMatching(userId); // 매칭이 이미 되었는지 확인
+      Matching m_surfer = new MatchingService().surferMatching(userId); // 매칭이 이미 되었는지 확인
+      Matching m_partner = new MatchingService().partnerMatching(userId); // 매칭이 이미 되었는지 확인
+    
       // 전송될 json 객체 선언 : 객체 하나만 내보낼 수 있음
       JSONObject json = new JSONObject();
       // list는 json 배열에 저장하고, json 배열을 전송용 json 객체에 저장함
@@ -78,8 +84,8 @@ public class RequestListServlet extends HttpServlet {
       // 내(호스트)가 서퍼에게 요청한 리스트
       for(Request r : s_list_1){
           JSONObject job = new JSONObject();
-          Host host = new HostService().selectHost(r.getR_user_id());
-          SurferPartner surfer = new SurferPartnerService().selectSurfer(r.getUser_id());
+          Host host = new HostService().selectHost(r.getUser_id()); // 내 아이디         
+          SurferPartner surfer = new SurferPartnerService().selectSurfer(r.getR_user_id()); // 상대방 아이디
           job.put("request_no", r.getRequest_no());
           job.put("r_user_id", r.getR_user_id()); // 상대방 아이디
           job.put("request_date", r.getRequest_date().toString()); // 요청 날짜
@@ -157,6 +163,21 @@ public class RequestListServlet extends HttpServlet {
       json.put("list_h1", jarr_h1); // 내(서퍼)가 호스트에게 요청한 리스트
       json.put("list_p1", jarr_p1); // 내가 파트너 요청한 리스트
       json.put("list_p2", jarr_p2); // 상대방이 나에게 파트너 요청
+      
+      if(m_host != null) // 내가 호스트일때, 서퍼 매칭 정보 찾음
+    	  json.put("m_host", 1);
+      else
+    	  json.put("m_host", 0);
+       
+      if(m_surfer != null) // 내가 서퍼일때, 호스트 매칭 정보 찾음
+    	  json.put("m_surfer", 1);
+      else
+    	  json.put("m_surfer", 0);
+      
+      if(m_partner != null) // 파트너 매칭 정보 찾음
+    	  json.put("m_partner", 1);
+      else
+    	  json.put("m_partner", 0);      
      
       response.setContentType("application/json; charset=utf-8");
       PrintWriter out = response.getWriter();

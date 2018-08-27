@@ -1,26 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="notice.model.vo.Notice" %>
+   pageEncoding="UTF-8"%>
+<%@ page import="report.model.vo.Report" %>
 <%
-	Notice n = (Notice)request.getAttribute("noticeN");
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	Report r = (Report)request.getAttribute("reportR");
+%>   
+<!DOCTYPE html>
 <html>
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>NoticeDetail</title>
+<title>ReportList</title>
 
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
 <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="/hifive/resources/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 <style type="text/css">
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
 
@@ -82,25 +80,20 @@
 </style>
 
 <script type="text/javascript">
-function showBoardWriteForm(){
-	location.href = "/hifive/views/support/report/reportWrite.jsp";
-}
+
 </script>
 </head>
 <body>
- <div class="container">
+   <div class="container">
       <%@ include file="../../../adminheader.jsp"%>
       <hr>
-      <br>
       <div id="main">
          <div id="menu">
             <%@ include file="../../../adminsupportmenu.jsp"%>
 
          </div>
-
          <div id="content1">
-			<h5 align="center"><b>공지사항 관리</b></h5>
-			
+			<h5 align="center"><b>신고게시판 관리</b></h5>
             <br>
               <div class="card border-0" style="width: 600px;" id="reporttable1">
             <table
@@ -108,19 +101,19 @@ function showBoardWriteForm(){
                id=reporttable>
                <thead>
                   <tr class="p-3 mb-2 bg-light text-dark">
-                     <th class="text-left">&nbsp;&nbsp;<%= n.getNotice_no() %> &nbsp;&nbsp; <%= n.getTitle() %></th>
+                     <th class="text-left">&nbsp;&nbsp;<%= r.getReport_no() %> &nbsp;&nbsp; <%= r.getTitle() %></th>
                      <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                      <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                     <th class="text-right"><%= n.getNotice_date() %> &nbsp;&nbsp;</th>
+                     <th class="text-right"><%= r.getReport_date() %> &nbsp;&nbsp;</th>
 
                   </tr>
                </thead>
                <tbody>
                   <tr >
                      <td class="text-left">&nbsp;&nbsp;<img
-                        src="/hifive/resources/image/adminsample.jpg" alt="..."
+                        src="/hifive/resources/image/sample11.jpg" alt="..."
                         class="rounded-circle" id="circle2"> &nbsp;&nbsp;
-                        관리자
+                        <%= r.getUser_id() %>
                      </td>
 
                      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -130,27 +123,29 @@ function showBoardWriteForm(){
                   </tr>
                   <tr>
                      <td colspan="4">
-                        <p class="text-justify"><%= n.getContent() %></p>
+                        <p class="text-justify"><%= r.getContent() %></p>
 
                      </td>
                   </tr>
                   <tr>
 
-                     <td colspan="4" class="text-secondary"><font size="2">
-                     관리자 공지사항
+                     <td colspan="4" class="text-secondary"><font size="2">처리상태
+                           : <%= r.getComplete() %></font></td>
                   </tr> 
                   <tr>
 
                      <td colspan="4">
-                           <button type="submit" class="btn btn-primary btn-sm" onclick="location.href='/hifive/adminnoticelist'">목록</button>
-                       
-                           <a class="btn btn-primary btn-sm" href="/hifive/nupdatedetail?noticeno=<%= n.getNotice_no() %>">수정</a>
-                     	   
-                           <a class="btn btn-primary btn-sm" href="/hifive/noticedelete?noticeno=<%= n.getNotice_no() %>">삭제</a>
-                     
-                          
-                     
-                                                                         
+                     <button type="button" class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist?userid=admin'">목록</button>
+                  
+                     <% if(r.getComplete().equals("N")) { %>                   
+                     <form action="/hifive/reportupdate?userid=admin" method="post">
+                     <input type="hidden" name="reportno" value="<%= r.getReport_no() %>">
+                     <input type="hidden" name="rtitle" value="<%= r.getTitle() %>">
+                     <input type="hidden" name="rcontent" value="<%= r.getContent() %>">  
+                     <br>                   
+                     <input type="submit" class="btn btn-primary btn-sm" value="처리 완료">                    	  
+                     <% } %>
+                     </form>
                      </td>
                            
                   </tr> 
@@ -166,6 +161,5 @@ function showBoardWriteForm(){
       <%@ include file="../../../footer.jsp"%>
    
 </div>
-
 </body>
 </html>

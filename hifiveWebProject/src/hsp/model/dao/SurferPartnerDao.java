@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import hsp.exception.SurferPartnerException;
+import hsp.model.vo.Host;
 import hsp.model.vo.SurferPartner;
 import user.exception.UserException;
 import user.model.vo.User;
@@ -200,13 +201,19 @@ public class SurferPartnerDao {
 	}
 
 
-	public ArrayList<User> searchPartner(Connection con, SurferPartner sp){
+	public ArrayList<User> searchSP(Connection con, SurferPartner sp, char ch){
 		ArrayList<User> list = new ArrayList<User>();		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		String query = "";
 		
-		String query = "select * from surfer_partner sp, users u where sp.user_id = u.user_id and city like ? and user_num=? and start_date >= ? and end_date <= ? and role='P'";
-		
+		if(ch == 'p'){
+			query = "select * from surfer_partner sp, users u where sp.user_id = u.user_id and city like ? and user_num>=? and start_date >= ? and end_date <= ? and role='P'";
+		}else{
+			query = "select * from surfer_partner sp, users u where sp.user_id = u.user_id and city like ? and user_num>=? and start_date >= ? and end_date <= ? and role='S'";
+			
+		}
+
 		try {
 			pstmt = con.prepareStatement(query);			
 			
@@ -225,10 +232,7 @@ public class SurferPartnerDao {
 				user.setProfile_image(rset.getString("profile_image"));
 				list.add(user);
 			}	
-			for(User u : list){
-				System.out.println(u);
-			}
-			
+						
 		} catch (Exception e){
 			e.printStackTrace();			
 		} finally {
@@ -237,4 +241,73 @@ public class SurferPartnerDao {
 		}
 		return list;
 	}
+	
+	// 매칭 된 서퍼
+	public SurferPartner selectMSurfer(Connection con, String userId) { 
+
+		SurferPartner sp = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from surfer_partner where role='S' and user_id=? and process='M'";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				sp = new SurferPartner();
+				sp.setUser_id(userId);
+				sp.setStart_date(rset.getDate("start_date"));
+				sp.setEnd_date(rset.getDate("end_date"));
+				sp.setCity(rset.getString("city"));
+				sp.setProcess(rset.getString("process"));
+				sp.setUser_num(rset.getInt("user_num"));
+			}
+		} catch (Exception e) {
+
+			
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sp;
+	}
+
+	
+	// 매칭 된 파트너
+	public SurferPartner selectMPartner(Connection con, String userId) {
+		SurferPartner sp = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from surfer_partner where role='P' and user_id=? and process='M'";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				sp = new SurferPartner();
+				sp.setUser_id(userId);
+				sp.setStart_date(rset.getDate("start_date"));
+				sp.setEnd_date(rset.getDate("end_date"));
+				sp.setCity(rset.getString("city"));
+				sp.setProcess(rset.getString("process"));
+				sp.setUser_num(rset.getInt("user_num"));
+
+			}
+		} catch (Exception e) {
+
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return sp;	
+	}
+
 }

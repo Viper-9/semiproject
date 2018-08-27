@@ -66,6 +66,18 @@ public class UserService {
 		return result;
 	}
 	
+	// 프사 업데이트
+	public int updateProfileImg(User user) throws UserException {
+		Connection con = getConnection();
+		int result = new UserDao().updateProfileImg(con, user);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+	
 	public String searchId(String userEmail) throws UserException {
 		Connection con = getConnection();
 		String userId = new UserDao().searchId(con, userEmail);
@@ -82,10 +94,10 @@ public class UserService {
 	}
 
 
-	public int selectCheckEmail(String userEmail) throws UserException {
+	public int selectCheckEmail(String email) throws UserException {
 		Connection con = getConnection();
 		int result = 
-				new UserDao().selectCheckEmail(con, userEmail);
+				new UserDao().selectCheckEmail(con, email);
 		close(con);
 		return result;
 	}
@@ -110,7 +122,7 @@ public class UserService {
 		return userPw;
 	}
 
-	public String updatePass(User user) {
+	public String updatePass(User user) throws UserException {
 		Connection con = getConnection();
 		String userPw = new UserDao().updatePass(con, user);
 		if(userPw != null)
@@ -150,5 +162,6 @@ public class UserService {
 		close(con);
 		return result;
 	}
+
 
 }

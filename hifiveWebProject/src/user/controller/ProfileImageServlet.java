@@ -110,7 +110,7 @@ public class ProfileImageServlet extends HttpServlet {
 			user = uService.selectUser(userid);
 			user.setProfile_image(renameFileName);
 			
-			if(uService.updateUser(user) > 0) {
+			if(uService.updateProfileImg(user) > 0) {
 				response.sendRedirect("/hifive/views/user/mypage.jsp");
 				HttpSession session = request.getSession();
 				session.setAttribute("loginuser", user);

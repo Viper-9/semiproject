@@ -40,13 +40,15 @@ public class HostUpdate extends HttpServlet {
 		host.setP_gender(request.getParameter("gender"));
 		host.setCheck1(String.join(",", request.getParameterValues("hostcheck")));
 		host.setCheck2(request.getParameter("sleeping"));
+		host.setCity(request.getParameter("city"));
 		host.setContent(request.getParameter("etc"));
+		System.out.println(String.join(",", request.getParameterValues("hostcheck")));
 		
 		RequestDispatcher view = null;
 		
 		try {
 			if(new HostService().updateHost(host) > 0){
-				response.sendRedirect("/hifive/index.jsp");
+				response.sendRedirect("/hifive/main.jsp");
 			}else{
 	    		view = request.getRequestDispatcher("views/user/hostError.jsp");
 		        request.setAttribute("message", "수정 실패");

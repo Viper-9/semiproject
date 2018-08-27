@@ -34,6 +34,11 @@ public class ReportSearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
+		String admin = "";
+		if(request.getParameter("userid") != null) {
+			admin = request.getParameter("userid");
+		}
+		
 		String rfilter = request.getParameter("rsearchfilter");
 		String rcontent = request.getParameter("RsearchContent");
 		
@@ -73,50 +78,39 @@ public class ReportSearchServlet extends HttpServlet {
 			
 			if(rfilter.equals("제목")) {
 				list = rservice.selectTitle(rcontent);
-				
-				view = request.getRequestDispatcher(
-						"views/support/report/reportList.jsp");
-				request.setAttribute("reportList", list);
-				request.setAttribute("currentPage", currentPage);
-				request.setAttribute("maxPage", maxPage);
-				request.setAttribute("startPage", startPage);
-				request.setAttribute("endPage", endPage);
-				request.setAttribute("listCount", listCount);
-				
+				request.setAttribute("reportList", list);				
 				request.setAttribute("result", 1);
-				request.setAttribute("rfilter", rfilter);
-				request.setAttribute("rcontent", rcontent);
 				
 				if(list.size() == 0) {
 					request.setAttribute("message", 
 							"해당 제목을 가진 게시물이 존재하지 않습니다.");	
 				}
-				
-				view.forward(request, response);
 			} else {
 				list = rservice.selectId(rcontent);
-				
-				view = request.getRequestDispatcher(
-						"views/support/report/reportList.jsp");
-				request.setAttribute("reportList", list);
-				request.setAttribute("currentPage", currentPage);
-				request.setAttribute("maxPage", maxPage);
-				request.setAttribute("startPage", startPage);
-				request.setAttribute("endPage", endPage);
-				request.setAttribute("listCount", listCount);
-				
-				request.setAttribute("result", 1);
-				request.setAttribute("rfilter", rfilter);
-				request.setAttribute("rcontent", rcontent);
+				request.setAttribute("reportList", list);				
+				request.setAttribute("result", 1);			
 
 				if(list.size() == 0) {
 					request.setAttribute("message", 
 							"해당 아이디가 작성한 글이 존재하지 않습니다.");
 				}
-				
-				view.forward(request, response);
 			}
-
+			
+			if(admin.equals("admin")) {
+				view = request.getRequestDispatcher(
+						"views/support/report/adminReportList.jsp");
+			} else {
+				view = request.getRequestDispatcher(
+						"views/support/report/reportList.jsp");
+			}
+			
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("maxPage", maxPage);
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("listCount", listCount);
+			
+			view.forward(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

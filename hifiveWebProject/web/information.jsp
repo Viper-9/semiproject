@@ -28,7 +28,7 @@
 						<%if(infoUser.getAddress() != null) { %>
 						<%= infoUser.getAddress() %>
 						<% } else { %>
-						주소를 입력하지 않았습니다.
+						주소를 입력해주세요
 						<% } %>
 						)</h6>
 						
@@ -45,7 +45,8 @@
                     <td class="text-right" style="width:100px"><a href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a></td>
                     <% if(infoUser.getSafety_check().toUpperCase().equals("N")) { %>
                     <td class="text-left mx-auto" style="width:40px" id="11b" >
-                    <img src="/hifive/resources/image/uncheck.png" width="18px" height="18px"></td> 
+                    <img src="/hifive/resources/image/uncheck.png" width="18px" height="18px"></td>
+                    
                     <% } else { %>
                     <td class="text-left mx-auto" style="width:40px" id="11b" >
                     <img src="/hifive/resources/image/check.png" width="18px" height="18px"></td> 

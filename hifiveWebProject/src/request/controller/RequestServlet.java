@@ -50,9 +50,10 @@ public class RequestServlet extends HttpServlet {
 					if(new RequestService().checkRequest(loginid, loginrole, profileid) != null) {
 						job.put("result", "0");
 					} else {
-						if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {
-							if(new MessageListService().insertMessageRequest(profileid, loginid) > 0) 
-								job.put("result", "1");
+						if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {							
+							if(new MessageListService().checkMList(loginid, profileid)==0)
+								new MessageListService().insertMessageRequest(profileid, loginid);
+							job.put("result", "1");							
 						}
 					}
 				} else {
@@ -66,8 +67,9 @@ public class RequestServlet extends HttpServlet {
 						job.put("result", "0");
 					} else {
 						if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {
-							if(new MessageListService().insertMessageRequest(profileid, loginid) > 0) 
-								job.put("result", "1");
+							if(new MessageListService().checkMList(loginid, profileid)==0)
+								new MessageListService().insertMessageRequest(profileid, loginid);
+							job.put("result", "1");
 						}
 					}
 				} else {
@@ -79,9 +81,10 @@ public class RequestServlet extends HttpServlet {
 					if(new RequestService().checkRequest(loginid, loginrole, profileid) != null) {
 						job.put("result", "0");
 					} else {
-						if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {
-							if(new MessageListService().insertMessageRequest(profileid, loginid) > 0) 
-								job.put("result", "1");
+						if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {	
+							if(new MessageListService().checkMList(loginid, profileid)==0)
+								new MessageListService().insertMessageRequest(profileid, loginid);
+							job.put("result", "1");
 						}
 					}
 				} else {

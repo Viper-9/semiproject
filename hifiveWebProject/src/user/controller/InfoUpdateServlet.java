@@ -41,33 +41,22 @@ public class InfoUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		RequestDispatcher view = null;
-		
-		int maxSize = 1024 * 1024 * 10; //10Mbyte
-		if(!ServletFileUpload.isMultipartContent(request)){
-			view = request.getRequestDispatcher("views/user/userError.jsp");
-			request.setAttribute("message", "enctype 속성 값 에러");
-			view.forward(request, response);
-		}
-		
-		String savePath = request.getSession().getServletContext().getRealPath("/resources/image");
-		MultipartRequest mrequest = new MultipartRequest(request, savePath, maxSize, "utf-8", new DefaultFileRenamePolicy());	
-		
+		RequestDispatcher view = null;		
 
 		User user = new User();
 		user.setUser_Id(request.getParameter("userid"));		
 		user.setAddress(request.getParameter("address"));
+		user.setNationality(request.getParameter("countries"));
 		user.setJob(request.getParameter("job"));		
 		user.setPhone(request.getParameter("phone"));
 		user.setHobby(String.join(",", request.getParameterValues("hobby")));
-		System.out.println("hobby :"+String.join(",", request.getParameterValues("hobby")));
 		user.setContent(request.getParameter("introduction"));		
-		user.setProfile_image(mrequest.getFilesystemName("profileimg"));
 		
 
 	    try {	      	
 	    	if(new UserService().updateUser(user) > 0){
-	    		response.sendRedirect("/hifive/index.jsp");	    		
+	    		response.sendRedirect("/hifive/views/user/mypage.jsp");	 
+	    		
 
 	    	}else{
 	    		view = request.getRequestDispatcher("views/user/UserException.java");

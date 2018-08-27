@@ -83,11 +83,29 @@ public class SurferPartnerService {
 		return result;
 	}
 
-	public ArrayList<User> searchPartner(SurferPartner sp){
+	public ArrayList<User> searchSP(SurferPartner sp, char ch){
 		Connection con = getConnection();
-		ArrayList<User> list = new SurferPartnerDao().searchPartner(con, sp);
+		ArrayList<User> list = new SurferPartnerDao().searchSP(con, sp, ch);
 		close(con);
 		return list;
+	}
+	
+	// 매칭 된 서퍼 
+	public SurferPartner selectMSurfer(String userId){ 
+
+		Connection con = getConnection();
+		SurferPartner sp = new SurferPartnerDao().selectMSurfer(con, userId);
+		close(con);
+		return sp;
+	}
+	
+	// 매칭 된 파트너
+	public SurferPartner selectMPartner(String userId) {
+
+		Connection con = getConnection();
+		SurferPartner sp = new SurferPartnerDao().selectMPartner(con, userId);
+		close(con);
+		return sp;
 	}
 
 

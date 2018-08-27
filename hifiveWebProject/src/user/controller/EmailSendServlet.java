@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
+import user.exception.UserException;
+import user.model.service.UserService;
+
 
 @WebServlet("/send")
 public class EmailSendServlet extends HttpServlet {
@@ -54,6 +57,14 @@ public class EmailSendServlet extends HttpServlet {
 		 MimeMessage msg = new MimeMessage(session);
 		 
 		 try {
+			 
+			String returnValue = "0";
+			String email = request.getParameter("sreceiver"); //사용자가 입력한 이멜 주소 받아오기
+			int result = new UserService().selectCheckEmail(email);
+			System.out.println(result);
+			
+			 
+			if(result == 0){
 			 //편지 보낸 시간
 			msg.setSentDate(new Date());
 			InternetAddress from = new InternetAddress("trevelsfriend@gmail.com");
@@ -62,7 +73,7 @@ public class EmailSendServlet extends HttpServlet {
 			msg.setFrom(from);
 			
 			//이메일 수신자
-			String email = request.getParameter("sreceiver"); //사용자가 입력한 이멜 주소 받아오기
+			
 			InternetAddress to = new InternetAddress(email);
 			msg.setRecipient(Message.RecipientType.TO, to);
 			
@@ -79,21 +90,29 @@ public class EmailSendServlet extends HttpServlet {
 			javax.mail.Transport.send(msg);
 			System.out.println(session + "이 " + " 이메일 보내기를 성공");
 			
-			response.setContentType("text/html; charset=utf-8");
+			returnValue = "1";
+			
+			} else {
+				
+			returnValue = "0";
+			
+			}
 			
 			
+			response.setContentType("text/html; charset=utf-8");						
 			PrintWriter out = response.getWriter();
 			
-			out.append(email);
+			out.append(returnValue);
 			out.flush();
 			out.close();
-			return;
 			
 			
 		} catch (AddressException e) {
 			e.printStackTrace();
 		} catch (MessagingException e2) {
 			e2.printStackTrace();
+		} catch (UserException e3) {
+			e3.printStackTrace();
 		}
 		 
 	
