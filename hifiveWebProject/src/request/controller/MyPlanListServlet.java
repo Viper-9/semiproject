@@ -52,6 +52,7 @@ public class MyPlanListServlet extends HttpServlet {
 	    JSONObject job1 = new JSONObject();
 	    if(m_host != null) {
 		    SurferPartner surfer = new SurferPartnerService().selectMSurfer(m_host.getUser2());
+		    job1.put("matching_no", m_host.getMatching_no());
 		    job1.put("user_id", surfer.getUser_id());
 	    	job1.put("start_date", surfer.getStart_date().toString());
 	    	job1.put("end_date", surfer.getEnd_date().toString());
@@ -64,6 +65,7 @@ public class MyPlanListServlet extends HttpServlet {
 	    if(m_surfer != null) {
 		    Host host = new HostService().selectMHost(m_surfer.getUser1());
 		    SurferPartner surfer = new SurferPartnerService().selectMSurfer(m_surfer.getUser2()); 
+		    job2.put("matching_no", m_surfer.getMatching_no());
 	    	job2.put("user_id", host.getUser_id());
 	    	job2.put("image", new UserService().getProfileImage(host.getUser_id()));
 	    	job2.put("user_name", new UserService().getUserName(host.getUser_id()));
@@ -77,7 +79,8 @@ public class MyPlanListServlet extends HttpServlet {
 	    	if(userid.equals(m_partner.getUser1()))
 	    		partner = new SurferPartnerService().selectMPartner(m_partner.getUser2());
 	    	else
-	    		partner = new SurferPartnerService().selectMPartner(m_partner.getUser1());	    	
+	    		partner = new SurferPartnerService().selectMPartner(m_partner.getUser1());	
+	    	job3.put("matching_no", m_partner.getMatching_no());
 	    	job3.put("user_id", partner.getUser_id());
 	    	job3.put("start_date", partner.getStart_date().toString());
 	    	job3.put("end_date", partner.getEnd_date().toString());
@@ -86,8 +89,8 @@ public class MyPlanListServlet extends HttpServlet {
     	}
     	json.put("host", job1);
     	json.put("surfer", job2);
-    	json.put("partner", job3);	    
-
+    	json.put("partner", job3);
+    	
 	    response.setContentType("application/json; charset=utf-8");
 	    PrintWriter out = response.getWriter();
 	    out.print(json.toJSONString());

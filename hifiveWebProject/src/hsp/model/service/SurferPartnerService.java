@@ -108,5 +108,29 @@ public class SurferPartnerService {
 		return sp;
 	}
 
+	// 서퍼 process 수정
+	public int updateSurferProcess(String user_id) {
+		Connection con = getConnection();
+		int result = new SurferPartnerDao().updateSurferProcess(con, user_id);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+
+	// 파트너 process 수정
+	public int updatePartnerProcess(String user_id) {
+		Connection con = getConnection();
+		int result = new SurferPartnerDao().updatePartnerProcess(con, user_id);
+		if(result > 0)
+			commit(con);
+		else
+			rollback(con);
+		close(con);
+		return result;
+	}
+	
 
 }

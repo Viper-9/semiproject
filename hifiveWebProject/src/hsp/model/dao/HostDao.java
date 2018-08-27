@@ -227,4 +227,27 @@ public class HostDao {
 		return list;
 	}
 
+	public int updateProcess(Connection con, String user_id) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update host set process='P' where user_id=? and process='M'";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user_id);
+						
+			result = pstmt.executeUpdate();
+			
+			if(result < 0){
+				throw new HostException("process 업데이트 실패");
+			}
+		} catch (Exception e) {
+			
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }
