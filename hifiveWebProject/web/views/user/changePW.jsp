@@ -196,6 +196,7 @@ $(function(){
 			 	else if(data == '1'){
 			 		alert("비밀번호 변경 성공");
 			 	location.href="/hifive/views/user/mypage.jsp"
+			 	
 			 	} else {
 			 		alert("관리자에게 문의하세요");
 			 		return false;

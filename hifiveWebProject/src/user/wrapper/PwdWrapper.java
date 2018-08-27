@@ -16,9 +16,8 @@ public class PwdWrapper extends HttpServletRequestWrapper{
 	public String getParameter(String name){
 		String value = null;
 		
-		if(name != null && name.equals("userpwd1") || name.equals("userpw") || name.equals("nowpw") || name.equals("changepw")){
+		if(name != null && name.equals("userpwd1") || name.equals("userpw") || name.equals("nowpw") || name.equals("changepw") || name.equals("chpw")){
 			value = getSha512(super.getParameter(name));
-			System.out.println("암호화 성공 = " + value);
 		}else{
 			 value = super.getParameter(name);
 		}

@@ -446,7 +446,7 @@ public class UserDao {
 		return userpw;
 	}
 	//비밀번호 변경
-	public String updatePass(Connection con, User user) {
+	public String updatePass(Connection con, User user) throws UserException {
 		String userpw = null;
 		PreparedStatement pstmt = null;
 

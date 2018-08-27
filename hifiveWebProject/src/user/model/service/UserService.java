@@ -122,7 +122,7 @@ public class UserService {
 		return userPw;
 	}
 
-	public String updatePass(User user) {
+	public String updatePass(User user) throws UserException {
 		Connection con = getConnection();
 		String userPw = new UserDao().updatePass(con, user);
 		if(userPw != null)
