@@ -40,6 +40,7 @@ public class HostUpdate extends HttpServlet {
 		host.setP_gender(request.getParameter("gender"));
 		host.setCheck1(String.join(",", request.getParameterValues("hostcheck")));
 		host.setCheck2(request.getParameter("sleeping"));
+		host.setCity(request.getParameter("city"));
 		host.setContent(request.getParameter("etc"));
 		System.out.println(String.join(",", request.getParameterValues("hostcheck")));
 		

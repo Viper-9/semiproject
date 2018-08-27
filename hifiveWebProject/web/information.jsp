@@ -28,7 +28,7 @@
 						<%if(infoUser.getAddress() != null) { %>
 						<%= infoUser.getAddress() %>
 						<% } else { %>
-						주소를 입력하지 않았습니다.
+						주소를 입력해주세요
 						<% } %>
 						)</h6>
 						

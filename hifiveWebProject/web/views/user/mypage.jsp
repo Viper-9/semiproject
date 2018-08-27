@@ -228,6 +228,13 @@ table {
 	                }else{
 	                   $("#sofa").prop("selected", true);
 	                }
+	                //주소
+	                if(data.city == null){
+	                	$("#hostcity").val('');
+	                }else{
+	                	$("#hostcity").val(data.city);
+	                }
+	                
 	                //추가 정보
 	                if(data.content == null){
 	                   $("#hostcontent").val('');
@@ -770,13 +777,12 @@ table {
                            </select>                                 
                           </td>
                         </tr> 
-                        
                         <tr>
-                        	<td></td>
-                        	<td></td>
-                        </tr>
-                        
-                                      
+                        	<td>주소</td>
+                        	<td>
+                        		<textarea class="form-control" id="hostcity" name="city" rows="2" cols="60"></textarea>
+                        	</td>
+                        </tr>                                
                         <tr>
                           <td>추가 정보&nbsp;&nbsp;&nbsp;</td>
                            <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60"></textarea></td>   

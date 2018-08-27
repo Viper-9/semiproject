@@ -45,7 +45,7 @@ public class PartnerUpdate extends HttpServlet {
 		
 		try {
 			if(new SurferPartnerService().updatePartner(sp) > 0){
-				response.sendRedirect("/hifive/index.jsp");
+				response.sendRedirect("/hifive/main.jsp");
 	    	}else{
 	    		view = request.getRequestDispatcher("");
 		        request.setAttribute("message", "수정 실패");

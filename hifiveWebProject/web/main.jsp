@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="user.model.vo.User, java.util.*"%>
+<%@ page import="user.model.vo.User, hsp.model.vo.Host, java.util.*"%>
 <%
-	String userid = (String) session.getAttribute("userId");
+	String userid = (String) session.getAttribute("userId");		
 %>
 <!DOCTYPE html>
 <html>
@@ -21,7 +21,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
 <style type="text/css">
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
 
@@ -360,12 +359,24 @@
 	    	  dataType : "json",
 	    	  success : function(data){	 
 
-	    		  if(data.host==1)
+	    		  if(data.host==1){
 	    			  $('#host_enroll').removeAttr('data-target');
-	    		  if(data.surfer==1)
+	    		      $("#host_enroll").click(function(){
+	    		    	  alert("이미 호스트 입력을 하셨습니다. \n마이페이지에서 수정해주세요!");
+	    		      });
+	    	  		}
+	    		  if(data.surfer==1){
 	    			  $('#surfer_enroll').removeAttr('data-target');
-	    		  if(data.partner==1)
+	    		  	  $("#surfer_enroll").click(function(){
+	    		  		alert("이미 서퍼 입력을 하셨습니다. \n마이페이지에서 수정해주세요!");
+	    		  	  })
+	    		  }
+	    		  if(data.partner==1){
 	    			  $('#partner_enroll').removeAttr('data-target');
+	    		  	  $("#partner_enroll").click(function(){
+	    		  		alert("이미 파스터 입력을 하셨습니다. \n마이페이지에서 수정해주세요!");
+	    		  	  })
+	    		  }
 	    	  }, // success 
 	    	  error : function(jqXHR, textstatus, errorThrown){
 		            console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
@@ -456,7 +467,7 @@
 					&nbsp;&nbsp; &nbsp;&nbsp;
 					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#partnerenroll" role="button" id="partner_enroll">파트너 등록</a>
 					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="partner_find">파트너 찾기</a><br><br>
-				<% } %>
+				<% } %>				
 			</div>
 			<div id="content3">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">

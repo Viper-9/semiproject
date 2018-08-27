@@ -36,6 +36,7 @@ public class HostDao {
 				host = new Host();
 				host.setUser_id(rset.getString("user_id"));
 				host.setUser_num(rset.getInt("user_num"));
+				host.setCity(rset.getString("city"));
 				host.setP_gender(rset.getString("p_gender"));
 				host.setCheck1(rset.getString("check1"));
 				host.setCheck2(rset.getString("check2"));
@@ -63,16 +64,17 @@ public class HostDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "update host set user_num=?, p_gender=?, check1=?, check2=?, content=? where user_id=? and process='P'";
+		String query = "update host set user_num=?, city=?, p_gender=?, check1=?, check2=?, content=? where user_id=? and process='P'";
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, host.getUser_num());
-			pstmt.setString(2, host.getP_gender());
-			pstmt.setString(3, host.getCheck1());
-			pstmt.setString(4, host.getCheck2());
-			pstmt.setString(5, host.getContent());
-			pstmt.setString(6, host.getUser_id());
+			pstmt.setString(2, host.getCity());
+			pstmt.setString(3, host.getP_gender());
+			pstmt.setString(4, host.getCheck1());
+			pstmt.setString(5, host.getCheck2());
+			pstmt.setString(6, host.getContent());
+			pstmt.setString(7, host.getUser_id());
 			
 			result = pstmt.executeUpdate();
 			
@@ -92,16 +94,17 @@ public class HostDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "insert into host values(?,?,?,?,?,?,'P',default, default, default)";
+		String query = "insert into host values(?,?,?,?,?,?,?,'P',default, default, default)";
 
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, host.getUser_id());
 			pstmt.setInt(2, host.getUser_num());
-			pstmt.setString(3, host.getP_gender());
-			pstmt.setString(4, host.getCheck1());
-			pstmt.setString(5, host.getCheck2());
-			pstmt.setString(6, host.getContent());
+			pstmt.setString(3, host.getCity());
+			pstmt.setString(4, host.getP_gender());
+			pstmt.setString(5, host.getCheck1());
+			pstmt.setString(6, host.getCheck2());			
+			pstmt.setString(7, host.getContent());
 			
 			result = pstmt.executeUpdate();
 			
