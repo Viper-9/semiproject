@@ -165,15 +165,15 @@ function showBoardWriteForm(){
                   <% }} %>
                   
                   <li class="page-item">
-                  <% if((currentPage + 10) >= endPage && 
-					(currentPage + 10) <= maxPage){ %>  
+                  <% if((currentPage + 10) > endPage && 
+					(currentPage + 10) < maxPage){ %>  
                   <a class="page-link" href="/hifive/noticelist?page=<%= endPage + 10 %>"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
                   </a>
                   
-                  <% }else{ %>
-				  <a class="page-link" href="/hifive/noticelist?page=<%= maxPage %>"
+                  <% } else { %>
+				  <a class="page-link" href="#"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
 				  <% } %>

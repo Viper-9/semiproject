@@ -41,7 +41,7 @@ public class HostDao {
 				host.setCheck2(rset.getString("check2"));
 				host.setContent(rset.getString("content"));
 				host.setProcess(rset.getString("process"));
-				host.setCheck1(rset.getString("city"));
+				host.setCity(rset.getString("city"));
 				host.setImage1(rset.getString("image1"));
 				host.setImage2(rset.getString("image2"));
 				host.setImage3(rset.getString("image3"));	

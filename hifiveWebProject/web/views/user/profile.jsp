@@ -67,10 +67,11 @@
 						$("#review").html($("#review").html()+values);	
 					} else{					
 						for(var i in json.list){
-							values += "<section>아이디 : " + json.list[i].user_id 
-							+"<br>날짜 : " + json.list[i].review_date
-							+"<br>내용 : " + json.list[i].content +"</section>";						
-							
+							values += "<div class='card'> <div class='card-body'>"
+							+"<a href='/hifive/profileinfo?userid="+json.list[i].user_id+"'><font style='font-size:13pt'><b>" + json.list[i].user_id + "</a>"
+							+"</b></font> <font style='font-size:10pt'> 님이 작성한 후기입니다. <br></font>"
+							+"<font style='font-size:8pt'>(" + json.list[i].review_date + ")</font><br>"
+							+"<font style='font-size:14pt'>" + json.list[i].content +"</font></div></div>";						
 							if(json.list[i].user_id == loginuserid)
 								values += "<a href='/hifive/reviewdelete?reviewno=" + json.list[i].review_no 
 										+ "&uid=" + userid + "'>삭제</a><br><br>";
@@ -399,7 +400,15 @@
                      <tr>
                         <td><li>선호하는 성별</li></td>
                          <td>
-                           <input type="text" class="form-control col-sm-3" name="gender" disabled style="background-color: #ffffff; text-align:center;" value="<%= profileH.getP_gender() %>">
+                         
+                           <input type="text" class="form-control col-sm-3" name="gender" disabled style="background-color: #ffffff; text-align:center;" 
+                           <% if(profileH.getP_gender().equals("B")) { %>
+                           value="상관 없음"
+                           <% } else if(profileH.getP_gender().equals("F")) { %>
+                           value="여성"
+                           <% } else { %>
+                           value="남성"
+                           <% } %> >
                         </td> 
                      </tr>
                      <tr>

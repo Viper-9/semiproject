@@ -188,7 +188,7 @@
                   </a>
                   
                   <% }else{ %>
-				  <a class="page-link" href="/hifive/reportlist?page=<%= maxPage %>&userid=admin"
+				  <a class="page-link" href="#"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
 				  <% } %>

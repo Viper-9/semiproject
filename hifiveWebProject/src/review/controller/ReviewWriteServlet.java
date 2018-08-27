@@ -41,6 +41,8 @@ public class ReviewWriteServlet extends HttpServlet {
 		Review review = new Review();
 		review.setUser_id(userId);
 		review.setR_user_id(r_UserId);
+		
+		content = content.replace("\r\n", "<br>");
 		review.setContent(content);
 		
 		RequestDispatcher view = null;
