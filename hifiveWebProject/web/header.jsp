@@ -94,13 +94,9 @@ header {
 							</a>&nbsp;</th>
 
 							<th><a href="/hifive/profileinfo?userid=<%= userId %>"> 
-							<% if(headeruser.getProfile_image() == null) { %>
-                  <img class="profileimg rounded-circle"
-                  src="/hifive/resources/profileUpfiles/profile.png" alt="기본 사진" title="프로필로 이동">
-                  <% } else { %>
-                   <img class="profileimg rounded-circle"
+						   <img class="profileimg rounded-circle"
                   src="/hifive/resources/profileUpfiles/<%= headeruser.getProfile_image() %>" alt="프로필 사진" title="프로필로 이동">
-                  <% } %>
+                  
 
 							</a>&nbsp;</th>
  

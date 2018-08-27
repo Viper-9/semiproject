@@ -79,21 +79,22 @@
 					values += "<tr><td colspan='3'>대화 목록이 없습니다.</td></tr>";
 				} else{
 					for(var i in json.list){
+						
 						values += "<tr><td><a href='/hifive/profileinfo?userid="
-								+ json.list[i].user2 +"'><img src='/hifive/resources/image/sample11.jpg' alt='' "
+								+ json.list[i].user2 +"'><img src='/hifive/resources/profileUpfiles/" + json.list[i].userimg + "' alt='' " 
 								+ "class='rounded-circle' title='프로필로 이동'></a></td><td>" 
 								+ json.list[i].userName
 								+ "</td><td><a href='/hifive/views/message/messagePage.jsp?listno=" + json.list[i].list_no 
-								+ "&uid=" + userid +"&rid="+ json.list[i].user2 + "' onclick=\"window.open(this.href,'','width=420, height=685, resizable=no'); return false;\">" + "보기"
+								+ "&uid=" + userid +"&rid="+ json.list[i].user2 + "' onclick=\"window.open(this.href,'','width=420, height=640, resizable=no'); return false;\">" + "보기"
 								+ "</a></td></tr>";
 					}
 					for(var i in json.list2){
 						values += "<tr><td><a href='/hifive/profileinfo?userid="
-								+ json.list2[i].user1 + "'><img src='/hifive/resources/image/sample10.jpg' alt='' " 
+								+ json.list2[i].user1 + "'><img src='/hifive/resources/profileUpfiles/" + json.list2[i].userimg + "' alt='' " 
 								+ "class='rounded-circle' title='프로필로 이동'></a></td><td>" 
 								+ json.list2[i].userName
 								+ "</td><td><a href='/hifive/views/message/messagePage.jsp?listno=" + json.list2[i].list_no 
-								+ "&uid=" + userid  +"&rid="+ json.list2[i].user1 +  "' onclick=\"window.open(this.href,'','width=420, height=685, resizable=no'); return false;\">" + "보기"
+								+ "&uid=" + userid  +"&rid="+ json.list2[i].user1 +  "' onclick=\"window.open(this.href,'','width=420, height=640, resizable=no'); return false;\">" + "보기"
 								+ "</a></td></tr>";
 					}
 				}

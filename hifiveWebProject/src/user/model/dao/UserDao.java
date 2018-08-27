@@ -99,7 +99,7 @@ public class UserDao {
       PreparedStatement pstmt = null;
 
       String query = "insert into users values "
-            + "(?, ?, ?, ?, ?, ?, ?, sysdate, default, '', '', '', '', '', default, '')";
+            + "(?, ?, ?, ?, ?, ?, ?, sysdate, default, '', '', '', '', '', default, 'profile.png')";
 
       try {
          pstmt = con.prepareStatement(query);

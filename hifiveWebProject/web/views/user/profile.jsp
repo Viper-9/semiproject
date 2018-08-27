@@ -214,13 +214,10 @@
          <div id="menu">
             <div class="card" style="width: 250px;">
                <font size="3"><b>Profile</b></font> 
-                  <% if(user.getProfile_image() == null) { %>
-                  <img class="card-img-top rounded-circle"
-                  src="/hifive/resources/profileUpfiles/profile.png" alt="Card image cap" height="250px">
-                  <% } else { %>
+                  
                    <img class="card-img-top rounded-circle"
                   src="/hifive/resources/profileUpfiles/<%= user.getProfile_image() %>" alt="Card image cap" height="250px">
-                  <% } %>
+               
                   
                <div class="card-body">
                   <p class="card-text">
