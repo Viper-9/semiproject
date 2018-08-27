@@ -408,7 +408,7 @@ table {
          <div id="menu">
             <div class="card" style="width: 250px;">            
                <font size="3" ><b>Mypage</b></font>               
-               <img class="card-img-top rounded-circle" id="profileimage" src="" alt="Card image cap" height="220px">
+               <img class="card-img-top rounded-circle" id="profileimage" src="" alt="Card image cap" height="250px">
                <div class="card-body">
                   <p class="card-text">                  
                   <div id="mpageInfo" name="mpageInfo" align="center">

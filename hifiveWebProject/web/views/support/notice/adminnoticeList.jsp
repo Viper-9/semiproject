@@ -16,9 +16,6 @@
 	}
 	
 	int result = ((Integer)request.getAttribute("result")).intValue();
-	
-	String auserId = (String)session.getAttribute("userId");
-	System.out.println(auserId);
 %> 
 <!DOCTYPE html>
 <html>
@@ -32,10 +29,11 @@
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
 <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="/hifive/resources/js/bootstrap.min.js"></script>
 
 <style type="text/css">
    /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
@@ -139,12 +137,12 @@ function showBoardWriteForm(){
             <nav aria-label="Page navigation example">
                <ul class="pagination justify-content-center">
                <li class="page-item">
-                  <% if((currentPage - 10) < startPage && (currentPage - 10) > 1){ %>
+                  <% if((currentPage - 10) <= startPage && (currentPage - 10) >= 1){ %>
                   <a class="page-link" href="/hifive/adminnoticelist?page=<%= startPage - 10 %>"
                      aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span></a>
                	  <% }else { %> 
-               	  <a class="page-link" href="/hifive/adminnoticelist?page=<%= startPage - 10 %>"
+               	  <a class="page-link" href="/hifive/adminnoticelist?page=<%= startPage %>"
                      aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span> 
                   <span	class="sr-only">Previous</span> </a>
@@ -159,15 +157,15 @@ function showBoardWriteForm(){
                   <% }} %>
                   
                  <li class="page-item">
-                  <% if((currentPage + 10) > endPage && 
-					(currentPage + 10) < maxPage){ %>  
+                  <% if((currentPage + 10) >= endPage && 
+					(currentPage + 10) <= maxPage){ %>  
                   <a class="page-link" href="/hifive/adminnoticelist?page=<%= endPage + 10 %>"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
                   </a>
                   
                   <% }else{ %>
-				  <a class="page-link" href="/hifive/adminnoticelist?page=<%= endPage + 10 %>"
+				  <a class="page-link" href="#"
                      aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
                         class="sr-only">Next</span>
 				  <% } %>

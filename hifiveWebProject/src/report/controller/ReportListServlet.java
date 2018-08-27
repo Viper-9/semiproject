@@ -36,12 +36,16 @@ public class ReportListServlet extends HttpServlet {
 		// 게시글 페이지별 조회 처리용 컨트롤러
 		//내보내는 값에 한글이 포함되어 있을 경우
 		response.setContentType("text/html; charset=utf-8");
-
+		
+		String admin = "";
+		if(request.getParameter("userid") != null) {
+			admin = request.getParameter("userid");
+		}
 		//페이지 값 처리용 변수
 		int currentPage = 1;
 		//한 페이지당 출력할 목록 갯수
 		int limit = 10;
-
+		
 		//전달된 페이지값 추출
 		if(request.getParameter("page") != null){
 			currentPage = Integer.parseInt(request.getParameter("page"));
@@ -73,17 +77,17 @@ public class ReportListServlet extends HttpServlet {
 				endPage = maxPage;
 
 			if(reportList.size() > 0){
-				view = request.getRequestDispatcher(
-						"views/support/report/reportList.jsp");
 				request.setAttribute("reportList", reportList);
-				
-
 			}else{
-				view = request.getRequestDispatcher(
-						"views/support/report/reportList.jsp");
 				request.setAttribute("message", "게시글이 없습니다.");
 			}		
-			
+			if(admin.equals("admin")) {
+				view = request.getRequestDispatcher(
+						"views/support/report/adminReportList.jsp");
+			} else {
+				view = request.getRequestDispatcher(
+						"views/support/report/reportList.jsp");
+			}
 			request.setAttribute("currentPage", currentPage);
 			request.setAttribute("maxPage", maxPage);
 			request.setAttribute("startPage", startPage);

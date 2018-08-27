@@ -114,7 +114,33 @@
 		});
 	}); 
 		 
-	 
+	 $(function(){      
+		    
+		    $.ajax({
+		       url : "/hifive/info",
+		       type : "post",
+		       data : {userid : $("#userid").val()},            
+		       dataType : "json",
+		       success : function(data){     
+		         
+		           // 프사
+		           if(data.profileimg == null) {
+		          	  $("#profileimage").attr("src", "/hifive/resources/profileUpfiles/profile.png");
+		           }
+		           else {
+		          	  $("#profileimage").attr("src", "/hifive/resources/profileUpfiles/"+data.profileimg);
+		           }
+		          //이름
+		          $("#name").val(data.name);               
+		           //주소
+		           if(data.address == null){
+		              $("#sample5_address").val(''); 
+		           }else{
+		               $("#sample5_address").val(data.address); 
+		           }
+		       }
+		    }); // userajax
+		});
 </script>
 </head>
 <body>
@@ -123,9 +149,54 @@
       <hr>
       <div id="main">
          <div id="menu">
-      
-
-              
+      		<div class="card" style="width: 250px;">            
+               <font size="3" ><b>Mypage</b></font>               
+               <img class="card-img-top rounded-circle" id="profileimage" src="" alt="Card image cap" height="250px">
+               <div class="card-body">
+                  <p class="card-text">                  
+                  <div id="mpageInfo" name="mpageInfo" align="center">
+                    <div class="col-sm-10"> 
+                       <input type="text" readonly id="name" class="form-control" name="username" style="width:100px;">                       
+                    </div> 
+                     <br>
+                     <br>    
+                     <form action="/hifive/pimage" method="post" enctype="multipart/form-data">                              
+                     <input type="file" id="pimg" name="pimg" accept="image/*">
+                     <input type="hidden" id="imguserid" name="imguserid" value="<%= headeruser.getUser_Id() %>">
+                     <br>
+                     <input type="submit" id="imgbtn" value="프사업로드">
+                     </form>        
+                     <br>
+                     <br>
+                               
+                  </div>
+        
+                  <br>
+                  <div id="request" name="request" align="center">
+                     <table>
+                        <tr>
+                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="선호하는 USER"
+                                 onclick="location.href='/hifive/views/favorite/favorite.jsp'"></th>
+                        </tr>
+                        <tr>
+                           <th><input type="button" class="btn btn-primary" style="width:200px;" value="비밀번호 변경"
+                             
+                                 onclick="location.href='/hifive/views/user/changePW.jsp'"></th>
+                        </tr>
+                     </table>
+                     <br>
+                        <form action="/hifive/userdelete?userid=<%=userId %>" method="post">
+                        <table>
+                           <tr>
+                               <th>                           
+                                    <input type="submit" class="btn btn-danger" style="width:200px;" value="회원 탈퇴">                                    
+                             </th>
+                           </tr>
+                        </table>
+                      </form>                         
+                  </div>                  
+               </div>
+            </div>              
          </div>
          
         <div id="content1">

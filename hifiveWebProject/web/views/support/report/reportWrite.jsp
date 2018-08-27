@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%
+	String result = "0";
+	if(request.getParameter("result") != null) {
+		result = request.getParameter("message");
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,7 +86,10 @@
 </style>
 
 <script type="text/javascript">
-   
+   var result = "<%= result %>";
+   if(result == '1') {
+	   alert("빈칸을 다 입력해주세요.");
+   }
 </script>
 </head>
 <body>

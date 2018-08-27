@@ -32,6 +32,14 @@ public class ReportUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=utf-8");
 		RequestDispatcher view =null;
 	
@@ -42,15 +50,33 @@ public class ReportUpdateServlet extends HttpServlet {
 		content = content.replace("\r\n", "<br>");
 		report.setContent(content);
 		report.setReport_no(Integer.parseInt(request.getParameter("reportno")));
+		report.setComplete("N");
+		String admin = "";
+		
+		if(request.getParameter("userid") != null) {
+			admin = request.getParameter("userid");
+			report.setComplete("Y");
+		}
+		
+		ReportService rservice = new ReportService();
 		
 		try{
-			if(new ReportService().updateReport(report) > 0){
-				response.sendRedirect("/hifive/reportlist");
+			if(rservice.updateReport(report) > 0){
+				request.setAttribute("message", "신고글 수정 성공");
+				Report r = rservice.selectReport(report.getReport_no());
+				request.setAttribute("reportR", r);
 			}else{
-				view = request.getRequestDispatcher("views/support/report/reportError.jsp");
 				request.setAttribute("message", "신고글 수정 실패");
-				view.forward(request, response);
 			}
+			
+			if(admin.equals("admin")) {
+				view = request.getRequestDispatcher(
+						"views/support/report/adminReportDetail.jsp");
+			} else {
+				view = request.getRequestDispatcher(
+						"views/support/report/reportDetail.jsp");
+			}
+			view.forward(request, response);
 
 		} catch (ReportException e){
 
@@ -60,14 +86,6 @@ public class ReportUpdateServlet extends HttpServlet {
 
 
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

@@ -26,14 +26,14 @@ import hsp.model.vo.Host;
 @WebServlet("/photoupload")
 public class PhotoUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PhotoUploadServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public PhotoUploadServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,14 +47,14 @@ public class PhotoUploadServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-request.setCharacterEncoding("utf-8");
-		
+		request.setCharacterEncoding("utf-8");
+
 		int maxSize = 1024 * 1024 * 10;
-		
+
 		RequestDispatcher view = null;
 		// enctype 속성이 "multipart/form-data"로 전송 체크
 		if (!ServletFileUpload.isMultipartContent(request)) {
-			 
+
 		}
 		// 파일이 업로드되어 저장될 폴더 지정
 		String savePath = request.getSession().getServletContext().getRealPath("/resources/photoUpload");
@@ -62,17 +62,21 @@ request.setCharacterEncoding("utf-8");
 		// request 를 MultipartRequest 로 변환함
 		MultipartRequest mrequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
 				new DefaultFileRenamePolicy());
-		
+
 		String userid = mrequest.getParameter("photouserid");
+		String originalFileName1 = "";
+		String originalFileName2 = "";
+		String originalFileName3 = "";
+		originalFileName1 = mrequest.getFilesystemName("photo1");
+		originalFileName2 = mrequest.getFilesystemName("photo2");
+		originalFileName3 = mrequest.getFilesystemName("photo3");
 		
-		// 저장폴더에 기록된 원래 파일명 조회
-		String originalFileName1 = mrequest.getFilesystemName("photo1");
-		String originalFileName2 = mrequest.getFilesystemName("photo2");
-		String originalFileName3 = mrequest.getFilesystemName("photo3");
 		String renameFileName1 = "";
 		String renameFileName2 = "";
 		String renameFileName3 = "";
-		
+
+		Host host = new HostService().selectHost(userid);
+
 		if (originalFileName1 != null) {
 			renameFileName1 = userid + "photo1." 
 					+ originalFileName1.substring(originalFileName1.lastIndexOf(".") + 1);
@@ -97,14 +101,18 @@ request.setCharacterEncoding("utf-8");
 
 				fin.close();
 				fout.close();
-				
+
 				// 원본 파일 삭제함
 				originFile1.delete();
 			}
 		} else {
-			renameFileName1 = "sample.jpg";
+			if(host.getImage1() != null && !host.getImage1().equals("sample.jpg")) {
+				renameFileName1 = host.getImage1();
+			}
+			else 
+				renameFileName1 = "sample.jpg";
 		}
-		
+
 		if (originalFileName2 != null) {
 			renameFileName2 = userid + "photo2." 
 					+ originalFileName2.substring(originalFileName2.lastIndexOf(".") + 1);
@@ -129,12 +137,16 @@ request.setCharacterEncoding("utf-8");
 
 				fin.close();
 				fout.close();
-				
+
 				// 원본 파일 삭제함
 				originFile2.delete();
 			}
 		} else {
-			renameFileName2 = "sample.jpg";
+			if(host.getImage2() != null && !host.getImage2().equals("sample.jpg")) {
+				renameFileName2 = host.getImage2();
+			}
+			else
+				renameFileName2 = "sample.jpg";
 		}
 
 		if (originalFileName3 != null) {			
@@ -161,26 +173,18 @@ request.setCharacterEncoding("utf-8");
 
 				fin.close();
 				fout.close();
-				
+
 				// 원본 파일 삭제함
 				originFile3.delete();
 			}
 		} else {
-			renameFileName3 = "sample.jpg";
+			if(host.getImage3() != null && !host.getImage3().equals("sample.jpg")) {
+				renameFileName3 = host.getImage3();
+			}
+			else 
+				renameFileName3 = "sample.jpg";
 		}
 
-		Host host = new HostService().selectHost(userid);
-		
-		if(host.getImage1() != null && !host.getImage1().equals("sample.jpg")) {
-			renameFileName1 = host.getImage1();
-		}
-		if(host.getImage2() != null && !host.getImage2().equals("sample.jpg")) {
-			renameFileName2 = host.getImage2();
-		}
-		if(host.getImage3() != null && !host.getImage3().equals("sample.jpg")) {
-			renameFileName3 = host.getImage3();
-		}
-		
 		try {	
 			if(host != null) {
 				if(new HostService().updatePhoto(renameFileName1, renameFileName2, renameFileName3, userid) > 0) {

@@ -59,6 +59,7 @@ public class UserDao {
          stmt = con.createStatement();
          rset = stmt.executeQuery(query);
 
+
          while(rset.next()){
             User user = new User();
             user.setUser_Id(rset.getString("user_id"));
@@ -149,6 +150,7 @@ public class UserDao {
       }
       return result;
    }
+
 
 // 회원 한 명 선택
    public User selectUser(Connection con, String userId){

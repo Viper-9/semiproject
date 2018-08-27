@@ -35,6 +35,12 @@ public class ReportDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8");
 		
+		
+		String admin = "";
+		if(request.getParameter("userid") != null) {
+			admin = request.getParameter("userid");
+		}
+		
 		int reportno = Integer.parseInt(request.getParameter("rnum"));
 		
 		ReportService rservice = new ReportService();
@@ -47,18 +53,18 @@ public class ReportDetailServlet extends HttpServlet {
 			Report reportR = rservice.selectReport(reportno);
 			
 			if(reportR != null){
-				view = request.getRequestDispatcher(
-						"views/support/report/reportDetail.jsp");
 				request.setAttribute("reportR", reportR);
-				
-				view.forward(request, response);
-				
 			}else{
+				request.setAttribute("message", "게시글이 없습니다.");
+			}	
+			if(admin.equals("admin")) {
+				view = request.getRequestDispatcher(
+						"views/support/report/adminReportDetail.jsp");
+			} else {
 				view = request.getRequestDispatcher(
 						"views/support/report/reportDetail.jsp");
-				request.setAttribute("message", "게시글이 없습니다.");
-				view.forward(request, response);
-			}		
+			}
+			view.forward(request, response);
 		
 		} catch (ReportException e) {
 			System.out.println("실패");
