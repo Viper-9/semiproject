@@ -240,7 +240,6 @@ table {
 	                   $("#hostcontent").val('추가 정보를 입력하지 않았습니다.');
 	                }else{
 	                   $("#hostcontent").val(data.content);
-	                   console.log(data.content);
 	                }
 	                
 	                // 사진
@@ -470,9 +469,9 @@ table {
                         <th>Partner</th>
                      </tr>
                      <tr>
-                        <td align="center"><input type="checkbox" id="rolecheck-host" class="rolecheck" name="role" value="host"></td>                       
-                        <td align="center"><input type="checkbox" id="rolecheck-surfer" class="rolecheck" name="role" value="surfer"></td>
-                        <td align="center"><input type="checkbox" id="rolecheck-partner" class="rolecheck" name="role" value="partner"></td>
+                        <td align="center"><input type="checkbox" id="rolecheck-host" class="rolecheck" name="role" value="host" disabled="true"></td>                       
+                        <td align="center"><input type="checkbox" id="rolecheck-surfer" class="rolecheck" name="role" value="surfer" disabled="true"></td>
+                        <td align="center"><input type="checkbox" id="rolecheck-partner" class="rolecheck" name="role" value="partner" disabled="true"></td>
                      </tr>
                   </table> 
                   <br>
@@ -501,8 +500,16 @@ table {
                      <tr>
                         <div class="form-group row">
                            <label class="col-sm-2 col-form-label">Job</label>
-                           <div class="col-sm-10">                          
-                                 <input type="text" id="job" class="form-control" style="width:200px;" name="job">                           
+                           <div class="col-sm-10">
+                                 <select name="job" id="job" class="form-control" style="width:200px;">  
+                                 	<option value="">선택</option>    
+                                 	<option value="학생">학생</option>    
+                                 	<option value="회사원">회사원</option>    
+                                 	<option value="공무원">공무원</option>    
+                                 	<option value="자영업">자영업</option>    
+                                 	<option value="무직">무직</option>    
+                                 	<option value="기타">기타</option>    
+                                 </select>              
                            </div>
                         </div>
                      </tr>     

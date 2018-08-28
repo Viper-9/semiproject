@@ -67,8 +67,10 @@ text-align: left;
 	         var sleeping = $("#sleeping option:selected").val();
 	         var destination = $("#destination").val();
 	         
-	         console.log(check);
-	         
+	         if(destination=="" || num=="" || gender=="선택" || sleeping==""){
+	  			alert("빈칸을 확인해주세요.");
+	  			return false;
+	  		 }
 	         $.ajax({
 	            url : "/hifive/hostsearch",
 	            type : "post",
@@ -125,6 +127,19 @@ text-align: left;
          var startdate = $("#startdateS").val();
          var enddate = $("#enddateS").val();
          
+         var today = new Date();
+         var sDate = new Date(startdate);
+         var eDate = new Date(enddate);
+
+         if(destination=="" || startdate=="" || enddate=="" || num==""){
+ 			alert("빈칸을 확인해주세요.");
+ 			return false;
+ 		 }         
+         if((sDate > eDate) || (today > sDate)){
+ 			alert("날짜를 확인해주세요.");
+ 			return false;
+ 		 }
+         
          $.ajax({
             url : "/hifive/surfersearch",
             type : "post",
@@ -173,14 +188,26 @@ text-align: left;
       } //findSurfer
    
       
-      function findPartner(){         
-         $("#searchResult").html("");
+      function findPartner(){
+    	  $("#searchResult").html("");
          
           var destination = $("#destinationP").val();
           var num = $("#numberP").val();
           var startdate = $("#startdateP").val();
-          var enddate = $("#enddateP").val();       
+          var enddate = $("#enddateP").val(); 
           
+          var today = new Date();
+          var sDate = new Date(startdate);
+          var eDate = new Date(enddate);
+
+          if(destination=="" || startdate=="" || enddate=="" || num==""){
+  			alert("빈칸을 확인해주세요.");
+  			return false;
+  		  }         
+          if((sDate > eDate) || (today > sDate)){
+  			alert("날짜를 확인해주세요.");
+  			return false;
+  		  }
           $.ajax({
              url : "/hifive/partnersearch",
              type : "post",
@@ -223,7 +250,7 @@ text-align: left;
                    }
                   
                 }
-                $("#searchResult").html($("#searchResult").html()+values);                
+                $("#searchResult").html($("#searchResult").html()+values);                 
              } //success
           }); 
       } //findPartner
@@ -270,7 +297,7 @@ text-align: left;
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										&nbsp;&nbsp;&nbsp; <span class="btn btn-outline-secondary"
-											id="searchpnums">인원</span> <input type="number"
+											id="searchpnums">* 인원</span> <input type="number"
 											placeholder="0" min="1" max="10" class="form-control" id="number">
 									</div>
 
@@ -280,7 +307,7 @@ text-align: left;
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										&nbsp;&nbsp; <span class="btn btn-outline-secondary"
-											id="preferG">성별</span>
+											id="preferG">* 성별</span>
 									</div>
 									<select class="custom-select" id="gender"
 										name="preferredgender">
@@ -296,7 +323,7 @@ text-align: left;
 					</table>
 					<div class="col input-group mb-3">
 						<div class="input-group-prepend">
-							<span class="btn btn-outline-secondary" id="searchpnums">가능
+							<span class="btn btn-outline-secondary" id="searchpnums">* 가능
 								조건</span>
 						</div>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						
@@ -325,7 +352,7 @@ text-align: left;
 							<td>
 								<div class="col input-group mb-3">
 									<div class="input-group-prepend">
-										<span class="btn btn-outline-secondary">숙소</span>
+										<span class="btn btn-outline-secondary">* 숙소</span>
 									</div>
 									<select class="custom-select" name="searchsleeping"
 										id="sleeping">
@@ -340,7 +367,7 @@ text-align: left;
 							<td>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
-										<span class="btn btn-outline-secondary">목적지</span>
+										<span class="btn btn-outline-secondary">* 목적지</span>
 									</div>
 									<input type="text" class="form-control" id="destination">
 								</div>
@@ -358,7 +385,7 @@ text-align: left;
 							<td>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
-										<span class="btn btn-outline-secondary">목적지</span>
+										<span class="btn btn-outline-secondary">* 목적지</span>
 									</div>
 									<input type="text" class="form-control" id="destinationS">
 								</div>
@@ -367,7 +394,7 @@ text-align: left;
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<span class="btn btn-outline-secondary">인원</span>
+										<span class="btn btn-outline-secondary">* 인원</span>
 									</div>
 									<input type="number" placeholder="0" min="1" max="10"
 										class="form-control" id="numberS">
@@ -378,7 +405,7 @@ text-align: left;
 					<br>
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
-						<span class="btn btn-outline-secondary">여행기간</span>
+						<span class="btn btn-outline-secondary">* 여행기간</span>
 					</div>
 					<input type="date" class="form-control" id="startdateS">
 					&nbsp; ~ &nbsp; <input type="date" class="form-control"
@@ -394,7 +421,7 @@ text-align: left;
 							<td>
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
-										<span class="btn btn-outline-secondary">목적지</span>
+										<span class="btn btn-outline-secondary">* 목적지</span>
 									</div>
 									<input type="text" class="form-control" id="destinationP" name="destination">
 								</div>
@@ -403,7 +430,7 @@ text-align: left;
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<span class="btn btn-outline-secondary">인원</span>
+										<span class="btn btn-outline-secondary">* 인원</span>
 									</div>
 									<input type="number" placeholder="0" min="1" max="10" class="form-control" id="numberP" name="num">
 								</div>
@@ -413,7 +440,7 @@ text-align: left;
 					<br>
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">
-							<span class="btn btn-outline-secondary">여행기간</span>
+							<span class="btn btn-outline-secondary">* 여행기간</span>
 						</div>
 						<input type="date" class="form-control" id="startdateP" name="startdate">
 						&nbsp; ~ &nbsp;
