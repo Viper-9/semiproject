@@ -116,12 +116,12 @@
 		
 		// 리뷰 창 (다른 사람 프로필에서만 쓸 수 있음)
 		if(userid!=loginuserid){
-			var value = "<h6 class='card-header' id='card_info'>리뷰 작성하기</h6> " 
+			var value = "<br><div class='card' style='width: auto;'><h6 class='card-header' id='card_info'>리뷰 작성하기</h6> " 
 					+ "<div class='card-body' id='write_review' align='center'> "
 					+ "<form action='/hifive/reviewwrite?' method='post'> "
 					+ "<input type='hidden' name='uid' value=" + userid + "> "
 					+ "<textarea name='review' cols='80' rows='5'></textarea><br> "
-					+ "<input type='submit' value='작성'></form></div>";
+					+ "<input class='btn btn-outline-secondary' type='submit' value='작성'></form></div></div>";
    			$("#review_write").html($("#review_write").html()+value);
 		}	
 		
@@ -130,28 +130,33 @@
 <script type="text/javascript">
 	var loginid = "<%= loginuserid %>";
 	var profileid = "<%= user.getUser_Id() %>";
+	var safety = "<%= user.getSafety_check() %>"
 
 	function hrequest() {
 		if(loginid == profileid) {
 			alert("자신에게는 신청할 수 없습니다.");
 		} else {
-			$.ajax({	
-			  	url : "/hifive/request",
-			    type : "get",
-			    dataType : "json",
-				data : {loginid : loginid, profileid : profileid, profilerole : "H"},		
-				success : function(data){
-					if(data.result == '1' ) {
-						alert("호스트에게 요청을 완료하였습니다.");	
+			if(safety == 'N') {
+				alert("안전 유의 사항을 체크해주세요.");
+			} else {
+				$.ajax({	
+				  	url : "/hifive/request",
+				    type : "get",
+				    dataType : "json",
+					data : {loginid : loginid, profileid : profileid, profilerole : "H"},		
+					success : function(data){
+						if(data.result == '1' ) {
+							alert("호스트에게 요청을 완료하였습니다.");	
+						}
+						else if(data.result == '2'){
+							alert("서퍼를 등록하지 않아 요청할 수 없습니다.");
+						} 
+						else if(data.result == '0') {
+							alert("이미 요청한 사용자입니다.");
+						}        
 					}
-					else if(data.result == '2'){
-						alert("서퍼를 등록하지 않아 요청할 수 없습니다.");
-					} 
-					else if(data.result == '0') {
-						alert("이미 요청한 사용자입니다.");
-					}        
-				}
-			});
+				});
+			}
 		}
 	}
 	
@@ -159,23 +164,27 @@
 		if(loginid == profileid) {
 			alert("자신에게는 신청할 수 없습니다.");
 		} else {
-			$.ajax({	
-			  	url : "/hifive/request",
-			    type : "get",
-			    dataType : "json",
-				data : {loginid : loginid, profileid : profileid, profilerole : "S"},		
-				success : function(data){
-					if(data.result == '1' ) {
-						alert("서퍼에게 요청을 완료하였습니다.");	
+			if(safety == 'N') {
+				alert("안전 유의 사항을 체크해주세요.");
+			} else {
+				$.ajax({	
+				  	url : "/hifive/request",
+				    type : "get",
+				    dataType : "json",
+					data : {loginid : loginid, profileid : profileid, profilerole : "S"},		
+					success : function(data){
+						if(data.result == '1' ) {
+							alert("서퍼에게 요청을 완료하였습니다.");	
+						}
+						else if(data.result == '2'){
+							alert("호스트를 등록하지 않아 요청할 수 없습니다.");
+						} 
+						else if(data.result == '0') {
+							alert("이미 요청한 사용자입니다.");
+						}         
 					}
-					else if(data.result == '2'){
-						alert("호스트를 등록하지 않아 요청할 수 없습니다.");
-					} 
-					else if(data.result == '0') {
-						alert("이미 요청한 사용자입니다.");
-					}         
-				}
-			});
+				});
+			}
 		}
 	}
 	
@@ -183,23 +192,27 @@
 		if(loginid == profileid) {
 			alert("자신에게는 신청할 수 없습니다.");
 		} else {
-			$.ajax({	
-			  	url : "/hifive/request",
-			    type : "get",
-			    dataType : "json",
-				data : {loginid : loginid, profileid : profileid, profilerole : "P"},		
-				success : function(data){
-					if(data.result == '1' ) {
-						alert("파트너에게 요청을 완료하였습니다.");	
+			if(safety == 'N') {
+				alert("안전 유의 사항을 체크해주세요.");
+			} else {
+				$.ajax({	
+				  	url : "/hifive/request",
+				    type : "get",
+				    dataType : "json",
+					data : {loginid : loginid, profileid : profileid, profilerole : "P"},		
+					success : function(data){
+						if(data.result == '1' ) {
+							alert("파트너에게 요청을 완료하였습니다.");	
+						}
+						else if(data.result == '2') {
+							alert("파트너를 등록하지 않아 요청할 수 없습니다.");
+						}
+						else if(data.result == '0') {
+							alert("이미 요청한 목록에 있습니다.");
+						}
 					}
-					else if(data.result == '2') {
-						alert("파트너를 등록하지 않아 요청할 수 없습니다.");
-					}
-					else if(data.result == '0') {
-						alert("이미 요청한 목록에 있습니다.");
-					}
-				}
-			});
+				});
+			}
 		}
 	}
 </script>
@@ -548,15 +561,15 @@
                </div>
             </div>
             <br>
+   
             <div id="reference" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">References</h6>
                <div class="card-body" id="review" align='center'>
                   
                </div>
-               <div id="review_write">
-	               
-               </div>
+               
             </div>
+            <div id="review_write"></div>
          </div>
        </div>
       <br>

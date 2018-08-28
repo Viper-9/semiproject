@@ -16,11 +16,24 @@
 <script
    src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <style type="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
 /* 여기 이새끼가 전체 우리 컨테이너 역할 */
 .container {
    margin: 0 auto;
    padding: 10px;
+    /* font-family: 'Hanna', sans-serif; */
+	/* font-family: NanumSquareWeb, sans-serif; */
+	/* font-family: 'Noto Sans KR', sans-serif; */		
+	/* font-family: 'KoPub Batang', serif; */
+	/* font-family: 'Nanum Myeongjo', serif; */
+   font-family: 'Jeju Gothic', serif;
 }
 /* 이게  우리가 이제 만들어야할 공간 */
 #main {

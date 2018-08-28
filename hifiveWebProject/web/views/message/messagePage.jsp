@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" errorPage="./messageError.jsp" %>
 <%@ page import="message.model.vo.Message, java.util.ArrayList" %>
 <%	
-	String userId = (String) request.getParameter("uid");
+	String muserId = (String) request.getParameter("uid");
 	String ruserId = (String) request.getParameter("rid");
 	int listNo = Integer.parseInt(request.getParameter("listno"));
 %>
@@ -15,6 +15,15 @@
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <style type="text/css">
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+body {
+	/* font-family: 'Hanna', sans-serif; */
+	/* font-family: NanumSquareWeb, sans-serif; */
+	font-family: 'Jeju Gothic', serif;
+}
 	#msgpage {
 		width : 400px;
 		height : 600px;
@@ -59,7 +68,7 @@
 	
 .arrow_left {
 	position: relative;
-	background: #F2F2F2;
+	background: #ff8f73;
 	max-width: 80%;
 	/* width: 80%; */
 	margin : 4px;
@@ -82,7 +91,7 @@
 	position: absolute;
 	pointer-events: none;
 	border-color: rgba(250, 172, 88, 0);
-	border-right-color: #F2F2F2;
+	border-right-color: #ff8f73;
 	border-width: 7px;
 	margin-top: -7px;
 }
@@ -135,7 +144,7 @@
 <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var userid = '<%= userId %>';
+		var userid = '<%= muserId %>';
 		var ruserid = '<%= ruserId %>';
 		var listNo = <%= listNo %>;
 	
@@ -169,7 +178,7 @@
 					values += "<tr><td colspan='3'>대화 목록이 없습니다.</td></tr>";
 				}
 				$("#message").html($("#message").html()+values);			
-				
+				$("#message").scrollTop($("#message")[0].scrollHeight);
 			}, // success
 			error : function(jqXHR, textstatus, errorThrown){
 				console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
@@ -188,7 +197,7 @@
 </div>
 </tr>
 <tr>
-<form id="formtr" class="fixed-bottom" action="/hifive/msend?listno=<%= listNo %>&userid=<%=userId%>&rid=<%= ruserId %>" method="post">
+<form id="formtr" class="fixed-bottom" action="/hifive/msend?listno=<%= listNo %>&userid=<%=muserId%>&rid=<%= ruserId %>" method="post">
 <div class="input-group mb-3">
   <input type="text" autocomplete=off class="form-control" placeholder="내용을 입력해주세요" name="content" aria-describedby="btn">
   <div class="input-group-append">
