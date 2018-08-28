@@ -80,9 +80,9 @@ function safetyUpdateForm() {
 			data : allData,
 	        success : function(data){
 	        	if(data == '0'){
-	        		alert("안전유의사항 업데이트 실패" + userid);
+	        		 alert("알수없는 오류 입니다. 관리자에게 문의하세요"); 
 	        	} else {
-	        		alert("안전유의사항 업데이트 성공");
+	        		/* alert("안전유의사항 업데이트 성공"); */
 	        		location.href = "/hifive/views/support/safety.jsp";
 	        	}
 	        }, error : function(jqXHR, textstatus, errorThrown){
@@ -96,7 +96,8 @@ function safetyUpdateForm() {
 function CheckForm() {
 	var chk = document.safety.safetyCheck.checked;
 	if(!chk) {
-		alert("체크 안 함");
+		$("#checklabel").css("color", "red").css('font-size', '11px').text('안전 기본 사항을 읽고 체크하십시오.')
+		/* $("#safetyCheck").css("display", "none"); */ 
 		return false;
 	}
 }
@@ -159,24 +160,31 @@ function CheckForm() {
 						비밀리에 부정적인 경험이나 안전 문제를 신고 하십시오 .				
 						</font><br><br><br>
 						</p>
+						<p>
+						<font style = "color:red; font-size: 10pt; opacity: 0.4;">
+								우리 팀에서 제공하는 안전 기본 사항을 읽고 하단에 체크와 버튼을 클릭하십시요 <br>
+								이는 안전문제에 대한 충분한 지식을 습득하였다고 가정, 법적인 책임은 본인에게 있습니다
+								
+						</font>
+						</p>
 						<br>
 						<% if(headeruser.getSafety_check().equals("N")) { %>	
 						<form id="checksafety" action="/hifive/safetycheck" onsubmit="return CheckForm()"method="get"  name="safety">
 							<div class="form-group form-check">
 								<input type="checkbox" class="form-check-input"
 									id="safetyCheck" name="safetyCheck" value="readSafety"> 
-								<label class="form-check-label"
-									for="safetyCheck">Check me out</label>
+								<label class="form-check-label" id = "checklabel"
+									for="safetyCheck"><font style = "color:red; font-size:9pt;">안전 기본 사항을 숙지하셨습니까?</font></label>
 								<input type="hidden" id= "userid" name="userid" value="<%= headeruser.getUser_Id() %>">
 							</div>
-							<input type="submit" class="btn btn-primary" id="agreeBtn" value="동의합니다" onclick="safetyUpdateForm();">
+							<input type="submit" class="btn btn-primary" id="agreeBtn" value="동의합니다"AAAAAAAAAA onclick="safetyUpdateForm();">
 						</form>
 						<% } else { %>
 						<div class="form-group form-check">
-								<input type="checkbox" class="form-check-input"
-									id="safetyCheck" name="safetyCheck" value="readSafety" checked disabled> 
+								<!-- <input type="checkbox" class="form-check-input"
+									id="safetyCheck" name="safetyCheck" value="readSafety" checked disabled>  -->
 								<label class="form-check-label"
-									for="safetyCheck">Check me out</label>
+									for="safetyCheck"><font style = "color:blue; font-size:9pt;">귀하는 이미 체크 하셨습니다.</font></label>
 							</div>
 					<input type="submit" class="btn btn-primary" id="agreeBtn" disabled value="동의합니다">
 					<% } %>
