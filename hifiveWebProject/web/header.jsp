@@ -76,8 +76,8 @@ header {
 	<div class="container1">
 		<header>
 			<div id="logo">
-				<a href="/hifive/main.jsp"> <img
-					src="/hifive/resources/image/sample3.jpeg"
+				<a href="/hifive/main.jsp"><img
+					src="/hifive/resources/image/logo.png"
 					class="rounded mx-auto d-block" alt="로고" title="메인 페이지로 이동">
 				</a>
 			</div>

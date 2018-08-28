@@ -20,6 +20,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/logo2.png" />
 
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -78,6 +79,7 @@
    <div class="container">
       <%@ include file="../../../adminheader.jsp"%>
       <hr>
+      <br>
       <div id="main">
          <div id="menu">
       
@@ -113,7 +115,7 @@
                      <td>
                      <a href="/hifive/reportdetail?rnum=<%= r.getReport_no() %>&page=<%= currentPage %>&userid=admin"><%= r.getTitle() %></a>
                      </td>
-                     <td align="center"><a href="/hifive/profileinfo?userid=<%= r.getUser_id() %>"><%= r.getUser_id() %></a></td>
+                     <td align="center"><%-- <a href="/hifive/profileinfo?userid=<%= r.getUser_id() %>"> --%><%= r.getUser_id() %><!-- </a> --></td>
                      <td align="center">
                      <% if(r.getComplete().toUpperCase().equals("Y")) { %>
                      	처리완료

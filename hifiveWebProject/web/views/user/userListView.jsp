@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/logo2.png" />
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -175,7 +176,7 @@
 <% } %>
 <tr><th colspan="9">
 	<br>
-	<button class="btn btn-primary btn-sm" id="loginStop" onclick="stop('stop')">로그인 제한</button>
+	<button class="btn btn-danger btn-sm" id="loginStop" onclick="stop('stop')">로그인 제한</button>
 	<button class="btn btn-primary btn-sm" id="loginRe" onclick="stop('start')">로그인 허용</button>
     </th> 
 </tr>

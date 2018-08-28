@@ -4,6 +4,7 @@
 
 <html>
 <head>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/logo2.png" />
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
@@ -52,7 +53,7 @@
 
 	<div class="container">
 		<header>
-			<img src="/hifive/resources/image/sample3.jpeg"
+			<img src="/hifive/resources/image/logo.png"
 				class="rounded mx-auto d-block" alt="로고">
 
 
@@ -76,7 +77,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<img src="/hifive/resources/image/sample3.jpeg"
+						<img src="/hifive/resources/image/logo.png"
 							class="modal-title rounded mx-auto d-block">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
@@ -95,7 +96,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<img src="/hifive/resources/image/sample3.jpeg"	class="modal-title rounded mx-auto d-block">
+						<img src="/hifive/resources/image/logo.png"	class="modal-title rounded mx-auto d-block">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -122,7 +123,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<img src="/hifive/resources/image/sample3.jpeg"
+						<img src="/hifive/resources/image/logo.png"
 							class="modal-title rounded mx-auto d-block">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">

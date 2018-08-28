@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/logo2.png" />
 
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -43,7 +44,7 @@
       width: 300px;
       position: relative;
       left: 85%;       
-   }
+   } 
    header{
           margin: 5px;
           padding: 10px;
@@ -63,7 +64,7 @@
 <body>
 <div class="container">
 		<header>
-			<a href="/hifive/adminmain.jsp"><img src="/hifive/resources/image/sample3.jpeg"
+			<a href="/hifive/adminmain.jsp"><img src="/hifive/resources/image/logo.png"
 				class="rounded mx-auto d-block" alt="로고" title="관리자 메인 페이지로 이동"></a>
 
 			<div class="box1">
