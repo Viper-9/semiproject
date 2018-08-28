@@ -691,18 +691,6 @@ table {
             </div>
             
             <br>
-            
-            <div id="mpagemenu">
-               <a href="#intro"><input type="button" class="btn btn-outline-info" value="Introduction" style="width: 110px;"></a>&nbsp; 
-               <a href="#myhome"><input type="button" class="btn btn-outline-info" value="My Home" style="width: 110px;"></a>&nbsp; 
-               <a href="#surfer"><input type="button" class="btn btn-outline-info" value="Surfer" style="width: 110px;"></a>&nbsp; 
-               <a href="#partner"><input type="button" class="btn btn-outline-info" value="Partner" style="width: 110px;"></a>&nbsp; 
-               <a href="#photo"><input type="button" class="btn btn-outline-info" value="Photos" style="width: 110px;"></a>&nbsp; 
-               <a href="#reference"><input type="button" class="btn btn-outline-info" value="References" style="width: 110px;"></a>
-            </div>
-            
-            <br>
-            
             <div id="intro" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Introduction</h6>
                <div class="card-body">               
@@ -717,6 +705,21 @@ table {
             </form>
                                
             <br>
+            <div id="mpagemenu">
+               <center>
+               <a href="#myhome"><input type="button" class="btn btn-outline-info" value="My Home" style="width: 160px;"></a>
+               &nbsp;&nbsp;&nbsp;&nbsp;
+               <a href="#surfer"><input type="button" class="btn btn-outline-info" value="Surfer" style="width: 160px;"></a>
+               &nbsp;&nbsp;&nbsp;&nbsp;
+               <a href="#partner"><input type="button" class="btn btn-outline-info" value="Partner" style="width: 160px;"></a>
+               &nbsp;&nbsp;&nbsp;&nbsp;
+               <a href="#photo"><input type="button" class="btn btn-outline-info" value="Photos" style="width: 160px;"></a>
+               </center>
+            </div>
+            
+            <br>
+            
+            
             
             <form action="/hifive/hupdate?userid=<%=userId %>" method="post">
             	<div id="myhome" class="card" style="width: auto;">
@@ -809,11 +812,6 @@ table {
                         
                         <tr>
                         </tr>
-                        
-                        <tr>
-                          <td>사진&nbsp;&nbsp;&nbsp;</td>
-                          <td><img class="rounded-float" src="/hifive/resources/image/profile.png" width="100px" height="100px"></td>
-                        </tr>
                      </table> 
                   
                 
@@ -828,6 +826,62 @@ table {
            </form>                               
            
            <br>
+           <form action="/hifive/photoupload" method="post" enctype="multipart/form-data">
+            <div id="photo" class="card" style="width: auto;">
+               <h6 class="card-header" id="card_info">Photos</h6>
+               <div class="card-body">
+               <input type="hidden" id="photouserid" name="photouserid" value="<%= headeruser.getUser_Id() %>">
+               		  <table id="phototable" border="0" cellpadding="2">
+               		  <tr>
+               		  <td>
+               		  <div class="card" style="width: 225px;">
+					  <img id="output1" width="225px" src="" height="240px" >
+					  <div class="card-body">
+					  <p class="card-text"><input type="file" id="photo1" name="photo1" accept="image/*" onchange="loadFile1(event)"></p>				  
+					  </div>					 
+					  </div>
+				      </td>
+				      <td>
+					  <div class="card" style="width: 225px;">
+					  <img id="output2" width="225px" src="" height="240px">
+					  <div class="card-body">
+					    <p class="card-text"><input type="file" id="photo2" name="photo2" accept="image/*" onchange="loadFile2(event)"></p>
+					  </div>					  
+					  </div>
+					  </td>
+					  <td>
+					  <div class="card" style="width: 225px;">
+					  <img id="output3" width="225px" src="" height="240px">
+					  <div class="card-body">
+					    <p class="card-text"><input type="file" id="photo3" name="photo3" accept="image/*" onchange="loadFile3(event)"></p>
+					  </div>
+					  </div>
+					  </td>
+					  </tr>
+					  </table>
+					  <center>
+					  <br>
+					  <input type="submit" id="photosubmit" class="btn btn-primary" value="사진 등록하기">
+					  </center>
+				
+					<script>
+					  var loadFile1 = function(event) {
+					    var output = document.getElementById('output1');
+					    output.src = URL.createObjectURL(event.target.files[0]);
+					  };
+					  var loadFile2 = function(event) {
+						    var output = document.getElementById('output2');
+						    output.src = URL.createObjectURL(event.target.files[0]);
+					  };
+					  var loadFile3 = function(event) {
+						    var output = document.getElementById('output3');
+						    output.src = URL.createObjectURL(event.target.files[0]);
+					  };  
+					</script>
+                
+               </div>
+            </div>
+            <br>
            
            <form action="/hifive/supdate?userid=<%=userId %>" method="post">
             <div id="surfer" class="card" style="width: auto;">
@@ -916,61 +970,7 @@ table {
             <br>
             
             
-            <form action="/hifive/photoupload" method="post" enctype="multipart/form-data">
-            <div id="photo" class="card" style="width: auto;">
-               <h6 class="card-header" id="card_info">Photos</h6>
-               <div class="card-body">
-               <input type="hidden" id="photouserid" name="photouserid" value="<%= headeruser.getUser_Id() %>">
-               		  <table id="phototable" border="0" cellpadding="2">
-               		  <tr>
-               		  <td>
-               		  <div class="card" style="width: 225px;">
-					  <img id="output1" width="225px" src="" height="240px" >
-					  <div class="card-body">
-					  <p class="card-text"><input type="file" id="photo1" name="photo1" accept="image/*" onchange="loadFile1(event)"></p>				  
-					  </div>					 
-					  </div>
-				      </td>
-				      <td>
-					  <div class="card" style="width: 225px;">
-					  <img id="output2" width="225px" src="" height="240px">
-					  <div class="card-body">
-					    <p class="card-text"><input type="file" id="photo2" name="photo2" accept="image/*" onchange="loadFile2(event)"></p>
-					  </div>					  
-					  </div>
-					  </td>
-					  <td>
-					  <div class="card" style="width: 225px;">
-					  <img id="output3" width="225px" src="" height="240px">
-					  <div class="card-body">
-					    <p class="card-text"><input type="file" id="photo3" name="photo3" accept="image/*" onchange="loadFile3(event)"></p>
-					  </div>
-					  </div>
-					  </td>
-					  </tr>
-					  </table>
-					  <center>
-					  <br>
-					  <input type="submit" id="photosubmit" class="btn btn-primary" value="사진 등록하기">
-					  </center>
-				
-					<script>
-					  var loadFile1 = function(event) {
-					    var output = document.getElementById('output1');
-					    output.src = URL.createObjectURL(event.target.files[0]);
-					  };
-					  var loadFile2 = function(event) {
-						    var output = document.getElementById('output2');
-						    output.src = URL.createObjectURL(event.target.files[0]);
-					  };
-					  var loadFile3 = function(event) {
-						    var output = document.getElementById('output3');
-						    output.src = URL.createObjectURL(event.target.files[0]);
-					  };  
-					</script>
-                
-               </div>
-            </div>
+            
             </form>
             <br>  
                </div>
