@@ -91,21 +91,21 @@
 					</div>
 					<input type="text" class="form-control" id="hostcity" name="hostcity"> &nbsp;
                      <input type="button" class="btn btn-outline-dark text-dark" value="입력"><br>
-						 <script>
+						 <!-- <script>
 						    var input = $("#hostcity").val();
 						    var autocomplete = new google.maps.places.Autocomplete(input,{types: ['(regions)']});
 						    google.maps.event.addListener(autocomplete, 'place_changed', function(){
 						          var place = autocomplete.getPlace();
 						          console.log(place.formatted_address); //확인
 						    });
-						</script>                     
+						</script>        -->              
                      </div>  
                    <div class="col input-group mb-3">
 	               <div class="input-group-prepend">
 						<span class="input-group-text">기타 사항</span>
 					</div>
 					<textarea class="form-control" name="hostetc" id="hostetc" rows="5" cols="60"></textarea>
-                           </div> 
+                   </div> 
 					<button type="submit" class="btn btn-primary" id="hostenrollbtn">등록하기</button>
 		</form>
 	</div>
