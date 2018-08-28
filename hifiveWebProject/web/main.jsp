@@ -487,10 +487,10 @@
 					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="host_find">호스트 찾기</a>			
 					&nbsp;&nbsp; &nbsp;&nbsp;
 					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#surferenroll" role="button" id="surfer_enroll">&nbsp;서퍼등록&nbsp;</a>
-					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="surfer_find">&nbsp;서퍼 찾기&nbsp;</a>
+					<a class="btn btn-primary" href="/hifive/sh?no=1" role="button" id="surfer_find">&nbsp;서퍼 찾기&nbsp;</a>
 					&nbsp;&nbsp; &nbsp;&nbsp;
 					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#partnerenroll" role="button" id="partner_enroll">파트너 등록</a>
-					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="partner_find">파트너 찾기</a><br><br>
+					<a class="btn btn-primary" href="/hifive/sh?no=2" role="button" id="partner_find">파트너 찾기</a><br><br>
 				<% } %>				
 
 			</div>
@@ -504,8 +504,7 @@
 						aria-controls="hostlist" aria-selected="false">Host 매칭 정보</a></li>
 					<li class="nav-item"><a class="nav-link" id="surferlist-tab"
 						data-toggle="tab" href="#surferlist" role="tab"
-						aria-controls="surferlist" aria-selected="false">Surfer 매칭 정보</a>
-					</li>
+						aria-controls="surferlist" aria-selected="false">Surfer 매칭 정보</a></li>
 					<li class="nav-item"><a class="nav-link" id="partnerlist-tab"
 						data-toggle="tab" href="#partnerlist" role="tab"
 						aria-controls="partnerlist" aria-selected="false">Partner 매칭

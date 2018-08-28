@@ -234,7 +234,7 @@
                      </button>
                      <font size="2"> 
                      <% if(user.getAddress() == null) { %>
-                     	아직 주소를 입력하지 않았습니다.
+                     	주소를 입력하지 않았습니다.
                      <% } else { %>
                      <%= user.getAddress() %>
                      <% } %> 
@@ -438,7 +438,7 @@
                      </tr>     
                      <tr>
                      	<td><li>주소</li></td>
-                     	<td><textarea class="form-control" id="hostcity" name="city" rows="2" cols="60" disabled style="background-color: #ffffff;"><%= profileH.getCity() %></textarea></td>
+                     	<td><textarea class="form-control" id="hostcity" name="city" rows="1" cols="60" disabled style="text-align:center; background-color: #ffffff;"><%= profileH.getCity() %></textarea></td>
                      </tr>          
                      <tr>
                         <td><li>추가 정보</li></td>
