@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/logo2.png" />
 
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -87,6 +88,7 @@
    <div class="container">
       <%@ include file="../../../adminheader.jsp"%>
       <hr>
+      <br>
       <div id="main">
          <div id="menu">
             <%@ include file="../../../adminsupportmenu.jsp"%>
@@ -135,7 +137,7 @@
                   <tr>
 
                      <td colspan="4">
-                     <button type="button" class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist?userid=admin'">목록</button>
+                    <!--  <button type="button" class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist?userid=admin'">목록</button> -->
                   
                      <% if(r.getComplete().equals("N")) { %>                   
                      <form action="/hifive/reportupdate?userid=admin" method="post">
@@ -143,12 +145,18 @@
                      <input type="hidden" name="rtitle" value="<%= r.getTitle() %>">
                      <input type="hidden" name="rcontent" value="<%= r.getContent() %>">  
                      <br>                   
-                     <input type="submit" class="btn btn-primary btn-sm" value="처리 완료">                    	  
+                     <input type="submit" class="btn btn-warning btn-sm" value="처리 완료">                    	  
                      <% } %>
                      </form>
                      </td>
                            
                   </tr> 
+                  <tr>
+                  	<td colspan="4">
+                  <button type="button" class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist?userid=admin'">목록</button>
+                  </td>
+                  </tr>
+                  
                </tbody>
             </table>
 
