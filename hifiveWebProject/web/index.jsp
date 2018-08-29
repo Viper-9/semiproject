@@ -43,7 +43,7 @@ header {
 	height: 190px;
 }
 
-#hspInfo {
+#hspInfo { 
 	height: 600px;
 }
 
