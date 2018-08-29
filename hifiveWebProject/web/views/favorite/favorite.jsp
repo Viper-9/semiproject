@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>favorite</title>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/index/logo2.png" />
+<title>Traveler's Couch</title>
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
 <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>

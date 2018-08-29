@@ -12,7 +12,8 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>메인화면</title>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/index/logo2.png" />
+<title>Traveler's Couch</title>
 
 
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
@@ -439,8 +440,8 @@
 						})
 					</script>
 				<% }else{ %>
-					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#hostenroll" role="button" id="host_enroll">호스트 등록</a>
-					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="host_find">호스트 찾기</a>			
+					<a class="btn btn-primary" style="background-color: rgb(255,68,0); border-color: rgb(255,68,0)" href="#" data-toggle="modal" data-target="#hostenroll" role="button" id="host_enroll">호스트 등록</a>
+					<a class="btn btn-primary" style="background-color: rgb(255,68,0); border-color: rgb(255,68,0)" href="/hifive/views/hsp/searchPage.jsp" role="button" id="host_find">호스트 찾기</a>			
 					&nbsp;&nbsp; &nbsp;&nbsp;
 					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#surferenroll" role="button" id="surfer_enroll">&nbsp;서퍼등록&nbsp;</a>
 					<a class="btn btn-primary" href="/hifive/sh?no=1" role="button" id="surfer_find">&nbsp;서퍼 찾기&nbsp;</a>

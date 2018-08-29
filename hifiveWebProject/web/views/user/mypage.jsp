@@ -9,7 +9,8 @@
 <head>
    <meta charset="UTF-8"> 
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <title>mypage</title>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/index/logo2.png" />
+<title>Traveler's Couch</title>
    <link rel="stylesheet" href="/hifive/resources/css/modal.css">
    <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
    <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
@@ -819,13 +820,13 @@ table {
                <h6 class="card-header" id="card_info">Photos</h6>
                <div class="card-body">
                <input type="hidden" id="photouserid" name="photouserid" value="<%= headeruser.getUser_Id() %>">
-               		  <table id="phototable" border="0" cellpadding="2">
+               		  <table id="phototable" border="0" cellpadding="2" style="font-size:10pt;">
                		  <tr>
                		  <td>
                		  <div class="card" style="width: 225px;">
 					  <img id="output1" width="225px" src="" height="240px" >
 					  <div class="card-body">
-					  <p class="card-text"><input type="file" id="photo1" name="photo1" accept="image/*" onchange="loadFile1(event)"><p>				  
+					  <p class="card-text"><input type="file" id="photo1" name="photo1" accept="image/*" onchange="loadFile1(event)"></p>				  
 					  </div>					 
 					  </div>
 				      </td>

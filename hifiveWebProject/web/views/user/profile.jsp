@@ -15,7 +15,8 @@
 <meta charset="UTF-8">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Profile</title>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/index/logo2.png" />
+<title>Traveler's Couch</title>
 
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
@@ -63,7 +64,7 @@
 				
 					var values = "";
 					if(json.list.length == 0){
-						values += "등록된 리뷰가 없습니다.";
+						values += "<br><br><center>등록된 리뷰가 없습니다.</center>";
 						$("#review").html($("#review").html()+values);	
 					} else{					
 						for(var i in json.list){
@@ -370,7 +371,7 @@
                <div class="card-body">
                   <p class="card-text">
                     <% if(user.getContent() == null) {%>
-                  	입력된 내용이 없습니다.
+                  	<center>입력된 내용이 없습니다.</center>
                   	<%} else {%>
                   	<%= user.getContent() %>
                   	<%} %>
@@ -394,7 +395,7 @@
                <div class="card-body">
                   <p class="card-text">
                   <% if(profileH == null) { %>
-                  		등록된 호스트 정보가 없습니다.
+                  		<center>등록된 호스트 정보가 없습니다.</center>
                   <%} else { %>
                   <ul>
                   <table cellpadding="10px">
@@ -447,13 +448,7 @@
                      </tr>          
                      <tr>
                         <td><li>추가 정보</li></td>
-                        <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" disabled style="text-align:left; background-color: #ffffff;">
-                        <% if(profileH.getContent() == null) { %>
-                        	추가 정보를 입력하지 않았습니다.
-                        <% } else { %>
-                       		<%= profileH.getContent() %>
-                       	<% } %>	
-                       	</textarea></td>   
+                        <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" disabled style="text-align:left; background-color: #ffffff;"><% if(profileH.getContent() == null) { %>추가 정보를 입력하지 않았습니다.<% } else { %><%= profileH.getContent() %><% } %></textarea></td>   
                      </tr>
                   </table> 
                   </ul>
@@ -467,7 +462,7 @@
                <div class="card-body">
                <% if(profileH != null) { %>
 	               <% if(profileH.getImage1() == null && profileH.getImage2() == null && profileH.getImage3() == null) { %>
-	              	 사진을 등록하지 않았습니다.
+	              	<center>사진을 등록하지 않았습니다.</center> 
 	               <% } else {%>
 	               <%if(!profileH.getImage1().equals("sample.jpg") && profileH.getImage1() != null) { %>
 	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage1() %>" class="rounded" data-toggle="modal"
@@ -483,8 +478,9 @@
 	               <% } %> 
 	               <% } %>             
                <% } else { %>
-              	 등록된 호스트 정보가 없습니다.
+              	 <center>등록된 호스트 정보가 없습니다.</center>
                <% } %>
+               </div>               
                </div>
                <br>
             <div id="surfer" class="card" style="width: auto;">
@@ -492,7 +488,7 @@
                <div class="card-body">
                   <p class="card-text">
                   <% if(profileS == null) { %>
-                  		등록된 서퍼 일정이 없습니다.
+                  		<center>등록된 서퍼 일정이 없습니다.</center>
                   <%} else { %>
                    <ul>
                      <table cellpadding="10px">
@@ -528,7 +524,7 @@
                <div class="card-body">
                   <p class="card-text">
                   <% if(profileP == null) { %>
-                  		등록된 파트너 일정이 없습니다.
+                  		<center>등록된 파트너 일정이 없습니다.</center>
                   <%} else { %> 
                   <ul>
                      <table cellpadding="10px">
@@ -560,12 +556,11 @@
                </div>
             <br>
             
-            </div>
-            <br>
+        
    
-            <div id="reference" class="card" style="width: auto;">
+            <div id="reference" class="card" style="width: auto; height: 200px;">
                <h6 class="card-header" id="card_info">References</h6>
-               <div class="card-body" id="review" align='center'>
+               <div class="card-body" id="review" align='center' style="overflow-y:auto">
                   
                </div>
                

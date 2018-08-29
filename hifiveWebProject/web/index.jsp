@@ -4,7 +4,7 @@
 
 <html>
 <head>
-<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/index/logo2.png" />
+
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
@@ -12,13 +12,12 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
-<title>WELCOME TO Traveler's Couch</title>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/index/logo2.png" />
+<title>Traveler's Couch</title>
 
 <style type="text/css">
-section {
-	clear: both;
-}
-
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Nunito|Poiret+One|Quicksand');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
 .container {
 	margin: 0 auto;
 	padding: 10px;
@@ -61,34 +60,94 @@ header {
 	height: 570px;
 	background:rgba(255,255,255, .5); 
 	border:0px;
+	font-family: 'Nanum Gothic', sans-serif;
+	
 }
 
 #safetyinfo {
 	background: rgba(205, 162, 98, .5);
-	padding: 15px;
-	height: 300px;
-	
+	padding: 30px;
+	height: 330px;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-size: 20pt;
 }
 
-#safetydiv {
-	width: 1300px; 
+#safetydiv1 {
+	width: 400px; 
 	height: 270px;
-	background:rgba(255,255,255, .5); 
-	border:0px;
+	background: rgba(145,112,64, .2); 
+	border: 0px;
+	float: left;
+	margin-left: 300px;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
 }
-
-
-#indexinfo {
-	position: relative;
-	z-index: 2;
-	background: rgba(255, 68, 0, .5);
+#safetydiv2 {
+	width: 400px; 
+	height: 270px;
+	background:rgb(255,255,255, .5); 
+	border: 0px;
+	float: left;
+	margin-left: 20px;
+	box-shadow: 5px 5px 5px rgba(51,51,51,.5);
+}
+#safetydiv3 {
+	width: 400px; 
+	height: 270px;
+	background: rgba(145,112,64, .2); 
+	border: 0px;
+	float: left;
+	margin-left: 20px;
+	box-shadow: 3px 3px 4px rgba(51,51,51,.5);
 }
 
 #indexphoto {
 	position: relative;
-	z-index: 1;
+	text-align:center; 
+	line-height:100px; 
+	margin:0 auto;  
+	color:#000;	
+	
+	
 }
 
+
+#indexinfo {
+	position:absolute; 
+	top:100px; 
+	/*위에 올라가는 레이어의 포지션은 top, bottom 둘 중 하나, left, right 둘 중 하나의 속성을 선택하여 잡아준다.*/ 
+	width:100%; 
+	height:70%; 
+	/* background:rgba(255, 255, 255, .2);  */
+	text-align:center; 
+	line-height:400px;
+}
+
+#indexinfo {
+	
+}
+
+#contents1 {
+	font-family: 'Nunito', sans-serif;
+	font-size: 40pt;
+	
+}
+#contents2 {
+	font-family: 'Quicksand', sans-serif;
+	font-size: 40pt;
+
+}
+#contents3 {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 40pt;
+	color: rgba(255,255,255, .8);
+}
+#contents4 {
+	font-family: 'Poiret One', cursive;
+	font-size: 40pt;
+
+}
 
 </style>
 
@@ -118,10 +177,6 @@ header {
 			</nav>
 
 		</header>
-
-	<div id="indexinfo">
-		
-	</div>
 	<div id="indexphoto" class="carousel slide" data-ride="carousel" >
 	
 						<ol class="carousel-indicators">
@@ -135,7 +190,7 @@ header {
 								<img class="d-block w-100"
 									src="/hifive/resources/image/index/index1.jpg" alt="First slide">
 								<div class="carousel-caption d-none d-md-block">
-									<h1>사진1</h1>
+									
 								</div>
 
 							</div> 
@@ -143,15 +198,22 @@ header {
 								<img class="d-block w-100"
 									src="/hifive/resources/image/index/index3.jpg" alt="Second slide">
 								<div class="carousel-caption d-none d-md-block">
-									<h1>사진2</h1>
+									
 								</div>
 							</div>
 							<div class="carousel-item" style="height:650px;">
 								<img class="d-block w-100"
 									src="/hifive/resources/image/index/index2.jpg" alt="Third slide">
 								<div class="carousel-caption d-none d-md-block">
-									<h1>사진3</h1>
+								
 								</div>
+							</div>
+							
+							<div id="indexinfo">
+							<!-- <p id=contents1>Enjoy Your Trip</p>
+							<p id=contents2>Enjoy Your Trip</p> -->
+							<p id=contents3>Enjoy Your Trip</p>
+							<!-- <p id=contents4>Enjoy Your Trip</p> -->
 							</div>
 						</div>
 
@@ -184,9 +246,8 @@ header {
 								</p>
 							</div>
 						</div>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<div class="card" style="height: 600px;">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<div class="card">
 							<img class="card-img-top"
 								src="/hifive/resources/image/couch1.jpg" alt="Card image cap">
 							<div class="card-body">
@@ -198,8 +259,7 @@ header {
 								</p>
 							</div>
 						</div>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<div class="card">
 							<img class="card-img-top"
 								src="/hifive/resources/image/sample1.jpeg" alt="Card image cap">
@@ -224,8 +284,10 @@ header {
 				
 				<center>
 				<div id="homeinfodiv" class="alert alert-light">
-			
-				<h2> Traveler's Couch</h2>
+				<br><br>
+				<h1> 새로운 인연을 만드세요!</h1>
+				<br>
+				<img src="./resources/image/index/friendship4.png" width="150px">
 				</div>
 				</center>
 				</div>
@@ -234,9 +296,25 @@ header {
 				<div id="safetyinfo">
 				
 				<center>
-				<div id="safetydiv" class="alert alert-light">
+				
+				<div id="safetydiv1" class="alert alert-light">
+				<a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)"> 
+				<img src="./resources/image/index/safety.png" width="200px">
+				</a><div style="DISPLAY: none; background: #d5bc9a; width: 400px;">
+				<br>
+				안전~~ 뭐라쓰지~<br>
+				모르게따<br>
+				헤헤
+				</div>
 			
-				<h2> Traveler's Couch</h2>
+				</div>
+				
+				<div id="safetydiv2" class="alert alert-light">				
+				<img src="./resources/image/index/safety.png" width="200px">
+				</div>
+				
+				<div id="safetydiv3" class="alert alert-light">			
+				<img src="./resources/image/index/safety.png" width="200px">			
 				</div>
 				</center>
 				</div>
@@ -247,70 +325,7 @@ header {
 			<!-- <p>section</p> -->
 			<article>
 				<!-- <p>article</p> -->
-				<div>
 				
-
-
-					<br>
-					<!-- <hr> -->
-					<br>
-
-					<!--<div class="card-deck" id="hspInfo">
-						<div class="card">
-							<img class="card-img-top"
-								src="/hifive/resources/image/couch10.png" alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">Host</h5>
-								<p class="card-text">This is a longer card with supporting
-									text below as a natural lead-in to additional content. This
-									content is a little bit longer.</p>
-								<p class="card-text">
-									<small class="text-muted">......abc</small>
-								</p>
-							</div>
-						</div>
-						<div class="card">
-							<img class="card-img-top"
-								src="/hifive/resources/image/couch1.jpg" alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">Surfer</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-								<p class="card-text">
-									<small class="text-muted">......abc</small>
-								</p>
-							</div>
-						</div>
-						<div class="card">
-							<img class="card-img-top"
-								src="/hifive/resources/image/sample1.jpeg" alt="Card image cap">
-							<div class="card-body">
-								<h5 class="card-title">Partner</h5>
-								<p class="card-text">This is a wider card with supporting
-									text below as a natural lead-in to additional content. This
-									card has even longer content than the first to show that equal
-									height action.</p>
-								<p class="card-text">
-									<small class="text-muted">......</small>
-								</p>
-							</div>
-						</div>
-					</div> -->
-
-					<!-- <br>
-					<hr>
-					<br>
-
-					<div class="card border-light mb-3" style="max-width: outo;">
-						<div class="card-header">홈페이지에 관한 소개글..</div>
-						<div class="card-body text-secondary">
-							<h5 class="card-title">^^</h5>
-							<p class="card-text">Some quick example text to build on the
-								card title and make up the bulk of the card's content.</p>
-						</div>
-					</div> -->
-
-				</div>
 			</article>
 		</section>
 
@@ -328,7 +343,7 @@ header {
 				<div class="modal-content">
 					<div class="modal-header">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<img src="/hifive/resources/image/logo.png"
+						<img src="/hifive/resources/image/index/logo.png"
 							class="modal-title rounded mx-auto d-block">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
@@ -347,7 +362,7 @@ header {
 				<div class="modal-content">
 					<div class="modal-header">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<img src="/hifive/resources/image/logo.png"	class="modal-title rounded mx-auto d-block">
+						<img src="/hifive/resources/image/index/logo.png"	class="modal-title rounded mx-auto d-block">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -374,7 +389,7 @@ header {
 				<div class="modal-content">
 					<div class="modal-header">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<img src="/hifive/resources/image/logo.png"
+						<img src="/hifive/resources/image/index/logo.png"
 							class="modal-title rounded mx-auto d-block">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">

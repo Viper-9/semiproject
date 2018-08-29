@@ -241,11 +241,12 @@ public class MessageListDao {
 		ResultSet rset = null;
 		
 		String query = "select count(list_no) from message_list "
-				+ "where user1=?";
+				+ "where user1=? or user2=?";
 		
 		try{
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, userid);
+			pstmt.setString(2, userid);
 			
 			rset = pstmt.executeQuery();
 			

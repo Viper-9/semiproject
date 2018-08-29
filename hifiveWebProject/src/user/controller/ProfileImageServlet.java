@@ -74,7 +74,7 @@ public class ProfileImageServlet extends HttpServlet {
 		if (originalFileName != null) {
 			renameFileName = userid + "profileimage." 
 					+ originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-
+			renameFileName = renameFileName.toLowerCase();
 			// 파일명 바꾸려면 File 객체의 renameTo() 사용함
 			File originFile = new File(savePath + "\\" + originalFileName);
 			File renameFile = new File(savePath + "\\" + renameFileName);
