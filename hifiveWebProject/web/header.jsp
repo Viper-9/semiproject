@@ -75,7 +75,7 @@ header {
 			data : { uid : userid },
 			dataType : "json",			
 			success : function(data){
-				console.log(data.result);
+				/* console.log(data.result); */
 				if(data.result == '1'){							
 					$('#msg').attr("src", "/hifive/resources/image/micon_new.jpg");
 				} else{

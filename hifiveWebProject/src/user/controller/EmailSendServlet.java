@@ -61,8 +61,7 @@ public class EmailSendServlet extends HttpServlet {
 			String returnValue = "0";
 			String email = request.getParameter("sreceiver"); //사용자가 입력한 이멜 주소 받아오기
 			int result = new UserService().selectCheckEmail(email);
-			System.out.println(result);
-			
+		
 			 
 			if(result == 0){
 			 //편지 보낸 시간
@@ -88,7 +87,6 @@ public class EmailSendServlet extends HttpServlet {
 			//이메일 헤더
 			msg.setHeader("content-Type", "text/html");
 			javax.mail.Transport.send(msg);
-			System.out.println(session + "이 " + " 이메일 보내기를 성공");
 			
 			returnValue = "1";
 			

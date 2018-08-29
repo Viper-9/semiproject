@@ -29,7 +29,7 @@
    margin: 0 auto;
    padding: 10px;
     /* font-family: 'Hanna', sans-serif; */
-	 font-family: NanumSquareWeb, sans-serif; 
+	/*  font-family: NanumSquareWeb, sans-serif;  */
 	/* font-family: 'Noto Sans KR', sans-serif; */		
 	/* font-family: 'KoPub Batang', serif; */
 	/*  font-family: 'Nanum Myeongjo', serif;  */
@@ -177,18 +177,12 @@
                  </div>  
             </div>
 
-
- 
-
-
-         </div>
-
-         <div id="content2"></div>
-      </div>
+        </div>
+       
+      </div>      
       <br>
       <hr>
-      <%@ include file="../../footer.jsp"%>
-   </div>
+   <%@ include file="../../footer.jsp"%>
 
 </body>
 </html>
