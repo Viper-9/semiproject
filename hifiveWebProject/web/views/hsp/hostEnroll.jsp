@@ -22,7 +22,6 @@
 		}
 	}
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTTwSwWRjYjvlNUBWhim80hHywgq7S94E&sensor=false&libraries=places&language=ko"></script> 
 </head>
 <body>
 	<div>
@@ -58,26 +57,15 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="pnums">가능 조건</span>
 					</div>
-					<div class="btn-group-toggle" data-toggle="buttons">
-	                    <label class="btn btn-outline-secondary"> 
-	                    <input type="checkbox" name="possible" id="possible" value="kids">아이동반
-	                    </label>
-	                </div> &nbsp;
-	                <div class="btn-group-toggle" data-toggle="buttons">
-	                    <label class="btn btn-outline-secondary"> 
-	                    <input type="checkbox" name="possible" id="possible" value="pet">애완동물동반
-	                    </label>
-	                </div> &nbsp;
-	                <div class="btn-group-toggle" data-toggle="buttons">
-	                    <label class="btn btn-outline-secondary"> 
-	                    <input type="checkbox" name="possible" id="possible" value="smoking">흡연
-	                    </label>
-	                </div> &nbsp;
-	                 <div class="btn-group-toggle" data-toggle="buttons">
-	                    <label class="btn btn-outline-secondary"> 
-	                    <input type="checkbox" name="possible" id="possible" value="drinking">음주
-	                    </label>
-	                </div>
+					<span class="input-group-text" style="background:white;">									                    
+	                    <input type="checkbox" name="possible" id="possible" value="kids"> 아이동반 
+	                &nbsp;&nbsp;	                                   
+	                    <input type="checkbox" name="possible" id="possible" value="pet"> 애완동물동반
+                	&nbsp;&nbsp;	                
+	                    <input type="checkbox" name="possible" id="possible" value="smoking"> 흡연
+	                &nbsp;&nbsp;	                 
+	                    <input type="checkbox" name="possible" id="possible" value="drinking"> 음주  
+					</span>
 	               </div>
 	               <div class="col input-group mb-3">
 	               <div class="input-group-prepend">

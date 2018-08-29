@@ -62,23 +62,7 @@ table {
              type : "post",
              data : {userid : $("#userid").val()},            
              dataType : "json",
-             success : function(data){     
-                //프로필
-                /* var fileTarget = $("input[name=profileimg]");
-                 console.log(fileTarget);
-                 fileTarget.on("change", function(){
-                    if(window.fileReader){
-                       var filename = $(this)[0].files[0].name;
-                    }
-                    $(".card-img-top").attr("src", data.profileimg);
-                 })           */                 
-                /*  var fileTarget = $("input[name=profileimg]");
-                 console.log("읽어온파일명:"+data.profileimg);
-                 console.log("입력된 파일명:"+fileTarget);
-                 fileTarget.on("change", function(){
-                    $(".card-img-top").attr("src", "/hifive/resources/image/"+data.profileimg);
-                    console.log("입력된 파일명:"+fileTarget);
-                 }) */
+             success : function(data){                    
                  // 프사
                  if(data.profileimg == null) {
                 	  $("#profileimage").attr("src", "/hifive/resources/profileUpfiles/profile.png");
@@ -202,7 +186,7 @@ table {
 	                if(data.check1 == null){
 	                   
 	                }else{
-	                   var checks = data.check1.split(",");
+	                   var checks = data.check1.split(",");	                  
 	                   for(var s in checks){
 	                      switch(checks[s]){                   
 	                      case "kids":
@@ -260,10 +244,7 @@ table {
 	               }
             	}
 
-             },
-             error : function(jqXHR, textstatus, errorThrown){
-                console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
-             }             
+             }           
           }); //hostajax
                  
           $.ajax({
@@ -376,10 +357,7 @@ table {
                    $("#review").html($("#review").html()+values);
                    
                 }
-             }, // success
-             error : function(jqXHR, textstatus, errorThrown){
-                console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
-             } // error
+             } // success             
           });
           
        }); //document.ready
@@ -390,8 +368,7 @@ table {
              var winHeight = 600;
              var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
             window.open(url,"",popupOption);
-          }
-       
+       }
     </script>  
        
 
@@ -412,7 +389,7 @@ table {
                   <p class="card-text">                  
                   <div id="mpageInfo" name="mpageInfo" align="center">
                     <div class="col-sm-10">                  
-                       <input type="text" readonly id="name" class="form-control" name="username" style="width:100px;">                       
+                       <input type="text" readonly id="name" class="form-control" name="username" style="width:100px; text-align:center;">                       
                     </div> 
                      <br>
                      <br>    
@@ -420,7 +397,7 @@ table {
                      <input type="file" id="pimg" name="pimg" accept="image/*">
                      <input type="hidden" id="imguserid" name="imguserid" value="<%= headeruser.getUser_Id() %>">
                      <br>
-                     <input type="submit" id="imgbtn" value="프사업로드">
+                     <input type="submit" class="btn btn-outline-dark text-dark" id="imgbtn" value="프사업로드">
                      </form>        
                      <br>
                      <br>
@@ -440,17 +417,22 @@ table {
                                  onclick="location.href='/hifive/views/user/changePW.jsp'"></th>
                         </tr>
                      </table>
-                     <br>
-                        <form action="/hifive/userdelete?userid=<%=userId %>" method="post">
+                     <br>                        
                         <table>
                            <tr>
                                <th>                              	                  
-                              	<input type="submit" class="btn btn-danger" style="width:200px;" id="deleteUser" value="회원 탈퇴">
-            			    
+                              	<a class="btn btn-danger" style="width:200px; color:white;" id="deleteUser" onclick="deleteUser();">회원 탈퇴</a>
             			     </th>
                            </tr>
-                        </table>
-                      </form>                         
+                        </table>        
+                        <script>
+	                        function deleteUser(){
+	                        	var result = confirm("정말 탈퇴하시겠습니까?");
+	                     	   if(result){
+	                     		   $("#deleteUser").attr("href", "/hifive/userdelete?userid=<%=userId %>");
+	                     	   }
+	                        } //deleteUser
+                        </script>                                      
                   </div>                  
                </div>
             </div>
@@ -704,8 +686,7 @@ table {
                      <textarea class="form-control" id="introduction" name="introduction" rows="5" cols="90" placeholder="자기소개를 작성해주세요"></textarea>                                      
                      <br>   
                       <center>              
-                     <input type="submit" class="btn btn-primary-sm" style="width:100px;" value="수정" id="updateinfo">&nbsp;&nbsp;
-                     <input type="reset" class="btn btn-primary-sm" style="width:100px;" value="초기화">   
+                     <input type="submit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정" id="updateinfo">&nbsp;&nbsp;
                      </center>
                </div>
             </div>
@@ -716,11 +697,11 @@ table {
                <center>
                <a href="#myhome"><input type="button" class="btn btn-outline-info" value="My Home" style="width: 160px;"></a>
                &nbsp;&nbsp;&nbsp;&nbsp;
+               <a href="#photo"><input type="button" class="btn btn-outline-info" value="Photos" style="width: 160px;"></a>
+               &nbsp;&nbsp;&nbsp;&nbsp;
                <a href="#surfer"><input type="button" class="btn btn-outline-info" value="Surfer" style="width: 160px;"></a>
                &nbsp;&nbsp;&nbsp;&nbsp;
                <a href="#partner"><input type="button" class="btn btn-outline-info" value="Partner" style="width: 160px;"></a>
-               &nbsp;&nbsp;&nbsp;&nbsp;
-               <a href="#photo"><input type="button" class="btn btn-outline-info" value="Photos" style="width: 160px;"></a>
                </center>
             </div>
             
@@ -825,8 +806,8 @@ table {
                   <br>  
                                   
                   <center>
-                   <input type="submit" id="hsubmit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;
-                   <input type="reset" id="hreset" class="btn btn-primary-sm" style="width:100px;" value="초기화">   
+                   <input type="submit" id="hsubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정">&nbsp;&nbsp; 
+                   <input type="reset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화">
                   </center>
                </div>
              </div>
@@ -844,7 +825,7 @@ table {
                		  <div class="card" style="width: 225px;">
 					  <img id="output1" width="225px" src="" height="240px" >
 					  <div class="card-body">
-					  <p class="card-text"><input type="file" id="photo1" name="photo1" accept="image/*" onchange="loadFile1(event)"></p>				  
+					  <p class="card-text"><input type="file" id="photo1" name="photo1" accept="image/*" onchange="loadFile1(event)"><p>				  
 					  </div>					 
 					  </div>
 				      </td>
@@ -868,7 +849,7 @@ table {
 					  </table>
 					  <center>
 					  <br>
-					  <input type="submit" id="photosubmit" class="btn btn-primary" value="사진 등록하기">
+					  <input type="submit" id="photosubmit" class="btn btn-outline-dark text-dark" value="사진 등록">
 					  </center>
 				
 					<script>
@@ -924,8 +905,8 @@ table {
                  
                   <br>
                   <center>
-                    <input type="submit" id="ssubmit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;
-                    <input type="reset" id="sreset" class="btn btn-primary-sm" style="width:100px;" value="초기화">   
+                    <input type="submit" id="ssubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정">&nbsp;&nbsp; 
+                    <input type="reset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화"> 
                   </center>
                </div>
               </div>
@@ -966,8 +947,8 @@ table {
                   <br>
                  
                   <center>
-                   <input type="submit" id="psubmit" class="btn btn-primary-sm" style="width:100px;" value="수정">&nbsp;&nbsp;
-                   <input type="reset" id="preset" class="btn btn-primary-sm" style="width:100px;" value="초기화">   
+                   <input type="submit" id="psubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정">&nbsp;&nbsp;
+                   <input type="reset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화">
                   </center>
                </div>
             </div>

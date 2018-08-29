@@ -79,9 +79,7 @@ text-align: left;
 	        		 check += ",";
 			check += $(this).val();
 	         })
-	         var sleeping = $("#sleeping option:selected").val();
-	         if($("#noneS"))
-	        	 alert('숙소를 확인해주세요!');
+	         var sleeping = $("#sleeping option:selected").val();	         
 	         var destination = $("#destination").val();
 	         if(destination == null)
 	        	 alert('목적지를 확인해주세요!');

@@ -37,9 +37,8 @@ public class HostEnrollServlet extends HttpServlet {
 		Host host = new Host();
 		host.setUser_id(request.getParameter("userid"));
 		host.setUser_num(Integer.parseInt(request.getParameter("num")));
-		host.setP_gender(request.getParameter("gender"));
-		
-		if(request.getParameter("poissble")==null)
+		host.setP_gender(request.getParameter("gender"));		
+		if(request.getParameter("possible") == null)
 			host.setCheck1("해당없음");
 		else
 			host.setCheck1(String.join(",", request.getParameterValues("possible")));
@@ -47,6 +46,7 @@ public class HostEnrollServlet extends HttpServlet {
 		host.setCheck2(request.getParameter("sleeping"));
 		host.setCity(request.getParameter("hostcity"));
 		host.setContent(request.getParameter("hostetc"));
+		System.out.println(request.getParameter("possible"));
 		
 		RequestDispatcher view = null;
 		
@@ -54,7 +54,7 @@ public class HostEnrollServlet extends HttpServlet {
 			int result = new HostService().insertHost(host);
 			
 			if(result > 0){
-				response.sendRedirect("/hifive/main.jsp");
+				response.sendRedirect("/hifive/views/user/mypage.jsp");
 			}else{
 	    		view = request.getRequestDispatcher("");
 		        request.setAttribute("message", "수정 실패");

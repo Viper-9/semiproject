@@ -22,46 +22,36 @@
 <title>join</title>
 
 <style type="text/css">
-header {
-	margin: 5px;
-	padding: 10px;
-	width: 1000px;
-}
-
-.manubar {
-	width: 300px;
-	position: relative;
-	left: 73%;
-}
-
-.manunav {
-	width: 400px;
-	position: relative;
-}
-
-.messagelist {
-	width: 45px;
-	height: 40px; 
-}
-
-.profileimg {
-	width: 45px;
-	height: 45px;
-}
-
-.dropdown {
-	transition: all 0.5s;
-	-webkit-transition: all 0.5s; 
-}
-
-.dropdownMenuLink:hover {
-	text-shadow:2px 2px #ff0000;
-}
-
-.dropdown:hover .dropdown-menu {
-	display: block;
-}
- 
+	header {
+		margin: 5px;
+		padding: 10px;
+		width: 1000px;
+	}
+	
+	.manubar {
+		width: 300px;
+		position: relative;
+		left: 73%;
+	}
+	
+	.manunav {
+		width: 400px;
+		position: relative;
+	}
+	
+	.messagelist {
+		width: 45px;
+		height: 40px; 
+	}
+	
+	.profileimg {
+		width: 45px;
+		height: 45px;
+	}	
+	
+	.dropdownMenuLink:hover {
+		text-shadow:2px 2px #ff0000;
+	} 	
 </style>
 <script src="/hifive/resources/js/jquery-3.3.1.min.js" ></script>
 <script type="text/javascript">
