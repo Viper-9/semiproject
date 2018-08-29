@@ -22,33 +22,36 @@
 <title>join</title>
 
 <style type="text/css">
-header {
-	margin: 5px;
-	padding: 10px;
-	width: 1000px;
-}
-
-.manubar {
-	width: 300px;
-	position: relative;
-	left: 73%;
-}
-
-.manunav {
-	width: 400px;
-	position: relative;
-}
-
-.messagelist {
-	width: 45px;
-	height: 40px; 
-}
-
-.profileimg {
-	width: 45px;
-	height: 45px;
-}
- 
+	header {
+		margin: 5px;
+		padding: 10px;
+		width: 1000px;
+	}
+	
+	.manubar {
+		width: 300px;
+		position: relative;
+		left: 73%;
+	}
+	
+	.manunav {
+		width: 400px;
+		position: relative;
+	}
+	
+	.messagelist {
+		width: 45px;
+		height: 40px; 
+	}
+	
+	.profileimg {
+		width: 45px;
+		height: 45px;
+	}	
+	
+	.dropdownMenuLink:hover {
+		text-shadow:2px 2px #ff0000;
+	} 	
 </style>
 <script src="/hifive/resources/js/jquery-3.3.1.min.js" ></script>
 <script type="text/javascript">
@@ -75,7 +78,7 @@ header {
 			data : { uid : userid },
 			dataType : "json",			
 			success : function(data){
-				console.log(data.result);
+				/* console.log(data.result); */
 				if(data.result == '1'){							
 					$('#msg').attr("src", "/hifive/resources/image/micon_new.jpg");
 				} else{
@@ -125,7 +128,7 @@ header {
 								<div class="dropdown" id="support">
 									<a class="btn dropdown-toggle p-3 mb-2 bg-white text-dark font-weight-bold" href="#"
 										role="button" id="dropdownMenuLink" data-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false"> ... </a>
+										aria-haspopup="true" aria-expanded="false"> menu </a>
 
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<a class="dropdown-item" href="/hifive/noticelist">공지사항</a> 

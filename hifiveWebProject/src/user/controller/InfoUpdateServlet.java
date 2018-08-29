@@ -49,7 +49,8 @@ public class InfoUpdateServlet extends HttpServlet {
 		user.setNationality(request.getParameter("countries"));
 		user.setJob(request.getParameter("job"));		
 		user.setPhone(request.getParameter("phone"));
-		user.setHobby(String.join(",", request.getParameterValues("hobby")));
+		if(request.getParameter("hobby") != null)
+	         user.setHobby(String.join(",", request.getParameterValues("hobby")));
 		user.setContent(request.getParameter("introduction"));		
 		
 

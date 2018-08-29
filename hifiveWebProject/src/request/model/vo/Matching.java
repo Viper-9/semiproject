@@ -9,17 +9,17 @@ public class Matching implements java.io.Serializable {
 	private String user1;
 	private String user2;
 	private String type;
-	private Date matching_Date;
+	private String process;
 	
 	public Matching(){}
 
-	public Matching(int matching_no, String user1, String user2, String type, Date matching_Date) {
+	public Matching(int matching_no, String user1, String user2, String type, String process) {
 		super();
 		this.matching_no = matching_no;
 		this.user1 = user1;
 		this.user2 = user2;
 		this.type = type;
-		this.matching_Date = matching_Date;
+		this.process = process;
 	}
 
 	public int getMatching_no() {
@@ -54,12 +54,12 @@ public class Matching implements java.io.Serializable {
 		this.type = type;
 	}
 
-	public Date getMatching_Date() {
-		return matching_Date;
+	public String getProcess() {
+		return process;
 	}
 
-	public void setMatching_Date(Date matching_Date) {
-		this.matching_Date = matching_Date;
+	public void setProcess(String process) {
+		this.process = process;
 	}
 
 	public static long getSerialversionuid() {
@@ -69,7 +69,7 @@ public class Matching implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "Matching [matching_no=" + matching_no + ", user1=" + user1 + ", user2=" + user2 + ", type=" + type
-				+ ", matching_Date=" + matching_Date + "]";
+				+ ", process=" + process + "]";
 	}
 
 }

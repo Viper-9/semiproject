@@ -42,11 +42,17 @@
                <tbody>
                
                 <tr>                
-                    <td class="text-right" style="width:100px"><a href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a></td>
+                    <td class="text-right" style="width:100px"><a href="/hifive/views/support/safety.jsp" id = "checkemer" class="card-link">안전유의사항</a></td>
                     <% if(infoUser.getSafety_check().toUpperCase().equals("N")) { %>
                     <td class="text-left mx-auto" style="width:40px" id="11b" >
                     <img src="/hifive/resources/image/uncheck.png" width="18px" height="18px"></td>
-                    
+                    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href = "/hifive/views/support/tutorial.jsp">
+                    <font style = "color:#ff6633; font-size: 10pt">
+							<b>처음 이신가요?</b>
+					</font>
+					</a>
+					</td></tr>
                     <% } else { %>
                     <td class="text-left mx-auto" style="width:40px" id="11b" >
                     <img src="/hifive/resources/image/check.png" width="18px" height="18px"></td> 
@@ -54,18 +60,7 @@
                 </tr> 
                    
                </tbody>
-            </table>
-					
-					
-					
-				
-					
-					
-					
-					
-					
-					
-					
+            </table>		
 					</div>
 				</div>
 </body>

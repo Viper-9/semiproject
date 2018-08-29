@@ -137,7 +137,7 @@
 		        
 		        var m_host = "";   		        
 		        if(Object.keys(json.surfer) == 0){
-		        	m_host += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
+		        	m_host += "<tr><td colspan='4'><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>예정된 여행이 없습니다.</b></td></tr>";
 	               $("#m_host").html($("#m_host").html()+m_host);   
 	            } else{	            	
 	            	m_host += "<tr><td style='font-weight:bold;'>Host</td><td>";
@@ -146,14 +146,14 @@
 		            
 	            	m_host += "</td><td>" + json.surfer.user_name + "</td><td>" 
 	  			    + json.surfer.start_date + " ~ " + json.surfer.end_date + "</td><td>"
-	  			    + "<a href='/hifive/myplandelete?matchingno=" + json.surfer.matching_no +"'>취소</a>" +"</td></tr>"; 
+	  			    + "<a href='/hifive/myplandelete?matchingno=" + json.surfer.matching_no +"'><font color='red'><b>취소</b></font></a>" +"</td></tr>"; 
 	  			    valueAll += m_host;
 	               $("#m_host").html($("#m_host").html()+m_host); 	               
 	            }
 
 		        var m_surfer = "";   		        
 		        if(Object.keys(json.host) == 0){
-		        	m_surfer += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
+		        	m_surfer += "<tr><td colspan='4'><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>예정된 여행이 없습니다.</b></td></tr>";
 	               $("#m_surfer").html($("#m_surfer").html()+m_surfer);   
 	            } else{
 	            	m_surfer += "<tr><td style='font-weight:bold;'>Surfer</td><td>";
@@ -162,14 +162,14 @@
 		            
 	            	m_surfer += "</td><td>" + json.host.user_name + "</td><td>" 
 	  			    + json.host.start_date + " ~ " + json.host.end_date + "</td><td>"
-	  			  	+ "<a href='/hifive/myplandelete?matchingno=" + json.host.matching_no +"'>취소</a>" +"</td></tr>"; 
+	  			  	+ "<a href='/hifive/myplandelete?matchingno=" + json.host.matching_no +"'><font color='red'><b>취소</b></font></a>" +"</td></tr>"; 
 	  			  valueAll += m_surfer;
 	               $("#m_surfer").html($("#m_surfer").html()+m_surfer);   
 	            }
 	        
 		        var m_partner = "";   		        
 		        if(Object.keys(json.partner) == 0){
-		        	m_partner += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
+		        	m_partner += "<tr><td colspan='4'><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>예정된 여행이 없습니다.</b></td></tr>";
 	               $("#m_partner").html($("#m_partner").html()+m_partner);   
 	            } else{
 	            	m_partner += "<tr><td style='font-weight:bold;'>Partner</td><td>";
@@ -177,13 +177,13 @@
 	          			   +"'><img src='resources/profileUpfiles/" + json.partner.image + "' alt='' class='rounded-circle' title='프로필로 이동'>";
 		            m_partner += "</td><td>" + json.partner.user_name + "</td><td>" 
 	  			    + json.partner.start_date + " ~ " + json.partner.end_date + "</td><td>"
-	  			  	+ "<a href='/hifive/myplandelete?matchingno=" + json.partner.matching_no +"'>취소</a>" +"</td></tr>"; 
+	  			  	+ "<a href='/hifive/myplandelete?matchingno=" + json.partner.matching_no +"'><font color='red'><b>취소</b></font></a>" +"</td></tr>"; 
 	  			  valueAll += m_partner;
 	               $("#m_partner").html($("#m_partner").html()+m_partner); 
 	            }
 		        
 		        if(valueAll==""){
-		        	valueAll += "<tr><td colspan='4'>예정된 여행이 없습니다.</td></tr>";
+		        	valueAll += "<tr><td colspan='4'><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>예정된 여행이 없습니다.</b></td></tr>";
 		        	$("#m_all").html($("#m_all").html()+valueAll);
 		        } else{
 		        	$("#m_all").html($("#m_all").html()+valueAll); // 모든 여행 정보
@@ -209,9 +209,9 @@
 	            var values1 = "";
 	            if(json.list_h2.length == 0){
 	            	if(json.m_host==1){
-	            		values1 += "이미 매칭이 되었습니다";
+	            		values1 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
 	            	} else{
-	            		values1 += "신청 내역이 없습니다.";
+	            		values1 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
 	               $("#h1").html($("#h1").html()+values1);   
 	            } else{
@@ -219,10 +219,10 @@
 	            		values1 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_h2[i].user_id 
 		            			   +"'><img src='resources/profileUpfiles/" + json.list_h2[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
 		            	
-	            		values1 += "</td><td>" + json.list_h2[i].user_name
-		            	+ "</td><td>" + json.list_h2[i].start_date + " ~ " + json.list_h2[i].end_date
-		            	+"</td><td><a href='/hifive/requestaccept?request_no=" + json.list_h2[i].request_no + "'>수락</a> &nbsp;"
-		            	+"</td><td><a href='/hifive/requestrefuse?request_no=" + json.list_h2[i].request_no +"'>거절</a>"
+	            		values1 += "</td><td><small><b>" + json.list_h2[i].user_name
+		            	+ "</b></small></td><td><small>" + json.list_h2[i].start_date + "~" + json.list_h2[i].end_date
+		            	+"</small></td><td><a href='/hifive/requestaccept?request_no=" + json.list_h2[i].request_no + "'><small><b>수락</b></small></a>"
+		            	+"</td><td><a href='/hifive/requestrefuse?request_no=" + json.list_h2[i].request_no +"'><small><font color='red'><b>거절</b></font></small></a>"
 		            	+ "</td></tr><br>";
 		           	}                               
 	               	$("#h1").html($("#h1").html()+values1);               
@@ -231,9 +231,9 @@
 	            var values4 = "";    
 	            if(json.list_s1.length == 0){
 	            	if(json.m_host==1){
-	            		values4 += "이미 매칭이 되었습니다";
+	            		values4 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
 	            	} else{
-	            		values4 += "신청 내역이 없습니다.";
+	            		values4 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
 	               $("#h2").html($("#h2").html()+values4);
 	            } else{               
@@ -241,9 +241,9 @@
 		               values4 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_s1[i].r_user_id 
         			   +"'><img src='resources/profileUpfiles/" + json.list_s1[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
 		              
-		              values4 += "</td><td>" + json.list_s1[i].user_name
-		              + "</td><td>" + json.list_s1[i].start_date + " ~ " + json.list_s1[i].end_date
-		              +"</td><td><a href='/hifive/requestdelete?request_no=" + json.list_s1[i].request_no + "'>취소</a>"
+		              values4 += "</td><td><small><b>" + json.list_s1[i].user_name
+		              + "</b></small></td><td><small>" + json.list_s1[i].start_date + " ~ " + json.list_s1[i].end_date
+		              +"</small></td><td><a href='/hifive/requestdelete?request_no=" + json.list_s1[i].request_no + "'><small><font color='red'><b>취소</b></font></small></a>"
 		              +"</td></tr><br>";
 		            }                                 
 	               $("#h2").html($("#h2").html()+values4);               
@@ -253,9 +253,9 @@
 	            var values3 = "";
 	            if(json.list_s2.length == 0){
 	            	if(json.m_surfer==1){
-	            		values3 += "이미 매칭이 되었습니다";
+	            		values3 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
 	            	} else{
-	            		values3 += "신청 내역이 없습니다.";
+	            		values3 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
 	               $("#s1").html($("#s1").html()+values3);   
 	            } else{               
@@ -263,10 +263,10 @@
 		          	 values3 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_s2[i].user_id 
 	        			   +"'><img src='resources/profileUpfiles/" + json.list_s2[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
 		          	   
-		          	 values3 += "</td><td>" + json.list_s2[i].user_name
-		          	   + "</td><td>" + json.list_s2[i].start_date + " ~ " + json.list_s2[i].end_date
-		          	   +"</td><td><a href='/hifive/requestaccept?request_no=" + json.list_s2[i].request_no + "'>수락</a> &nbsp;"
-		          	   +"</td><td><a href='/hifive/requestrefuse?request_no=" + json.list_s2[i].request_no +"'>거절</a>"
+		          	 values3 += "</td><td><small><b>" + json.list_s2[i].user_name
+		          	   + "</b></small></td><td><small>" + json.list_s2[i].start_date + " ~ " + json.list_s2[i].end_date
+		          	   +"</small></td><td><a href='/hifive/requestaccept?request_no=" + json.list_s2[i].request_no + "'><small><b>수락</b></small></a>;"
+		          	   +"</td><td><a href='/hifive/requestrefuse?request_no=" + json.list_s2[i].request_no +"'><small><font color='red'><b>거절</b></font></small></a>"
 		          	   + "</td></tr><br>";
 		            }                              
 	               $("#s1").html($("#s1").html()+values3);               
@@ -275,9 +275,9 @@
 	            var values2 = "";                        
 	            if(json.list_h1.length == 0){
 	            	if(json.m_surfer==1){
-	            		values2 += "이미 매칭이 되었습니다";
+	            		values2 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
 	            	} else{
-	            		values2 += "신청 내역이 없습니다.";
+	            		values2 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
 	               $("#s2").html($("#s2").html()+values2);   
 	            } else{               
@@ -285,9 +285,9 @@
 	            	   values2 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_h1[i].r_user_id 
             			   +"'><img src='resources/profileUpfiles/" + json.list_h1[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;           			   
 	            	   
-	            	   values2 += "</td><td>" + json.list_h1[i].user_name
-	            	   + "</td><td>" + json.list_h1[i].start_date + " ~ " + json.list_h1[i].end_date
-	            	   +"</td><td><a href='/hifive/requestdelete?request_no=" + json.list_h1[i].request_no + "'>취소</a>"
+	            	   values2 += "</td><td><small><b>" + json.list_h1[i].user_name
+	            	   + "</b></small></td><td><small>" + json.list_h1[i].start_date + " ~ " + json.list_h1[i].end_date
+	            	   +"</small></td><td><a href='/hifive/requestdelete?request_no=" + json.list_h1[i].request_no + "'><small><font color='red'><b>취소</b></font></small></a>"
 	            	   +"</td></tr><br>";
 	               }                  
 	               $("#s2").html($("#s2").html()+values2);               
@@ -296,9 +296,9 @@
 	            var values5 = "";
 	            if(json.list_p2.length == 0){
 	            	if(json.m_partner==1){
-	            		values5 += "이미 매칭이 되었습니다";
+	            		values5 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
 	            	} else{
-	            		values5 += "신청 내역이 없습니다.";
+	            		values5 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
 	               $("#p1").html($("#p1").html()+values5);   
 	            } else{               
@@ -306,10 +306,10 @@
 		           	    values5 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_p2[i].user_id 
 	        			   +"'><img src='resources/profileUpfiles/" + json.list_p2[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
 		           	   
-		           		values5 += "</td><td>" + json.list_p2[i].user_name
-		           	   + "</td><td>" + json.list_p2[i].start_date + " ~ " + json.list_p2[i].end_date
-		           	   +"</td><td><a href='/hifive/requestaccept?request_no=" + json.list_p2[i].request_no + "'>수락</a> &nbsp;"
-		           	   +"</td><td><a href='/hifive/requestrefuse?request_no=" + json.list_p2[i].request_no +"'>거절</a>"
+		           		values5 += "</td><td><small><b>" + json.list_p2[i].user_name
+		           	   + "</b></small></td><td><small>" + json.list_p2[i].start_date + " ~ " + json.list_p2[i].end_date
+		           	   +"</small></td><td><a href='/hifive/requestaccept?request_no=" + json.list_p2[i].request_no + "'><small>수락</small></a> &nbsp;"
+		           	   +"</td><td><a href='/hifive/requestrefuse?request_no=" + json.list_p2[i].request_no +"'><small><font color='red'><b>거절</b></font></small></a>"
 		           	   + "</td></tr><br>";
 		            }                                                         
 	               $("#p1").html($("#p1").html()+values5);               
@@ -318,9 +318,9 @@
 	            var values6 = "";                        
 	            if(json.list_p1.length == 0){
 	            	if(json.m_partner==1){
-	            		values6 += "이미 매칭이 되었습니다";
+	            		values6 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
 	            	} else{
-	            		values6 += "신청 내역이 없습니다.";
+	            		values6 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
 	               $("#p2").html($("#p2").html()+values6);   
 	            } else{               
@@ -328,9 +328,9 @@
 	            	   values6 += "<tr><td><a href='/hifive/profileinfo?userid=" + json.list_p1[i].r_user_id 
 	        			   +"'><img src='resources/profileUpfiles/" + json.list_p1[i].image +"' alt='' class='rounded-circle' title='프로필로 이동'></a>" ;
 	            	   
-	            	   values6 += "</td><td>" + json.list_p1[i].user_name
-	            	   + "</td><td>" + json.list_p1[i].start_date + " ~ " + json.list_p1[i].end_date
-	            	   +"</td><td><a href='/hifive/requestdelete?request_no=" + json.list_p1[i].request_no + "'>취소</a>"
+	            	   values6 += "</td><td><small><b>" + json.list_p1[i].user_name
+	            	   + "</b></small></td><td><small>" + json.list_p1[i].start_date + " ~ " + json.list_p1[i].end_date
+	            	   +"</small></td><td><a href='/hifive/requestdelete?request_no=" + json.list_p1[i].request_no + "'><small><font color='red'><b>취소</b></font></small></a>"
 	            	   +"</td></tr><br>";
 	               }                  
 	               $("#p2").html($("#p2").html()+values6);               
@@ -382,7 +382,7 @@
 				<div class="card-deck">
 					<div class="card">
 						<img class="card-img-top"
-							src="/hifive/resources/image/sample10.jpg" alt="Card image cap">
+							src="/hifive/resources/image/couch5.jpg"" alt="Card image cap">
 						<div class="card-body">
 							<h5 class="card-title">HOST</h5>
 							<p class="card-text">This is a longer card with supporting
@@ -395,7 +395,7 @@
 					</div>
 					<div class="card">
 						<img class="card-img-top"
-							src="/hifive/resources/image/sample11.jpg" alt="Card image cap">
+							src="/hifive/resources/image/couch5.jpg"" alt="Card image cap">
 						<div class="card-body">
 							<h5 class="card-title">SURFER</h5>
 							<p class="card-text">This card has supporting text below as a
@@ -407,7 +407,7 @@
 					</div>
 					<div class="card">
 						<img class="card-img-top"
-							src="/hifive/resources/image/sample12.jpg" alt="Card image cap">
+							src="/hifive/resources/image/couch5.jpg" alt="Card image cap">
 						<div class="card-body">
 							<h5 class="card-title">PARTNER</h5>
 							<p class="card-text">This is a wider card with supporting
@@ -455,17 +455,17 @@
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item"><a class="nav-link active" id="all-tab"
 						data-toggle="tab" href="#all" role="tab" aria-controls="all"
-						aria-selected="true">모든 여행 정보</a></li>
+						aria-selected="true"><b>모든 여행 정보</b></a></li>
 					<li class="nav-item"><a class="nav-link" id="hostlist-tab"
 						data-toggle="tab" href="#hostlist" role="tab"
-						aria-controls="hostlist" aria-selected="false">Host 매칭 정보</a></li>
+						aria-controls="hostlist" aria-selected="false"><b>Host 매칭 정보</b></a></li>
 					<li class="nav-item"><a class="nav-link" id="surferlist-tab"
 						data-toggle="tab" href="#surferlist" role="tab"
-						aria-controls="surferlist" aria-selected="false">Surfer 매칭 정보</a></li>
+						aria-controls="surferlist" aria-selected="false"><b>Surfer 매칭 정보</b></a></li>
 					<li class="nav-item"><a class="nav-link" id="partnerlist-tab"
 						data-toggle="tab" href="#partnerlist" role="tab"
-						aria-controls="partnerlist" aria-selected="false">Partner 매칭
-							정보</a></li>
+						aria-controls="partnerlist" aria-selected="false"><b>Partner 매칭
+							정보</b></a></li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active" id="all" role="tabpanel"
@@ -541,36 +541,36 @@
 			</div>
 
 			<div id="content4">
-				<div id="intro0" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">나에게 호스트를 요청한 목록</h6>
-					<div class="card-body3" style="height:150px; overflow:scroll;">
+				<div id="intro0" class="card border-light mb-3" style="width: 365px;">
+					<h6 class="card-header bg-transparent border-top" id="card_info"><b>나에게 호스트를 요청한 목록</b></h6>
+					<div class="card-body3 border-bottom" style="height:150px; overflow-y:auto">
 						<table class="table-sm">
-							<tbody id='h1'> </tbody>
+							<tbody id='h1'></tbody>
 						</table>
 					</div>
 				</div>
 
-				<div id="intro" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">내가 서퍼에게 요청한 목록</h6>
-					<div class="card-body3" style="height:150px; overflow:scroll;">
+				<div id="intro" class="card border-light mb-3" style="width: 365px;">
+					<h6 class="card-header bg-transparent border-top" id="card_info"><b>내가 서퍼에게 요청한 목록</b></h6>
+					<div class="card-body3 border-bottom" style="height:150px; overflow-y:auto">
 						<table class="table-sm">
 							<tbody id='h2'> </tbody>
 						</table>
 					</div>
 				</div>
 				<br>
-				<div id="intro0" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">나에게 서퍼를 요청한 목록</h6>
-					<div class="card-body3" style="height:150px; overflow:scroll;">
+				<div id="intro0" class="card border-light mb-3" style="width: 365px;">
+					<h6 class="card-header bg-transparent border-top" id="card_info"><b>나에게 서퍼를 요청한 목록</b></h6>
+					<div class="card-body3 border-bottom" style="height:150px; overflow-y:auto">
 						<table class="table-sm">
 							<tbody id='s1'> </tbody>
 						</table>
 					</div>
 				</div>
 
-				<div id="intro" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">내가 호스트에게 요청한 목록</h6>
-					<div class="card-body3" style="height:150px; overflow:scroll;">
+				<div id="intro" class="card border-light mb-3" style="width: 365px;">
+					<h6 class="card-header bg-transparent border-top" id="card_info"><b>내가 호스트에게 요청한 목록</b></h6>
+					<div class="card-body3 border-bottom" style="height:150px; overflow-y:auto">
 						<table class="table-sm">
 							<tbody id='s2'>	</tbody>
 						</table>
@@ -578,18 +578,18 @@
 				</div>
 				<br>
 
-				<div id="intro0" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">나에게 파트너 요청한 목록</h6>
-					<div class="card-body3" style="height:150px; overflow:scroll;">
+				<div id="intro0" class="card border-light mb-3" style="width: 365px;">
+					<h6 class="card-header bg-transparent border-top" id="card_info"><b>나에게 파트너 요청한 목록</b></h6>
+					<div class="card-body3 border-bottom" style="height:150px; overflow-y:auto">
 						<table class="table-sm">
 							<tbody id='p1'> </tbody>
 						</table>
 					</div>
 				</div>
 
-				<div id="intro" class="card" style="width: 365px;">
-					<h6 class="card-header" id="card_info">내가 파트너 요청한 목록</h6>
-					<div class="card-body3" style="height:150px; overflow:scroll;">
+				<div id="intro" class="card border-light mb-3" style="width: 365px;">
+					<h6 class="card-header bg-transparent border-top" id="card_info"><b>내가 파트너 요청한 목록</b></h6>
+					<div class="card-body3 border-bottom" style="height:150px; overflow-y:auto">
 						<table class="table-sm">
 							<tbody id='p2'> </tbody>
 						</table>

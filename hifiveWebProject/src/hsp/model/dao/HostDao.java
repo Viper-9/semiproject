@@ -23,7 +23,7 @@ public class HostDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String query = "select * from host where user_id = ? and process='P'";		
+		String query = "select * from host where user_id = ? and process not in 'C'";		
 
 		
 		try{
