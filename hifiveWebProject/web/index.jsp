@@ -29,13 +29,19 @@
    .box1{
       width: 140px;
       position: relative;
-      left: 95%;      
+      left: 140%;      
+   }
+     .box2{
+     
+      position: relative;
+      left: 47%;      
    }
    header{
-          margin: 5px;
+          margin: 0px;
+           padding: 0px;
           padding: 10px;
            width: 1000px;
-           
+            
        }
       
 </style>
@@ -50,15 +56,80 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script src="/hifive/resources/js/bootstrap.min.js"></script>
+	
+	<header>
+			
+			<img src="/hifive/resources/image/logo.png"
+				class="rounded mx-auto d-block box2" alt="로고">
+
+
+			<nav class="box1">
+				<!-- <p>box1</p> -->
+				<button class="btn btn-outline-dark btn-sm border-0" data-toggle="modal" data-target="#join"
+					title="회원가입">&nbsp;&nbsp;Join&nbsp;&nbsp;</button> &nbsp;
+				<button class="btn btn-outline-dark btn-sm border-0" data-toggle="modal" data-target="#login"
+					title="로그인">Log-in</button>
+			</nav>
+
+		</header>
+
+	
+	
+	<div id="carouselExampleIndicators" class="carousel slide"
+						data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#carouselExampleIndicators" data-slide-to="0"
+								class="active"></li>
+							<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+							<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+						</ol>
+						<div class="carousel-inner" style="height:750px;">
+							<div class="carousel-item active">
+								<img class="d-block w-100"
+									src="/hifive/resources/image/index1.jpg" alt="First slide">
+								<div class="carousel-caption d-none d-md-block">
+									<h5></h5>
+									<p></p>
+								</div>
+
+							</div>
+							<div class="carousel-item">
+								<img class="d-block w-100"
+									src="/hifive/resources/image/index2.jpg" alt="Second slide">
+								<div class="carousel-caption d-none d-md-block">
+									<h5></h5>
+									<p></p>
+								</div>
+							</div>
+							<!-- <div class="carousel-item">
+								<img class="d-block w-100"
+									src="/hifive/resources/image/sample2.jpg" alt="Third slide">
+								<div class="carousel-caption d-none d-md-block">
+									<h5>세번째 슬라이드 사진</h5>
+									<p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+								</div>
+							</div> -->
+						</div>
+
+						<a class="carousel-control-prev" href="#carouselExampleIndicators"
+							role="button" data-slide="prev"> <span
+							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="sr-only">Previous</span>
+						</a> <a class="carousel-control-next"
+							href="#carouselExampleIndicators" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
 
 	<div class="container">
-		<header>
+		<!-- <header>
 			<img src="/hifive/resources/image/logo.png"
 				class="rounded mx-auto d-block" alt="로고">
 
 
 			<nav class="box1">
-				<!-- <p>box1</p> -->
+				<p>box1</p>
 				<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#join"
 					title="회원가입">&nbsp;&nbsp;Join&nbsp;&nbsp;</button> &nbsp;
 				<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#login"
@@ -67,7 +138,7 @@
 
 		</header>
 
-		<hr>
+		<hr> -->
 		
 		<!-- 회원가입 Modal -->
 		<div class="modal fade" id="join" tabindex="-1"
@@ -140,7 +211,7 @@
 			<article>
 				<!-- <p>article</p> -->
 				<div>
-					<div id="carouselExampleIndicators" class="carousel slide"
+					<!-- <div id="carouselExampleIndicators" class="carousel slide"
 						data-ride="carousel">
 						<ol class="carousel-indicators">
 							<li data-target="#carouselExampleIndicators" data-slide-to="0"
@@ -185,7 +256,7 @@
 							<span class="carousel-control-next-icon" aria-hidden="true"></span>
 							<span class="sr-only">Next</span>
 						</a>
-					</div>
+					</div> -->
 
 
 
@@ -196,7 +267,7 @@
 					<div class="card-deck">
 						<div class="card">
 							<img class="card-img-top"
-								src="/hifive/resources/image/sample1.jpeg" alt="Card image cap">
+								src="/hifive/resources/image/couch10.png" alt="Card image cap">
 							<div class="card-body">
 								<h5 class="card-title">Host</h5>
 								<p class="card-text">This is a longer card with supporting
@@ -209,7 +280,7 @@
 						</div>
 						<div class="card">
 							<img class="card-img-top"
-								src="/hifive/resources/image/sample1.jpeg" alt="Card image cap">
+								src="/hifive/resources/image/couch1.jpg" alt="Card image cap">
 							<div class="card-body">
 								<h5 class="card-title">Surfer</h5>
 								<p class="card-text">This card has supporting text below as
