@@ -1,6 +1,7 @@
 package message.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,9 +46,12 @@ public class MessageSendServlet extends HttpServlet {
 			if(new MessageService().sendMessage(msg) > 0) {
 				response.sendRedirect("/hifive/views/message/messagePage.jsp?listno="+msg.getList_no()+"&uid="+msg.getSender()+"&rid="+rid);					
 			} else {
-				view = request.getRequestDispatcher("views/message/messageError.jsp");
-				request.setAttribute("message", "쪽지보내기 실패");
-				view.forward(request, response);
+				response.setContentType("text/html;charset=utf-8"); 
+				PrintWriter out= response.getWriter(); 
+				out.println("<script>");
+				out.println("alert('메세지를 입력해주세요');");
+				out.println("history.back();");
+				out.println("</script>");
 			}
 		} catch(Exception e){
 			view = request.getRequestDispatcher("views/message/messageError.jsp");
