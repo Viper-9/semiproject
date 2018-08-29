@@ -80,7 +80,7 @@ public class PhotoUploadServlet extends HttpServlet {
 		if (originalFileName1 != null) {
 			renameFileName1 = userid + "photo1." 
 					+ originalFileName1.substring(originalFileName1.lastIndexOf(".") + 1);
-
+			renameFileName1 = renameFileName1.toLowerCase();
 			// 파일명 바꾸려면 File 객체의 renameTo() 사용함
 			File originFile1 = new File(savePath + "\\" + originalFileName1);
 			File renameFile1 = new File(savePath + "\\" + renameFileName1);
@@ -116,7 +116,8 @@ public class PhotoUploadServlet extends HttpServlet {
 		if (originalFileName2 != null) {
 			renameFileName2 = userid + "photo2." 
 					+ originalFileName2.substring(originalFileName2.lastIndexOf(".") + 1);
-
+			
+			renameFileName2 = renameFileName2.toLowerCase();
 			// 파일명 바꾸려면 File 객체의 renameTo() 사용함
 			File originFile2 = new File(savePath + "\\" + originalFileName2);
 			File renameFile2 = new File(savePath + "\\" + renameFileName2);
@@ -152,7 +153,7 @@ public class PhotoUploadServlet extends HttpServlet {
 		if (originalFileName3 != null) {			
 			renameFileName3 = userid + "photo3." 
 					+ originalFileName3.substring(originalFileName3.lastIndexOf(".") + 1);
-
+			renameFileName3 = renameFileName3.toLowerCase();
 			// 파일명 바꾸려면 File 객체의 renameTo() 사용함
 			File originFile3 = new File(savePath + "\\" + originalFileName3);
 			File renameFile3 = new File(savePath + "\\" + renameFileName3);
