@@ -372,4 +372,52 @@ public class RequestDao {
 	    }
 		return role;
 	}
+
+	public String selectUser_Id(Connection con, int request_no) {
+		String user_id = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+	    String query = "select user_id from request where request_no =?";
+
+	    try{
+	    	pstmt = con.prepareStatement(query);
+	    	pstmt.setInt(1, request_no); 
+
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+				user_id = rset.getString(1);
+	    } catch(Exception e){
+		       
+	    } finally{
+	    	close(rset);
+	    	close(pstmt);
+	    }
+		return user_id;
+	}
+
+	public String selectR_User_Id(Connection con, int request_no) {
+		String r_user_id = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+	    String query = "select r_user_id from request where request_no =?";
+
+	    try{
+	    	pstmt = con.prepareStatement(query);
+	    	pstmt.setInt(1, request_no); 
+
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+				r_user_id = rset.getString(1);
+	    } catch(Exception e){
+		       
+	    } finally{
+	    	close(rset);
+	    	close(pstmt);
+	    }
+		return r_user_id;
+	}
 }

@@ -124,7 +124,20 @@ public class RequestService {
 	   close(con);
 	   return role;
    }
-
-
+   
+   // 요청번호로 user_id 아이디 가지고오기   
+   public String selectUser_Id(int request_no){
+	   Connection con = getConnection();
+	   String user1 = new RequestDao().selectUser_Id(con, request_no);
+	   close(con);
+	   return user1;
+   }
+   // 요청번호로 user2 아이디 가지고오기
+   public String selectR_User_Id(int request_no){
+	   Connection con = getConnection();
+	   String user2 = new RequestDao().selectR_User_Id(con, request_no);
+	   close(con);
+	   return user2;
+   }
 
 }

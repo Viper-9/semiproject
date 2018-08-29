@@ -17,7 +17,7 @@ public class MatchingDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from matching where user1 = ? and type='H'";
+		String query = "select * from matching where user1 = ? and type='H' and process='P'";
 
 		try{
 			pstmt = con.prepareStatement(query);
@@ -30,7 +30,7 @@ public class MatchingDao {
 				matching.setMatching_no(rset.getInt("matching_no"));
 				matching.setUser1(rset.getString("user1"));
 				matching.setUser2(rset.getString("user2"));
-				matching.setMatching_Date(rset.getDate("matching_date"));
+				matching.setProcess(rset.getString("process"));
 			}			
 		} catch(Exception e){
 			
@@ -47,7 +47,7 @@ public class MatchingDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from matching where user2 = ? and type='H'";
+		String query = "select * from matching where user2 = ? and type='H' and process='P'";
 
 		try{
 			pstmt = con.prepareStatement(query);
@@ -60,7 +60,7 @@ public class MatchingDao {
 				matching.setMatching_no(rset.getInt("matching_no"));
 				matching.setUser1(rset.getString("user1"));
 				matching.setUser2(rset.getString("user2"));
-				matching.setMatching_Date(rset.getDate("matching_date"));
+				matching.setProcess(rset.getString("process"));
 			}			
 		} catch(Exception e){
 			
@@ -76,7 +76,7 @@ public class MatchingDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from matching where (user1 = ? or user2 = ?) and type='P'";
+		String query = "select * from matching where (user1 = ? or user2 = ?) and type='P' and process='P'";
 
 		try{
 			pstmt = con.prepareStatement(query);
@@ -90,7 +90,7 @@ public class MatchingDao {
 				matching.setMatching_no(rset.getInt("matching_no"));
 				matching.setUser1(rset.getString("user1"));
 				matching.setUser2(rset.getString("user2"));
-				matching.setMatching_Date(rset.getDate("matching_date"));
+				matching.setProcess(rset.getString("process"));
 			}
 			
 		} catch(Exception e){
@@ -121,7 +121,7 @@ public class MatchingDao {
 				matching.setMatching_no(rset.getInt("matching_no"));
 				matching.setUser1(rset.getString("user1"));
 				matching.setUser2(rset.getString("user2"));
-				matching.setMatching_Date(rset.getDate("matching_date"));
+				matching.setProcess(rset.getString("process"));
 				matching.setType(rset.getString("type"));
 			}
 			
@@ -157,4 +157,5 @@ public class MatchingDao {
 		}
 		return result;
 	}
+
 }

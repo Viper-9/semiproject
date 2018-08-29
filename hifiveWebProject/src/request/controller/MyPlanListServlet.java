@@ -2,6 +2,7 @@ package request.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,11 +41,11 @@ public class MyPlanListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 매칭 목록
 		String userid = request.getParameter("userid");
-	
+
 		Matching m_host = new MatchingService().hostMatching(userid); // 내가 호스트일때, 서퍼 매칭 정보 찾음
 		Matching m_surfer = new MatchingService().surferMatching(userid); // 내가 서퍼일때, 호스트 매칭 정보 찾음
 		Matching m_partner = new MatchingService().partnerMatching(userid); // 파트너 매칭 정보 찾음
-	
+		
 		// 전송될 json 객체 선언 : 객체 하나만 내보낼 수 있음
 	    JSONObject json = new JSONObject();
 	    
