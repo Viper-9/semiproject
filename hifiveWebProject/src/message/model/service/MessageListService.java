@@ -81,4 +81,12 @@ public class MessageListService {
 		close(con);
 		return result;
 	}
+	
+	// 리스트 수
+	public int listCount(String userid) {
+		Connection con = getConnection();
+		int result = new MessageListDao().listCount(con, userid);
+		close(con);
+		return result;
+	}
 }

@@ -21,8 +21,8 @@
 
 body {
 	/* font-family: 'Hanna', sans-serif; */
-	/* font-family: NanumSquareWeb, sans-serif; */
-	font-family: 'Jeju Gothic', serif;
+	 font-family: NanumSquareWeb, sans-serif; 
+	/* font-family: 'Jeju Gothic', serif; */
 }
 	#msgpage {
 		width : 400px;
@@ -186,7 +186,6 @@ body {
 		});
 	});
 	
-	document.formtr.scrollIntoView(false);
 </script>
 </head>
 <body style="overflow:hidden">

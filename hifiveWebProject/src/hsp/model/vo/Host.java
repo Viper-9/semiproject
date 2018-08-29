@@ -127,7 +127,7 @@ public class Host implements java.io.Serializable {
 	public String toString(){
 		return this.user_id + ", " + this.user_num + ", " + this.p_gender + ", " + this.check1
 				 + ", " + this.check2 + ", " + this.content + ", " + this.process + ", " + this.city
-				 + this.image1 + ", " + this.image2 + ", " + this.image3;
+				 + ", " + this.image1 + ", " + this.image2 + ", " + this.image3;
 	}
 
 }

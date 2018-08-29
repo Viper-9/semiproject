@@ -125,6 +125,7 @@ public class MessageListDao {
 		} catch(Exception e){
 			e.printStackTrace();
 		} finally{
+			close(rset);
 			close(pstmt);
 		}
 		
@@ -231,6 +232,33 @@ public class MessageListDao {
 		} finally{
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int listCount(Connection con, String userid) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select count(list_no) from message_list "
+				+ "where user1=?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userid);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+				result = rset.getInt(1);
+
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally{
+			close(rset);
+			close(pstmt);
+		}
+		
 		return result;
 	}
 

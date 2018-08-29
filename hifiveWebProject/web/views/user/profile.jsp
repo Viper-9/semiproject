@@ -365,22 +365,6 @@
                </div>
             </div>
             <br>
-            <div id="infomenu" style="margin-left: 8px;">
-               <a href="#intro"><input type="button"
-                  class="btn btn-outline-info" value="Introduction"
-                  style="width: 110px;"></a>&nbsp; <a href="#myhome"><input
-                  type="button" class="btn btn-outline-info" value="My Home"
-                  style="width: 110px;"></a>&nbsp; <a href="#surfer"><input
-                  type="button" class="btn btn-outline-info" value="Surfer"
-                  style="width: 110px;"></a>&nbsp; <a href="#partner"><input
-                  type="button" class="btn btn-outline-info" value="Partner"
-                  style="width: 110px;"></a>&nbsp; <a href="#photo"><input
-                  type="button" class="btn btn-outline-info" value="Photos"
-                  style="width: 110px;"></a>&nbsp; <a href="#reference"><input
-                  type="button" class="btn btn-outline-info" value="References"
-                  style="width: 110px;"></a>
-            </div>
-            <br>
             <div id="intro" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Introduction</h6>
                <div class="card-body">
@@ -394,6 +378,17 @@
                </div>
             </div>
             <br>
+            <div id="infomenu" style="margin-left: 8px;">
+                  <center>
+                  <a href="#myhome"><input type="button" class="btn btn-outline-info" value="My Home" style="width: 130px;"></a>&nbsp;&nbsp;
+                  <a href="#surfer"><input type="button" class="btn btn-outline-info" value="Surfer" style="width: 130px;"></a>&nbsp;&nbsp;
+                  <a href="#partner"><input type="button" class="btn btn-outline-info" value="Partner" style="width: 130px;"></a>&nbsp;&nbsp;
+                  <a href="#photo"><input type="button" class="btn btn-outline-info" value="Photos" style="width: 130px;"></a>&nbsp;&nbsp;
+                  <a href="#reference"><input type="button" class="btn btn-outline-info" value="References" style="width: 130px;"></a>
+                  </center>
+            </div>
+            <br>
+            
            <div id="myhome" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">My Home</h6>
                <div class="card-body">
@@ -467,6 +462,31 @@
                </div>
             </div>
             <br>
+            <div id="photo" class="card" style="width: auto;">
+               <h6 class="card-header" id="card_info">Photos</h6>
+               <div class="card-body">
+               <% if(profileH != null) { %>
+	               <% if(profileH.getImage1() == null && profileH.getImage2() == null && profileH.getImage3() == null) { %>
+	              	 사진을 등록하지 않았습니다.
+	               <% } else {%>
+	               <%if(!profileH.getImage1().equals("sample.jpg") && profileH.getImage1() != null) { %>
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage1() %>" class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	               <% } %>
+	               <% if(!profileH.getImage2().equals("sample.jpg") && profileH.getImage2() != null) { %> 
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage2() %>"  class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	               <% } %>
+	               <% if(!profileH.getImage3().equals("sample.jpg") && profileH.getImage3() != null) { %> 
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage3() %>"  class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	               <% } %> 
+	               <% } %>             
+               <% } else { %>
+              	 등록된 호스트 정보가 없습니다.
+               <% } %>
+               </div>
+               <br>
             <div id="surfer" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Surfer</h6>
                <div class="card-body">
@@ -539,30 +559,7 @@
                </div>
                </div>
             <br>
-            <div id="photo" class="card" style="width: auto;">
-               <h6 class="card-header" id="card_info">Photos</h6>
-               <div class="card-body">
-               <% if(profileH != null) { %>
-	               <% if(profileH.getImage1() == null && profileH.getImage2() == null && profileH.getImage3() == null) { %>
-	              	 사진을 등록하지 않았습니다.
-	               <% } else {%>
-	               <%if(!profileH.getImage1().equals("sample.jpg") && profileH.getImage1() != null) { %>
-	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage1() %>" class="rounded" data-toggle="modal"
-	                     data-target="#photoDetail" style="width: 225px;">
-	               <% } %>
-	               <% if(!profileH.getImage2().equals("sample.jpg") && profileH.getImage2() != null) { %> 
-	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage2() %>"  class="rounded" data-toggle="modal"
-	                     data-target="#photoDetail" style="width: 225px;">
-	               <% } %>
-	               <% if(!profileH.getImage3().equals("sample.jpg") && profileH.getImage3() != null) { %> 
-	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage3() %>"  class="rounded" data-toggle="modal"
-	                     data-target="#photoDetail" style="width: 225px;">
-	               <% } %> 
-	               <% } %>             
-               <% } else { %>
-              	 등록된 호스트 정보가 없습니다.
-               <% } %>
-               </div>
+            
             </div>
             <br>
    

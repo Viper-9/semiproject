@@ -29,11 +29,11 @@
    margin: 0 auto;
    padding: 10px;
     /* font-family: 'Hanna', sans-serif; */
-	/* font-family: NanumSquareWeb, sans-serif; */
+	 font-family: NanumSquareWeb, sans-serif; 
 	/* font-family: 'Noto Sans KR', sans-serif; */		
 	/* font-family: 'KoPub Batang', serif; */
-	/* font-family: 'Nanum Myeongjo', serif; */
-   font-family: 'Jeju Gothic', serif;
+	/*  font-family: 'Nanum Myeongjo', serif;  */
+    /* font-family: 'Jeju Gothic', serif; */
 }
 /* 이게  우리가 이제 만들어야할 공간 */
 #main {
