@@ -40,20 +40,23 @@ public class MainHspServlet extends HttpServlet {
 		JSONObject json = new JSONObject();
 		
 		Host host = new HostService().selectHost(userId);
+		Host mHost = new HostService().selectMHost(userId);
 		SurferPartner surfer = new SurferPartnerService().selectSurfer(userId);
+		SurferPartner mSurfer = new SurferPartnerService().selectMSurfer(userId);
 		SurferPartner partner = new SurferPartnerService().selectPartner(userId);
+		SurferPartner mPartner = new SurferPartnerService().selectMPartner(userId);
 		
-		if(host==null)
+		if(host==null && mHost==null)
 			json.put("host", 0);
 		else
 			json.put("host", 1);
 		
-		if(surfer==null)
+		if(surfer==null && mSurfer==null)
 			json.put("surfer", 0);
 		else
 			json.put("surfer", 1);
 		
-		if(partner==null)
+		if(partner==null && mPartner==null)
 			json.put("partner", 0);
 		else
 			json.put("partner", 1);

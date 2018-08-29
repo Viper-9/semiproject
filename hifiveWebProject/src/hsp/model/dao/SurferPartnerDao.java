@@ -23,7 +23,7 @@ public class SurferPartnerDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from surfer_partner where role='S' and user_id=? and process='P'";
+		String query = "select * from surfer_partner where role='S' and user_id=? and process not in 'C'";
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -55,7 +55,7 @@ public class SurferPartnerDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from surfer_partner where role='P' and user_id=? and process='P'";
+		String query = "select * from surfer_partner where role='P' and user_id=? and process not in 'C'";
 		
 		try {
 			pstmt = con.prepareStatement(query);
