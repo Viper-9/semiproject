@@ -153,7 +153,7 @@
                   <p class="card-text">                  
                   <div id="mpageInfo" name="mpageInfo" align="center">
                     <div class="col-sm-10"> 
-                       <input type="text" readonly id="name" class="form-control" name="username" style="width:100px;">                       
+                       <input type="text" readonly id="name" class="form-control" name="username" style="width:100px; text-align:center;">                       
                     </div> 
                      <br>
                      <br>    
@@ -161,7 +161,7 @@
                      <input type="file" id="pimg" name="pimg" accept="image/*">
                      <input type="hidden" id="imguserid" name="imguserid" value="<%= headeruser.getUser_Id() %>">
                      <br>
-                     <input type="submit" id="imgbtn" value="프사업로드">
+                     <input type="submit" class="btn btn-outline-dark text-dark" id="imgbtn" value="프사업로드">
                      </form>        
                      <br>
                      <br>

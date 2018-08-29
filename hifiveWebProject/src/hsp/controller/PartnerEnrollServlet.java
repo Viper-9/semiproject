@@ -47,7 +47,7 @@ public class PartnerEnrollServlet extends HttpServlet {
 			int result = new SurferPartnerService().insertPartner(sp);
 			
 			if(result > 0){
-				response.sendRedirect("/hifive/main.jsp");
+				response.sendRedirect("/hifive/views/user/mypage.jsp");
 			}else{
 	    		view = request.getRequestDispatcher("");
 		        request.setAttribute("message", "수정 실패");
