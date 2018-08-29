@@ -119,7 +119,7 @@ function showBoardWriteForm(){
             <br><br>
             	<h5><b><%= message %></b></h5>
             	<br><br>
-            <% } %>
+            <% } %> 
             	
             	<form action="/hifive/noticesearch" method="get">
                <div class="form-row align-items-center">            
@@ -133,7 +133,7 @@ function showBoardWriteForm(){
                      <input type="text" style="width:460px;"   class="form-control col-auto my-1" id="nsearchContent" name="nsearchContent">
                   </div>
                   <div class="col-auto my-1">
-                     <input type="submit" class="btn btn-primary" value="검색">
+                     <input type="submit" class="btn btn-primary" value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;검색&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
                   </div>
                   </form>
                   
