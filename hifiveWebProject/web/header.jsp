@@ -47,6 +47,19 @@ header {
 	width: 45px;
 	height: 45px;
 }
+
+.dropdown {
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s; 
+}
+
+.dropdownMenuLink:hover {
+	text-shadow:2px 2px #ff0000;
+}
+
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
  
 </style>
 <script src="/hifive/resources/js/jquery-3.3.1.min.js" ></script>
@@ -104,7 +117,7 @@ header {
 								<div class="dropdown" id="support">
 									<a class="btn dropdown-toggle p-3 mb-2 bg-white text-dark font-weight-bold" href="#"
 										role="button" id="dropdownMenuLink" data-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false"> ... </a>
+										aria-haspopup="true" aria-expanded="false"> menu </a>
 
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<a class="dropdown-item" href="/hifive/noticelist">공지사항</a> 
