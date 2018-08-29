@@ -164,6 +164,7 @@ function CheckForm() {
 						<font style = "color:red; font-size: 10pt; opacity: 0.4;">
 								우리 팀에서 제공하는 안전 기본 사항을 읽고 하단에 체크와 버튼을 클릭하십시요 <br>
 						</font>
+						
 						</p>
 						<br>
 						<% if(headeruser.getSafety_check().equals("N")) { %>	
