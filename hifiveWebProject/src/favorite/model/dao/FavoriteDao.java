@@ -112,7 +112,7 @@ public class FavoriteDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select user_name, address, nationality from users where user_id = ?";
+		String query = "select user_name, address, nationality, PROFILE_IMAGE from users where user_id = ?";
 		
 		try{
 			pstmt = con.prepareStatement(query);
@@ -125,6 +125,7 @@ public class FavoriteDao {
 				user.setUser_Name(rset.getString(1));
 				user.setAddress(rset.getString(2));
 				user.setNationality(rset.getString(3));
+				user.setProfile_image(rset.getString(4));
 			}
 		} catch(Exception e){
 			

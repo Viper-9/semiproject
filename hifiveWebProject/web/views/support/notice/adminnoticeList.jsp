@@ -20,6 +20,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/logo2.png" />
 
 <meta charset="UTF-8">
 <meta name="viewport"

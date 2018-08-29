@@ -16,14 +16,25 @@
 <script
    src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <style type="text/css">
-/* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(http://fonts.googleapis.com/earlyaccess/kopubbatang.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
 
+/* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
 /* 여기 이새끼가 전체 우리 컨테이너 역할 */
 .container {
    margin: 0 auto;
    padding: 10px;
+    /* font-family: 'Hanna', sans-serif; */
+	 font-family: NanumSquareWeb, sans-serif; 
+	/* font-family: 'Noto Sans KR', sans-serif; */		
+	/* font-family: 'KoPub Batang', serif; */
+	/*  font-family: 'Nanum Myeongjo', serif;  */
+    /* font-family: 'Jeju Gothic', serif; */
 }
-
 /* 이게  우리가 이제 만들어야할 공간 */
 #main {
    width: 1000px;
@@ -43,7 +54,6 @@
    padding: 0 0 0 10px;
    text-align: center;
 }
-
 #content2 {
    width: 740px;
    margin: 5px 0 0 0;
@@ -51,11 +61,9 @@
    padding: 0 0 0 10px;
    text-align: center;
 }
-
 .card-body {
    text-align: center;
 }
-
 .rounded-circle {
    width: 50px;
    height: 50px;
@@ -84,21 +92,22 @@
 					values += "<tr><td colspan='3'>대화 목록이 없습니다.</td></tr>";
 				} else{
 					for(var i in json.list){
+						
 						values += "<tr><td><a href='/hifive/profileinfo?userid="
-								+ json.list[i].user2 +"'><img src='/hifive/resources/image/sample11.jpg' alt='' "
+								+ json.list[i].user2 +"'><img src='/hifive/resources/profileUpfiles/" + json.list[i].userimg + "' alt='' " 
 								+ "class='rounded-circle' title='프로필로 이동'></a></td><td>" 
 								+ json.list[i].userName
 								+ "</td><td><a href='/hifive/views/message/messagePage.jsp?listno=" + json.list[i].list_no 
-								+ "&uid=" + userid + "' onclick=\"window.open(this.href,'','width=420, height=685'); return false;\">" + "보기"
+								+ "&uid=" + userid +"&rid="+ json.list[i].user2 + "' onclick=\"window.open(this.href,'','width=420, height=640, resizable=no'); return false;\">" + "보기"
 								+ "</a></td></tr>";
 					}
 					for(var i in json.list2){
 						values += "<tr><td><a href='/hifive/profileinfo?userid="
-								+ json.list2[i].user1 + "'><img src='/hifive/resources/image/sample10.jpg' alt='' " 
+								+ json.list2[i].user1 + "'><img src='/hifive/resources/profileUpfiles/" + json.list2[i].userimg + "' alt='' " 
 								+ "class='rounded-circle' title='프로필로 이동'></a></td><td>" 
 								+ json.list2[i].userName
 								+ "</td><td><a href='/hifive/views/message/messagePage.jsp?listno=" + json.list2[i].list_no 
-								+ "&uid=" + userid + "' onclick=\"window.open(this.href,'','width=420, height=685'); return false;\">" + "보기"
+								+ "&uid=" + userid  +"&rid="+ json.list2[i].user1 +  "' onclick=\"window.open(this.href,'','width=420, height=640, resizable=no'); return false;\">" + "보기"
 								+ "</a></td></tr>";
 					}
 				}
@@ -133,7 +142,6 @@
 			} // error
 		}); 	
 	});	
-
 </script>
 
 </head>
@@ -143,48 +151,9 @@
       <hr>
       <div id="main">
          <div id="menu">
-            <div class="card" style="width: 250px;">
-               <div class="card-body">
-                  <h5 class="card-title">사용자 기본정보</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">(이름및 지역)</h6>
-                  <p class="card-text">
-                     ......<br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                     <br>
-                  </p>
-                  <a href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a>
-
-               </div>
-            </div>
-
+            <%@ include file="../../information.jsp"%>
          </div>
          <div id="content1">
-            <div class="btn-group " role="group" aria-label="First group">
-               <button type="button"
-                  class="btn btn-secondary btn-outline-secondary"
-                  onclick="location.href='/hifive/views/support/notice/noticeList.jsp'">공지사항</button>
-               <button type="button"
-                  class="btn btn-secondary btn-outline-secondary"
-                  onclick="location.href='/hifive/views/support/report/reportList.jsp'">신고게시판</button>
-               <button type="button"
-                  class="btn btn-secondary btn-outline-secondary"
-                  onclick="location.href='/hifive/views/user/mypage.jsp'">마이
-                  페이지</button>
-               <button type="button"
-                  class="btn btn-secondary btn-outline-secondary"
-                  onclick="location.href='/hifive/views/support/safety.jsp'">안전
-                  유의사항</button>
-               <button type="button"
-                  class="btn btn-secondary btn-outline-secondary"
-                  onclick="location.href='/hifive/views/support/tutorial.jsp'">튜토리얼</button>
-            </div>            
-            <br><br>
             
             <input type="hidden" id="uid" value="<%= userId %>">
             

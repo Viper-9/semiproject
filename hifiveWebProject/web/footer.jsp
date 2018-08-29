@@ -12,16 +12,16 @@
 	<style type="text/css">
       
       footer {
-          margin: 5px;
+          margin: 20px;
           padding: 10px;
            width: 1000px;
          height : 70px;      
       }
       
-      #language {
+     /*  #language {
          display : inline-block;
          left : 60%;
-      } 
+      }  */
    </style>
 
 </head>
@@ -35,14 +35,19 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 	<footer>
-		2018- Copyright Hi-Five Inc. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button class="btn btn-light" data-toggle="modal"
-			data-target="#accessTerms">이용약관</button>
-		<button class="btn btn-light" data-toggle="modal"
-			data-target="#policy">정책</button>
+		2018- Copyright Hi-Five Inc. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<button class="btn btn-secondary" data-toggle="modal"
+			data-target="#accessTerms" id="kk">이용약관</button>&nbsp;&nbsp;
+		<button class="btn btn-secondary" data-toggle="modal"
+			data-target="#policy" id="kk">정책</button>
 		
 
-		<div class="dropdown" id="language">
+		<!-- <div class="dropdown" id="language">
 
 			<button class="btn btn-secondary btn-sm dropdown-toggle"
 				type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -51,7 +56,7 @@
 				<a class="dropdown-item" href="#">KOREAN</a> <a
 					class="dropdown-item" href="#">ENGLISH</a>
 			</div>
-		</div>
+		</div> -->
 	</footer>
 
 	<!-- 이용약관 Modal -->

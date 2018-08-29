@@ -33,7 +33,7 @@ public class MessageSendServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-
+		String rid = request.getParameter("rid");
 		Message msg = new Message();
 		msg.setList_no(Integer.parseInt(request.getParameter("listno")));
 		msg.setSender(request.getParameter("userid"));
@@ -43,7 +43,7 @@ public class MessageSendServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		try{
 			if(new MessageService().sendMessage(msg) > 0) {
-				response.sendRedirect("/hifive/views/message/messagePage.jsp?listno="+msg.getList_no()+"&uid="+msg.getSender());					
+				response.sendRedirect("/hifive/views/message/messagePage.jsp?listno="+msg.getList_no()+"&uid="+msg.getSender()+"&rid="+rid);					
 			} else {
 				view = request.getRequestDispatcher("views/message/messageError.jsp");
 				request.setAttribute("message", "쪽지보내기 실패");

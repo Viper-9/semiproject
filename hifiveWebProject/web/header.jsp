@@ -8,6 +8,7 @@
    String userId = (String)session.getAttribute("userId");
    String userName = (String)session.getAttribute("userName");
    User headeruser = (User)session.getAttribute("loginuser");
+   
 %>
  
 <!DOCTYPE html>
@@ -64,6 +65,26 @@ header {
 			}			
 		}); //ajax
 	} //callMyPage
+	
+	$(function(){
+		var userid = '<%= userId %>';
+	
+		$.ajax({
+			url : "/hifive/newmessage",
+			type : "get",
+			data : { uid : userid },
+			dataType : "json",			
+			success : function(data){
+				console.log(data.result);
+				if(data.result == '1'){							
+					$('#msg').attr("src", "/hifive/resources/image/micon_new.jpg");
+				} else{
+					$('#msg').attr("src", "/hifive/resources/image/micon.jpg");
+				}
+				
+			} // success
+		});
+	});
 </script>
 </head>
 
@@ -76,8 +97,8 @@ header {
 	<div class="container1">
 		<header>
 			<div id="logo">
-				<a href="/hifive/main.jsp"> <img
-					src="/hifive/resources/image/sample3.jpeg"
+				<a href="/hifive/main.jsp"><img
+					src="/hifive/resources/image/logo.png"
 					class="rounded mx-auto d-block" alt="로고" title="메인 페이지로 이동">
 				</a>
 			</div>
@@ -88,19 +109,15 @@ header {
 						<tr>
 							<th><%= userName %>님 &nbsp;&nbsp;</th>
 
-							<th><a href="/hifive/views/message/messageList.jsp"> <img
-									src="/hifive/resources/image/sample5.jpeg" alt="알림이모티콘"
+							<th><a href="/hifive/views/message/messageList.jsp"> <img id="msg"
+									src="/hifive/resources/image/micon.jpg" 
 									class="messagelist" title="요청받은 목록">
 							</a>&nbsp;</th>
 
 							<th><a href="/hifive/profileinfo?userid=<%= userId %>"> 
-							<% if(headeruser.getProfile_image() == null) { %>
-                  <img class="profileimg rounded-circle"
-                  src="/hifive/resources/profileUpfiles/profile.png" alt="기본 사진" title="프로필로 이동">
-                  <% } else { %>
-                   <img class="profileimg rounded-circle"
+						   <img class="profileimg rounded-circle"
                   src="/hifive/resources/profileUpfiles/<%= headeruser.getProfile_image() %>" alt="프로필 사진" title="프로필로 이동">
-                  <% } %>
+                  
 
 							</a>&nbsp;</th>
  

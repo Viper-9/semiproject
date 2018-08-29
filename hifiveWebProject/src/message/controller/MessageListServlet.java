@@ -15,6 +15,7 @@ import org.json.simple.JSONObject;
 
 import message.model.service.MessageListService;
 import message.model.vo.MessageList;
+import user.model.service.UserService;
 
 /**
  * Servlet implementation class MessageListServlet
@@ -50,6 +51,9 @@ public class MessageListServlet extends HttpServlet {
 			job.put("list_no", list.getList_no());
 			job.put("user1", list.getUser1());
 			job.put("user2", list.getUser2());
+			System.out.println(list.getUser2());
+			job.put("userimg", new UserService().selectUser(list.getUser2()).getProfile_image());
+			
 			job.put("userName", new MessageListService().selectUserName(list.getUser1(), list.getUser2()));
 		
 			jarr.add(job);					
@@ -59,6 +63,8 @@ public class MessageListServlet extends HttpServlet {
 			job.put("list_no", list.getList_no());
 			job.put("user1", list.getUser1());
 			job.put("user2", list.getUser2());
+			job.put("userimg", new UserService().selectUser(list.getUser1()).getProfile_image());
+
 			job.put("userName", new MessageListService().selectUserName2(list.getUser2(), list.getUser1()));
 		
 			jarr2.add(job);

@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%
 	ArrayList<User> list = (ArrayList<User>)request.getAttribute("list");
+	String no = (String)request.getAttribute("no");
 %>
 <!DOCTYPE html>
 <html>
@@ -52,12 +53,26 @@ text-align: left;
 </style>
 </head>
 <body>
-	<script type="text/javascript">
+	<script type="text/javascript">		
+		$(function(){
+			var no = '<%= no %>';
+			if(no == 1){
+				$("#searchSTab").trigger("click");
+			}else if(no == 2){				
+				$("#searchPTab").trigger("click");
+			}	
+			
+		}) //document.ready
+		
 		function findHost(){
 	         $("#searchResult").html("");
 	         
 	         var num = $("#number").val();
+	         if(num == 0)
+	        	 alert('인원은 1명 이상부터 검색가능합니다!');
 	         var gender = $("#gender option:selected").val();
+	         if( gender == $("#noneG").val())
+	        	 alert("성별을 입력해주세요!");
 	         var check = "";
 	         $("input[name=possible]:checked").each(function(index, item){
 	        	 if(index != 0)
@@ -65,7 +80,11 @@ text-align: left;
 			check += $(this).val();
 	         })
 	         var sleeping = $("#sleeping option:selected").val();
+	         if($("#noneS"))
+	        	 alert('숙소를 확인해주세요!');
 	         var destination = $("#destination").val();
+	         if(destination == null)
+	        	 alert('목적지를 확인해주세요!');
 	         
 	         if(destination=="" || num=="" || gender=="선택" || sleeping==""){
 	  			alert("빈칸을 확인해주세요.");
@@ -93,9 +112,9 @@ text-align: left;
 	                         address = json.list[i].address;
 	                      if(json.list[i].nationality != null)
 	                         nationality = json.list[i].nationality;
-	                      if(json.list[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
+	                      if(json.list[i].image != null) { // 프로필 사진 있으면
 	                         values += "<td><div class='card' style='width: 200px;'>" 
-	                         + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
+	                         + "<img class='card-img-top' src='/hifive/resources/profileUpfiles/"+ json.list[i].image +"' alt='Card image cap'>";
 	                      } else{ // 프로필 사진 없으면
 	                         values += "<td><div class='card' style='width: 200px;'>" 
 	                              + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
@@ -276,10 +295,10 @@ text-align: left;
 		<div id="content1">
 			<div id="searching">
 				<ul class="nav nav-tabs" id="searchTab" role="tablist">
-					<li class="nav-item"><a class="nav-link active"
-						id="searchHTab" data-toggle="tab" href="#searchH" role="tab"
+					<li class="nav-item"><a class="nav-link active" id="searchHTab"
+					    data-toggle="tab" href="#searchH" role="tab"
 						aria-controls="searhH" aria-selected="true">HOST</a></li>
-					<li class="nav-item"><a class="nav-link" id="searchSTab"
+					<li class="nav-item"><a class="nav-link" id="searchSTab" 
 						data-toggle="tab" href="#searchS" role="tab"
 						aria-controls="searchS" aria-selected="false">SURFER</a></li>
 					<li class="nav-item"><a class="nav-link" id="searchPTab"
@@ -311,7 +330,7 @@ text-align: left;
 									</div>
 									<select class="custom-select" id="gender"
 										name="preferredgender">
-										<option selected>선택</option>
+										<option selected value="noneG">선택</option>
 										<option value="M">남성</option>
 										<option value="F">여성</option>
 										<option value="B">상관없음</option>
@@ -356,7 +375,7 @@ text-align: left;
 									</div>
 									<select class="custom-select" name="searchsleeping"
 										id="sleeping">
-										<option value="">선택</option>
+										<option value="" id="noneS">선택</option>
 										<option value="living">거실</option>
 										<option value="single">단독 방</option>
 										<option value="sharing">공용 방</option>

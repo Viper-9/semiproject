@@ -89,11 +89,8 @@
 	            	  	
 	            	  	if(json.list[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
 	            	  		value += "<td><div class='card' style='width: 200px;'>" 
-	            	  		+ "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
-	            	  	} else{ // 프로필 사진 없으면
-	            	  		value += "<td><div class='card' style='width: 200px;'>" 
-	   	       		        + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
-	            	    }
+	            	  		+ "<img class='card-img-top' height='200px' src='/hifive/resources/profileUpfiles/"+ json.list[i].image + "' alt='Card image cap'>";
+	            	  	}
 	            	    value += "<div class='card-body'>" 
 	       		       	+ "<a href='/hifive/profileinfo?userid=" + json.list[i].f_userid 
 	       		        + "'><h4 class='card-title'><b>" + json.list[i].user_name + "</b></h4></a>"

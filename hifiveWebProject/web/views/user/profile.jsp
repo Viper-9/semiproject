@@ -116,12 +116,12 @@
 		
 		// 리뷰 창 (다른 사람 프로필에서만 쓸 수 있음)
 		if(userid!=loginuserid){
-			var value = "<h6 class='card-header' id='card_info'>리뷰 작성하기</h6> " 
+			var value = "<br><div class='card' style='width: auto;'><h6 class='card-header' id='card_info'>리뷰 작성하기</h6> " 
 					+ "<div class='card-body' id='write_review' align='center'> "
 					+ "<form action='/hifive/reviewwrite?' method='post'> "
 					+ "<input type='hidden' name='uid' value=" + userid + "> "
 					+ "<textarea name='review' cols='80' rows='5'></textarea><br> "
-					+ "<input type='submit' value='작성'></form></div>";
+					+ "<input class='btn btn-outline-secondary' type='submit' value='작성'></form></div></div>";
    			$("#review_write").html($("#review_write").html()+value);
 		}	
 		
@@ -130,28 +130,33 @@
 <script type="text/javascript">
 	var loginid = "<%= loginuserid %>";
 	var profileid = "<%= user.getUser_Id() %>";
+	var safety = "<%= user.getSafety_check() %>"
 
 	function hrequest() {
 		if(loginid == profileid) {
 			alert("자신에게는 신청할 수 없습니다.");
 		} else {
-			$.ajax({	
-			  	url : "/hifive/request",
-			    type : "get",
-			    dataType : "json",
-				data : {loginid : loginid, profileid : profileid, profilerole : "H"},		
-				success : function(data){
-					if(data.result == '1' ) {
-						alert("호스트에게 요청을 완료하였습니다.");	
+			if(safety == 'N') {
+				alert("안전 유의 사항을 체크해주세요.");
+			} else {
+				$.ajax({	
+				  	url : "/hifive/request",
+				    type : "get",
+				    dataType : "json",
+					data : {loginid : loginid, profileid : profileid, profilerole : "H"},		
+					success : function(data){
+						if(data.result == '1' ) {
+							alert("호스트에게 요청을 완료하였습니다.");	
+						}
+						else if(data.result == '2'){
+							alert("서퍼를 등록하지 않아 요청할 수 없습니다.");
+						} 
+						else if(data.result == '0') {
+							alert("이미 요청한 사용자입니다.");
+						}        
 					}
-					else if(data.result == '2'){
-						alert("서퍼를 등록하지 않아 요청할 수 없습니다.");
-					} 
-					else if(data.result == '0') {
-						alert("이미 요청한 사용자입니다.");
-					}        
-				}
-			});
+				});
+			}
 		}
 	}
 	
@@ -159,23 +164,27 @@
 		if(loginid == profileid) {
 			alert("자신에게는 신청할 수 없습니다.");
 		} else {
-			$.ajax({	
-			  	url : "/hifive/request",
-			    type : "get",
-			    dataType : "json",
-				data : {loginid : loginid, profileid : profileid, profilerole : "S"},		
-				success : function(data){
-					if(data.result == '1' ) {
-						alert("서퍼에게 요청을 완료하였습니다.");	
+			if(safety == 'N') {
+				alert("안전 유의 사항을 체크해주세요.");
+			} else {
+				$.ajax({	
+				  	url : "/hifive/request",
+				    type : "get",
+				    dataType : "json",
+					data : {loginid : loginid, profileid : profileid, profilerole : "S"},		
+					success : function(data){
+						if(data.result == '1' ) {
+							alert("서퍼에게 요청을 완료하였습니다.");	
+						}
+						else if(data.result == '2'){
+							alert("호스트를 등록하지 않아 요청할 수 없습니다.");
+						} 
+						else if(data.result == '0') {
+							alert("이미 요청한 사용자입니다.");
+						}         
 					}
-					else if(data.result == '2'){
-						alert("호스트를 등록하지 않아 요청할 수 없습니다.");
-					} 
-					else if(data.result == '0') {
-						alert("이미 요청한 사용자입니다.");
-					}         
-				}
-			});
+				});
+			}
 		}
 	}
 	
@@ -183,23 +192,27 @@
 		if(loginid == profileid) {
 			alert("자신에게는 신청할 수 없습니다.");
 		} else {
-			$.ajax({	
-			  	url : "/hifive/request",
-			    type : "get",
-			    dataType : "json",
-				data : {loginid : loginid, profileid : profileid, profilerole : "P"},		
-				success : function(data){
-					if(data.result == '1' ) {
-						alert("파트너에게 요청을 완료하였습니다.");	
+			if(safety == 'N') {
+				alert("안전 유의 사항을 체크해주세요.");
+			} else {
+				$.ajax({	
+				  	url : "/hifive/request",
+				    type : "get",
+				    dataType : "json",
+					data : {loginid : loginid, profileid : profileid, profilerole : "P"},		
+					success : function(data){
+						if(data.result == '1' ) {
+							alert("파트너에게 요청을 완료하였습니다.");	
+						}
+						else if(data.result == '2') {
+							alert("파트너를 등록하지 않아 요청할 수 없습니다.");
+						}
+						else if(data.result == '0') {
+							alert("이미 요청한 목록에 있습니다.");
+						}
 					}
-					else if(data.result == '2') {
-						alert("파트너를 등록하지 않아 요청할 수 없습니다.");
-					}
-					else if(data.result == '0') {
-						alert("이미 요청한 목록에 있습니다.");
-					}
-				}
-			});
+				});
+			}
 		}
 	}
 </script>
@@ -214,13 +227,10 @@
          <div id="menu">
             <div class="card" style="width: 250px;">
                <font size="3"><b>Profile</b></font> 
-                  <% if(user.getProfile_image() == null) { %>
-                  <img class="card-img-top rounded-circle"
-                  src="/hifive/resources/profileUpfiles/profile.png" alt="Card image cap" height="250px">
-                  <% } else { %>
+                  
                    <img class="card-img-top rounded-circle"
                   src="/hifive/resources/profileUpfiles/<%= user.getProfile_image() %>" alt="Card image cap" height="250px">
-                  <% } %>
+               
                   
                <div class="card-body">
                   <p class="card-text">
@@ -234,7 +244,7 @@
                      </button>
                      <font size="2"> 
                      <% if(user.getAddress() == null) { %>
-                     	아직 주소를 입력하지 않았습니다.
+                     	주소를 입력하지 않았습니다.
                      <% } else { %>
                      <%= user.getAddress() %>
                      <% } %> 
@@ -355,22 +365,6 @@
                </div>
             </div>
             <br>
-            <div id="infomenu" style="margin-left: 8px;">
-               <a href="#intro"><input type="button"
-                  class="btn btn-outline-info" value="Introduction"
-                  style="width: 110px;"></a>&nbsp; <a href="#myhome"><input
-                  type="button" class="btn btn-outline-info" value="My Home"
-                  style="width: 110px;"></a>&nbsp; <a href="#surfer"><input
-                  type="button" class="btn btn-outline-info" value="Surfer"
-                  style="width: 110px;"></a>&nbsp; <a href="#partner"><input
-                  type="button" class="btn btn-outline-info" value="Partner"
-                  style="width: 110px;"></a>&nbsp; <a href="#photo"><input
-                  type="button" class="btn btn-outline-info" value="Photos"
-                  style="width: 110px;"></a>&nbsp; <a href="#reference"><input
-                  type="button" class="btn btn-outline-info" value="References"
-                  style="width: 110px;"></a>
-            </div>
-            <br>
             <div id="intro" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Introduction</h6>
                <div class="card-body">
@@ -384,6 +378,17 @@
                </div>
             </div>
             <br>
+            <div id="infomenu" style="margin-left: 8px;">
+                  <center>
+                  <a href="#myhome"><input type="button" class="btn btn-outline-info" value="My Home" style="width: 130px;"></a>&nbsp;&nbsp;
+                  <a href="#surfer"><input type="button" class="btn btn-outline-info" value="Surfer" style="width: 130px;"></a>&nbsp;&nbsp;
+                  <a href="#partner"><input type="button" class="btn btn-outline-info" value="Partner" style="width: 130px;"></a>&nbsp;&nbsp;
+                  <a href="#photo"><input type="button" class="btn btn-outline-info" value="Photos" style="width: 130px;"></a>&nbsp;&nbsp;
+                  <a href="#reference"><input type="button" class="btn btn-outline-info" value="References" style="width: 130px;"></a>
+                  </center>
+            </div>
+            <br>
+            
            <div id="myhome" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">My Home</h6>
                <div class="card-body">
@@ -435,7 +440,11 @@
                         <td>
                            <input type="text" class="form-control col-sm-3" disabled name="sleeping" style="background-color: #ffffff; text-align:center;" value="<%= profileH.getCheck2() %>">                               
                         </td>
-                     </tr>               
+                     </tr>     
+                     <tr>
+                     	<td><li>주소</li></td>
+                     	<td><textarea class="form-control" id="hostcity" name="city" rows="1" cols="60" disabled style="text-align:center; background-color: #ffffff;"><%= profileH.getCity() %></textarea></td>
+                     </tr>          
                      <tr>
                         <td><li>추가 정보</li></td>
                         <td><textarea class="form-control" id="hostcontent" name="etc" rows="3" cols="60" disabled style="text-align:left; background-color: #ffffff;">
@@ -453,6 +462,31 @@
                </div>
             </div>
             <br>
+            <div id="photo" class="card" style="width: auto;">
+               <h6 class="card-header" id="card_info">Photos</h6>
+               <div class="card-body">
+               <% if(profileH != null) { %>
+	               <% if(profileH.getImage1() == null && profileH.getImage2() == null && profileH.getImage3() == null) { %>
+	              	 사진을 등록하지 않았습니다.
+	               <% } else {%>
+	               <%if(!profileH.getImage1().equals("sample.jpg") && profileH.getImage1() != null) { %>
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage1() %>" class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	               <% } %>
+	               <% if(!profileH.getImage2().equals("sample.jpg") && profileH.getImage2() != null) { %> 
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage2() %>"  class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	               <% } %>
+	               <% if(!profileH.getImage3().equals("sample.jpg") && profileH.getImage3() != null) { %> 
+	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage3() %>"  class="rounded" data-toggle="modal"
+	                     data-target="#photoDetail" style="width: 225px;">
+	               <% } %> 
+	               <% } %>             
+               <% } else { %>
+              	 등록된 호스트 정보가 없습니다.
+               <% } %>
+               </div>
+               <br>
             <div id="surfer" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Surfer</h6>
                <div class="card-body">
@@ -525,41 +559,18 @@
                </div>
                </div>
             <br>
-            <div id="photo" class="card" style="width: auto;">
-               <h6 class="card-header" id="card_info">Photos</h6>
-               <div class="card-body">
-               <% if(profileH != null) { %>
-	               <% if(profileH.getImage1() == null && profileH.getImage2() == null && profileH.getImage3() == null) { %>
-	              	 사진을 등록하지 않았습니다.
-	               <% } else {%>
-	               <%if(!profileH.getImage1().equals("sample.jpg") && profileH.getImage1() != null) { %>
-	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage1() %>" class="rounded" data-toggle="modal"
-	                     data-target="#photoDetail" style="width: 225px;">
-	               <% } %>
-	               <% if(!profileH.getImage2().equals("sample.jpg") && profileH.getImage2() != null) { %> 
-	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage2() %>"  class="rounded" data-toggle="modal"
-	                     data-target="#photoDetail" style="width: 225px;">
-	               <% } %>
-	               <% if(!profileH.getImage3().equals("sample.jpg") && profileH.getImage3() != null) { %> 
-	                  <img src="/hifive/resources/photoUpload/<%= profileH.getImage3() %>"  class="rounded" data-toggle="modal"
-	                     data-target="#photoDetail" style="width: 225px;">
-	               <% } %> 
-	               <% } %>             
-               <% } else { %>
-              	 등록된 호스트 정보가 없습니다.
-               <% } %>
-               </div>
+            
             </div>
             <br>
+   
             <div id="reference" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">References</h6>
                <div class="card-body" id="review" align='center'>
                   
                </div>
-               <div id="review_write">
-	               
-               </div>
+               
             </div>
+            <div id="review_write"></div>
          </div>
        </div>
       <br>
@@ -586,7 +597,7 @@
             <% if(user.getAddress() != null) { %>
                <div id="map" style="width: 470px; height: 400px;"></div>
             <% } else { %>
-                       주소를 입력하지 않았습니다.
+                       주소를 입력해주세요.
             <% } %>
             </div>
          </div>
