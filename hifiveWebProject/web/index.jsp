@@ -66,13 +66,13 @@ header {
 #safetyinfo {
 	background: rgba(205, 162, 98, .5);
 	padding: 15px;
-	height: 400px;
+	height: 300px;
 	
 }
 
 #safetydiv {
-	width: 970px; 
-	height: 370px;
+	width: 1300px; 
+	height: 270px;
 	background:rgba(255,255,255, .5); 
 	border:0px;
 }
@@ -166,7 +166,7 @@ header {
 						</a>
 					</div>
 					
-					<br><br>
+					<br>
 					<div id="hspInfo">
 					<center>
 					<div class="card-deck" style="width: 1400px; height: 600px;">
@@ -218,8 +218,8 @@ header {
 					</center>
 					
 				</div>
-				<br><br>
 				
+				<br>
 				<div id="homeinfo">
 				
 				<center>
@@ -229,7 +229,7 @@ header {
 				</div>
 				</center>
 				</div>
-				<br><br>
+				
 				
 				<div id="safetyinfo">
 				
