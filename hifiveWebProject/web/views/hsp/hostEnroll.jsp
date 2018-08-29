@@ -53,6 +53,7 @@
 			</td>
 			</tr>
 			</table>			
+			
 			<div class="col input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="pnums">가능 조건</span>
