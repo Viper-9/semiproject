@@ -309,5 +309,53 @@ public class SurferPartnerDao {
 		}
 		return sp;	
 	}
+	
+	// 서퍼 process 수정
+	public int updateSurferProcess(Connection con, String user_id) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update surfer_partner set process='P' where user_id=? and role='S' and process='M'";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user_id);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result < 0){
+				throw new UserException("서퍼 process 수정 실패");
+			}
+		} catch (Exception e) {
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
+	// 파트너 process 수정
+	public int updatePartnerProcess(Connection con, String user_id){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "update surfer_partner set process='P' where user_id=? and role='P' and process='M'";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user_id);
+			
+			result = pstmt.executeUpdate();
+			
+			if(result < 0){
+				throw new UserException("파트너 process 수정 실패");
+			}
+		} catch (Exception e) {
+			
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

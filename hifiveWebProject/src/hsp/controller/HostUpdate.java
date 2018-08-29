@@ -38,12 +38,16 @@ public class HostUpdate extends HttpServlet {
 		host.setUser_id(request.getParameter("userid"));		
 		host.setUser_num(Integer.parseInt(request.getParameter("num")));
 		host.setP_gender(request.getParameter("gender"));
-		host.setCheck1(String.join(",", request.getParameterValues("hostcheck")));
+
+		if(request.getParameter("hostcheck")==null)
+			host.setCheck1("해당없음");
+		else
+			host.setCheck1(String.join(",", request.getParameterValues("hostcheck")));
+		
 		host.setCheck2(request.getParameter("sleeping"));
 		host.setCity(request.getParameter("city"));
 		host.setContent(request.getParameter("etc"));
-		System.out.println(String.join(",", request.getParameterValues("hostcheck")));
-		
+
 		RequestDispatcher view = null;
 		
 		try {
@@ -58,7 +62,7 @@ public class HostUpdate extends HttpServlet {
 	        view = request.getRequestDispatcher("views/user/hostError.jsp");
 	        request.setAttribute("message", e.getMessage());
 	        view.forward(request, response);
-	    }		
+	    }	 	
 	}
 
 	/**

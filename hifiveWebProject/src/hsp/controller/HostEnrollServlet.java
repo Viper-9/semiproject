@@ -38,7 +38,12 @@ public class HostEnrollServlet extends HttpServlet {
 		host.setUser_id(request.getParameter("userid"));
 		host.setUser_num(Integer.parseInt(request.getParameter("num")));
 		host.setP_gender(request.getParameter("gender"));
-		host.setCheck1(String.join(",", request.getParameterValues("possible")));
+		
+		if(request.getParameter("poissble")==null)
+			host.setCheck1("해당없음");
+		else
+			host.setCheck1(String.join(",", request.getParameterValues("possible")));
+		
 		host.setCheck2(request.getParameter("sleeping"));
 		host.setCity(request.getParameter("hostcity"));
 		host.setContent(request.getParameter("hostetc"));
@@ -59,7 +64,7 @@ public class HostEnrollServlet extends HttpServlet {
     		view = request.getRequestDispatcher("");
 	        request.setAttribute("message", "수정 실패");
 	        view.forward(request, response);
-		}		
+		}
 	}
 		
 	/**
