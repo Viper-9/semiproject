@@ -86,6 +86,7 @@
 				error : function(jqXHR, textstatus, errorThrown){
 					console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
 				} // error
+				
 			});
 		
 		// 선호 버튼
@@ -216,6 +217,7 @@
 			}
 		}
 	}
+	
 </script>
 </head>
 
@@ -558,12 +560,11 @@
             
         
    
-            <div id="reference" class="card" style="width: auto; height: 200px;">
+            <div id="reference" class="card" style="width: auto; height: 200px">
                <h6 class="card-header" id="card_info">References</h6>
                <div class="card-body" id="review" align='center' style="overflow-y:auto">
                   
                </div>
-               
             </div>
             <div id="review_write"></div>
          </div>

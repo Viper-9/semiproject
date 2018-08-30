@@ -383,41 +383,42 @@
 				<div class="card-deck">
 					<div class="card">
 						<img class="card-img-top"
-							src="/hifive/resources/image/couch5.jpg"" alt="Card image cap">
+							src="/hifive/resources/image/index/host.jpg"" alt="Card image cap">
 						<div class="card-body">
-							<h5 class="card-title">HOST</h5>
-							<p class="card-text">This is a longer card with supporting
-								text below as a natural lead-in to additional content. This
-								content is a little bit longer.</p>
-							<p class="card-text">
-								<small class="text-muted">Last updated 3 mins ago</small>
+							<h4 class="card-title"><b>Host</b></h4><br>
+								<p class="card-text text-muted"><small>
+								당신의 집을 제공하세요!<br>
+								여행자는 당신의 집에서 생활하며, 함께 여행합니다.<br>
+								여행자에게 자신만의 문화를 소개하고 경험시켜주세요.
+								</small>
+								</p>			
 							</p>
 						</div>
 					</div>
 					<div class="card">
 						<img class="card-img-top"
-							src="/hifive/resources/image/couch5.jpg"" alt="Card image cap">
+							src="/hifive/resources/image/index/surfer.jpg"" alt="Card image cap">
 						<div class="card-body">
-							<h5 class="card-title">SURFER</h5>
-							<p class="card-text">This card has supporting text below as a
-								natural lead-in to additional content.</p>
-							<p class="card-text">
-								<small class="text-muted">Last updated 3 mins ago</small>
-							</p>
+							<h4 class="card-title"><b>Surfer</b></h4><br>
+								<p class="card-text text-muted"><small>
+								여행하는 지역의 문화를 제대로 느껴보세요!<br>
+								일반적인 여행이 아닌 <br>
+								호스트와 함께 색다른 경험을 할 수 있습니다.
+								</small>
+								</p>
 						</div>
 					</div>
 					<div class="card">
 						<img class="card-img-top"
-							src="/hifive/resources/image/couch5.jpg" alt="Card image cap">
+							src="/hifive/resources/image/index/partner2.jpg" alt="Card image cap">
 						<div class="card-body">
-							<h5 class="card-title">PARTNER</h5>
-							<p class="card-text">This is a wider card with supporting
-								text below as a natural lead-in to additional content. This card
-								has even longer content than the first to show that equal height
-								action.</p>
-							<p class="card-text">
-								<small class="text-muted">Last updated 3 mins ago</small>
-							</p>
+							<h4 class="card-title"><b>Partner</b></h4><br>
+								<p class="card-text text-muted"><small>
+								동행을 구하고 있나요?<br>
+								파트너를 등록하고 찾아보세요!<br>
+								새로운 사람들과 새로운 지역을 여행하세요.
+								</small>
+								</p>
 						</div>
 					</div>
 				</div>
@@ -440,8 +441,8 @@
 						})
 					</script>
 				<% }else{ %>
-					<a class="btn btn-primary" style="background-color: rgb(255,68,0); border-color: rgb(255,68,0)" href="#" data-toggle="modal" data-target="#hostenroll" role="button" id="host_enroll">호스트 등록</a>
-					<a class="btn btn-primary" style="background-color: rgb(255,68,0); border-color: rgb(255,68,0)" href="/hifive/views/hsp/searchPage.jsp" role="button" id="host_find">호스트 찾기</a>			
+					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#hostenroll" role="button" id="host_enroll">호스트 등록</a>
+					<a class="btn btn-primary" href="/hifive/views/hsp/searchPage.jsp" role="button" id="host_find">호스트 찾기</a>			
 					&nbsp;&nbsp; &nbsp;&nbsp;
 					<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#surferenroll" role="button" id="surfer_enroll">&nbsp;서퍼등록&nbsp;</a>
 					<a class="btn btn-primary" href="/hifive/sh?no=1" role="button" id="surfer_find">&nbsp;서퍼 찾기&nbsp;</a>

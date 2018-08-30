@@ -16,8 +16,11 @@
 <title>Traveler's Couch</title>
 
 <style type="text/css">
-@import url('https://fonts.googleapis.com/css?family=Montserrat|Nunito|Poiret+One|Quicksand');
+
+@import url('https://fonts.googleapis.com/css?family=Poiret+One');
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+
 .container {
 	margin: 0 auto;
 	padding: 10px;
@@ -43,8 +46,8 @@ header {
 }
 
 #hspInfo { 
-	height: 600px;
-}
+	height: 450px;
+} 
 
 #homeinfo {
 	/* background: rgba(255, 68, 0, .7); */
@@ -58,7 +61,7 @@ header {
 #homeinfodiv {
 	width: 970px; 
 	height: 570px;
-	background:rgba(255,255,255, .5); 
+	background:rgba(255,255,255, .3); 
 	border:0px;
 	font-family: 'Nanum Gothic', sans-serif;
 	
@@ -79,9 +82,7 @@ header {
 	border: 0px;
 	float: left;
 	margin-left: 300px;
-	border-radius: 15px;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
+	box-shadow: 3px 3px 4px rgba(51,51,51,.5);
 }
 #safetydiv2 {
 	width: 400px; 
@@ -90,7 +91,7 @@ header {
 	border: 0px;
 	float: left;
 	margin-left: 20px;
-	box-shadow: 5px 5px 5px rgba(51,51,51,.5);
+	box-shadow: 3px 3px 4px rgba(51,51,51,.5);
 }
 #safetydiv3 {
 	width: 400px; 
@@ -119,35 +120,28 @@ header {
 	/*위에 올라가는 레이어의 포지션은 top, bottom 둘 중 하나, left, right 둘 중 하나의 속성을 선택하여 잡아준다.*/ 
 	width:100%; 
 	height:70%; 
-	/* background:rgba(255, 255, 255, .2);  */
+ background:rgba(255, 255, 255, .2);
 	text-align:center; 
-	line-height:400px;
+	line-height:400px; 
 }
 
 #indexinfo {
 	
 }
 
-#contents1 {
-	font-family: 'Nunito', sans-serif;
-	font-size: 40pt;
-	
-}
-#contents2 {
+
+ #contents2 {
 	font-family: 'Quicksand', sans-serif;
-	font-size: 40pt;
+	font-size: 50pt;
+	color: white;
+}
 
-}
-#contents3 {
-	font-family: 'Montserrat', sans-serif;
-	font-size: 40pt;
-	color: rgba(255,255,255, .8);
-}
-#contents4 {
+/* #contents4 {
 	font-family: 'Poiret One', cursive;
-	font-size: 40pt;
+	font-size: 50pt;
+	color: white;
 
-}
+} */
 
 </style>
 
@@ -210,10 +204,8 @@ header {
 							</div>
 							
 							<div id="indexinfo">
-							<!-- <p id=contents1>Enjoy Your Trip</p>
-							<p id=contents2>Enjoy Your Trip</p> -->
-							<p id=contents3>Enjoy Your Trip</p>
-							<!-- <p id=contents4>Enjoy Your Trip</p> -->
+							<!-- <p id=contents2><b>Enjoy Your Trip</b></p> -->
+							<p id=contents2>Enjoy Your Trip</p>
 							</div>
 						</div>
 
@@ -231,46 +223,46 @@ header {
 					<br>
 					<div id="hspInfo">
 					<center>
-					<div class="card-deck" style="width: 1400px; height: 600px;">
+					<div class="card-deck" style="width: 1400px; height: 450px;">
 				
 						<div class="card">
 							<img class="card-img-top"
-								src="/hifive/resources/image/couch10.png" alt="Card image cap">
+								src="/hifive/resources/image/index/host.jpg" alt="Card image cap">
 							<div class="card-body">
-								<h5 class="card-title">Host</h5>
-								<p class="card-text">This is a longer card with supporting
-									text below as a natural lead-in to additional content. This
-									content is a little bit longer.</p>
-								<p class="card-text">
-									<small class="text-muted">......abc</small>
-								</p>
+								<h4 class="card-title"><b>Host</b></h4><br>
+								<p class="card-text text-muted"><small>
+								당신의 집을 제공하세요!<br>
+								여행자는 당신의 집에서 생활하며, 함께 여행합니다.<br>
+								여행자에게 자신만의 문화를 소개하고 경험시켜주세요.
+								</small>
+								</p>								
 							</div>
 						</div>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<div class="card">
 							<img class="card-img-top"
-								src="/hifive/resources/image/couch1.jpg" alt="Card image cap">
+								src="/hifive/resources/image/index/surfer.jpg" alt="Card image cap">
 							<div class="card-body">
-								<h5 class="card-title">Surfer</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-								<p class="card-text">
-									<small class="text-muted">......abc</small>
-								</p>
+								<h4 class="card-title"><b>Surfer</b></h4><br>
+								<p class="card-text text-muted"><small>
+								여행하는 지역의 문화를 제대로 느껴보세요!<br>
+								일반적인 여행이 아닌 <br>
+								호스트와 함께 색다른 경험을 할 수 있습니다.
+								</small>
+								</p>								
 							</div>
 						</div>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<div class="card">
 							<img class="card-img-top"
-								src="/hifive/resources/image/sample1.jpeg" alt="Card image cap">
+								src="/hifive/resources/image/index/partner2.jpg" alt="Card image cap">
 							<div class="card-body">
-								<h5 class="card-title">Partner</h5>
-								<p class="card-text">This is a wider card with supporting
-									text below as a natural lead-in to additional content. This
-									card has even longer content than the first to show that equal
-									height action.</p>
-								<p class="card-text">
-									<small class="text-muted">......</small>
+								<h4 class="card-title"><b>Partner</b></h4><br>
+								<p class="card-text text-muted"><small>
+								동행을 구하고 있나요?<br>
+								파트너를 등록하고 찾아보세요!<br>
+								새로운 사람들과 새로운 지역을 여행하세요.
+								</small>
 								</p>
 							</div>
 						</div>
@@ -284,37 +276,55 @@ header {
 				
 				<center>
 				<div id="homeinfodiv" class="alert alert-light">
-				<br><br>
+				<br>
 				<h1> 새로운 인연을 만드세요!</h1>
 				<br>
-				<img src="./resources/image/index/friendship4.png" width="150px">
+				<img src="./resources/image/index/friendship4.png" width="100px">		
+				<br><br>
+					<div style="text-align: left;">
+					<p style="color: rgba(255, 68, 0, .7); font-size: 16pt;"><b>친구 찾기</b></p>
+					<p style="font-size: 12pt;">
+					완벽한 프로필을 작성했다면, 가고 싶은 지역에 호스트,파트너,서퍼를 검색해보십오.<br>
+					대화를 나누고싶은 상대의 프로필을 세세하게 확인해보십시오.<br>
+					대상의 프로필에는 대상이 원하는 날짜, 대상의 평가지침이 될 수 있는 리뷰가 있습니다. <br>
+					동료를 찾았다면, 사이트에서 제공하는 대화기능으로 대화를 나누어 보십시오. <br></p>
+					</div>
+					<br>
+					<div style="text-align: right;">
+					<p style="color: rgba(255, 68, 0, .7); font-size: 16pt;"><b>친구가 되어주기</b></p>
+					<p style="font-size: 12pt;">
+					당신은 다른사람에게 호스팅, 파트너를 요청할 수도 있지만, <br>
+					당신이 호스터 또는 파트너로서 서퍼를 초대할 수도 있습니다.<br>
+					등록되어 있는 서퍼를 초대하고 그들과 대화를 나누어보십시오. <br>
+					이는 당신에게도,상대방에게도 멋진 경험을 선물해 줄 것입니다.</p>
+					</div>
+				</div>
 				</div>
 				</center>
-				</div>
-				
 				
 				<div id="safetyinfo">
 				
 				<center>
 				
-				<div id="safetydiv1" class="alert alert-light">
-				<a onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';" href="javascript:void(0)"> 
-				<img src="./resources/image/index/safety.png" width="200px">
-				</a><div style="DISPLAY: none; background: #d5bc9a; width: 400px;">
+				<div id="safetydiv1" class="alert alert-light">		
 				<br>
-				안전~~ 뭐라쓰지~<br>
-				모르게따<br>
-				헤헤
-				</div>
-			
+				<img src="./resources/image/index/searchicon.png" width="100px">
+				<br><br>
+				<h5>호스트, 서퍼, 파트너를 찾으세요!</h5>
 				</div>
 				
-				<div id="safetydiv2" class="alert alert-light">				
-				<img src="./resources/image/index/safety.png" width="200px">
+				<div id="safetydiv2" class="alert alert-light">	
+				<br>
+				<img src="./resources/image/index/friendship.png" width="100px">
+				<br><br>
+				<h5>그 지역의 문화를 함께 즐기세요!</h5>
 				</div>
 				
-				<div id="safetydiv3" class="alert alert-light">			
-				<img src="./resources/image/index/safety.png" width="200px">			
+				<div id="safetydiv3" class="alert alert-light">	
+				<br>	
+				<img src="./resources/image/index/tripicon.png" width="150px" height="100px">
+				<br><br>
+				<h5>그들과 함께 여행하세요!</h5>	
 				</div>
 				</center>
 				</div>
