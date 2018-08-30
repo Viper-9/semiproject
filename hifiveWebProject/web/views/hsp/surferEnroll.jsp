@@ -23,7 +23,11 @@
 		if((sDate > eDate) || (today > sDate)){
 			alert("날짜를 확인해주세요.");
 			return false;
-		} 		
+		} 	
+		if($("#numberS").val()<=0) {
+	         alert("인원수를 확인해주세요.");
+	         return false;
+	      }
 	}
 </script>
 </head>

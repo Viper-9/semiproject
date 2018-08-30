@@ -86,7 +86,7 @@
 		    	 .attr('data-placement', 'right').tooltip('show')
 		     $("#userpwd1").css("background-color", "#FFFFFF");
 			 pwdCheck = 0;
-		 }else if(getPassword.test($("#userpwd1").val())){
+		 }else if(getPassword.test($("#userpwd1").val())){			 
 			 $("#userpwd1")
 		   		 .attr('data-original-title', '비밀번호 강도 : 높음')
 		   		 .attr('data-placement', 'right').tooltip('show')
@@ -190,7 +190,20 @@
 			$(".signupbtn").prop("disabled", true);
         	
         	return false;
-        }  
+        } 
+		//비밀번호 같은지
+        if(($("#userpwd1").val()) != ($("#userpwd2").val()) ){
+			$("#userpwd2").tooltip("dispose");
+            $("#userpwd2")
+	   			 .attr('data-original-title', '암호가 일치하지 않습니다')
+	    		 .attr('data-placement', 'right').tooltip('show');
+            $("#userpwd2").css("background-color", "#FFCECE")  
+            //오류나면 버튼 비활성화
+		    $("#code_check1").val("");
+			$("#code_check1").css("background-color", "#FFFFFF");
+			$(".signupbtn").prop("disabled", true);
+			return false;
+        }
 				 
        /*  // 동일한 문자/숫자 4이상, 연속된 문자
         if(/(\w)\1\1\1/.test(userPASS) || isContinuedValue(userPASS))

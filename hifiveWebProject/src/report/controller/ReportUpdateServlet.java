@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import report.exception.ReportException;
 import report.model.service.ReportService;
 import report.model.vo.Report;
+import user.model.service.UserService;
+import user.model.vo.User;
 
 /**
  * Servlet implementation class ReportUpdateServlet
@@ -64,6 +66,10 @@ public class ReportUpdateServlet extends HttpServlet {
 				request.setAttribute("message", "신고글 수정 성공");
 				Report r = rservice.selectReport(report.getReport_no());
 				request.setAttribute("reportR", r);
+				User user = new UserService().selectUser(r.getUser_id());
+	            request.setAttribute("profileimg", user.getProfile_image());
+				
+				
 			}else{
 				request.setAttribute("message", "신고글 수정 실패");
 			}

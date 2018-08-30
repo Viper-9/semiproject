@@ -1,6 +1,7 @@
 package notice.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,9 +50,12 @@ public class NoticeWriteServlet extends HttpServlet {
 			if(new NoticeService().insertNotice(notice) > 0){
 				response.sendRedirect("/hifive/adminnoticelist");
 			}else{
-				view = request.getRequestDispatcher("views/support/notice/noticeError.jsp");
-				request.setAttribute("message", "공지글 등록 실패");
-				view.forward(request, response);
+				response.setContentType("text/html;charset=utf-8"); 
+				PrintWriter out= response.getWriter(); 
+				out.println("<script>");
+				out.println("alert('메세지를 입력해주세요');");
+				out.println("history.back();");
+				out.println("</script>");
 			}
 
 		} catch (NoticeException e){

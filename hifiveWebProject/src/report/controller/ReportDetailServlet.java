@@ -1,7 +1,6 @@
 package report.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import report.exception.ReportException;
 import report.model.service.ReportService;
 import report.model.vo.Report;
+import user.model.service.UserService;
+import user.model.vo.User;
 
 /**
  * Servlet implementation class ReportDetailServlet
@@ -51,9 +52,10 @@ public class ReportDetailServlet extends HttpServlet {
 			rservice.addReadCount(reportno);
 			
 			Report reportR = rservice.selectReport(reportno);
-			
-			if(reportR != null){
-				request.setAttribute("reportR", reportR);
+			User user = new UserService().selectUser(reportR.getUser_id());
+	         if(reportR != null){
+	            request.setAttribute("reportR", reportR);
+	            request.setAttribute("profileimg", user.getProfile_image());
 			}else{
 				request.setAttribute("message", "게시글이 없습니다.");
 			}	

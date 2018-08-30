@@ -3,6 +3,7 @@
 <%@ page import="report.model.vo.Report" %>
 <%
 	Report r = (Report)request.getAttribute("reportR");
+	String profileimg = (String)request.getAttribute("profileimg");
 %>   
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,7 @@
 
 <script src="/hifive/resources/js/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
 <script src="/hifive/resources/js/bootstrap.min.js"></script>
 
 <style type="text/css">
@@ -113,9 +114,9 @@
                </thead>
                <tbody>
                   <tr >
-                     <td class="text-left">&nbsp;&nbsp;<img
-                        src="/hifive/resources/image/sample11.jpg" alt="..."
-                        class="rounded-circle" id="circle2"> &nbsp;&nbsp;
+                     <td class="text-left">&nbsp;&nbsp;<img src="/hifive/resources/profileUpfiles/<%= profileimg %>" 
+                     alt="..." class="rounded-circle" id="circle2"> &nbsp;&nbsp;
+               
                         <%= r.getUser_id() %>
                      </td>
 

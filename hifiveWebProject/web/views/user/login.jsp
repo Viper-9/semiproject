@@ -74,6 +74,7 @@
 								if(data == '0'){
 									alert("아이디 혹은 비밀번호가 일치하지 않습니다");
 									$("#userpw").val('');
+									return false;
 								} else if(data == '1') {
 									if(!getPassword.test($("#userpw").val())){
 										alert("임시 비밀번호 발급대상입니다. 비밀번호을 변경해주세요");
@@ -90,10 +91,8 @@
 								} else {
 									alert("알수없는 오류입니다. 관리자에게 문의하세요");
 									location.href = "/hifive/index.jsp";
+									return false;
 								}							
-
-						}, error : function(jqXHR, textstatus, errorThrown){
-			                console.log("error : "+jqXHR+", "+textstatus+", "+errorThrown);
 						}
 					});
 					

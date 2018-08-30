@@ -33,16 +33,20 @@ public class UserLoginServlet extends HttpServlet {
 		
     	String userId = request.getParameter("userid");
 		String userPw = request.getParameter("userpw");
+		PrintWriter out = response.getWriter();
 				
 		
 		
 		  try {
+			  
+			String returnValue = "0";	
+			User user = new UserService().selectUser(userId);					
+			String userName = new UserService().loginCheck(userId, userPw);	
+			String blockcheck = "T";
+			if(user != null){
+			blockcheck = user.getRestriction();
+			}
 			
-			User user = new UserService().selectUser(userId);		
-			String userName = new UserService().loginCheck(userId, userPw);
-			String returnValue = "0";
-			String blockcheck = user.getRestriction();			
-			PrintWriter out = response.getWriter();
 			HttpSession session = request.getSession();
 					
 			if(userId.equals("admin")){
@@ -69,47 +73,20 @@ public class UserLoginServlet extends HttpServlet {
 			
 			out.append(returnValue);	
 			out.close();
-			return;
+		
 			
 			
 			
 		} catch(UserException e){
 			e.printStackTrace();
+			out.println("<script>");
+			out.println("alert('관리자에게 문의하세요');");
+			out.println("history.back();");
+			out.println("</script>");
 		}
 	}
     
     
-    
-    /*
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userid");
-		String userPw = request.getParameter("userpassword");
-		
-		
-		
-		
-		  try {
-			String userName = new UserService().loginCheck(userId, userPw);
-		
-			if(userName != null){
-				HttpSession session = request.getSession();
-				// session.setMaxInactiveInterval(10*60); // 자동 로그아웃...
-				session.setAttribute("userName", userName);
-				session.setAttribute("userId", userId);
-				
-				response.sendRedirect("/hifive/main.jsp"); 
-				// 로그인 페이지 닫고, 인덱스 페이지 -> 메인 페이지로 넘기고 싶은데 방법을 모르겠어요 ㅠㅠ
-			} else{
-				RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
-				request.setAttribute("message", "아이디나 비밀번호를 다시 확인하세요");
-				view.forward(request, response);	
-			}			
-		} catch(UserException e){
-			RequestDispatcher errorPage = request.getRequestDispatcher("에러페이지주소");
-			request.setAttribute("message", e.getMessage());
-			errorPage.forward(request, response);
-		}
-	}*/
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			// TODO Auto-generated method stub
 			doGet(request, response);

@@ -3,6 +3,7 @@
 <%@ page import="report.model.vo.Report" %>
 <%
 	Report r = (Report)request.getAttribute("reportR");
+	String profileimg = (String)request.getAttribute("profileimg");
 %>   
 <!DOCTYPE html>
 <html>
@@ -117,9 +118,8 @@ function showBoardWriteForm(){
                </thead>
                <tbody>
                   <tr >
-                     <td class="text-left">&nbsp;&nbsp;<img
-                        src="/hifive/resources/image/sample11.jpg" alt="..."
-                        class="rounded-circle" id="circle2"> &nbsp;&nbsp;
+                     <td class="text-left">&nbsp;&nbsp;<img src="/hifive/resources/profileUpfiles/<%= profileimg %>" 
+                    	 alt="..." class="rounded-circle" id="circle2"> &nbsp;&nbsp;
                         <%= r.getUser_id() %>
                      </td>
 

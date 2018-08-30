@@ -399,6 +399,15 @@ table {
             window.open(url,"",popupOption);
        }
        
+       function hostCheck(){
+           if($("#h-num").val()=="" || $("#pgender").val()=="" || $("#sleeping").val()=="" || $("#hostcity").val()=="" ) {
+              alert("빈칸을 확인해주세요.");
+              return false;
+           }
+       } 
+       
+       
+       
        function surferCheck(){
     	   var today = new Date();
            var sDate = new Date($("#s-startdate").val());
@@ -865,12 +874,8 @@ table {
                   <br>  
                                   
                   <center>
-                   <input type="submit" id="hsubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정">&nbsp;&nbsp; 
-<<<<<<< HEAD
-                   <input type="reset" id="hreset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화">
-=======
-                   <input type="reset" class="btn btn-outline-dark" style="width:100px; value="초기화">
->>>>>>> branch 'hoon' of https://github.com/semiprojecthifive/semiproject.git
+                   <input type="submit" id="hsubmit" class="btn btn-outline-dark" style="width:100px;" value="수정" onclick="return hostCheck();">&nbsp;&nbsp; 
+                   <input type="reset" id="hreset" class="btn btn-outline-dark" style="width:100px; value="초기화">
                   </center>
                </div>
              </div>
@@ -912,7 +917,7 @@ table {
 					  </table>
 					  <center>
 					  <br>
-					  <input type="submit" id="photosubmit" class="btn btn-outline-dark text-dark" value="사진 등록">
+					  <input type="submit" id="photosubmit" class="btn btn-outline-dark" value="사진 등록">
 					  </center>
 				</form>	
 					<script>

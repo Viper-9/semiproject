@@ -1,8 +1,5 @@
 package user.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -11,11 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import javax.servlet.http.HttpSession;
 
 import user.exception.UserException;
 import user.model.service.UserService;
@@ -54,9 +47,13 @@ public class InfoUpdateServlet extends HttpServlet {
 		user.setContent(request.getParameter("introduction"));		
 		
 
-	    try {	      	
+	    try {	    
+	    	User user2 = new UserService().selectUser(request.getParameter("userid"));
+	    	
 	    	if(new UserService().updateUser(user) > 0){
-	    		response.sendRedirect("/hifive/views/user/mypage.jsp");	 
+	    		HttpSession session = request.getSession();
+	            session.setAttribute("loginuser", user2);
+	    		response.sendRedirect("/hifive/views/user/mypage.jsp");		    		
 	    		
 
 	    	}else{

@@ -1,6 +1,7 @@
 package report.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,9 +54,12 @@ public class ReportWriteServlet extends HttpServlet {
 			if(new ReportService().insertReport(report) > 0){
 				response.sendRedirect("/hifive/reportlist");
 			}else{
-				view = request.getRequestDispatcher("views/support/report/reportWrite.jsp");
-				request.setAttribute("result", "1");
-				view.forward(request, response);
+				response.setContentType("text/html;charset=utf-8"); 
+				PrintWriter out= response.getWriter(); 
+				out.println("<script>");
+				out.println("alert('메세지를 입력해주세요');");
+				out.println("history.back();");
+				out.println("</script>");
 			} 
 
 		} catch (ReportException e){

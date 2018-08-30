@@ -343,27 +343,41 @@
 	         } // error
 		});
 	      
+	      
+	      
+	      
 	      // 호스트, 서퍼, 파트너 등록창 (이미 등록되어 있으면 비활성화)
-	      $.ajax({
-	    	  url : "/hifive/mainhsp",
-	    	  type : "get",
-	    	  data : { userid : userid },
-	    	  dataType : "json",
-	    	  success : function(data){	 
+	               $.ajax({
+            url : "/hifive/mainhsp",
+            type : "get",
+            data : { userid : userid },
+            dataType : "json",
+            success : function(data){    
 
-	    		  if(data.host==1)
-	    			  $('#host_enroll').removeAttr('data-target');
-	    		  if(data.surfer==1)
-	    			  $('#surfer_enroll').removeAttr('data-target');
-	    		  if(data.partner==1)
-	    			  $('#partner_enroll').removeAttr('data-target');
-	    	  }, // success 
-	    	  error : function(jqXHR, textstatus, errorThrown){
-		            console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
-		      } // error  
-	      });
+               if(data.host==1){
+                  $('#host_enroll').removeAttr('data-target');    
+                  $("#host_enroll").click(function(){
+                     alert("호스트 등록을 하셨습니다.\n마이페이지를 확인해주세요!");    
+                  })                                    
+               }  
+               if(data.surfer==1){
+                  $('#surfer_enroll').removeAttr('data-target');
+                  $("#surfer_enroll").click(function(){
+                     alert("서퍼 등록을 하셨습니다.\n마이페이지를 확인해주세요!");    
+                  })
+               }
+               if(data.partner==1){
+                  $('#partner_enroll').removeAttr('data-target');
+                  $("#partner_enroll").click(function(){
+                     alert("파트너 등록을 하셨습니다.\n마이페이지를 확인해주세요!");    
+                  })
+               }
+            }, // success 
+            error : function(jqXHR, textstatus, errorThrown){
+                  console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+            } // error  
+         });
 	});
-	
 	function partnerAccept(req_no){
 		// 파트너 요청 수락할 때, 날짜와 목적지 맞춤
 		$.ajax({
