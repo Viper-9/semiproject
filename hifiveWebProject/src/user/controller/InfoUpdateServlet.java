@@ -48,9 +48,10 @@ public class InfoUpdateServlet extends HttpServlet {
 		
 
 	    try {	    
-	    	User user2 = new UserService().selectUser(request.getParameter("userid"));
+	    	
 	    	
 	    	if(new UserService().updateUser(user) > 0){
+	    		User user2 = new UserService().selectUser(request.getParameter("userid"));
 	    		HttpSession session = request.getSession();
 	            session.setAttribute("loginuser", user2);
 	    		response.sendRedirect("/hifive/views/user/mypage.jsp");		    		
