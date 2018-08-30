@@ -277,13 +277,18 @@
 			var sendreceiver = $("#receiver").val();
 			var makecode = $("#code").val();
 			
+			if($("#receiver").val() == "" || $("#receiver").val() == null){
+				$("#errorMS").css("color", "red").text('이메일을 입력해주십시오.')
+			 	$("#errorMS").css("display", "block"); 					
+				$("#receiver").focus();
+			}else{
 			// ajax로 사용자가 작성한 이메일 + 동시에 발생한 랜덤변수 서블릿으로 보내는 구문
 			$.ajax({
 				url : "/hifive/send",
 				type : "post",
 				data : {sreceiver : sendreceiver, code_check : makecode},
 				success : function(data){
-					 console.log(data);
+					 
 					if(data == '0'){						
 						$("#errorMS").css("color", "red").text('이미 사용중인 이메일입니다.')
 					 	$("#errorMS").css("display", "block"); 					
@@ -297,6 +302,7 @@
 					}
 				}							
 		});
+			}
 	}
 	
 
