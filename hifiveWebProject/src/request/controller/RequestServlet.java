@@ -15,6 +15,7 @@ import hsp.model.service.HostService;
 import hsp.model.service.SurferPartnerService;
 import message.model.service.MessageListService;
 import request.exception.RequestException;
+import request.model.service.MatchingService;
 import request.model.service.RequestService;
 
 /**
@@ -47,13 +48,17 @@ public class RequestServlet extends HttpServlet {
 			if(profilerole.toUpperCase().equals("H")) {
 				if(new SurferPartnerService().selectSurfer(loginid) != null) {
 					loginrole = "S";
-					if(new RequestService().checkRequest(loginid, loginrole, profileid) != null) {
-						job.put("result", "0");
-					} else {
-						if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {							
-							if(new MessageListService().checkMList(loginid, profileid)==0)
-								new MessageListService().insertMessageRequest(profileid, loginid);
-							job.put("result", "1");							
+					if(new MatchingService().surferMatching(loginid)!= null || new MatchingService().surferMatching(profileid)!= null ){
+						job.put("result", "3");
+					} else {					
+						if(new RequestService().checkRequest(loginid, loginrole, profileid) != null) {
+							job.put("result", "0");
+						} else {
+							if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {							
+								if(new MessageListService().checkMList(loginid, profileid)==0)
+									new MessageListService().insertMessageRequest(profileid, loginid);
+								job.put("result", "1");							
+							}
 						}
 					}
 				} else {
@@ -63,13 +68,18 @@ public class RequestServlet extends HttpServlet {
 			} else if(profilerole.toUpperCase().equals("S")) {
 				if(new HostService().selectHost(loginid) != null) {
 					loginrole = "H";
-					if(new RequestService().checkRequest(loginid, loginrole, profileid) != null) {
-						job.put("result", "0");
-					} else {
-						if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {
-							if(new MessageListService().checkMList(loginid, profileid)==0)
-								new MessageListService().insertMessageRequest(profileid, loginid);
-							job.put("result", "1");
+					if(new MatchingService().hostMatching(loginid)!=null || new MatchingService().hostMatching(profileid)!=null){
+						job.put("result", "3");
+					}
+					else{
+						if(new RequestService().checkRequest(loginid, loginrole, profileid) != null) {
+							job.put("result", "0");
+						} else {
+							if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {
+								if(new MessageListService().checkMList(loginid, profileid)==0)
+									new MessageListService().insertMessageRequest(profileid, loginid);
+								job.put("result", "1");
+							}
 						}
 					}
 				} else {
@@ -78,13 +88,18 @@ public class RequestServlet extends HttpServlet {
 			} else if(profilerole.toUpperCase().equals("P")) {
 				if(new SurferPartnerService().selectPartner(loginid) != null) {
 					loginrole = "P";
-					if(new RequestService().checkRequest(loginid, loginrole, profileid) != null) {
-						job.put("result", "0");
-					} else {
-						if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {	
-							if(new MessageListService().checkMList(loginid, profileid)==0)
-								new MessageListService().insertMessageRequest(profileid, loginid);
-							job.put("result", "1");
+					if(new MatchingService().partnerMatching(loginid)!=null || new MatchingService().partnerMatching(profileid)!=null){
+						job.put("result", 3);
+					}
+					else{
+						if(new RequestService().checkRequest(loginid, loginrole, profileid) != null) {
+							job.put("result", "0");
+						} else {
+							if(new RequestService().insertRequest(loginid, loginrole, profileid) > 0) {	
+								if(new MessageListService().checkMList(loginid, profileid)==0)
+									new MessageListService().insertMessageRequest(profileid, loginid);
+								job.put("result", "1");
+							}
 						}
 					}
 				} else {

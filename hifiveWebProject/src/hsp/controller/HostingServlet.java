@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
-import hsp.exception.HostException;
+
 import hsp.model.service.HostService;
 import hsp.model.vo.Host;
+import request.model.service.MatchingService;
 
 
 
@@ -56,6 +57,9 @@ public class HostingServlet extends HttpServlet {
 		else {
 			job.put("result", "1");
 		}
+		
+		if(new MatchingService().hostMatching(userId)!=null)
+			job.put("matching", "M");		
 		
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();

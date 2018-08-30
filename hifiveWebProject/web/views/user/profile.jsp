@@ -153,7 +153,9 @@
 						} 
 						else if(data.result == '0') {
 							alert("이미 요청한 사용자입니다.");
-						}        
+						} else{
+							alert("이미 매칭이 되어 있습니다.");
+						}   
 					}
 				});
 			}
@@ -181,6 +183,8 @@
 						} 
 						else if(data.result == '0') {
 							alert("이미 요청한 사용자입니다.");
+						} else{
+							alert("이미 매칭이 되어 있습니다.");
 						}         
 					}
 				});
@@ -209,7 +213,9 @@
 						}
 						else if(data.result == '0') {
 							alert("이미 요청한 목록에 있습니다.");
-						}
+						} else{
+							alert("이미 매칭이 되어 있습니다.");
+						} 
 					}
 				});
 			}
@@ -264,36 +270,39 @@
                      <table border="0">
                         <tr>
                            <th>
+                           <% if(loginuserid.equals(user.getUser_Id())) {} else{%>
                           <% if(profileH != null) { %>
                           <input type="button" class="btn btn-primary"
                               value="Host에게 요청하기" id="requestH" style="width: 200px;" onclick="hrequest();">
                            <%} else { %> 
                             <input type="button" class="btn btn-primary"
                               value="Host에게 요청하기" disabled id="requestH" style="width: 200px;">
-						   <% } %> 
+						   <% }} %> 
                            </th>
                               
                         </tr>
                         <tr>
                            <th>
+                           <% if(loginuserid.equals(user.getUser_Id())) {} else{%>
                            <% if(profileS != null) { %>
                            <input type="button" class="btn btn-primary"
                               value="Surfer에게 요청하기" id="requestS" style="width: 200px;" onclick="srequest();">
                               <%} else { %> 
                               <input type="button" class="btn btn-primary"
                               value="Surfer에게 요청하기" disabled id="requestS" style="width: 200px;">
-                              <% } %>  
+                              <% }} %>  
                               </th>
                         </tr>
                         <tr>
                            <th>
+                           <% if(loginuserid.equals(user.getUser_Id())) {} else{%>
                            <% if(profileP != null) { %>
                            <input type="button" class="btn btn-primary"
                               value="Partner에게 요청하기" id="requestP" style="width: 200px;" onclick="prequest();">
                                <%} else { %> 
                                <input type="button" class="btn btn-primary"
                               value="Partner에게 요청하기" disabled id="requestS" style="width: 200px;">
-                               <% } %> 
+                               <% }} %> 
                               </th>
                         </tr>
                      </table>
@@ -443,7 +452,7 @@
                      </tr>     
                      <tr>
                      	<td><li>주소</li></td>
-                     	<td><textarea class="form-control" id="hostcity" name="city" rows="1" cols="60" disabled style="text-align:center; background-color: #ffffff;"><%= profileH.getCity() %></textarea></td>
+                     	<td><textarea class="form-control" id="hostcity" name="city" rows="1" cols="60" disabled style="text-align:left; background-color: #ffffff;"><%= profileH.getCity() %></textarea></td>
                      </tr>          
                      <tr>
                         <td><li>추가 정보</li></td>

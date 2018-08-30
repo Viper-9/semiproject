@@ -265,7 +265,7 @@
 		          	   
 		          	 values3 += "</td><td><small><b>" + json.list_s2[i].user_name
 		          	   + "</b></small></td><td><small>" + json.list_s2[i].start_date + " ~ " + json.list_s2[i].end_date
-		          	   +"</small></td><td><a href='/hifive/requestaccept?request_no=" + json.list_s2[i].request_no + "'><small><b>수락</b></small></a>;"
+		          	   +"</small></td><td><a href='/hifive/requestaccept?request_no=" + json.list_s2[i].request_no + "'><small><b>수락</b></small></a>"
 		          	   +"</td><td><a href='/hifive/requestrefuse?request_no=" + json.list_s2[i].request_no +"'><small><font color='red'><b>거절</b></font></small></a>"
 		          	   + "</td></tr><br>";
 		            }                              
@@ -308,7 +308,7 @@
 		           	   
 		           		values5 += "</td><td><small><b>" + json.list_p2[i].user_name
 		           	   + "</b></small></td><td><small>" + json.list_p2[i].start_date + " ~ " + json.list_p2[i].end_date
-		           	   +"</small></td><td><a href='/hifive/requestaccept?request_no=" + json.list_p2[i].request_no + "'><small>수락</small></a> &nbsp;"
+		           	   +"</small></td><td><a href='#' onClick='partnerAccept(" + json.list_p2[i].request_no + ");'><small>수락</small></a> &nbsp;"
 		           	   +"</td><td><a href='/hifive/requestrefuse?request_no=" + json.list_p2[i].request_no +"'><small><font color='red'><b>거절</b></font></small></a>"
 		           	   + "</td></tr><br>";
 		            }                                                         
@@ -362,7 +362,26 @@
 		      } // error  
 	      });
 	});
-
+	
+	function partnerAccept(req_no){
+		// 파트너 요청 수락할 때, 날짜와 목적지 맞춤
+		$.ajax({
+	    	  url : "/hifive/praccept",
+	    	  type : "get",
+	    	  data : { req_no : req_no },
+	    	  dataType : "json",
+	    	  success : function(data){	 
+	    		  if(data.result == 0) 
+	    			  alert("상대방과 정보를 맞춰주세요.");	
+	    		  else
+	    			  location.reload();
+    		  
+	    	  }, // success 
+	    	  error : function(jqXHR, textstatus, errorThrown){
+		            console.log("error : " + jqXHR + ", " + textstatus + ", " + errorThrown);
+		      } // error  
+	      });	
+	}
 </script>
 
 </head>

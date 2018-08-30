@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 
 import hsp.model.service.SurferPartnerService;
 import hsp.model.vo.SurferPartner;
+import request.model.service.MatchingService;
 
 /**
  * Servlet implementation class SurfingServlet
@@ -49,6 +50,10 @@ public class SurfingServlet extends HttpServlet {
 		else {
 			job.put("result", "1");
 		}
+		
+		if(new MatchingService().surferMatching(userId)!=null)
+			job.put("matching", "M");
+		
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 
