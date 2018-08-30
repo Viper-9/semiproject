@@ -9,66 +9,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" http-equiv="refresh" content="10">
-<title>대화창</title>
+<meta charset="UTF-8" http-equiv="refresh" content="300">
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/index/logo2.png" />
+<title>Traveler's Couch</title>
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <style type="text/css">
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
-@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
 
-body {
-	/* font-family: 'Hanna', sans-serif; */
-	 font-family: NanumSquareWeb, sans-serif; 
-	/* font-family: 'Jeju Gothic', serif; */
-}
-	#msgpage {
-		width : 400px;
-		height : 600px;
-		overflow:scroll;
-		font-size : 14px;
-		border-radius: 7px;
-		-webkit-border-radius: 7px;
-		-moz-border-radius: 7px;
-		box-shadow: 0 1px 9px rgba(51,51,51,.8);
-		-webkit-box-shadow: 0 1px 9px rgba(51,51,51,.8);
-		-moz-box-shadow: 0 1px 9px rgba(51,51,51,.8);
-		/* background: rgba(255,102,0,.5); */
-		
-	}
-	
-	#msgpage .you {
-    background-color: #e7e7eb;
-    max-width: 60%;
-    margin: 4px;
-    padding: 5px;
-    clear: both;
-    float: left;
-    border-radius: 7px;
-	-webkit-border-radius: 7px;
-	-moz-border-radius: 7px;
-	box-shadow: 1px 1px 2px rgba(51,51,51,.8);
-	}
- 
-	#msgpage .me {
-    background-color: #e7e7eb;
-    max-width: 60%;
-    margin : 4px;
-    padding: 5px;
-    height: auto;
-    clear: both;
-    float: right;
-    border-radius: 7px;
-	-webkit-border-radius: 7px;
-	-moz-border-radius: 7px;
-	box-shadow: 1px 1px 2px rgba(51,51,51,.8);
-	}
 	
 .arrow_left {
 	position: relative;
 	background: #ff8f73;
+	/* background: rgba(255, 68, 0, .6); */
 	max-width: 80%;
 	/* width: 80%; */
 	margin : 4px;

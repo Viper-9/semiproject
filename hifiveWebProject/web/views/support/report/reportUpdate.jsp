@@ -12,7 +12,8 @@
 <meta charset="UTF-8">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>신고게시판 글수정</title>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/index/logo2.png" />
+<title>Traveler's Couch</title>
 
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
@@ -21,7 +22,7 @@
    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
    src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
+<script src="/hifive/resources/js/bootstrap.min.js"></script>
 <style type="text/css">
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */
 
@@ -112,7 +113,7 @@
                <thead>
                </thead>
                <tbody>
-               <form action="/hifive/reportupdate" method="get">
+               <form action="/hifive/reportupdate" method="post">
                 <tr class="p-3 mb-2 bg-light text-dark">
                      <th style="width:70px">제목</th>
                      <td colspan="2" class="text-left"><input type="text" class="form-control" style="width:400px" name="rtitle" value="<%= r.getTitle() %>" ></td>
@@ -134,7 +135,7 @@
                   <tr>
 						<input type="hidden" name="reportno" value="<%= r.getReport_no() %>">
                      <td colspan="3">
-                        <button type="submit" class="btn btn-primary btn-sm">수정</button>
+                        <input type="submit" class="btn btn-primary btn-sm" value="수정">
                         <button type="reset" class="btn btn-primary btn-sm" onclick="location.href='/hifive/reportlist'">취소</button></td>
                   </tr>
                   </form>

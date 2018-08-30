@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/logo2.png" />
 
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>메인화면</title>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/index/logo2.png" />
+<title>Traveler's Couch</title>
 
 <style type="text/css">
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */

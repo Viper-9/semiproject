@@ -13,7 +13,8 @@
 <meta charset="UTF-8">
 <meta name="viewport"
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>신고게시판 글쓰기</title>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/index/logo2.png" />
+<title>Traveler's Couch</title>
 
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
 
@@ -22,6 +23,7 @@
    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
    src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+   <script src="/hifive/resources/js/bootstrap.min.js"></script>
 
 <style type="text/css">
 /* 전체 사이즈 1000에 맞게 사이즈 해놨으니 안 바꾸셔도 될거에여.. */

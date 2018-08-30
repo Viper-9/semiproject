@@ -21,8 +21,8 @@
 <body>
 <div class="card" style="width: 250px;">
 					<div class="card-body"> 
-
-						<h4 class="card-title"><b><%= infoUser.getUser_Name() %></b> </h4>
+						<br>
+						<h4 class="card-title"><b><%= infoUser.getUser_Name() %></b>님 </h4>
 						<br>
 						<h6 class="card-subtitle mb-2 text-muted">(
 						<%if(infoUser.getAddress() != null) { %>
@@ -33,8 +33,8 @@
 						)</h6>
 						
 						<p class="card-text">
-							<br> <br> <br> <br> <br> <br>
-							<br> <br> <br>
+							<br> <br> <br> <br> <br> 
+							
 						</p>
 							<table class="table table-borderless table-sm">
                <thead>

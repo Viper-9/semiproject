@@ -19,7 +19,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="/hifive/resources/css/bootstrap.min.css">
-<title>join</title>
+<link rel="shortcut icon" type="image/x-icon" href="/hifive/resources/image/index/logo2.png" />
+<title>Traveler's Couch</title>
 
 <style type="text/css">
 	header {
@@ -68,26 +69,6 @@
 			}			
 		}); //ajax
 	} //callMyPage
-	
-	$(function(){
-		var userid = '<%= userId %>';
-	
-		$.ajax({
-			url : "/hifive/newmessage",
-			type : "get",
-			data : { uid : userid },
-			dataType : "json",			
-			success : function(data){
-				/* console.log(data.result); */
-				if(data.result == '1'){							
-					$('#msg').attr("src", "/hifive/resources/image/micon_new.jpg");
-				} else{
-					$('#msg').attr("src", "/hifive/resources/image/micon.jpg");
-				}
-				
-			} // success
-		});
-	});
 </script>
 </head>
 
@@ -112,7 +93,8 @@
 						<tr>
 							<th><%= userName %>님 &nbsp;&nbsp;</th>
 
-							<th><a href="/hifive/views/message/messageList.jsp"> <img id="msg"
+							<th><a href="/hifive/views/message/messageList.jsp"> 
+							<img id="msg"
 									src="/hifive/resources/image/micon.jpg" 
 									class="messagelist" title="요청받은 목록">
 							</a>&nbsp;</th>

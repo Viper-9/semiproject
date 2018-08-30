@@ -51,13 +51,12 @@ public class ReportUpdateServlet extends HttpServlet {
 		report.setContent(content);
 		report.setReport_no(Integer.parseInt(request.getParameter("reportno")));
 		report.setComplete("N");
-		String admin = "";
+		String admin = "user";
 		
 		if(request.getParameter("userid") != null) {
 			admin = request.getParameter("userid");
 			report.setComplete("Y");
 		}
-		
 		ReportService rservice = new ReportService();
 		
 		try{
