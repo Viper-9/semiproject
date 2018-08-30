@@ -457,7 +457,7 @@ table {
                      <input type="file" id="pimg" name="pimg" accept="image/*">
                      <input type="hidden" id="imguserid" name="imguserid" value="<%= headeruser.getUser_Id() %>">
                      <br>
-                     <input type="submit" class="btn btn-outline-dark text-dark" id="imgbtn" value="프사업로드">
+                     <input type="submit" class="btn btn-outline-dark" id="imgbtn" value="프사업로드">
                      </form>        
                      <br>
                      <br>
@@ -576,7 +576,7 @@ table {
                       <label class="col-sm-2 col-form-label">Address</label>
                       <div class="col-sm-10">
                       <textarea class="form-control" name="address" id="sample5_address" rows="3" cols="25" placeholder="주소"></textarea>
-               		  <input type="button" class="btn btn-outline-dark text-dark" onclick="sample5_execDaumPostcode()" value="주소 입력"><br>
+               		  <input type="button" class="btn btn-outline-dark" onclick="sample5_execDaumPostcode()" value="주소 입력"><br>
                       <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
                       </div>
                       </div>
@@ -746,7 +746,7 @@ table {
                      <textarea class="form-control" id="introduction" name="introduction" rows="5" cols="90" placeholder="자기소개를 작성해주세요"></textarea>                                      
                      <br>   
                       <center>              
-                     <input type="submit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정" id="updateinfo">&nbsp;&nbsp;
+                     <input type="submit" class="btn btn-outline-dark" style="width:100px;" value="수정" id="updateinfo">&nbsp;&nbsp;
                      </center>
                </div>
             </div>
@@ -865,7 +865,11 @@ table {
                                   
                   <center>
                    <input type="submit" id="hsubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정">&nbsp;&nbsp; 
+<<<<<<< HEAD
                    <input type="reset" id="hreset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화">
+=======
+                   <input type="reset" class="btn btn-outline-dark" style="width:100px; value="초기화">
+>>>>>>> branch 'hoon' of https://github.com/semiprojecthifive/semiproject.git
                   </center>
                </div>
              </div>
@@ -963,8 +967,8 @@ table {
                  
                   <br>
                   <center>
-                    <input type="submit" id="ssubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정" onclick="return surferCheck();"> &nbsp;&nbsp; 
-                    <input type="reset" id="sreset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화"> 
+                    <input type="submit" id="ssubmit" class="btn btn-outline-dark" style="width:100px;" value="수정" onclick="return surferCheck();"> &nbsp;&nbsp; 
+                    <input type="reset" id="sreset" class="btn btn-outline-dark" style="width:100px; value="초기화"> 
                   </center>
                </div>
               </div>
@@ -1005,8 +1009,8 @@ table {
                   <br>
                  
                   <center>
-                   <input type="submit" id="psubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정" onclick="return partnerCheck();">&nbsp;&nbsp;
-                   <input type="reset" id="preset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화">
+                   <input type="submit" id="psubmit" class="btn btn-outline-dark" style="width:100px;" value="수정" onclick="return partnerCheck();">&nbsp;&nbsp;
+                   <input type="reset" id="preset" class="btn btn-outline-dark" style="width:100px; value="초기화">
                   </center>
                </div>
             </div>
