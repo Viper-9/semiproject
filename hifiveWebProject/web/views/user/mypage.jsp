@@ -164,7 +164,20 @@ table {
             		$("#phototable").html("호스트를 등록하지 않았습니다."); 
             		$("#photosubmit").hide();            		
             	}
-            	else {
+            	else {            		
+            		if(data.matching=="M"){
+            			$("input[id='h-num']").attr("disabled", "disabled");
+            			$("select[id='pgender']").attr("disabled", "disabled");
+            			$("input[id='kids']").attr("disabled", "disabled");
+            			$("input[id='pet']").attr("disabled", "disabled");
+            			$("input[id='smoking']").attr("disabled", "disabled");
+            			$("input[id='drinking']").attr("disabled", "disabled");
+            			$("select[id='sleeping']").attr("disabled", "disabled");
+            			$("textarea[id='hostcity']").attr("disabled", "disabled");
+            			$("textarea[id='hostcontent']").attr("disabled", "disabled");            			
+            			$("input[id='hsubmit']").attr("disabled", "disabled");           			
+            			$("input[id='hreset']").attr("disabled", "disabled");        			
+            		}            		
 	                //인원
 	                if(data.num == null){
 	                   $("#h-num").val('');
@@ -260,9 +273,16 @@ table {
              		 $("#sreset").hide();
             	 }
             	 else {
-            		 //목적지
-	            	 
-	                if(data.destination == null){
+            		 if(data.matching=="M"){
+             			$("textarea[id='s-destination']").attr("disabled", "disabled");
+             			$("input[id='s-startdate']").attr("disabled", "disabled");
+             			$("input[id='s-enddate']").attr("disabled", "disabled");
+             			$("input[id='s-num']").attr("disabled", "disabled");            			
+             			$("input[id='ssubmit']").attr("disabled", "disabled");           			
+             			$("input[id='sreset']").attr("disabled", "disabled");        			
+             		} 
+	           		//목적지
+	            	if(data.destination == null){
 	                   $("#s-destination").val('');
 	                }else{
 	                   $("#s-destination").val(data.destination);
@@ -302,6 +322,14 @@ table {
             		$("#preset").hide();
             	}
             	else {
+            		if(data.matching=="M"){
+             			$("textarea[id='p-destination']").attr("disabled", "disabled");
+             			$("input[id='p-startdate']").attr("disabled", "disabled");
+             			$("input[id='p-enddate']").attr("disabled", "disabled");
+             			$("input[id='p-num']").attr("disabled", "disabled");            			
+             			$("input[id='psubmit']").attr("disabled", "disabled");           			
+             			$("input[id='preset']").attr("disabled", "disabled");        			
+             		} 
 	                //목적지
 	                if(data.destination == null){
 	                   $("#p-destination").val('');
@@ -369,6 +397,38 @@ table {
              var popupOption= "width="+winWidth+", height="+winHeight;    //팝업창 옵션(optoin)
             window.open(url,"",popupOption);
        }
+       
+       function surferCheck(){
+    	   var today = new Date();
+           var sDate = new Date($("#s-startdate").val());
+           var eDate = new Date($("#s-enddate").val());
+           
+           if($("#s-destination").val()=="" || $("#s-startdate").val()=="" || $("#s-enddate").val()=="" || $("#s-num").val()=="") {
+        	   alert("빈칸을 확인해주세요.");
+        	   return false;
+           }
+           if((sDate > eDate) || (today > sDate)){
+    			alert("날짜를 확인해주세요.");
+    			return false;
+    	   }
+
+       }
+       
+       function partnerCheck(){
+    	   var today = new Date();
+           var sDate = new Date($("#p-startdate").val());
+           var eDate = new Date($("#p-enddate").val());
+           
+           if($("#p-destination").val()=="" || $("#p-startdate").val()=="" || $("#p-enddate").val()=="" || $("#p-num").val()==""){
+        	   alert("빈칸을 확인해주세요.");
+	    	   return false;
+    	   }
+           if((sDate > eDate) || (today > sDate)){
+    			alert("날짜를 확인해주세요.");
+    			return false;
+    	   }
+       }
+
     </script>  
        
 
@@ -706,9 +766,7 @@ table {
             </div>
             
             <br>
-            
-            
-            
+        
             <form action="/hifive/hupdate?userid=<%=userId %>" method="post">
             	<div id="myhome" class="card" style="width: auto;">
                		<h6 class="card-header" id="card_info">My Home</h6>
@@ -778,7 +836,7 @@ table {
                         <tr>
                           <td>수면 장소&nbsp;&nbsp;&nbsp;</td>
                           <td>
-                           <select class="custom-select" name="sleeping" style="width:110px;">
+                           <select class="custom-select" name="sleeping" id="sleeping" style="width:110px;">
                                 <option value="" id="roomselect">선택</option>
                                 <option value="living" id="living">거실</option>
                                 <option value="single" id="single">단독 방</option>
@@ -807,7 +865,7 @@ table {
                                   
                   <center>
                    <input type="submit" id="hsubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정">&nbsp;&nbsp; 
-                   <input type="reset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화">
+                   <input type="reset" id="hreset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화">
                   </center>
                </div>
              </div>
@@ -851,7 +909,7 @@ table {
 					  <br>
 					  <input type="submit" id="photosubmit" class="btn btn-outline-dark text-dark" value="사진 등록">
 					  </center>
-				
+				</form>	
 					<script>
 					  var loadFile1 = function(event) {
 					    var output = document.getElementById('output1');
@@ -905,8 +963,8 @@ table {
                  
                   <br>
                   <center>
-                    <input type="submit" id="ssubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정">&nbsp;&nbsp; 
-                    <input type="reset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화"> 
+                    <input type="submit" id="ssubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정" onclick="return surferCheck();"> &nbsp;&nbsp; 
+                    <input type="reset" id="sreset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화"> 
                   </center>
                </div>
               </div>
@@ -947,8 +1005,8 @@ table {
                   <br>
                  
                   <center>
-                   <input type="submit" id="psubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정">&nbsp;&nbsp;
-                   <input type="reset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화">
+                   <input type="submit" id="psubmit" class="btn btn-outline-dark text-dark" style="width:100px;" value="수정" onclick="return partnerCheck();">&nbsp;&nbsp;
+                   <input type="reset" id="preset" class="btn btn-outline-dark text-dark" style="width:100px; value="초기화">
                   </center>
                </div>
             </div>
@@ -959,7 +1017,7 @@ table {
             
             
             
-            </form>
+            
             <br>  
                </div>
             </div>
