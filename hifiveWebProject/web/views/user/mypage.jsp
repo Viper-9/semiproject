@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import = "user.model.vo.User, hsp.model.vo.*, java.util.*" %>
+<%@ page import = "user.model.vo.User, hsp.model.vo.*, request.model.vo.*, java.util.*" %>
 <%            
       String[] hchecked = new String[12];               
-      String[] ochecked = new String[4];
+      String[] ochecked = new String[4];      
 %>
 <!DOCTYPE html>
 <html>
@@ -870,7 +870,7 @@ table {
                </div>
             </div>
             <br>
-           
+           </form>
            <form action="/hifive/supdate?userid=<%=userId %>" method="post">
             <div id="surfer" class="card" style="width: auto;">
                <h6 class="card-header" id="card_info">Surfer</h6>
@@ -959,7 +959,7 @@ table {
             
             
             
-            </form>
+            
             <br>  
                </div>
             </div>
