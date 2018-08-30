@@ -153,6 +153,7 @@
 </thead>
 
 <% for(User u : list){ %>
+<% if (!u.getUser_Id().equals("admin")) {%>
 <tr>
 	<td><%= u.getUser_Id() %></td>
 	<%-- <td><%= u.getUser_Pw() %></td> --%>
@@ -173,6 +174,7 @@
 	</td>
 	 
 </tr>
+<% } %>
 <% } %>
 <tr><th colspan="9">
 	<br>

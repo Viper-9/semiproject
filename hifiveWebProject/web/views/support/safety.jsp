@@ -55,7 +55,7 @@
 }
 
 #safetycard {
-	left: 9%;
+	left: 8%;
 }
 
 .table10 {
