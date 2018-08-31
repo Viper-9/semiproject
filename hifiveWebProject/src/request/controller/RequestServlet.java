@@ -101,6 +101,7 @@ public class RequestServlet extends HttpServlet {
                         job.put("result", "1");
                      }
                   }
+                  
                }
             } else {
                job.put("result", "2");
