@@ -196,11 +196,11 @@ public class HostDao {
 		ArrayList<User> list = new ArrayList<User>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from host h, users u where h.user_id = u.user_id and user_num=? and p_gender=? and check1=? and check2=? and city like ?";
+		String query = "select * from host h, users u where h.user_id = u.user_id and user_num>=? and p_gender=? and check1=? and check2=? and city like ?";
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			
+			System.out.println(host);
 			pstmt.setInt(1, host.getUser_num());
 			pstmt.setString(2, host.getP_gender());
 			pstmt.setString(3, host.getCheck1());

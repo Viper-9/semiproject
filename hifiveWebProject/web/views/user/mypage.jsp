@@ -467,7 +467,7 @@ table {
                      <input type="file" id="pimg" name="pimg" accept="image/*">
                      <input type="hidden" id="imguserid" name="imguserid" value="<%= headeruser.getUser_Id() %>">
                      <br>
-                     <input type="submit" class="btn btn-outline-dark" id="imgbtn" value="프사업로드">
+                     <input type="submit" class="btn btn-outline-dark" id="imgbtn" value="사진업로드">
                      </form>        
                      <br>
                      <br>

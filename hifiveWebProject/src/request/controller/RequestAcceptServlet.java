@@ -56,13 +56,13 @@ public class RequestAcceptServlet extends HttpServlet {
 				    for(Request r : h_list_1)
 				    	new RequestService().deleteRequest(r.getRequest_no());			        
 			    } else{
-			    	ArrayList<Request> p_list_1 = new RequestService().myPartnerList1(userId);
+			    	/*ArrayList<Request> p_list_1 = new RequestService().myPartnerList1(userId);
 			        ArrayList<Request> p_list_2 = new RequestService().myPartnerList2(userId);
 			        
 			        for(Request r : p_list_1) 
 				    	new RequestService().refuseRequest(r.getRequest_no());
 				    for(Request r : p_list_2)
-				    	new RequestService().deleteRequest(r.getRequest_no());
+				    	new RequestService().deleteRequest(r.getRequest_no());*/
 			    }
 				response.sendRedirect("/hifive/main.jsp");
 			} else{

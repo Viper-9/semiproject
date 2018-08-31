@@ -85,7 +85,7 @@
 						<span class="input-group-text">* 주소</span>
 					</div>
 					<input type="text" class="form-control" id="hostcity" name="hostcity"> &nbsp;
-                     <input type="button" class="btn btn-outline-dark text-dark" value="입력"><br>
+                     
 				               
                      </div>  
                    <div class="col input-group mb-3">

@@ -40,7 +40,11 @@ public class HostSearchServlet extends HttpServlet {
 		
 		int num = Integer.parseInt(request.getParameter("num").trim());
 		String gender = request.getParameter("gender");
-		String check = request.getParameter("check");
+		String check = "";
+		if(request.getParameter("check")=="")
+			check = "해당없음";
+		else
+			check = request.getParameter("check");
 		String sleeping = request.getParameter("sleeping");
 		String destination = request.getParameter("destination");
 		System.out.println("넘어온 값 : "+num+","+gender+","+check+","+sleeping+","+destination);

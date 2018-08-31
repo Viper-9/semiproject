@@ -210,7 +210,8 @@
 	            var values1 = "";
 	            if(json.list_h2.length == 0){
 	            	if(json.m_host==1){
-	            		values1 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
+	            		values1 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+	            		+ "<small><b><font color='red'>이미 매칭이 되었습니다.</font></b></small>";
 	            	} else{
 	            		values1 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
@@ -232,7 +233,8 @@
 	            var values4 = "";    
 	            if(json.list_s1.length == 0){
 	            	if(json.m_host==1){
-	            		values4 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
+	            		values4 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+		            		+ "<small><b><font color='red'>이미 매칭이 되었습니다.</font></b></small>";
 	            	} else{
 	            		values4 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
@@ -254,8 +256,8 @@
 	            var values3 = "";
 	            if(json.list_s2.length == 0){
 	            	if(json.m_surfer==1){
-	            		values3 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
-	            	} else{
+	            		values3 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+		            		+ "<small><b><font color='red'>이미 매칭이 되었습니다.</font></b></small>";	            	} else{
 	            		values3 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
 	               $("#s1").html($("#s1").html()+values3);   
@@ -276,8 +278,8 @@
 	            var values2 = "";                        
 	            if(json.list_h1.length == 0){
 	            	if(json.m_surfer==1){
-	            		values2 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
-	            	} else{
+	            		values2 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+		            		+ "<small><b><font color='red'>이미 매칭이 되었습니다.</font></b></small>";	            	} else{
 	            		values2 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
 	               $("#s2").html($("#s2").html()+values2);   
@@ -297,8 +299,8 @@
 	            var values5 = "";
 	            if(json.list_p2.length == 0){
 	            	if(json.m_partner==1){
-	            		values5 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
-	            	} else{
+	            		values5 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+		            		+ "<small><b><font color='red'>이미 매칭이 되었습니다.</font></b></small>";	            	} else{
 	            		values5 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
 	               $("#p1").html($("#p1").html()+values5);   
@@ -319,8 +321,8 @@
 	            var values6 = "";                        
 	            if(json.list_p1.length == 0){
 	            	if(json.m_partner==1){
-	            		values6 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>이미 매칭이 되었습니다.</b></small>";
-	            	} else{
+	            		values6 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+		            		+ "<small><b><font color='red'>이미 매칭이 되었습니다.</font></b></small>";	            	} else{
 	            		values6 += "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small><b>신청 내역이 없습니다.</b></small>";
 	            	}
 	               $("#p2").html($("#p2").html()+values6);   
@@ -347,7 +349,7 @@
 	      
 	      
 	      // 호스트, 서퍼, 파트너 등록창 (이미 등록되어 있으면 비활성화)
-	               $.ajax({
+	        $.ajax({
             url : "/hifive/mainhsp",
             type : "get",
             data : { userid : userid },

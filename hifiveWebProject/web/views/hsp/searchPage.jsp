@@ -111,10 +111,10 @@ text-align: left;
 	                         address = json.list[i].address;
 	                      if(json.list[i].nationality != null)
 	                         nationality = json.list[i].nationality;
-	                      if(json.list[i].image != null) { // 프로필 사진 있으면
+	                      if(json.list[i].image != null) { // 사진 있을 때
 	                         values += "<td><div class='card' style='width: 200px;'>" 
-	                         + "<img class='card-img-top' src='/hifive/resources/profileUpfiles/"+ json.list[i].image +"' alt='Card image cap'>";
-	                      } else{ // 프로필 사진 없으면
+	                         + "<img class='card-img-top' src='/hifive/resources/profileUpfiles/" + json.list[i].image +"' alt='Card image cap'>";
+	                      } else{
 	                         values += "<td><div class='card' style='width: 200px;'>" 
 	                              + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
 	                     }                   
@@ -180,10 +180,10 @@ text-align: left;
                         address = json.list[i].address;
                      if(json.list[i].nationality != null)
                         nationality = json.list[i].nationality;
-                     if(json.list[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
+                     if(json.list[i].image != null) { 
                         values += "<td><div class='card' style='width: 200px;'>" 
-                        + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
-                     } else{ // 프로필 사진 없으면
+                        + "<img class='card-img-top' src='/hifive/resources/profileUpfiles/" + json.list[i].image +"' alt='Card image cap'>";
+                     } else{ 
                         values += "<td><div class='card' style='width: 200px;'>" 
                              + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
                     }                   
@@ -248,10 +248,10 @@ text-align: left;
                          address = json.list[i].address;
                       if(json.list[i].nationality != null)
                          nationality = json.list[i].nationality;
-                      if(json.list[i].image != null) { // 프로필 사진 있으면 (나중에 수정)
+                      if(json.list[i].image != null) { 
                          values += "<td><div class='card' style='width: 200px;'>" 
-                         + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
-                      } else{ // 프로필 사진 없으면
+                         + "<img class='card-img-top' src='/hifive/resources/profileUpfiles/" + json.list[i].image +"' alt='Card image cap'>";
+                      } else{ // 
                          values += "<td><div class='card' style='width: 200px;'>" 
                               + "<img class='card-img-top' src='/hifive/resources/image/profile.png' alt='Card image cap'>";
                      }                   
@@ -279,17 +279,7 @@ text-align: left;
 		<hr>
 	<div id="main">
 		<div id="menu">
-			<div id="content0">
-				<div class="card" style="width: 250px;">
-					<div class="card-body">
-						<h5 class="card-title">사용자 기본정보</h5>
-						<h6 class="card-subtitle mb-2 text-muted">(이름및 지역)</h6>
-						<p class="card-text">
-							......<br> <br> <br> <br> <a
-								href="/hifive/views/support/safety.jsp" class="card-link">안전유의사항</a>
-					</div>
-				</div>
-			</div>
+		<%@ include file="../../information.jsp"%>
 		</div>
 		<div id="content1">
 			<div id="searching">
@@ -341,7 +331,7 @@ text-align: left;
 					</table>
 					<div class="col input-group mb-3">
 						<div class="input-group-prepend">
-							<span class="btn btn-outline-secondary" id="searchpnums">* 가능
+							<span class="btn btn-outline-secondary" id="searchpnums">가능
 								조건</span>
 						</div>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						

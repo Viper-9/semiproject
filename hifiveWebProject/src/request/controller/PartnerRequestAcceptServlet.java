@@ -2,6 +2,7 @@ package request.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import hsp.model.service.SurferPartnerService;
 import hsp.model.vo.SurferPartner;
 import request.exception.RequestException;
 import request.model.service.RequestService;
+import request.model.vo.Request;
 
 /**
  * Servlet implementation class PartnerRequestAcceptServlet
@@ -37,9 +39,9 @@ public class PartnerRequestAcceptServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int req_no = Integer.parseInt(request.getParameter("req_no"));
-		
+
 		String user_id = new RequestService().selectUser_Id(req_no);
-		String r_user_id = new RequestService().selectR_User_Id(req_no);
+		String r_user_id = new RequestService().selectR_User_Id(req_no); // 내 아이디
 		
 		SurferPartner p1 = new SurferPartnerService().selectPartner(user_id);
 		SurferPartner p2 = new SurferPartnerService().selectPartner(r_user_id);
@@ -49,6 +51,17 @@ public class PartnerRequestAcceptServlet extends HttpServlet {
 		if((p1.getStart_date().equals(p2.getStart_date())) && (p1.getEnd_date().equals(p2.getEnd_date())) && (p1.getCity().equals(p2.getCity()))){
 			try{
 				if(new RequestService().acceptRequest(req_no) > 0){
+					ArrayList<Request> p_list_1 = new RequestService().myPartnerList1(r_user_id); // 내가 요청함
+			        ArrayList<Request> p_list_2 = new RequestService().myPartnerList2(r_user_id); // 요청받음
+
+			        for(Request r : p_list_1) {
+			        	System.out.println(r.getRequest_no());
+			        	new RequestService().deleteRequest(r.getRequest_no());
+			        }
+				    for(Request r : p_list_2){
+				    	System.out.println(r.getRequest_no());
+				    	new RequestService().refuseRequest(r.getRequest_no());	
+				    }
 					json.put("result", 1);
 				} else{
 					RequestDispatcher view = request.getRequestDispatcher("views/request/requestError.jsp");
